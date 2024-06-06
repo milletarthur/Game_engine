@@ -1,5 +1,7 @@
 package toolkit;
 
+import Model_Snake.Entity;
+
 public class Disjonction implements ICondition {
 	private ICondition c1;
 	private ICondition c2;

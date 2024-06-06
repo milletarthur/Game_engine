@@ -1,5 +1,7 @@
 package toolkit;
 
+import Model_Snake.Entity;
+
 public class Conjonction implements ICondition {
 
 	private ICondition c1;

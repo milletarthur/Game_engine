@@ -1,5 +1,7 @@
 package toolkit;
 
+import Model_Snake.Entity;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -24,7 +26,7 @@ public class Transition {
 		Iterator<IAction> iter = Actions.iterator();
 		while(iter.hasNext()) {
 			IAction a = iter.next();
-			a.exec();
+			a.exec(e);
 		}
 	}
 	

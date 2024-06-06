@@ -1,5 +1,7 @@
 package toolkit;
 
+import Model_Snake.Entity;
+
 public class Not implements ICondition {
 	private ICondition c;
 	

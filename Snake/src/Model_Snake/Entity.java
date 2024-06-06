@@ -43,4 +43,8 @@ public abstract class Entity {
 	public int direction() {
 		return this.Orientation; 
 	}
+	
+	public int category() {
+		return this.category;
+	}
 }

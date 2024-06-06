@@ -1,6 +1,5 @@
 package Model_Snake;
 
-import toolkit.Categorie;
 import toolkit.Direction;
 
 public class Field {
@@ -20,7 +19,7 @@ public class Field {
 		}
 		grid[5][5] = new Apple(5, 5, 1, 1, this);
 	}
-	
+
 	Entity elementAt(int x, int y) {
 		return grid[x][y];
 	}
@@ -32,8 +31,8 @@ public class Field {
 	void l_init(int l) {
 		this.ligne = l;
 	}
-	
-	private int[] next_to (Entity e, Direction d) {
+
+	private int[] next_to(Entity e, int d) {
 		int[] rv = new int[2];
 		rv[0] = e.x();
 		rv[1] = e.y();
@@ -58,13 +57,16 @@ public class Field {
 		case Direction.S:
 			switch (d) {
 			case Direction.L:
-				rv = Direction.E;
+				rv[0]++;
 				break;
 			case Direction.R:
-				rv = Direction.W;
+				rv[0]--;
 				break;
 			case Direction.B:
-				rv = Direction.N;
+				rv[1]--;
+				break;
+			case Direction.F:
+				rv[1]++;
 				break;
 			default:
 				break;
@@ -72,13 +74,16 @@ public class Field {
 		case Direction.E:
 			switch (d) {
 			case Direction.L:
-				rv = Direction.N;
+				rv[1]--;
 				break;
 			case Direction.R:
-				rv = Direction.S;
+				rv[1]++;
 				break;
 			case Direction.B:
-				rv = Direction.W;
+				rv[0]--;
+				break;
+			case Direction.F:
+				rv[0]++;
 				break;
 			default:
 				break;
@@ -86,13 +91,16 @@ public class Field {
 		case Direction.W:
 			switch (d) {
 			case Direction.L:
-				rv = Direction.S;
+				rv[1]++;
 				break;
 			case Direction.R:
-				rv = Direction.N;
+				rv[1]--;
 				break;
 			case Direction.B:
-				rv = Direction.E;
+				rv[0]++;
+				break;
+			case Direction.F:
+				rv[0]--;
 				break;
 			default:
 				break;
@@ -100,12 +108,12 @@ public class Field {
 		default:
 			break;
 		}
+		return rv;
 	}
-	
-	public boolean cell(Entity e, Direction d, Categorie c) {
-		int x = e.x();
-		int y = e.y();
-		
-		
+
+	public boolean cell(Entity e, int d, int c) {
+		int[] pos_to_check = next_to(e,d);
+		Entity k = elementAt(pos_to_check[0],pos_to_check[1]);
+		return k.category() == c;
 	}
 }

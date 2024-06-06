@@ -134,7 +134,7 @@ public class Snake extends Entity {
 		if (alea % 2 == 0) {
 			grow();
 		} else {
-			egg(x + 2, y + 2); // les coordonnées sont arbitraires
+			egg(x+2, y+2); // les coordonnées sont arbitraires
 		}
 	}
 

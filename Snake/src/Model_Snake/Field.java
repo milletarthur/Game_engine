@@ -1,5 +1,8 @@
 package Model_Snake;
 
+import toolkit.Categorie;
+import toolkit.Direction;
+
 public class Field {
 	private int colonne;
 	private int ligne;
@@ -12,20 +15,14 @@ public class Field {
 		this.ligne = lig;
 		for (int i = 0; i < lig; i++) {
 			for (int j = 0; j < col; j++) {
-				grid[i][j] = new Void(i, j);
+				grid[i][j] = new Void(i, j, 0, Categorie.V, this);
 			}
 		}
-		grid[4][4] = new Apple(4, 4);
-		grid[0][0] = new Snake(0, 0);
-		grid[1][0] = new Queue(1, 0);
-		grid[1][1] = new Queue(1, 1);
-		grid[2][2] = new Obstacle(2, 2);
 	}
 	
 	public Entity elementAt(int x, int y) {
 		// throw new RuntimeException("Not implemented Yet !");
 		return grid[x][y];
-
 	}
 
 	void c_init(int c) {
@@ -36,4 +33,88 @@ public class Field {
 		this.ligne = l;
 	}
 
+	private int[] next_to(Entity e, int d) {
+		int[] rv = new int[2];
+		rv[0] = e.x();
+		rv[1] = e.y();
+		switch (e.direction()) {
+		case Direction.N:
+			switch (d) {
+			case Direction.L:
+				rv[0]--;
+				break;
+			case Direction.R:
+				rv[0]++;
+				break;
+			case Direction.B:
+				rv[1]++;
+				break;
+			case Direction.F:
+				rv[1]--;
+				break;
+			default:
+				break;
+			}
+		case Direction.S:
+			switch (d) {
+			case Direction.L:
+				rv[0]++;
+				break;
+			case Direction.R:
+				rv[0]--;
+				break;
+			case Direction.B:
+				rv[1]--;
+				break;
+			case Direction.F:
+				rv[1]++;
+				break;
+			default:
+				break;
+			}
+		case Direction.E:
+			switch (d) {
+			case Direction.L:
+				rv[1]--;
+				break;
+			case Direction.R:
+				rv[1]++;
+				break;
+			case Direction.B:
+				rv[0]--;
+				break;
+			case Direction.F:
+				rv[0]++;
+				break;
+			default:
+				break;
+			}
+		case Direction.W:
+			switch (d) {
+			case Direction.L:
+				rv[1]++;
+				break;
+			case Direction.R:
+				rv[1]--;
+				break;
+			case Direction.B:
+				rv[0]++;
+				break;
+			case Direction.F:
+				rv[0]--;
+				break;
+			default:
+				break;
+			}
+		default:
+			break;
+		}
+		return rv;
+	}
+
+	public boolean cell(Entity e, int d, int c) {
+		int[] pos_to_check = next_to(e,d);
+		Entity k = elementAt(pos_to_check[0],pos_to_check[1]);
+		return k.category() == c;
+	}
 }

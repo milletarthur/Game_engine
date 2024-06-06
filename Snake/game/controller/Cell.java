@@ -17,7 +17,7 @@ public class Cell implements ICondition {
 
 	@Override
 	public boolean eval(Entity e) {
-		f.cell(e,dir,cat);
+		return f.cell(e,dir,cat);
 	}
 
 }

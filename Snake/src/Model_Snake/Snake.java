@@ -1,5 +1,6 @@
 package Model_Snake;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Snake extends Entity {
@@ -13,12 +14,15 @@ public class Snake extends Entity {
 
 	public void grow() {
 		Queue last = queue.getLast();
-		Queue q = new Queue(last.x(), last.y(), length);
+		Queue q = new Queue(last.x(), last.y());
 		queue.addLast(q);
 		length++;
 	}
 
 	public void move() {
+		int a = this.x;
+		int o = this.y;
+		int a1,o1;
 		switch (Orientation) {
 		case NORTH:
 			this.y -= 1;
@@ -34,6 +38,18 @@ public class Snake extends Entity {
 			break;
 		default:
 			break;
+		}
+		Iterator<Queue> i = queue.iterator();
+		Queue q;
+		while (i.hasNext()) {
+			q = i.next();
+			a1 = q.x();
+			o1 = q.y();
+			q.move(a, o);
+			
+			a = a1;
+			o = o1;
+			
 		}
 	}
 

@@ -13,7 +13,7 @@ public class Window extends JFrame {
 	Color VERT = new Color(0,100,0);
 	
 	public Window (int LARGEUR, int HAUTEUR) {
-        this.setSize(LARGEUR, HAUTEUR);
+        this.setSize(LARGEUR+50, HAUTEUR+50);
 		this.getContentPane().setLayout(new BorderLayout());
 		this.getContentPane().setBackground(VERT); 
 		// nom de la fenêtre

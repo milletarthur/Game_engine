@@ -3,6 +3,14 @@ package ViewWindow;
 import java.awt.*;
 import javax.swing.*;
 
+import Model_Snake.Apple;
+import Model_Snake.Entity;
+import Model_Snake.Field;
+import Model_Snake.Obstacle;
+import Model_Snake.Snake;
+import Model_Snake.Queue;
+
+
 /*
  * Classe DrawTerrain qui gère la génération du terrain
  */
@@ -24,18 +32,21 @@ public class DrawTerrain extends JPanel {
 	Color green = new Color(87,185,23);
 	Color OBSTACLE = new Color(113,32,14);
 	Color obstacle = new Color(203,89,39);
+	Field terrain;
 
-	public DrawTerrain(int LARGEUR, int HAUTEUR) {
+	public DrawTerrain(int LARGEUR, int HAUTEUR, Field terrain) {
 		this.LARGEUR = LARGEUR;
 		this.HAUTEUR = HAUTEUR;
 		this.setBackground(VERT);
+		this.terrain = terrain;
+		
 	}
 
 	public void paintComponent(Graphics x) {
 		super.paintComponent(x);
 		this.damier(x);
 		// TODO - fournir la matrice
-		//this.drawElements(x); 
+		this.drawElements(x); 
 	}
 
 	// TODO - gestion du damier à corriger avec la taille de la matrice
@@ -53,7 +64,7 @@ public class DrawTerrain extends JPanel {
 	}
 	
 	// TODO - lui donner la matrice
-	public void drawElements (Graphics x, int[][] matrice) {
+	public void drawElements (Graphics x) {
 		/*x.setColor(Snake);
 		x.fillRect(180, 120, 20, 20);
 		x.fillRect(180, 140, 20, 20);
@@ -77,7 +88,8 @@ public class DrawTerrain extends JPanel {
 		
 		for (int i = 0 ; i < LARGEUR ; i++) {
 			for (int j = 0 ; j < HAUTEUR ; j++) {
-				if (matrice[i][j] == -2) {
+				Entity elem = terrain.elementAt(i,j);
+				if (elem instanceof Apple) {
 				
 					//dessiner pomme
 					x.setColor(Pomme);
@@ -86,7 +98,7 @@ public class DrawTerrain extends JPanel {
 					x.fillRect(i*T_case+5,j*T_case,10,5);
 					
 				}
-				else if (matrice[i][j] == -1) {
+				else if (elem instanceof Obstacle) {
 					
 					//dessiner obstacle
 					x.setColor(OBSTACLE);
@@ -97,7 +109,7 @@ public class DrawTerrain extends JPanel {
 					x.fillRect(i*T_case+2,j*T_case+10,16,2);
 			
 				}
-				else if (matrice[i][j] > 0) {
+				else if (elem instanceof Snake || elem instanceof Queue) {
 				
 					//dessiner snake
 					x.setColor(Snake);

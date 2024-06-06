@@ -1,9 +1,15 @@
 package Model_Snake;
 
-import java.util.List;
+import java.util.LinkedList;
 
 public class Snake extends Cell{
-	List queue;
+	LinkedList queue;
+	
+	public Snake(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.queue = new LinkedList();
+	}
 	
 	void grow() {
 		throw new RuntimeException("Not implemented Yet !");

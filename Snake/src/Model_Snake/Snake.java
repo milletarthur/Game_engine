@@ -2,6 +2,7 @@ package Model_Snake;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import toolkit.Direction;
 
 public class Snake extends Entity {
 	LinkedList<Queue> queue = new LinkedList<Queue>();
@@ -128,6 +129,7 @@ public class Snake extends Entity {
 		if(alea % 2 == 0) {
 			grow();
 		} else {
+			int x2 = Math.random(10);
 			egg(x+2,y+2); //les coordonnées sont arbitraires 
 		}
 	}

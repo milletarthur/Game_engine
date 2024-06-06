@@ -1,7 +1,7 @@
 package Model_Snake;
 
 public class Obstacle extends Cell {
-	
+
 	public Obstacle(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -9,7 +9,7 @@ public class Obstacle extends Cell {
 
 	@Override
 	void egg(int x, int y) {
-		new Obstacle(x,y);
-		
+		new Obstacle(x, y);
+
 	}
 }

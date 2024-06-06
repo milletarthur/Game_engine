@@ -2,8 +2,8 @@ package toolkit;
 
 public class Conjonction implements ICondition {
 
-	ICondition c1;
-	ICondition c2;
+	private ICondition c1;
+	private ICondition c2;
 	
 	public Conjonction(ICondition c1, ICondition c2) {
 		this.c1 = c1;

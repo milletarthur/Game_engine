@@ -4,20 +4,20 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Transition {
-	State Source;
-	State Cible;
-	ICondition C;
-	LinkedList<IAction> Actions;
+	private State Source;
+	private State Cible;
+	private ICondition c;
+	private LinkedList<IAction> Actions;
 	
-	public Transition(State Source, State Cible, ICondition C, LinkedList<IAction> Actions){
+	public Transition(State Source, State Cible, ICondition c, LinkedList<IAction> Actions){
 		this.Source = Source;
 		this.Cible = Cible;
-		this.C = C;
+		this.c = c;
 		this.Actions = Actions;
 	}
 	
 	public boolean CheckCondition(Entity e) {
-		return C.eval(e);
+		return c.eval(e);
 	}
 	
 	public void doActions(Entity e) {
@@ -26,6 +26,18 @@ public class Transition {
 			IAction a = iter.next();
 			a.exec();
 		}
+	}
+	
+	public State getSource() {
+		return Source;
+	}
+	
+	public State getCible() {
+		return Cible;
+	}
+	
+	public ICondition getCondition() {
+		return c;
 	}
 	
 }

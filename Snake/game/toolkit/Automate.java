@@ -1,10 +1,21 @@
 package toolkit;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public abstract class Automate {
-	LinkedList<Transition> Transitions;
-	State Current;
+	private LinkedList<Transition> Transitions;
+	private State Current;
 	
-	void step(Entity e);
+	void step(Entity e) {
+		Iterator<Transition> iter = Transitions.iterator();
+		while(iter.hasNext()) {
+			Transition trans = iter.next();
+			if (Current.equals(trans.getSource()) && trans.CheckCondition(e)) {
+				Current = trans.getCible();
+				trans.doActions(e);
+				return;
+			}
+		}
+	}
 }

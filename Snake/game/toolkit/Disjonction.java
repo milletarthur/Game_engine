@@ -1,8 +1,8 @@
 package toolkit;
 
 public class Disjonction implements ICondition {
-	ICondition c1;
-	ICondition c2;
+	private ICondition c1;
+	private ICondition c2;
 	
 	public Disjonction(ICondition c1, ICondition c2) {
 		this.c1 = c1;

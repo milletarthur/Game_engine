@@ -28,14 +28,14 @@ public class AutomateSnake extends Automate {
 		ICondition c = null;
 
 		// *(alive) | Cell(F,P)? Move(): (pick)
-		c = new Cell(Direction.F, Categorie.P);
+		c = new Cell(f,Direction.F, Categorie.P);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Move(e));
 		trans = new Transition(Init, Pick, c, Actions);
 		Transitions.add(trans);
 
 		// *(alive) | Cell(L,P)? Move(L): (pick)
-		c = new Cell(Direction.L, Categorie.P);
+		c = new Cell(f,Direction.L, Categorie.P);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.L));
 		Actions.add(new Move(e));
@@ -43,7 +43,7 @@ public class AutomateSnake extends Automate {
 		Transitions.add(trans);
 
 		// *(alive) | Cell(R,P)? Move(R): (pick)
-		c = new Cell(Direction.R, Categorie.P);
+		c = new Cell(f,Direction.R, Categorie.P);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.R));
 		Actions.add(new Move(e));
@@ -51,10 +51,10 @@ public class AutomateSnake extends Automate {
 		Transitions.add(trans);
 
 		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(L,P)? Move(L): (pick)
-		ICondition c1a = new Cell(Direction.F, Categorie.O);
-		ICondition c1b = new Cell(Direction.F, Categorie.Arobase);
+		ICondition c1a = new Cell(f,Direction.F, Categorie.O);
+		ICondition c1b = new Cell(f,Direction.F, Categorie.Arobase);
 		ICondition c1 = new Disjonction(c1a, c1b);
-		ICondition c2 = new Cell(Direction.L, Categorie.P);
+		ICondition c2 = new Cell(f,Direction.L, Categorie.P);
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.L));
@@ -63,10 +63,10 @@ public class AutomateSnake extends Automate {
 		Transitions.add(trans);
 
 		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(R,P)? Move(R): (pick)
-		c1a = new Cell(Direction.F, Categorie.O);
-		c1b = new Cell(Direction.F, Categorie.Arobase);
+		c1a = new Cell(f,Direction.F, Categorie.O);
+		c1b = new Cell(f,Direction.F, Categorie.Arobase);
 		c1 = new Disjonction(c1a, c1b);
-		c2 = new Cell(Direction.R, Categorie.P);
+		c2 = new Cell(f,Direction.R, Categorie.P);
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.R));
@@ -75,10 +75,10 @@ public class AutomateSnake extends Automate {
 		Transitions.add(trans);
 
 		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(L,V)? Move(L): (alive)
-		c1a = new Cell(Direction.F, Categorie.O);
-		c1b = new Cell(Direction.F, Categorie.Arobase);
+		c1a = new Cell(f,Direction.F, Categorie.O);
+		c1b = new Cell(f,Direction.F, Categorie.Arobase);
 		c1 = new Disjonction(c1a, c1b);
-		c2 = new Cell(Direction.L, Categorie.V);
+		c2 = new Cell(f,Direction.L, Categorie.V);
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.L));
@@ -87,10 +87,10 @@ public class AutomateSnake extends Automate {
 		Transitions.add(trans);
 
 		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(R,V)? Move(R): (alive)
-		c1a = new Cell(Direction.F, Categorie.O);
-		c1b = new Cell(Direction.F, Categorie.Arobase);
+		c1a = new Cell(f,Direction.F, Categorie.O);
+		c1b = new Cell(f,Direction.F, Categorie.Arobase);
 		c1 = new Disjonction(c1a, c1b);
-		c2 = new Cell(Direction.R, Categorie.V);
+		c2 = new Cell(f,Direction.R, Categorie.V);
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.R));
@@ -99,7 +99,7 @@ public class AutomateSnake extends Automate {
 		Transitions.add(trans);
 
 		// *(alive) | Cell(F,V)? Move(F): (alive)
-		c = new Cell(Direction.F, Categorie.V);
+		c = new Cell(f,Direction.F, Categorie.V);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e,Direction.F));
 		Actions.add(new Move(e));
@@ -107,7 +107,7 @@ public class AutomateSnake extends Automate {
 		Transitions.add(trans);
 
 		// *(alive) | Cell(B,V)? Move(B): (alive)
-		c = new Cell(Direction.B, Categorie.V);
+		c = new Cell(f,Direction.B, Categorie.V);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e,Direction.B));
 		Actions.add(new Move(e));

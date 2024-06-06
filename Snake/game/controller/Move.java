@@ -11,7 +11,7 @@ public class Move implements IAction {
 	
 	public Move (Entity entity) {
 		this.entity = entity ;
-		this.dt = /// ;
+//		this.dt = ; TODO
 	}
 
 	@Override

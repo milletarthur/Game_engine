@@ -1,7 +1,10 @@
 package Model_Snake;
 
+import java.util.LinkedList;
+
 import toolkit.Categorie;
 import toolkit.Direction;
+import toolkit.Pair;
 
 public class Field {
 	private int colonne;
@@ -10,7 +13,7 @@ public class Field {
 	private Snake snake;
 
 	public Field(int col, int lig) {
-		grid = new Entity[col][lig];
+		grid = new Entity[lig][col];
 		this.colonne = col;
 		this.ligne = lig;
 		for (int i = 0; i < lig; i++) {
@@ -18,6 +21,10 @@ public class Field {
 				grid[i][j] = new Void(i, j, 0, Categorie.V, this);
 			}
 		}
+	}
+	
+	public void set_elementAt(Entity e) {
+		grid[e.x][e.y] = e;
 	}
 	
 	public Entity elementAt(int x, int y) {
@@ -116,5 +123,17 @@ public class Field {
 		int[] pos_to_check = next_to(e,d);
 		Entity k = elementAt(pos_to_check[0],pos_to_check[1]);
 		return k.category() == c;
+	}
+	
+	public LinkedList<Pair> getVoidList() {
+		LinkedList<Pair> rv = new LinkedList<Pair>();
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				if (elementAt(i, j) instanceof Void) {
+					rv.add(new Pair(i,j));
+				}
+			}
+		}
+		return rv;
 	}
 }

@@ -15,6 +15,12 @@ public abstract class Entity {
 
 	abstract void egg(int x, int y);
 
+//	abstract public void move();
+//
+//	abstract public void pick();
+//
+//	abstract public void turn(int dir);
+
 	void kill() {
 		this.Valid = false;
 	}
@@ -29,17 +35,5 @@ public abstract class Entity {
 
 	int y() {
 		return y;
-	}
-	
-	public void move() {
-		
-	}
-	
-	public void pick() {
-		
-	}
-	
-	public void turn(int dir) {
-		
 	}
 }

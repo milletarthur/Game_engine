@@ -3,8 +3,8 @@ package Model_Snake;
 import java.util.LinkedList;
 
 public class Snake extends Entity {
-	LinkedList queue = new LinkedList();
-	int length = 0;
+	LinkedList<Queue> queue = new LinkedList();
+	int length = 1;
 
 	public Snake(int x, int y) {
 		this.x = x;
@@ -12,15 +12,98 @@ public class Snake extends Entity {
 	}
 
 	public void grow() {
-		throw new RuntimeException("Not implemented Yet !");
+		Queue last = queue.getLast();
+		Queue q = new Queue(last.x(), last.y(), length);
+		queue.addLast(q);
+		length++;
 	}
 
 	public void move() {
-		throw new RuntimeException("Not implemented Yet !");
+		switch (Orientation) {
+		case NORTH:
+			this.y -= 1;
+			break;
+		case SOUTH:
+			this.y += 1;
+			break;
+		case EAST:
+			this.x += 1;
+			break;
+		case WEST:
+			this.x -= 1;
+			break;
+		default:
+			break;
+		}
 	}
 
 	public void turn(int dir) {
-		throw new RuntimeException("Not implemented Yet !");
+		int rv;
+		switch (Orientation) {
+		case NORTH:
+			switch(dir) {
+			case Dorection.L:
+				rv = WEST;
+				break;
+			case Dorection.R:
+				rv = EAST;
+				break;
+			case Dorection.B:
+				rv = SOUTH;
+				break;
+			default:
+				rv = this.Orientation;
+				break;
+			}
+		case SOUTH:
+			switch(dir) {
+			case Dorection.L:
+				rv = EAST;
+				break;
+			case Dorection.R:
+				rv = WEST;
+				break;
+			case Dorection.B:
+				rv = NORTH;
+				break;
+			default:
+				rv = this.Orientation;
+				break;
+			}
+		case EAST:
+			switch(dir) {
+			case Dorection.L:
+				rv = NORTH;
+				break;
+			case Dorection.R:
+				rv = SOUTH;
+				break;
+			case Dorection.B:
+				rv = WEST;
+				break;
+			default:
+				rv = this.Orientation;
+				break;
+			}
+		case WEST:
+			switch(dir) {
+			case Dorection.L:
+				rv = SOUTH;
+				break;
+			case Dorection.R:
+				rv = NORTH;
+				break;
+			case Dorection.B:
+				rv = EAST;
+				break;
+			default:
+				rv = this.Orientation;
+				break;
+			}
+		default:
+			break;
+		}
+		this.Orientation = rv;
 	}
 
 	public int length() {

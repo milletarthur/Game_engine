@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import Model_Snake.Entity;
 
 public abstract class Automate {
-	private LinkedList<Transition> Transitions;
-	private State Current;
+	protected LinkedList<Transition> Transitions;
+	protected State Current;
 	
 	void step(Entity e) {
 		Iterator<Transition> iter = Transitions.iterator();

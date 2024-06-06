@@ -24,6 +24,14 @@ public class Field {
 		return grid[x][y];
 	}
 
+	public int get_ligne() {
+		return this.ligne;
+	}
+
+	public int get_colonne() {
+		return this.colonne;
+	}
+
 	void c_init(int c) {
 		this.colonne = c;
 	}
@@ -112,8 +120,8 @@ public class Field {
 	}
 
 	public boolean cell(Entity e, int d, int c) {
-		int[] pos_to_check = next_to(e,d);
-		Entity k = elementAt(pos_to_check[0],pos_to_check[1]);
+		int[] pos_to_check = next_to(e, d);
+		Entity k = elementAt(pos_to_check[0], pos_to_check[1]);
 		return k.category() == c;
 	}
 }

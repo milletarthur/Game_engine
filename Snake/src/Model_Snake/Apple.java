@@ -16,13 +16,13 @@ public class Apple extends Entity {
 	}
 
 	@Override
-	void kill() {
+	public void kill() {
 		this.Valid = false;
 
 	}
 
 	@Override
-	boolean valid() {
+	public boolean valid() {
 		return this.Valid;
 	}
 

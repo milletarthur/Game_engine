@@ -15,7 +15,11 @@ public class Field {
 				grid[i][j] = new Void(i, j);
 			}
 		}
-		grid[5][5] = new Apple(5, 5);
+		grid[4][4] = new Apple(4, 4);
+		grid[0][0] = new Snake(0, 0);
+		grid[1][0] = new Queue(1, 0);
+		grid[1][1] = new Queue(1, 1);
+		grid[2][2] = new Obstacle(2, 2);
 	}
 	
 	public Entity elementAt(int x, int y) {

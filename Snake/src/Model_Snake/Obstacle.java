@@ -12,4 +12,16 @@ public class Obstacle extends Entity {
 		new Obstacle(x, y);
 
 	}
+
+	@Override
+	public void move() {
+	}
+
+	@Override
+	public void pick() {
+	}
+
+	@Override
+	public void turn(int dir) {
+	}
 }

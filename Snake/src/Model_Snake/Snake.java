@@ -2,6 +2,8 @@ package Model_Snake;
 
 import java.util.LinkedList;
 
+import toolkit.Direction;
+
 public class Snake extends Entity {
 	LinkedList<Queue> queue = new LinkedList<Queue>();
 	int length = 1;

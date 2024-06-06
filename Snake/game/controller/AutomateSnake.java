@@ -99,7 +99,7 @@ public class AutomateSnake extends Automate {
 		// *(alive) | Cell(F,V)? Move(F): (alive)
 		c = new Cell(Direction.F, V);
 		Actions = new LinkedList<IAction>();
-		Actions.add(new Turn(Direction.F));
+		Actions.add(new Turn(e, Direction.F));
 		Actions.add(new Move(e));
 		trans = new Transition(Init, Init, c, Actions);
 		Transitions.add(trans);
@@ -107,7 +107,7 @@ public class AutomateSnake extends Automate {
 		// *(alive) | Cell(B,V)? Move(B): (alive)
 		c = new Cell(Direction.B, V);
 		Actions = new LinkedList<IAction>();
-		Actions.add(new Turn(Direction.B));
+		Actions.add(new Turn(e, Direction.B));
 		Actions.add(new Move(e));
 		trans = new Transition(Init, Init, c, Actions);
 		Transitions.add(trans);

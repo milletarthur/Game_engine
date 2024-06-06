@@ -106,6 +106,15 @@ public class Snake extends Entity {
 		}
 		this.Orientation = rv;
 	}
+	
+	void pick() {
+		int alea = (int) Math.random();
+		if(alea % 2 == 0) {
+			grow();
+		} else {
+			egg(x+2,y+2); //les coordonnées sont arbitraires 
+		}
+	}
 
 	public int length() {
 		return length;

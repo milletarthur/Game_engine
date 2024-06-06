@@ -11,6 +11,7 @@ import toolkit.Transition;
 import toolkit.True;
 import toolkit.ICondition;
 import toolkit.Direction;
+import toolkit.Categorie;
 import toolkit.Disjonction;
 
 public class AutomateSnake extends Automate {
@@ -25,34 +26,34 @@ public class AutomateSnake extends Automate {
 		LinkedList<IAction> Actions = null;
 		ICondition c = null;
 
-		// *(alive) | Cell(F,A)? Move(): (pick)
-		c = new Cell(Direction.F, A);
+		// *(alive) | Cell(F,P)? Move(): (pick)
+		c = new Cell(Direction.F, Categorie.P);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Move(e));
 		trans = new Transition(Init, Pick, c, Actions);
 		Transitions.add(trans);
 
-		// *(alive) | Cell(L,A)? Move(L): (pick)
-		c = new Cell(Direction.L, A);
+		// *(alive) | Cell(L,P)? Move(L): (pick)
+		c = new Cell(Direction.L, Categorie.P);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.L));
 		Actions.add(new Move(e));
 		trans = new Transition(Init, Pick, c, Actions);
 		Transitions.add(trans);
 
-		// *(alive) | Cell(R,A)? Move(R): (pick)
-		c = new Cell(Direction.R, A);
+		// *(alive) | Cell(R,P)? Move(R): (pick)
+		c = new Cell(Direction.R, Categorie.P);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.R));
 		Actions.add(new Move(e));
 		trans = new Transition(Init, Pick, c, Actions);
 		Transitions.add(trans);
 
-		// *(alive) | (Cell(F,O) || Cell(F,S)) && Cell(L,A)? Move(L): (pick)
-		ICondition c1a = new Cell(Direction.F, O);
-		ICondition c1b = new Cell(Direction.F, S);
+		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(L,P)? Move(L): (pick)
+		ICondition c1a = new Cell(Direction.F, Categorie.O);
+		ICondition c1b = new Cell(Direction.F, Categorie.Arobase);
 		ICondition c1 = new Disjonction(c1a, c1b);
-		ICondition c2 = new Cell(Direction.L, A);
+		ICondition c2 = new Cell(Direction.L, Categorie.P);
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.L));
@@ -60,11 +61,11 @@ public class AutomateSnake extends Automate {
 		trans = new Transition(Init, Pick, c, Actions);
 		Transitions.add(trans);
 
-		// *(alive) | (Cell(F,O) || Cell(F,S)) && Cell(R,A)? Move(R): (pick)
-		c1a = new Cell(Direction.F, O);
-		c1b = new Cell(Direction.F, S);
+		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(R,P)? Move(R): (pick)
+		c1a = new Cell(Direction.F, Categorie.O);
+		c1b = new Cell(Direction.F, Categorie.Arobase);
 		c1 = new Disjonction(c1a, c1b);
-		c2 = new Cell(Direction.R, A);
+		c2 = new Cell(Direction.R, Categorie.P);
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.R));
@@ -72,11 +73,11 @@ public class AutomateSnake extends Automate {
 		trans = new Transition(Init, Pick, c, Actions);
 		Transitions.add(trans);
 
-		// *(alive) | (Cell(F,O) || Cell(F,S)) && Cell(L,V)? Move(L): (alive)
-		c1a = new Cell(Direction.F, O);
-		c1b = new Cell(Direction.F, S);
+		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(L,V)? Move(L): (alive)
+		c1a = new Cell(Direction.F, Categorie.O);
+		c1b = new Cell(Direction.F, Categorie.Arobase);
 		c1 = new Disjonction(c1a, c1b);
-		c2 = new Cell(Direction.L, V);
+		c2 = new Cell(Direction.L, Categorie.V);
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.L));
@@ -84,11 +85,11 @@ public class AutomateSnake extends Automate {
 		trans = new Transition(Init, Init, c, Actions);
 		Transitions.add(trans);
 
-		// *(alive) | (Cell(F,O) || Cell(F,S)) && Cell(R,V)? Move(R): (alive)
-		c1a = new Cell(Direction.F, O);
-		c1b = new Cell(Direction.F, S);
+		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(R,V)? Move(R): (alive)
+		c1a = new Cell(Direction.F, Categorie.O);
+		c1b = new Cell(Direction.F, Categorie.Arobase);
 		c1 = new Disjonction(c1a, c1b);
-		c2 = new Cell(Direction.R, V);
+		c2 = new Cell(Direction.R, Categorie.V);
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.R));
@@ -97,7 +98,7 @@ public class AutomateSnake extends Automate {
 		Transitions.add(trans);
 
 		// *(alive) | Cell(F,V)? Move(F): (alive)
-		c = new Cell(Direction.F, V);
+		c = new Cell(Direction.F, Categorie.V);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.F));
 		Actions.add(new Move(e));
@@ -105,7 +106,7 @@ public class AutomateSnake extends Automate {
 		Transitions.add(trans);
 
 		// *(alive) | Cell(B,V)? Move(B): (alive)
-		c = new Cell(Direction.B, V);
+		c = new Cell(Direction.B, Categorie.V);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.B));
 		Actions.add(new Move(e));

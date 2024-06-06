@@ -3,7 +3,7 @@ package Model_Snake;
 import java.util.LinkedList;
 
 public class Snake extends Entity {
-	LinkedList<Queue> queue = new LinkedList();
+	LinkedList<Queue> queue = new LinkedList<Queue>();
 	int length = 1;
 
 	public Snake(int x, int y) {
@@ -42,13 +42,13 @@ public class Snake extends Entity {
 		switch (Orientation) {
 		case NORTH:
 			switch(dir) {
-			case Dorection.L:
+			case Direction.L:
 				rv = WEST;
 				break;
-			case Dorection.R:
+			case Direction.R:
 				rv = EAST;
 				break;
-			case Dorection.B:
+			case Direction.B:
 				rv = SOUTH;
 				break;
 			default:
@@ -57,13 +57,13 @@ public class Snake extends Entity {
 			}
 		case SOUTH:
 			switch(dir) {
-			case Dorection.L:
+			case Direction.L:
 				rv = EAST;
 				break;
-			case Dorection.R:
+			case Direction.R:
 				rv = WEST;
 				break;
-			case Dorection.B:
+			case Direction.B:
 				rv = NORTH;
 				break;
 			default:
@@ -72,13 +72,13 @@ public class Snake extends Entity {
 			}
 		case EAST:
 			switch(dir) {
-			case Dorection.L:
+			case Direction.L:
 				rv = NORTH;
 				break;
-			case Dorection.R:
+			case Direction.R:
 				rv = SOUTH;
 				break;
-			case Dorection.B:
+			case Direction.B:
 				rv = WEST;
 				break;
 			default:
@@ -87,13 +87,13 @@ public class Snake extends Entity {
 			}
 		case WEST:
 			switch(dir) {
-			case Dorection.L:
+			case Direction.L:
 				rv = SOUTH;
 				break;
-			case Dorection.R:
+			case Direction.R:
 				rv = NORTH;
 				break;
-			case Dorection.B:
+			case Direction.B:
 				rv = EAST;
 				break;
 			default:
@@ -101,6 +101,7 @@ public class Snake extends Entity {
 				break;
 			}
 		default:
+			rv = this.Orientation;
 			break;
 		}
 		this.Orientation = rv;

@@ -13,4 +13,16 @@ public class Void extends Entity {
 
 	}
 
+	@Override
+	public void move() {
+	}
+
+	@Override
+	public void pick() {
+	}
+
+	@Override
+	public void turn(int dir) {
+	}
+
 }

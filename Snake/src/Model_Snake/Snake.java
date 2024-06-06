@@ -2,6 +2,7 @@ package Model_Snake;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+
 import toolkit.Direction;
 
 public class Snake extends Entity {
@@ -23,7 +24,7 @@ public class Snake extends Entity {
 	public void move() {
 		int a = this.x;
 		int o = this.y;
-		int a1,o1;
+		int a1, o1;
 		switch (Orientation) {
 		case NORTH:
 			this.y -= 1;
@@ -47,10 +48,10 @@ public class Snake extends Entity {
 			a1 = q.x();
 			o1 = q.y();
 			q.move(a, o);
-			
+
 			a = a1;
 			o = o1;
-			
+
 		}
 	}
 
@@ -58,7 +59,7 @@ public class Snake extends Entity {
 		int rv;
 		switch (Orientation) {
 		case NORTH:
-			switch(dir) {
+			switch (dir) {
 			case Direction.L:
 				rv = WEST;
 				break;
@@ -73,7 +74,7 @@ public class Snake extends Entity {
 				break;
 			}
 		case SOUTH:
-			switch(dir) {
+			switch (dir) {
 			case Direction.L:
 				rv = EAST;
 				break;
@@ -88,7 +89,7 @@ public class Snake extends Entity {
 				break;
 			}
 		case EAST:
-			switch(dir) {
+			switch (dir) {
 			case Direction.L:
 				rv = NORTH;
 				break;
@@ -103,7 +104,7 @@ public class Snake extends Entity {
 				break;
 			}
 		case WEST:
-			switch(dir) {
+			switch (dir) {
 			case Direction.L:
 				rv = SOUTH;
 				break;
@@ -123,19 +124,18 @@ public class Snake extends Entity {
 		}
 		this.Orientation = rv;
 	}
-	
-	void pick() {
-		int alea = (int) Math.random();
-		if(alea % 2 == 0) {
-			grow();
-		} else {
-			int x2 = Math.random(10);
-			egg(x+2,y+2); //les coordonnées sont arbitraires 
-		}
-	}
 
 	public int length() {
 		return length;
+	}
+
+	public void pick() {
+		int alea = (int) Math.random();
+		if (alea % 2 == 0) {
+			grow();
+		} else {
+			egg(x + 2, y + 2); // les coordonnées sont arbitraires
+		}
 	}
 
 	@Override

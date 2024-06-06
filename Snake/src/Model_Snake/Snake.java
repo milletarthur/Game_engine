@@ -9,14 +9,17 @@ public class Snake extends Entity {
 	LinkedList<Queue> queue = new LinkedList<Queue>();
 	int length = 1;
 
-	public Snake(int x, int y) {
+	public Snake(int x, int y, int team, int category, Field f) {
 		this.x = x;
 		this.y = y;
+		this.category = category;
+		this.team = team;
+		this.f = f;
 	}
 
 	public void grow() {
 		Queue last = queue.getLast();
-		Queue q = new Queue(last.x(), last.y());
+		Queue q = new Queue(last.x(), last.y(), this.team, this.category, this.f);;
 		queue.addLast(q);
 		length++;
 	}
@@ -26,16 +29,16 @@ public class Snake extends Entity {
 		int o = this.y;
 		int a1, o1;
 		switch (Orientation) {
-		case NORTH:
+		case Direction.N:
 			this.y -= 1;
 			break;
-		case SOUTH:
+		case Direction.S:
 			this.y += 1;
 			break;
-		case EAST:
+		case Direction.E:
 			this.x += 1;
 			break;
-		case WEST:
+		case Direction.W:
 			this.x -= 1;
 			break;
 		default:
@@ -58,61 +61,61 @@ public class Snake extends Entity {
 	public void turn(int dir) {
 		int rv;
 		switch (Orientation) {
-		case NORTH:
+		case Direction.N:
 			switch (dir) {
 			case Direction.L:
-				rv = WEST;
+				rv = Direction.W;
 				break;
 			case Direction.R:
-				rv = EAST;
+				rv = Direction.E;
 				break;
 			case Direction.B:
-				rv = SOUTH;
+				rv = Direction.S;
 				break;
 			default:
 				rv = this.Orientation;
 				break;
 			}
-		case SOUTH:
+		case Direction.S:
 			switch (dir) {
 			case Direction.L:
-				rv = EAST;
+				rv = Direction.E;
 				break;
 			case Direction.R:
-				rv = WEST;
+				rv = Direction.W;
 				break;
 			case Direction.B:
-				rv = NORTH;
+				rv = Direction.N;
 				break;
 			default:
 				rv = this.Orientation;
 				break;
 			}
-		case EAST:
+		case Direction.E:
 			switch (dir) {
 			case Direction.L:
-				rv = NORTH;
+				rv = Direction.N;
 				break;
 			case Direction.R:
-				rv = SOUTH;
+				rv = Direction.S;
 				break;
 			case Direction.B:
-				rv = WEST;
+				rv = Direction.W;
 				break;
 			default:
 				rv = this.Orientation;
 				break;
 			}
-		case WEST:
+		case Direction.W:
 			switch (dir) {
 			case Direction.L:
-				rv = SOUTH;
+				rv = Direction.S;
 				break;
 			case Direction.R:
-				rv = NORTH;
+				rv = Direction.N;
 				break;
 			case Direction.B:
-				rv = EAST;
+				rv = Direction.E;
 				break;
 			default:
 				rv = this.Orientation;
@@ -140,6 +143,6 @@ public class Snake extends Entity {
 
 	@Override
 	public void egg(int x, int y) {
-		new Snake(x, y);
+		new Snake(x, y, this.team, this.category, this.f);
 	}
 }

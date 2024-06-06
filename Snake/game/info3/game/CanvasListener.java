@@ -32,10 +32,6 @@ public class CanvasListener implements GameCanvasListener {
   CanvasListener(Game game) {
     m_game = game;
   }
-
-  public void Donothing() {
-	  return;
-  }
   
   @Override
   public void mouseClicked(MouseEvent e) {

@@ -1,6 +1,14 @@
 package ViewWindow;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Model_Snake.Apple;
@@ -63,6 +71,34 @@ public class DrawTerrain extends JPanel {
 		}
 	}
 	
+	public Image loadImage(InputStream is) {
+	    // File imageFile = new File("game.sample/sprites/winchester.png");
+	    BufferedImage img = null;
+	    try {
+	      img = ImageIO.read(is);
+	      return img;
+	    } catch (IOException ex) {
+	      ex.printStackTrace();
+	    }
+	    return null;
+	  }
+	
+	public void drawFunkySnake(int x, int y, Graphics g, String spec, Boolean head) {
+		File f = null;
+		if (head)
+			f = new File("resources/SnakesSkin/" + spec + "Head.png");
+		else
+			f = new File("resources/SnakesSkin/" + spec + "Body.png");
+		FileInputStream is = null;
+		try {
+			is = new FileInputStream(f);
+		} catch (FileNotFoundException e) {
+			return;
+		}
+		Image im = loadImage(is);
+		g.drawImage(im, x*T_case, y*T_case, T_case, T_case, null);
+	}
+	
 	// TODO - lui donner la matrice
 	public void drawElements (Graphics x) {
 		/*x.setColor(Snake);
@@ -109,11 +145,15 @@ public class DrawTerrain extends JPanel {
 					x.fillRect(i*T_case+2,j*T_case+10,16,2);
 			
 				}
-				else if (elem instanceof Snake || elem instanceof Queue) {
+				else if (elem instanceof Snake) {
 				
 					//dessiner snake
-					x.setColor(Snake);
-					x.fillRect(i*T_case, j*T_case, T_case, T_case);
+//					x.setColor(Snake);
+//					x.fillRect(i*T_case, j*T_case, T_case, T_case);
+					drawFunkySnake(i, j, x, "Enderman", true);
+				}
+				else if (elem instanceof Queue) {
+					drawFunkySnake(i, j, x, "Enderman", false);
 					
 				}
 			}

@@ -8,6 +8,7 @@ public class Move implements IAction {
 	public Entity entity ;
 	public DrawTerrain dt ;
 	
+	
 	public Move (Entity entity) {
 		this.entity = entity ;
 		this.dt = /// ;

@@ -3,6 +3,7 @@ package controller;
 import java.util.LinkedList;
 
 import Model_Snake.Entity;
+import Model_Snake.Field;
 import toolkit.Automate;
 import toolkit.Conjonction;
 import toolkit.IAction;
@@ -16,7 +17,7 @@ import toolkit.Disjonction;
 
 public class AutomateSnake extends Automate {
 
-	public AutomateSnake(Entity e) {
+	public AutomateSnake(Entity e, Field f) {
 		State Init = new State("alive");
 		State Pick = new State("pick");
 		State Void = new State("");

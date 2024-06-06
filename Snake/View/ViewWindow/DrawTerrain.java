@@ -52,8 +52,8 @@ public class DrawTerrain extends JPanel {
 	// TODO - gestion du damier à corriger avec la taille de la matrice
 	public void damier(Graphics x) {
 		x.setColor(vert);
-		for (int i = 0; i < HAUTEUR; i += T_case*2) {
-			for (int j = 0; j < LARGEUR; j += T_case) {
+		for (int i = 0; i < LARGEUR ; i += T_case*2) {
+			for (int j = 0; j < HAUTEUR; j += T_case) {
 				if ((j / T_case) % 2 == 0) {
 					x.fillRect(i, j, T_case, T_case);
 				} else {

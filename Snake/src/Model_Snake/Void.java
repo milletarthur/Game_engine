@@ -1,6 +1,6 @@
 package Model_Snake;
 
-public class Void extends Cell {
+public class Void extends Entity {
 
 	public Void(int x, int y) {
 		this.x = x;

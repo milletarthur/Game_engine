@@ -2,7 +2,7 @@ package Model_Snake;
 
 import java.util.LinkedList;
 
-public class Snake extends Cell{
+public class Snake extends Entity{
 	LinkedList queue;
 	
 	public Snake(int x, int y) {

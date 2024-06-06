@@ -1,6 +1,6 @@
 package Model_Snake;
 
-public abstract class Cell {
+public abstract class Entity {
 	public static final int NORTH = 1;
 	public static final int SOUTH = 2;
 	public static final int EAST = 3;

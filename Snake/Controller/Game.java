@@ -1,4 +1,5 @@
 import java.awt.*;
+import javax.swing.*;
 
 /*
  * Main de test pour la view
@@ -15,18 +16,7 @@ public class Game {
 		// initialisation de la fenêtre
 		Window w = new Window(LARGEUR, HAUTEUR);
 
-		// initialisation du terrain
-		DrawTerrain t = new DrawTerrain(LARGEUR, HAUTEUR);
-		// impose la taille de la fenêtre avec celui du JPanel
-		t.setPreferredSize(new Dimension(LARGEUR, HAUTEUR));
-
-		// ajout du terrain à la fenêtre
-		w.add(t);
-		// fenêtre de la taille du JPanel qu'il contient
-		w.pack();
-
-		// rendre la fenêtre visible
-		w.setVisible(true);
+		w.init_Window(w);
 	}
 
 	// TODO - temporaire

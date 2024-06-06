@@ -20,6 +20,7 @@ public class Snake extends Entity {
 		length++;
 	}
 
+	@Override
 	public void move() {
 		switch (Orientation) {
 		case NORTH:

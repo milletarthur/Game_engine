@@ -1,6 +1,7 @@
 package controller;
 
 import Model_Snake.Entity;
+import ViewWindow.DrawTerrain;
 import toolkit.IAction;
 
 public class Pick implements IAction {
@@ -10,7 +11,7 @@ public class Pick implements IAction {
 	
 	public Pick (Entity entity) {
 		this.entity = entity ;
-		this.dt = /// ;
+//		this.dt =  ;
 	}
 
 	@Override

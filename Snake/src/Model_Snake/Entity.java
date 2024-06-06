@@ -30,4 +30,16 @@ public abstract class Entity {
 	int y() {
 		return y;
 	}
+	
+	public void move() {
+		
+	}
+	
+	public void pick() {
+		
+	}
+	
+	public void turn(int dir) {
+		
+	}
 }

@@ -15,10 +15,15 @@ public abstract class Cell {
 	
 	
 	abstract void egg(int x, int y);
-	
-	abstract void kill();
-	
-	abstract boolean valid();
+
+
+	void kill() {
+		this.Valid = false;
+	}
+
+	boolean valid() {
+		return this.Valid;
+	}
 	
 	int x() {
 		return x;

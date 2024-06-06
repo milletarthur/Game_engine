@@ -12,15 +12,4 @@ public class Obstacle extends Cell {
 		new Obstacle(x,y);
 		
 	}
-
-	@Override
-	void kill() {
-		this.Valid = false;
-	}
-
-	@Override
-	boolean valid() {
-		return this.Valid;
-	}
-
 }

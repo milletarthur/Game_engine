@@ -11,7 +11,7 @@ public class DrawTerrain extends JPanel {
 	int LARGEUR;
 	int HAUTEUR;
 	
-	private static final int T_case = 20 ; //taille d'une case
+	private static final int T_case = 50 ; //taille d'une case
 
 	// Couleurs
 	Color VERT = new Color(0, 100, 0);
@@ -33,7 +33,7 @@ public class DrawTerrain extends JPanel {
 		super.paintComponent(x);
 		this.damier(x);
 		// TODO - fournir la matrice
-		//this.drawElements(x); 
+		this.drawElements(x); 
 	}
 
 	// TODO - gestion du damier à corriger avec la taille de la matrice
@@ -51,7 +51,7 @@ public class DrawTerrain extends JPanel {
 	}
 	
 	// TODO - lui donner la matrice
-	public void drawElements (Graphics x, int[][] matrice) {
+	public void drawElements (Graphics x) {//, int[][] matrice) {
 		/*x.setColor(Snake);
 		x.fillRect(180, 120, 20, 20);
 		x.fillRect(180, 140, 20, 20);
@@ -63,17 +63,17 @@ public class DrawTerrain extends JPanel {
 		x.fillOval(40, 20, 20, 20);
 		x.setColor(green);
 		x.fillRect(45,20,10,5);
-		
+		*/
 		x.setColor(OBSTACLE);
-		x.fillRect(64,46,4,12);
-		x.fillRect(72, 46, 4, 12);
+		x.fillRect(T_case+((T_case*4)/20),T_case+((T_case*6)/20),T_case/5,(T_case/5)*3);
+		x.fillRect(T_case+((T_case*12)/20), T_case+((T_case*6)/20), T_case/5, (T_case/5)*3);
 		x.setColor(obstacle);
-		x.fillRect(62,42,16,4);
-		x.fillRect(62,50,16,2);*/
+		x.fillRect(T_case+((T_case*2)/20),T_case+((T_case*2)/20),(T_case/5)*4,T_case/5);
+		x.fillRect(T_case+((T_case*2)/20),T_case+((T_case*10)/20),(T_case/5)*4,T_case/10);
 
 		//avec et [i,j] position dans la matrice
 		
-		for (int i = 0 ; i < LARGEUR ; i++) {
+		/*for (int i = 0 ; i < LARGEUR ; i++) {
 			for (int j = 0 ; j < HAUTEUR ; j++) {
 				if (matrice[i][j] == -2) {
 				

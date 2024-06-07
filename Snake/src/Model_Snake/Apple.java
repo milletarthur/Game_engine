@@ -11,7 +11,7 @@ public class Apple extends Entity {
 	}
 
 	@Override
-	void egg(int x, int y) {
+	public void egg(int x, int y) {
 		new Apple(x, y, this.team, this.category, this.f);
 	}
 

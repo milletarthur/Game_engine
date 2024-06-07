@@ -19,15 +19,22 @@ public class Snake extends Entity {
 	}
 
 	public void grow() {
-		Queue q = null;
-		int last_x = this.x;
-		int last_y = this.y;
-		if (queue.size() > 0) {
-			Queue last = queue.getLast();
-			last_x = last.x();
-			last_y = last.y();
-		} 
-		q = new Queue(last_x, last_y, this.team, Categorie.T, this.f);
+		Queue last = queue.getLast();
+		Queue q = new Queue(last.x(), last.y(), this.team, this.category, this.f);
+		switch(this.Orientation) {
+		case Direction.N:
+			q = new Queue(last.x(), last.y()+1, this.team, this.category, this.f);
+			break;
+		case Direction.S:
+			q = new Queue(last.x(), last.y()-1, this.team, this.category, this.f);
+			break;
+		case Direction.W:
+			q = new Queue(last.x()+1, last.y(), this.team, this.category, this.f);
+			break;
+		case Direction.E:
+			q = new Queue(last.x()-1, last.y(), this.team, this.category, this.f);
+			break;
+		}
 		queue.addLast(q);
 		f.set_elementAt(q);
 		length++;
@@ -158,7 +165,13 @@ public class Snake extends Entity {
 		if (alea % 2 == 0) {
 			grow();
 		} else {
-			egg(x + 2, y + 2); // les coordonnées sont arbitraires
+			int x2 = (int) Math.random() % this.f.get_ligne();
+			int y2 = (int) Math.random() % this.f.get_colonne();
+			while (!(this.f.elementAt(x2, y2) instanceof Void)) {
+				x2 = (int) Math.random() % this.f.get_ligne();
+				y2 = (int) Math.random() % this.f.get_colonne();
+			}
+			egg(x2, y2);
 		}
 	}
 

@@ -150,10 +150,10 @@ public class DrawTerrain extends JPanel {
 					//dessiner snake
 //					x.setColor(Snake);
 //					x.fillRect(i*T_case, j*T_case, T_case, T_case);
-					drawFunkySnake(i, j, x, "Zombie", true);
+					drawFunkySnake(i, j, x, "Enderman", true);
 				}
 				else if (elem instanceof Queue) {
-					drawFunkySnake(i, j, x, "Creeper", false);
+					drawFunkySnake(i, j, x, "Enderman", false);
 					
 				}
 			}

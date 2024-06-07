@@ -29,7 +29,7 @@ public class Field {
 	
 	public Entity elementAt(int x, int y) {
 		// throw new RuntimeException("Not implemented Yet !");
-		if(x >= ligne || y > colonne || x < 0 || y < 0) {
+		if(x >= ligne || y >= colonne || x < 0 || y < 0) {
 			return new Obstacle(x,y, -1, Categorie.O, this);
 		}
 		return grid[x][y];
@@ -142,5 +142,71 @@ public class Field {
 			}
 		}
 		return rv;
+	}
+	
+//	public static final int A = 0;	// un Autre (adversaire ou membre de l'autre équipe)
+//	public static final int C = 1;	// un indice d'un précédent passage (Clue)
+//	public static final int D = 2;	// un Danger
+//	public static final int G = 3;	// un Gate (passage)
+//	public static final int J = 4;	// un élément sur lequel on peut sauter (Jumpable)
+//	public static final int M = 5;	// un Missile
+//	public static final int O = 6;	// un Obstacle
+//	public static final int P = 7; 	// un élément que l'on peut Prendre (Pick), stocker, lancer, déposer
+//	public static final int T = 8;	// Team = une entité de mon équipe mais pas moi
+//	public static final int V = 9;	// Void
+//	public static final int Arobase = 10;	// Le joueur de mon équipe 
+//	public static final int Diese = 11;	// Le joueur de l'autre équipe
+//	public static final int Tiret = 12;	// n'importe quelle entité sauf Void
+	
+	public void print() {
+		for (int i = 0; i < ligne; i++) {
+			System.out.print("[");
+			for (int j = 0; j < ligne; j++) {
+				char toprint = '_';
+				switch(grid[i][j].category()){
+				case 0 :
+					toprint = 'A';
+					break;
+				case 1 :
+					toprint = 'C';
+					break;
+				case 2 :
+					toprint = 'D';
+					break;
+				case 3 :
+					toprint = 'G';
+					break;
+				case 4 :
+					toprint = 'J';
+					break;
+				case 5 :
+					toprint = 'M';
+					break;
+				case 6 :
+					toprint = 'O';
+					break;
+				case 7 :
+					toprint = 'P';
+					break;
+				case 8 :
+					toprint = 'T';
+					break;
+				case 9 :
+					toprint = 'V';
+					break;
+				case 10 :
+					toprint = '@';
+					break;
+				case 11 :
+					toprint = '#';
+					break;
+				default :
+					toprint = '_';
+					break;
+				}
+				System.out.print(toprint + ";");
+			}
+			System.out.print("]\n");
+		}
 	}
 }

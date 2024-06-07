@@ -17,8 +17,8 @@ import toolkit.Pair;
 
 public class GameUS {
 	/* TODO - HAUTEUR et LARGEUR seront les dimensions de la matrice */
-	private final static int LARGEUR = 10;
-	private final static int HAUTEUR = 10;
+	private final static int LARGEUR = 3;
+	private final static int HAUTEUR = 3;
 
 
 	public static void main(String[] args) {
@@ -58,7 +58,7 @@ public class GameUS {
 	    y = selected.y();
 	    terrain.set_elementAt(new Apple(x,y,-1,Categorie.P,terrain));
 	    
-	    for (int i = 0; i < 20; i++) {
+	    for (int i = 0; i < 1; i++) {
 	    	rnd = new Random().nextInt(VoidList.size());
 		    selected = VoidList.remove(rnd);
 		    x = selected.x();
@@ -66,8 +66,11 @@ public class GameUS {
 		    terrain.set_elementAt(new Obstacle(x,y,-1,Categorie.O,terrain));
 	    }
 		
-	    for (int i = 0; i < 15; i++)
+	    for (int i = 0; i < 9; i++) {
 	    	auto.step(snake);
+	    	terrain.print();
+	    	t.repaint();
+	    }
 	    
 	}
 

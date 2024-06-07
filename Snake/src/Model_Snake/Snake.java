@@ -19,15 +19,17 @@ public class Snake extends Entity {
 	}
 
 	public void grow() {
-		
-
 		Queue q = null;
+		int last_x = this.x;
+		int last_y = this.y;
 		if (queue.size() > 0) {
 			Queue last = queue.getLast();
-			q = new Queue(last.x(), last.y(), this.team, Categorie.T, this.f);
-		} else
-			q = new Queue(this.x, this.y, this.team, Categorie.T, this.f);
+			last_x = last.x();
+			last_y = last.y();
+		} 
+		q = new Queue(last_x, last_y, this.team, Categorie.T, this.f);
 		queue.addLast(q);
+		f.set_elementAt(q);
 		length++;
 	}
 
@@ -35,22 +37,30 @@ public class Snake extends Entity {
 		int a = this.x;
 		int o = this.y;
 		int a1, o1;
+		int new_x = this.x;
+		int new_y = this.y;
 		switch (Orientation) {
 		case Direction.N:
+			new_y--;
 			this.y -= 1;
 			break;
 		case Direction.S:
+			new_y++;
 			this.y += 1;
 			break;
 		case Direction.E:
+			new_x++;
 			this.x += 1;
 			break;
 		case Direction.W:
+			new_x--;
 			this.x -= 1;
 			break;
 		default:
 			break;
 		}
+		f.set_elementAt(this);
+		f.set_elementAt(new Void(a, o, 0, Categorie.V, this.f));
 		Iterator<Queue> i = queue.iterator();
 		Queue q;
 		while (i.hasNext()) {
@@ -154,6 +164,7 @@ public class Snake extends Entity {
 
 	@Override
 	public void egg(int x, int y) {
-		new Snake(x, y, this.team, this.category, this.f);
+		Snake s = new Snake(x, y, this.team, this.category, this.f);
+		f.set_elementAt(s);
 	}
 }

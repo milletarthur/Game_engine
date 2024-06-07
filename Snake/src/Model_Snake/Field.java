@@ -23,9 +23,6 @@ public class Field {
 		}
 	}
 	
-	public void set_elementAt(Entity e) {
-		grid[e.x][e.y] = e;
-	}
 	
 	public Entity elementAt(int x, int y) {
 		// throw new RuntimeException("Not implemented Yet !");

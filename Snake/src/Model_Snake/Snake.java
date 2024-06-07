@@ -36,7 +36,6 @@ public class Snake extends Entity {
 			break;
 		}
 		queue.addLast(q);
-		f.set_elementAt(q);
 		length++;
 	}
 
@@ -66,8 +65,6 @@ public class Snake extends Entity {
 		default:
 			break;
 		}
-		f.set_elementAt(this);
-		f.set_elementAt(new Void(a, o, 0, Categorie.V, this.f));
 		Iterator<Queue> i = queue.iterator();
 		Queue q;
 		while (i.hasNext()) {
@@ -178,6 +175,5 @@ public class Snake extends Entity {
 	@Override
 	public void egg(int x, int y) {
 		Snake s = new Snake(x, y, this.team, this.category, this.f);
-		f.set_elementAt(s);
 	}
 }

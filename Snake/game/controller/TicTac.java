@@ -18,11 +18,13 @@ public class TicTac {
 	
 	private static final int TICK_PERIOD = 1000; // en milliseconde
 	
-	Window w ;
+	private Window w ;
+	private TickListener List;
 
-	public TicTac(Window w) { // initialise le timer
+	public TicTac(Window w, TickListener List) { // initialise le timer
 		this.w = w ;
 		this.createTimer();
+		this.List = List;
 	}
 
 	private void createTimer() {
@@ -37,6 +39,7 @@ public class TicTac {
     }
 
     private void tick() {
+    	List.step();
     	last_tick = (System.currentTimeMillis() - init) / 1000 ;
         w.repaint();
         //System.out.println("Tick at: " + last_tick);

@@ -132,12 +132,12 @@ public class Field {
 		return k.category() == c;
 	}
 	
-	public LinkedList<Pair> getVoidList() {
-		LinkedList<Pair> rv = new LinkedList<Pair>();
+	public LinkedList<Pair<Integer,Integer>> getVoidList() {
+		LinkedList<Pair<Integer,Integer>> rv = new LinkedList<Pair<Integer,Integer>>();
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
 				if (elementAt(i, j) instanceof Void) {
-					rv.add(new Pair(i,j));
+					rv.add(new Pair<Integer,Integer>(i,j));
 				}
 			}
 		}

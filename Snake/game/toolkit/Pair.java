@@ -1,19 +1,19 @@
 package toolkit;
 
-public class Pair {
-	private int x;
-	private int y;
+public class Pair<X,Y> {
+	private X x;
+	private Y y;
 
-	public Pair(int x, int y) {
+	public Pair(X x, Y y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public int x() {
+	public X x() {
 		return x;
 	}
 
-	public int y() {
+	public Y y() {
 		return y;
 	}
 }

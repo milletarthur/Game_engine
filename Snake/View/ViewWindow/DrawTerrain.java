@@ -29,7 +29,7 @@ public class DrawTerrain extends JPanel {
 	int LARGEUR;
 	int HAUTEUR;
 	
-	public static final int T_case = 20 ; //taille d'une case
+	public static final int T_case = 50 ; //taille d'une case
 
 	// Couleurs
 	Color VERT = new Color(0, 100, 0);
@@ -112,13 +112,8 @@ public class DrawTerrain extends JPanel {
 		x.fillOval(40, 20, 20, 20);
 		x.setColor(green);
 		x.fillRect(45,20,10,5);
+		*/
 		
-		x.setColor(OBSTACLE);
-		x.fillRect(64,46,4,12);
-		x.fillRect(72, 46, 4, 12);
-		x.setColor(obstacle);
-		x.fillRect(62,42,16,4);
-		x.fillRect(62,50,16,2);*/
 
 		//avec et [i,j] position dans la matrice
 		
@@ -138,11 +133,11 @@ public class DrawTerrain extends JPanel {
 					
 					//dessiner obstacle
 					x.setColor(OBSTACLE);
-					x.fillRect(i*T_case+4,j*T_case+6,4,12);
-					x.fillRect(i*T_case+12, j*T_case+6, 4, 12);
+					x.fillRect(T_case+((T_case*4)/20),T_case+((T_case*6)/20),T_case/5,(T_case/5)*3);
+					x.fillRect(T_case+((T_case*12)/20), T_case+((T_case*6)/20), T_case/5, (T_case/5)*3);
 					x.setColor(obstacle);
-					x.fillRect(i*T_case+2,j*T_case+2,16,4);
-					x.fillRect(i*T_case+2,j*T_case+10,16,2);
+					x.fillRect(T_case+((T_case*2)/20),T_case+((T_case*2)/20),(T_case/5)*4,T_case/5);
+					x.fillRect(T_case+((T_case*2)/20),T_case+((T_case*10)/20),(T_case/5)*4,T_case/10);
 			
 				}
 				else if (elem instanceof Snake) {

@@ -17,10 +17,10 @@ public class Game {
 	public static void main(String[] args) {
 
 		// initialisation de la fenêtre
-		Window w = new Window(LARGEUR, HAUTEUR);
-		TicTac t = new TicTac(w);
+//		Window w = new Window(LARGEUR, HAUTEUR);
+//		TicTac t = new TicTac(w);
 
-		w.init_Window(t);
+//		w.init_Window(t);
 	}
 
 }

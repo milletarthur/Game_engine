@@ -13,6 +13,7 @@ import ViewWindow.DrawTerrain;
 import ViewWindow.Window;
 import controller.AutomateSnake;
 import controller.TicTac;
+import controller.TickListener;
 import toolkit.Automate;
 import toolkit.Categorie;
 import toolkit.Pair;
@@ -36,7 +37,8 @@ public class GameUS {
 		// initialisation du terrain
 //		DrawTerrain t = new DrawTerrain(LARGEUR, HAUTEUR, terrain);
 		
-		TicTac t = new TicTac(w);
+		TickListener List = new TickListener();
+		TicTac t = new TicTac(w,List);
 		w.init_Window(t);
 
 //		// impose la taille de la fenêtre avec celui du JPanel
@@ -50,15 +52,16 @@ public class GameUS {
 //		// rendre la fenêtre visible
 //		w.setVisible(true);
 		
-		LinkedList<Pair> VoidList = terrain.getVoidList();
+		LinkedList<Pair<Integer,Integer>> VoidList = terrain.getVoidList();
 		int rnd = new Random().nextInt(VoidList.size());
-	    Pair selected = VoidList.remove(rnd);
+	    Pair<Integer,Integer> selected = VoidList.remove(rnd);
 	    int x = selected.x();
 	    int y = selected.y();
 	    Snake snake = new Snake(x,y,0,Categorie.Arobase,terrain);
 	    terrain.set_elementAt(snake);
 	    AutomateSnake auto = new AutomateSnake(snake,terrain);
 	    
+	    List.add(auto, snake);
 	    
 	    rnd = new Random().nextInt(VoidList.size());
 	    selected = VoidList.remove(rnd);
@@ -66,7 +69,7 @@ public class GameUS {
 	    y = selected.y();
 	    terrain.set_elementAt(new Apple(x,y,-1,Categorie.P,terrain));
 	    
-	    for (int i = 0; i < 15; i++) {
+	    for (int i = 0; i < 15 ; i++) {
 	    	rnd = new Random().nextInt(VoidList.size());
 		    selected = VoidList.remove(rnd);
 		    x = selected.x();
@@ -75,10 +78,6 @@ public class GameUS {
 	    }
 		
 	    
-	}
-	
-	public void step(Automate auto, Entity e) {
-		auto.step(e);
 	}
 
 	// TODO - temporaire

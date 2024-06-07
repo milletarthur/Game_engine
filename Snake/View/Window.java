@@ -11,6 +11,9 @@ public class Window extends JFrame {
 	int LARGEUR ;
 	int HAUTEUR ;
 	
+	DrawTerrain dt ;
+	DrawTicTac dtt ;
+	
 	public Window (int LARGEUR, int HAUTEUR) {
 		this.LARGEUR = LARGEUR ;
 		this.HAUTEUR = HAUTEUR ;
@@ -21,33 +24,34 @@ public class Window extends JFrame {
 		this.setResizable(false);
 		// application terminé quand utilisateur quitte
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// initialisation du terrain
+		this.dt = new DrawTerrain(LARGEUR, HAUTEUR);
+		this.dtt = new DrawTicTac();
 	}
 	
-	public void init_Window(Window w) {
+	public void init_Window(TicTac t) {
 
-		// initialisation du terrain
-		DrawTerrain dt = new DrawTerrain(LARGEUR, HAUTEUR);
+		dtt.settimer(t);
 		// impose la taille de la fenêtre avec celui du JPanel
 		dt.setPreferredSize(new Dimension(LARGEUR, HAUTEUR));
 
 		// ajout du terrain à la fenêtre
-		w.add(dt, BorderLayout.CENTER);
+		this.add(dt, BorderLayout.CENTER);
 		
 		//pour timer
-		TicTac t = new TicTac();
 		JPanel timer = new JPanel();
 		timer.setLayout(new FlowLayout());
 		JLabel tick = new JLabel("tick : ");
 		timer.add(tick);
-		DrawTicTac dtt = new DrawTicTac(t);
 		timer.add(dtt);
-		w.add(timer, BorderLayout.NORTH);
+		this.add(timer, BorderLayout.NORTH);
 		
 		// fenêtre de la taille du JPanel qu'il contient
-		w.pack();
+		this.pack();
 
 		// rendre la fenêtre visible
-		w.setVisible(true);
+		this.setVisible(true);
 	}
 
 }

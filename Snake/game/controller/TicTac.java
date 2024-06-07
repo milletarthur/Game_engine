@@ -1,6 +1,10 @@
+package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
+
+import ViewWindow.Window;
+import info3.game.Game;
 
 /*
  * Copyright (C) 2020  Pr. Olivier Gruber

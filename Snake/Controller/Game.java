@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import ViewWindow.DrawTerrain;
 import ViewWindow.Window;
+import controller.TicTac;
 
 public class Game {
 	

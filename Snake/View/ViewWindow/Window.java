@@ -3,6 +3,9 @@ package ViewWindow;
 import java.awt.*;
 import javax.swing.*;
 
+import Model_Snake.Field;
+import controller.TicTac;
+
 /*
  * Classe Window qui gère la fenêtre du snake
  */
@@ -16,7 +19,7 @@ public class Window extends JFrame {
 	DrawTerrain dt ;
 	DrawTicTac dtt ;
 	
-	public Window (int LARGEUR, int HAUTEUR) {
+	public Window (int LARGEUR, int HAUTEUR, Field terrain) {
 		this.LARGEUR = LARGEUR ;
 		this.HAUTEUR = HAUTEUR ;
 		this.getContentPane().setLayout(new BorderLayout());
@@ -28,7 +31,7 @@ public class Window extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// initialisation du terrain
-		this.dt = new DrawTerrain(LARGEUR, HAUTEUR);
+		this.dt = new DrawTerrain(LARGEUR, HAUTEUR, terrain);
 		this.dtt = new DrawTicTac();
 	}
 	
@@ -36,7 +39,7 @@ public class Window extends JFrame {
 
 		dtt.settimer(t);
 		// impose la taille de la fenêtre avec celui du JPanel
-		dt.setPreferredSize(new Dimension(LARGEUR, HAUTEUR));
+		dt.setPreferredSize(new Dimension(LARGEUR * DrawTerrain.T_case, HAUTEUR * DrawTerrain.T_case));
 
 		// ajout du terrain à la fenêtre
 		this.add(dt, BorderLayout.CENTER);

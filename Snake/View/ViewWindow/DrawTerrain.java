@@ -124,21 +124,20 @@ public class DrawTerrain extends JPanel {
 				
 					//dessiner pomme
 					x.setColor(Pomme);
-					x.fillOval(i*T_case, j*T_case, T_case, T_case);
-					x.setColor(Color.GREEN);
-					x.fillRect(i*T_case+5,j*T_case,10,5);
+			        x.fillOval(i*T_case, j*T_case, T_case, T_case);
+			        x.setColor(Color.GREEN);
+			        x.fillRect(i*T_case+((T_case*5)/20),j*T_case,T_case/2,T_case/4);
 					
 				}
 				else if (elem instanceof Obstacle) {
 					
-					//dessiner obstacle
-					x.setColor(OBSTACLE);
-					x.fillRect(T_case+((T_case*4)/20),T_case+((T_case*6)/20),T_case/5,(T_case/5)*3);
-					x.fillRect(T_case+((T_case*12)/20), T_case+((T_case*6)/20), T_case/5, (T_case/5)*3);
-					x.setColor(obstacle);
-					x.fillRect(T_case+((T_case*2)/20),T_case+((T_case*2)/20),(T_case/5)*4,T_case/5);
-					x.fillRect(T_case+((T_case*2)/20),T_case+((T_case*10)/20),(T_case/5)*4,T_case/10);
-			
+				      // dessiner obstacle
+			        x.setColor(OBSTACLE);
+			        x.fillRect(i*T_case+((T_case*4)/20),j*T_case+((T_case*6)/20),T_case/5,(T_case/5)*3);
+			        x.fillRect(i*T_case+((T_case*12)/20), j*T_case+((T_case*6)/20), T_case/5, (T_case/5)*3);
+			        x.setColor(obstacle);
+			        x.fillRect(i*T_case+((T_case*2)/20),j*T_case+((T_case*2)/20),(T_case/5)*4,T_case/5);
+			        x.fillRect(i*T_case+((T_case*2)/20),j*T_case+((T_case*10)/20),(T_case/5)*4,T_case/10);
 				}
 				else if (elem instanceof Snake) {
 				

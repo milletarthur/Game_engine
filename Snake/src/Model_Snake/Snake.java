@@ -40,6 +40,7 @@ public class Snake extends Entity {
 			q = new Queue(last.x()-1, last.y(), this.team, this.category, this.f);
 			break;
 		}
+		f.update(q, -1, -1, q.x(), q.y());
 		queue.addLast(q);
 		length++;
 	}
@@ -158,6 +159,10 @@ public class Snake extends Entity {
 		this.Orientation = rv;
 	}
 
+	public LinkedList<Queue> getQueue(){
+		return queue;
+	}
+	
 	public int length() {
 		return length;
 	}

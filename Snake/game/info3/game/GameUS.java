@@ -21,8 +21,8 @@ import toolkit.Pair;
 
 public class GameUS {
 	/* TODO - HAUTEUR et LARGEUR seront les dimensions de la matrice */
-	private final static int LARGEUR = 3;
-	private final static int HAUTEUR = 3;
+	private final static int LARGEUR = 10;
+	private final static int HAUTEUR = 10;
 	
 	
 
@@ -63,14 +63,16 @@ public class GameUS {
 	    
 	    List.add(auto, snake);
 	    
-	    rnd = new Random().nextInt(VoidList.size());
-	    selected = VoidList.remove(rnd);
-	    x = selected.x();
-	    y = selected.y();
-	    Apple apple = new Apple(x,y,-1,Categorie.P,terrain);
-	    terrain.update(apple, -1, -1, x, y);
+	    for (int i = 0; i < 15 ; i++) {
+		    rnd = new Random().nextInt(VoidList.size());
+		    selected = VoidList.remove(rnd);
+		    x = selected.x();
+		    y = selected.y();
+		    Apple apple = new Apple(x,y,-1,Categorie.P,terrain);
+		    terrain.update(apple, -1, -1, x, y);
+	    }
 	    
-	    for (int i = 0; i < 1 ; i++) {
+	    for (int i = 0; i < 15 ; i++) {
 	    	rnd = new Random().nextInt(VoidList.size());
 		    selected = VoidList.remove(rnd);
 		    x = selected.x();

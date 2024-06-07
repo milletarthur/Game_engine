@@ -19,9 +19,12 @@ public class Snake extends Entity {
 	}
 
 	public void grow() {
-		Queue last = queue.getLast();
-		if(last == null)
+		Queue last;
+		if (queue.isEmpty()) {
 			last = new Queue(this.x, this.y, this.team, this.category, this.f);
+		} else {
+			last = queue.getLast();
+		}
 		Queue q = new Queue(last.x(), last.y(), this.team, this.category, this.f);
 		switch(this.Orientation) {
 		case Direction.N:

@@ -30,7 +30,7 @@ public class AutomateSnake extends Automate {
 		// *(alive) | Cell(F,P)? Move(): (pick)
 		c = new Cell(f,Direction.F, Categorie.P);
 		Actions = new LinkedList<IAction>();
-		Actions.add(new Move(e));
+		Actions.add(new Move(e,f));
 		trans = new Transition(Init, Pick, c, Actions);
 		Transitions.add(trans);
 
@@ -38,7 +38,7 @@ public class AutomateSnake extends Automate {
 		c = new Cell(f,Direction.L, Categorie.P);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.L));
-		Actions.add(new Move(e));
+		Actions.add(new Move(e,f));
 		trans = new Transition(Init, Pick, c, Actions);
 		Transitions.add(trans);
 
@@ -46,7 +46,7 @@ public class AutomateSnake extends Automate {
 		c = new Cell(f,Direction.R, Categorie.P);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.R));
-		Actions.add(new Move(e));
+		Actions.add(new Move(e,f));
 		trans = new Transition(Init, Pick, c, Actions);
 		Transitions.add(trans);
 
@@ -58,7 +58,7 @@ public class AutomateSnake extends Automate {
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.L));
-		Actions.add(new Move(e));
+		Actions.add(new Move(e,f));
 		trans = new Transition(Init, Pick, c, Actions);
 		Transitions.add(trans);
 
@@ -70,7 +70,7 @@ public class AutomateSnake extends Automate {
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.R));
-		Actions.add(new Move(e));
+		Actions.add(new Move(e,f));
 		trans = new Transition(Init, Pick, c, Actions);
 		Transitions.add(trans);
 
@@ -82,7 +82,7 @@ public class AutomateSnake extends Automate {
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.L));
-		Actions.add(new Move(e));
+		Actions.add(new Move(e,f));
 		trans = new Transition(Init, Init, c, Actions);
 		Transitions.add(trans);
 
@@ -94,7 +94,7 @@ public class AutomateSnake extends Automate {
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.R));
-		Actions.add(new Move(e));
+		Actions.add(new Move(e,f));
 		trans = new Transition(Init, Init, c, Actions);
 		Transitions.add(trans);
 
@@ -102,7 +102,7 @@ public class AutomateSnake extends Automate {
 		c = new Cell(f,Direction.F, Categorie.V);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.F));
-		Actions.add(new Move(e));
+		Actions.add(new Move(e,f));
 		trans = new Transition(Init, Init, c, Actions);
 		Transitions.add(trans);
 
@@ -110,7 +110,7 @@ public class AutomateSnake extends Automate {
 		c = new Cell(f,Direction.B, Categorie.V);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.B));
-		Actions.add(new Move(e));
+		Actions.add(new Move(e,f));
 		trans = new Transition(Init, Init, c, Actions);
 		Transitions.add(trans);
 

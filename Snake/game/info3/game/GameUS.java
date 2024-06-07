@@ -37,7 +37,7 @@ public class GameUS {
 		// initialisation du terrain
 //		DrawTerrain t = new DrawTerrain(LARGEUR, HAUTEUR, terrain);
 		
-		TickListener List = new TickListener();
+		TickListener List = new TickListener(terrain);
 		TicTac t = new TicTac(w,List);
 		w.init_Window(t);
 
@@ -58,7 +58,7 @@ public class GameUS {
 	    int x = selected.x();
 	    int y = selected.y();
 	    Snake snake = new Snake(x,y,0,Categorie.Arobase,terrain);
-//	    terrain.set_elementAt(snake);
+	    terrain.update(snake, -1, -1, x, y);
 	    AutomateSnake auto = new AutomateSnake(snake,terrain);
 	    
 	    List.add(auto, snake);
@@ -67,14 +67,16 @@ public class GameUS {
 	    selected = VoidList.remove(rnd);
 	    x = selected.x();
 	    y = selected.y();
-//	    terrain.set_elementAt(new Apple(x,y,-1,Categorie.P,terrain));
+	    Apple apple = new Apple(x,y,-1,Categorie.P,terrain);
+	    terrain.update(apple, -1, -1, x, y);
 	    
 	    for (int i = 0; i < 1 ; i++) {
 	    	rnd = new Random().nextInt(VoidList.size());
 		    selected = VoidList.remove(rnd);
 		    x = selected.x();
 		    y = selected.y();
-//		    terrain.set_elementAt(new Obstacle(x,y,-1,Categorie.O,terrain));
+		    Obstacle obstacle = new Obstacle(x,y,-1,Categorie.O,terrain);
+		    terrain.update(obstacle, -1, -1, x, y);
 	    }
 		
 	    

@@ -4,14 +4,17 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import Model_Snake.Entity;
+import Model_Snake.Field;
 import toolkit.Automate;
 import toolkit.Pair;
 
 public class TickListener {
 	LinkedList<Pair<Automate,Entity>> auto_list;
+	private Field terrain;
 	
-	public TickListener() {
+	public TickListener(Field terrain) {
 		auto_list = new LinkedList<Pair<Automate,Entity>>();
+		this.terrain = terrain;
 	}
 	
 	public void add(Automate a, Entity e) {
@@ -28,6 +31,7 @@ public class TickListener {
 			Entity e = p.y();
 			auto.step(e);
 		}
+		terrain.print();
 	}
 
 }

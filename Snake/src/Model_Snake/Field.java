@@ -13,7 +13,7 @@ public class Field {
 		this.colonne = col;
 		this.ligne = lig;
 		for (int i = 0; i < lig; i++) {
-			for (int j = 0; i < col; j++) {
+			for (int j = 0; j < col; j++) {
 				grid[i][j] = new Void(i, j, 1, 1, this);
 			}
 		}

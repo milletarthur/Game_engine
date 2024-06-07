@@ -1,17 +1,20 @@
 package Model_Snake;
 
-public abstract class Entity {
-	public static final int NORTH = 1;
-	public static final int SOUTH = 2;
-	public static final int EAST = 3;
-	public static final int WEST = 4;
+import toolkit.Direction;
 
+public abstract class Entity {
+	protected Field f;
+	
 	protected int x;
 	protected int y;
 
-	protected int Orientation = NORTH;
+	protected int Orientation = Direction.N;
 
 	protected boolean Valid = true;
+	
+	protected int team;
+	
+	protected int category;
 
 	abstract void egg(int x, int y);
 
@@ -21,19 +24,27 @@ public abstract class Entity {
 
 	abstract public void turn(int dir);
 
-	void kill() {
+	public void kill() {
 		this.Valid = false;
 	}
 
-	boolean valid() {
+	public boolean valid() {
 		return this.Valid;
 	}
 
-	int x() {
+	public int x() {
 		return x;
 	}
 
-	int y() {
+	public int y() {
 		return y;
+	}
+	
+	public int direction() {
+		return this.Orientation; 
+	}
+	
+	public int category() {
+		return this.category;
 	}
 }

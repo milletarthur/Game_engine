@@ -140,7 +140,7 @@ public class Field {
 			grid[old_x][old_y] = new Void(old_x,old_y,0,Categorie.V, this);
 			return;
 		}
-		if(old_x != new_x && old_y != new_y && new_x != -1 && new_y != -1) {
+		if((old_x != new_x || old_y != new_y) && new_x != -1 && new_y != -1) {
 			if(old_x != -1 && old_y != -1) 
 				grid[old_x][old_y] = new Void(old_x,old_y,0,Categorie.V, this);
 			grid[new_x][new_y] = e;

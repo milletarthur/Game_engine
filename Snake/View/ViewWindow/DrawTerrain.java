@@ -29,7 +29,7 @@ public class DrawTerrain extends JPanel {
 	int LARGEUR;
 	int HAUTEUR;
 	
-	private static final int T_case = 20 ; //taille d'une case
+	public static final int T_case = 50 ; //taille d'une case
 
 	// Couleurs
 	Color VERT = new Color(0, 100, 0);

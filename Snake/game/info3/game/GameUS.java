@@ -17,8 +17,8 @@ import toolkit.Pair;
 
 public class GameUS {
 	/* TODO - HAUTEUR et LARGEUR seront les dimensions de la matrice */
-	private final static int LARGEUR = 3;
-	private final static int HAUTEUR = 3;
+	private final static int LARGEUR = 10;
+	private final static int HAUTEUR = 10;
 
 
 	public static void main(String[] args) {
@@ -32,7 +32,7 @@ public class GameUS {
 		DrawTerrain t = new DrawTerrain(LARGEUR, HAUTEUR, terrain);
 
 		// impose la taille de la fenêtre avec celui du JPanel
-		t.setPreferredSize(new Dimension(LARGEUR * 20, HAUTEUR * 20));
+		t.setPreferredSize(new Dimension(LARGEUR * DrawTerrain.T_case, HAUTEUR * DrawTerrain.T_case));
 
 		// ajout du terrain à la fenêtre
 		w.add(t);
@@ -58,7 +58,7 @@ public class GameUS {
 	    y = selected.y();
 	    terrain.set_elementAt(new Apple(x,y,-1,Categorie.P,terrain));
 	    
-	    for (int i = 0; i < 1; i++) {
+	    for (int i = 0; i < 15; i++) {
 	    	rnd = new Random().nextInt(VoidList.size());
 		    selected = VoidList.remove(rnd);
 		    x = selected.x();
@@ -69,7 +69,7 @@ public class GameUS {
 	    for (int i = 0; i < 9; i++) {
 	    	auto.step(snake);
 	    	terrain.print();
-	    	t.repaint();
+//	    	t.repaint();
 	    }
 	    
 	}

@@ -19,7 +19,8 @@ public class Pick implements IAction {
 		// TODO - besoin de faire une méthode Pick dans Snake
 		// pour que cette classe s'adapte à n'importe quelle entité
 		e.pick();
-		this.dt.repaint();	
+		System.out.println("Pick");
+//		this.dt.repaint();	
 		return ;
 	}
 }

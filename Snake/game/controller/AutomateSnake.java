@@ -52,7 +52,7 @@ public class AutomateSnake extends Automate {
 
 		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(L,P)? Move(L): (pick)
 		ICondition c1a = new Cell(f,Direction.F, Categorie.O);
-		ICondition c1b = new Cell(f,Direction.F, Categorie.Arobase);
+		ICondition c1b = new Cell(f,Direction.F, Categorie.T);
 		ICondition c1 = new Disjonction(c1a, c1b);
 		ICondition c2 = new Cell(f,Direction.L, Categorie.P);
 		c = new Conjonction(c1, c2);
@@ -64,7 +64,7 @@ public class AutomateSnake extends Automate {
 
 		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(R,P)? Move(R): (pick)
 		c1a = new Cell(f,Direction.F, Categorie.O);
-		c1b = new Cell(f,Direction.F, Categorie.Arobase);
+		c1b = new Cell(f,Direction.F, Categorie.T);
 		c1 = new Disjonction(c1a, c1b);
 		c2 = new Cell(f,Direction.R, Categorie.P);
 		c = new Conjonction(c1, c2);
@@ -76,7 +76,7 @@ public class AutomateSnake extends Automate {
 
 		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(L,V)? Move(L): (alive)
 		c1a = new Cell(f,Direction.F, Categorie.O);
-		c1b = new Cell(f,Direction.F, Categorie.Arobase);
+		c1b = new Cell(f,Direction.F, Categorie.T);
 		c1 = new Disjonction(c1a, c1b);
 		c2 = new Cell(f,Direction.L, Categorie.V);
 		c = new Conjonction(c1, c2);
@@ -88,7 +88,7 @@ public class AutomateSnake extends Automate {
 
 		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(R,V)? Move(R): (alive)
 		c1a = new Cell(f,Direction.F, Categorie.O);
-		c1b = new Cell(f,Direction.F, Categorie.Arobase);
+		c1b = new Cell(f,Direction.F, Categorie.T);
 		c1 = new Disjonction(c1a, c1b);
 		c2 = new Cell(f,Direction.R, Categorie.V);
 		c = new Conjonction(c1, c2);

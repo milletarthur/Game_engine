@@ -18,7 +18,8 @@ public class Move implements IAction {
 	@Override
 	public void exec(Entity e) {
 		e.move();
-		this.dt.repaint();
+		System.out.println("Move");
+//		this.dt.repaint();
 		return ;		
 	}
 }

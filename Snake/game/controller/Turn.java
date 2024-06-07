@@ -24,7 +24,8 @@ public class Turn implements IAction {
 	@Override
 	public void exec(Entity e) {
 		e.turn(this.Direction);
-		this.dt.repaint();	
+		System.out.println("Turn");
+//		this.dt.repaint();	
 		return ;
 	}
 }

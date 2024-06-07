@@ -29,6 +29,9 @@ public class Field {
 	
 	public Entity elementAt(int x, int y) {
 		// throw new RuntimeException("Not implemented Yet !");
+		if(x >= ligne || y > colonne || x < 0 || y < 0) {
+			return new Obstacle(x,y, -1, Categorie.O, this);
+		}
 		return grid[x][y];
 	}
 
@@ -62,6 +65,7 @@ public class Field {
 			default:
 				break;
 			}
+			break;
 		case Direction.S:
 			switch (d) {
 			case Direction.L:
@@ -79,6 +83,7 @@ public class Field {
 			default:
 				break;
 			}
+			break;
 		case Direction.E:
 			switch (d) {
 			case Direction.L:
@@ -96,6 +101,7 @@ public class Field {
 			default:
 				break;
 			}
+			break;
 		case Direction.W:
 			switch (d) {
 			case Direction.L:
@@ -113,6 +119,7 @@ public class Field {
 			default:
 				break;
 			}
+			break;
 		default:
 			break;
 		}

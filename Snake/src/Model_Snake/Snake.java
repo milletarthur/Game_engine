@@ -3,6 +3,7 @@ package Model_Snake;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import toolkit.Categorie;
 import toolkit.Direction;
 
 public class Snake extends Entity {
@@ -18,8 +19,14 @@ public class Snake extends Entity {
 	}
 
 	public void grow() {
-		Queue last = queue.getLast();
-		Queue q = new Queue(last.x(), last.y(), this.team, this.category, this.f);;
+		
+
+		Queue q = null;
+		if (queue.size() > 0) {
+			Queue last = queue.getLast();
+			q = new Queue(last.x(), last.y(), this.team, Categorie.T, this.f);
+		} else
+			q = new Queue(this.x, this.y, this.team, Categorie.T, this.f);
 		queue.addLast(q);
 		length++;
 	}
@@ -76,6 +83,7 @@ public class Snake extends Entity {
 				rv = this.Orientation;
 				break;
 			}
+			break;
 		case Direction.S:
 			switch (dir) {
 			case Direction.L:
@@ -91,6 +99,7 @@ public class Snake extends Entity {
 				rv = this.Orientation;
 				break;
 			}
+			break;
 		case Direction.E:
 			switch (dir) {
 			case Direction.L:
@@ -106,6 +115,7 @@ public class Snake extends Entity {
 				rv = this.Orientation;
 				break;
 			}
+			break;
 		case Direction.W:
 			switch (dir) {
 			case Direction.L:
@@ -121,6 +131,7 @@ public class Snake extends Entity {
 				rv = this.Orientation;
 				break;
 			}
+			break;
 		default:
 			rv = this.Orientation;
 			break;

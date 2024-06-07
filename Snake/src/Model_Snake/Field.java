@@ -1,5 +1,6 @@
 package Model_Snake;
 
+import toolkit.Categorie;
 import toolkit.Direction;
 
 public class Field {
@@ -123,5 +124,30 @@ public class Field {
 		int[] pos_to_check = next_to(e, d);
 		Entity k = elementAt(pos_to_check[0], pos_to_check[1]);
 		return k.category() == c;
+	}
+	
+	
+	/* Fonctionnement de la fonction update : 
+	 * Elle doit être appellée à chauqe fois que l'une des actions est faite [move, pick, throw, egg, explode (hit, pop, wizz)]
+	 *  - Move : trivial arguments
+	 *  - Pick : update(picked entity, old_x, old_y, -1, -1)
+	 *  - Throw : update(thrown entity, -1, -1, new_x, new_y)
+	 *  - Egg : update(thrown entity, -1, -1, new_x, new_y)
+	 *  - Explode : update(exploded entity, old_x, old_y, -1, -1)
+	 */
+	public void update(Entity e, int old_x, int old_y, int new_x, int new_y) {
+		if(!e.valid()) {
+			grid[old_x][old_y] = new Void(old_x,old_y,0,Categorie.V, this);
+			return;
+		}
+		if(old_x != new_x && old_y != new_y && new_x != -1 && new_y != -1) {
+			if(old_x != -1 && old_y != -1) 
+				grid[old_x][old_y] = new Void(old_x,old_y,0,Categorie.V, this);
+			grid[new_x][new_y] = e;
+			return;
+		}
+		if (new_x == -1 && new_y == -1)
+			grid[old_x][old_y] = new Void(old_x,old_y,0,Categorie.V, this);
+		return;
 	}
 }

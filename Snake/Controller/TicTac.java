@@ -1,32 +1,42 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Timer;
+import javax.swing.Timer;
+
+/*
+ * Copyright (C) 2020  Pr. Olivier Gruber
+ */
 
 public class TicTac {
 
 	Timer timer;
-	long last_tick;
+	long last_tick ;
+	long init = System.currentTimeMillis();
 	
-	static final int TICK_PERIOD = 1; // tick every milli-second.
+	private static final int TICK_PERIOD = 1000; // en milliseconde
+	
+	Window w ;
 
-	public TicTac() { // initialise le timer
-		//this.timer = new Timer();
-	}
-
-	public void tick() { // tick d'horloge
-
+	public TicTac(Window w) { // initialise le timer
+		this.w = w ;
+		this.createTimer();
 	}
 
 	private void createTimer() {
-		int tick = TICK_PERIOD;
-		last_tick = System.currentTimeMillis();
-		timer = new Timer(tick, new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				tick();
-			}
-		});
-		//timer.start();
-	}
+        int tick = TICK_PERIOD;
+        last_tick = System.currentTimeMillis() - init;
+        timer = new Timer(tick, new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                tick();
+            }
+        });
+        timer.start();
+    }
+
+    private void tick() {
+    	last_tick = (System.currentTimeMillis() - init) / 1000 ;
+        w.repaint();
+        //System.out.println("Tick at: " + last_tick);
+    }
 
 	public long getTick() {
 		return last_tick;

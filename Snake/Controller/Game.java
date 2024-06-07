@@ -1,6 +1,3 @@
-import java.awt.*;
-import javax.swing.*;
-
 /*
  * Main de test pour la view
  */
@@ -15,18 +12,9 @@ public class Game {
 
 		// initialisation de la fenêtre
 		Window w = new Window(LARGEUR, HAUTEUR);
+		TicTac t = new TicTac(w);
 
-		w.init_Window(w);
-	}
-
-	// TODO - temporaire
-	public int getLARGEUR() {
-		return LARGEUR;
-	}
-
-	// TODO - temporaire
-	public int getHAUTEUR() {
-		return HAUTEUR;
+		w.init_Window(t);
 	}
 
 }

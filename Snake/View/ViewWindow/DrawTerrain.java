@@ -16,6 +16,7 @@ import Model_Snake.Entity;
 import Model_Snake.Field;
 import Model_Snake.Obstacle;
 import Model_Snake.Snake;
+import toolkit.Direction;
 import Model_Snake.Queue;
 
 
@@ -83,7 +84,31 @@ public class DrawTerrain extends JPanel {
 	    return null;
 	  }
 	
-	public void drawFunkySnake(int x, int y, Graphics g, String spec, Boolean head) {
+	public static Image rotate(Image image, int rotation){
+        // Getting Dimensions of image
+		BufferedImage img = (BufferedImage) image;
+        int width = img.getWidth();
+        int height = img.getHeight();
+ 
+        // Creating a new buffered image
+        BufferedImage newImage = new BufferedImage(
+            img.getWidth(), img.getHeight(), img.getType());
+ 
+        // creating Graphics in buffered image
+        Graphics2D g2 = newImage.createGraphics();
+ 
+        // Rotating image by degrees using toradians()
+        // method
+        // and setting new dimension t it
+        g2.rotate(Math.toRadians(rotation), width / 2, height / 2);
+        g2.drawImage(img, null, 0, 0);
+ 
+        // Return rotated buffer image
+        return newImage;
+    }
+	
+	
+	public void drawFunkySnake(int x, int y, Graphics g, String spec, Boolean head, int rotation) {
 		File f = null;
 		if (head)
 			f = new File("resources/SnakesSkin/" + spec + "Head.png");
@@ -96,7 +121,7 @@ public class DrawTerrain extends JPanel {
 			return;
 		}
 		Image im = loadImage(is);
-		g.drawImage(im, x*T_case, y*T_case, T_case, T_case, null);
+		g.drawImage(rotate(im,rotation), x*T_case, y*T_case, T_case, T_case, null);
 	}
 	
 	// TODO - lui donner la matrice
@@ -117,8 +142,8 @@ public class DrawTerrain extends JPanel {
 
 		//avec et [i,j] position dans la matrice
 		
-		for (int i = 0 ; i < LARGEUR ; i++) {
-			for (int j = 0 ; j < HAUTEUR ; j++) {
+		for (int i = 0 ; i < HAUTEUR ; i++) {
+			for (int j = 0 ; j < LARGEUR ; j++) {
 				Entity elem = terrain.elementAt(i,j);
 				if (elem instanceof Apple) {
 				
@@ -141,13 +166,47 @@ public class DrawTerrain extends JPanel {
 				}
 				else if (elem instanceof Snake) {
 				
+					int rotation = 0;
+					switch(elem.direction()){
+						case Direction.N:
+							break;
+						case Direction.E:
+							rotation = 90;
+							break;
+						case Direction.S:
+							rotation = 180;
+							break;
+						case Direction.W:
+							rotation = 270;
+							break;
+						default :
+							rotation = 45;
+							break;
+					}
 					//dessiner snake
 //					x.setColor(Snake);
 //					x.fillRect(i*T_case, j*T_case, T_case, T_case);
-					drawFunkySnake(i, j, x, "Enderman", true);
+					drawFunkySnake(i, j, x, "Enderman", true, rotation);
 				}
 				else if (elem instanceof Queue) {
-					drawFunkySnake(i, j, x, "Enderman", false);
+					int rotation = 0;
+					switch(elem.direction()){
+						case Direction.N:
+							break;
+						case Direction.E:
+							rotation = 90;
+							break;
+						case Direction.S:
+							rotation = 180;
+							break;
+						case Direction.W:
+							rotation = 270;
+							break;
+						default :
+							rotation = 45;
+							break;
+					}
+					drawFunkySnake(i, j, x, "Enderman", false, rotation);
 					
 				}
 			}

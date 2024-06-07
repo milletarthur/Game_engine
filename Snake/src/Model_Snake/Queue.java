@@ -1,6 +1,9 @@
 package Model_Snake;
 
+import java.util.Iterator;
+
 public class Queue extends Entity {
+	private boolean newQueue = true;
 
 	public Queue(int x, int y, int team, int category, Field f) {
 		this.x = x;
@@ -15,9 +18,13 @@ public class Queue extends Entity {
 		new Queue(x, y, this.team, this.category, this.f);
 	}
 
-	void move(int x, int y) {
-		this.x = x;
-		this.y = y;
+	void move(int x, int y, int Direction) {
+		if (!newQueue) {
+			this.x = x;
+			this.y = y;
+		} else {
+			newQueue = false;
+		}
 	}
 
 	@Override
@@ -30,5 +37,11 @@ public class Queue extends Entity {
 
 	@Override
 	public void turn(int dir) {
+	}
+	
+	public void kill() {
+		super.kill();
+		x = -1;
+		y = -1;
 	}
 }

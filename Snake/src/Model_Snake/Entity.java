@@ -47,4 +47,8 @@ public abstract class Entity {
 	public int category() {
 		return this.category;
 	}
+	
+	public int team() {
+		return this.team;
+	}
 }

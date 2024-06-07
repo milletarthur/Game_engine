@@ -166,9 +166,9 @@ public class Field {
 	public void print() {
 		for (int i = 0; i < ligne; i++) {
 			System.out.print("[");
-			for (int j = 0; j < ligne; j++) {
+			for (int j = 0; j < colonne; j++) {
 				char toprint = '_';
-				switch(grid[i][j].category()){
+				switch(grid[j][i].category()){ // etrange, j et i ineversés
 				case 0 :
 					toprint = 'A';
 					break;
@@ -228,7 +228,7 @@ public class Field {
 			grid[old_x][old_y] = new Void(old_x,old_y,0,Categorie.V, this);
 			return;
 		}
-		if((old_x != new_x || old_y != new_y) && new_x != -1 && new_y != -1) {
+		if(new_x != -1 && new_y != -1) { //condition retirée : (old_x != new_x || old_y != new_y) &&
 			if(old_x != -1 && old_y != -1) 
 				grid[old_x][old_y] = new Void(old_x,old_y,0,Categorie.V, this);
 			grid[new_x][new_y] = e;

@@ -59,7 +59,7 @@ public class GameUS {
 	    int y = selected.y();
 	    Snake snake = new Snake(x,y,0,Categorie.Arobase,terrain);
 	    terrain.update(snake, -1, -1, x, y);
-	    AutomateSnake auto = new AutomateSnake(snake,terrain);
+	    AutomateSnake auto = new AutomateSnake(snake,terrain,List);
 	    
 	    List.add(auto, snake);
 	    

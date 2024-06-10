@@ -1,5 +1,7 @@
 package Model_Snake;
 
+import java.io.PrintStream;
+
 import toolkit.Direction;
 
 public class Field {
@@ -18,6 +20,8 @@ public class Field {
 			}
 		}
 		grid[5][5] = new Apple(5, 5, 1, 1, this);
+		grid[0][0] = new Snake(0, 0, 1, 1, this);
+		
 	}
 
 	Entity elementAt(int x, int y) {
@@ -123,5 +127,24 @@ public class Field {
 		int[] pos_to_check = next_to(e, d);
 		Entity k = elementAt(pos_to_check[0], pos_to_check[1]);
 		return k.category() == c;
+	}
+
+	public void printGame(PrintStream ps) {
+		for (int i = 0; i < this.ligne; i++) {
+			for (int j = 0; j < this.colonne; j++) {
+				Entity e = elementAt(i, j);
+				if (e instanceof Void)
+					ps.print("_");
+				if (e instanceof Snake)
+					ps.print("S");
+				if (e instanceof Queue)
+					ps.print("q");
+				if (e instanceof Apple)
+					ps.print("A");
+				if (e instanceof Obstacle)
+					ps.print("o");
+			}
+			ps.print("\n");
+		}
 	}
 }

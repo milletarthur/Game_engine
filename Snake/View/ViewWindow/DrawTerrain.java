@@ -30,7 +30,7 @@ public class DrawTerrain extends JPanel {
 	int LARGEUR;
 	int HAUTEUR;
 	
-	public static final int T_case = 50 ; //taille d'une case
+	public static final int T_case = 100 ; //taille d'une case
 
 	// Couleurs
 	Color VERT = new Color(0, 100, 0);
@@ -186,7 +186,12 @@ public class DrawTerrain extends JPanel {
 					//dessiner snake
 //					x.setColor(Snake);
 //					x.fillRect(i*T_case, j*T_case, T_case, T_case);
-					drawFunkySnake(i, j, x, "Enderman", true, rotation);
+					if (elem.team() == 0)
+						drawFunkySnake(i, j, x, "Enderman", true, rotation);
+					else if (elem.team() == 1)
+						drawFunkySnake(i, j, x, "Creeper", true, rotation);
+					else if (elem.team() == 2)
+						drawFunkySnake(i, j, x, "Zombie", true, rotation);
 				}
 				else if (elem instanceof Queue) {
 					int rotation = 0;
@@ -206,7 +211,12 @@ public class DrawTerrain extends JPanel {
 							rotation = 45;
 							break;
 					}
-					drawFunkySnake(i, j, x, "Enderman", false, rotation);
+					if (elem.team() == 0)
+						drawFunkySnake(i, j, x, "Enderman", false, rotation);
+					else if (elem.team() == 1)
+						drawFunkySnake(i, j, x, "Creeper", false, rotation);
+					else if (elem.team() == 2)
+						drawFunkySnake(i, j, x, "Zombie", false, rotation);
 					
 				}
 			}

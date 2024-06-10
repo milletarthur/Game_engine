@@ -11,6 +11,7 @@ import toolkit.State;
 import toolkit.Transition;
 import toolkit.True;
 import toolkit.ICondition;
+import toolkit.Pair;
 import toolkit.Direction;
 import toolkit.Categorie;
 import toolkit.Disjonction;
@@ -21,6 +22,8 @@ public class AutomateSnake extends Automate {
 		ICondition c1a;
 		ICondition c1b;
 		ICondition c1;
+		ICondition c2a;
+		ICondition c2b;
 		ICondition c2;
 		
 		State Init = new State("alive");
@@ -78,12 +81,33 @@ public class AutomateSnake extends Automate {
 //		Actions.add(new Move(e,f));
 //		trans = new Transition(Init, Pick, c, Actions);
 //		Transitions.add(trans);
-
-		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(L,V)? Move(L): (alive)
+		
+		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(L,V) && Cell(R,V)? 50% Move(L) 50%Move(R): (alive)
 		c1a = new Cell(f,Direction.F, Categorie.O);
 		c1b = new Cell(f,Direction.F, Categorie.T);
 		c1 = new Disjonction(c1a, c1b);
-		c2 = new Cell(f,Direction.L, Categorie.V);
+		c2a = new Cell(f,Direction.L, Categorie.V);
+		c2b = new Cell(f,Direction.R, Categorie.V);
+		c2 = new Conjonction(c2a, c2b);
+		c = new Conjonction(c1, c2);
+		Actions = new LinkedList<IAction>();
+		Turn l = new Turn(e, Direction.L,f);
+		Turn r = new Turn(e, Direction.R,f);
+		Chance chance = new Chance(new LinkedList<Pair<IAction,Integer>>());
+		chance.add(r, 50);
+		chance.add(l, 100);
+		Actions.add(chance);
+		Actions.add(new Move(e,f));
+		trans = new Transition(Init, Init, c, Actions);
+		Transitions.add(trans);
+
+		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(L,V) && Cell(R,O)? Move(L): (alive)
+		c1a = new Cell(f,Direction.F, Categorie.O);
+		c1b = new Cell(f,Direction.F, Categorie.T);
+		c1 = new Disjonction(c1a, c1b);
+		c2a = new Cell(f,Direction.L, Categorie.V);
+		c2b = new Cell(f,Direction.R, Categorie.O);
+		c2 = new Conjonction(c2a, c2b);
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.L,f));
@@ -91,11 +115,13 @@ public class AutomateSnake extends Automate {
 		trans = new Transition(Init, Init, c, Actions);
 		Transitions.add(trans);
 
-		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(R,V)? Move(R): (alive)
+		// *(alive) | (Cell(F,O) || Cell(F,@)) && Cell(L,O) && Cell(R,V)? Move(R): (alive)
 		c1a = new Cell(f,Direction.F, Categorie.O);
 		c1b = new Cell(f,Direction.F, Categorie.T);
 		c1 = new Disjonction(c1a, c1b);
-		c2 = new Cell(f,Direction.R, Categorie.V);
+		c2a = new Cell(f,Direction.L, Categorie.O);
+		c2b = new Cell(f,Direction.R, Categorie.V);
+		c2 = new Conjonction(c2a, c2b);
 		c = new Conjonction(c1, c2);
 		Actions = new LinkedList<IAction>();
 		Actions.add(new Turn(e, Direction.R,f));

@@ -1,8 +1,5 @@
 package Labyrinthe;
 
-/// Coucou : branche model
-
-
 public abstract class Entity {
 	protected Field f;
 	

@@ -1,5 +1,5 @@
 package Labyrinthe;
 
-public class Mur {
+public abstract class Mur extends Entity {
 
 }

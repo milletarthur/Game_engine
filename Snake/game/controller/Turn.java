@@ -27,7 +27,7 @@ public class Turn implements IAction {
 		int old_x = e.x();
 		int old_y = e.y();
 		e.turn(this.Direction);
-		System.out.println("Turn");
+//		System.out.println("Turn");
 		terrain.update(e, old_x, old_y, e.x(), e.y());
 		return;
 	}

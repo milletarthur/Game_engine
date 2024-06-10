@@ -27,9 +27,9 @@ public class Pick implements IAction {
 	public void exec(Entity e) {
 		int old_x = e.x();
 		int old_y = e.y();
-//		int rnd = new Random().nextInt(2);
-		int rnd = 0; // egg not working
-		if (rnd == 0)
+		int rnd = new Random().nextInt(20);
+//		int rnd = 1; // egg not working
+		if (rnd < 19)
 			e.pick();
 		else {
 			LinkedList<Pair<Integer,Integer>> VoidList = terrain.getVoidList();
@@ -42,7 +42,7 @@ public class Pick implements IAction {
 		    AutomateSnake auto = new AutomateSnake(snake,terrain,List);
 		    List.add(auto, snake);
 		}
-		System.out.println("Pick");
+//		System.out.println("Pick");
 		terrain.update(e, old_x, old_y, -1, -1);
 		return ;
 	}

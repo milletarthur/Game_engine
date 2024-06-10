@@ -46,7 +46,7 @@ public class Move implements IAction {
 				terrain.update(en, p.x(), p.y(), en.x(), en.y());
 			}
 		}
-		System.out.println("Move");
+//		System.out.println("Move");
 		return ;		
 	}
 }

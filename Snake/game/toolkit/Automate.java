@@ -19,7 +19,7 @@ public abstract class Automate {
 			if (Current.equals(trans.getSource()) && trans.CheckCondition(e)) {
 				Current = trans.getCible();
 				trans.doActions(e);
-				System.out.println("succes");
+//				System.out.println("succes");
 				return;
 			}
 		}

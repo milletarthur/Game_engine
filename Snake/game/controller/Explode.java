@@ -45,7 +45,7 @@ public class Explode implements IAction {
 				terrain.update(en, p.x(), p.y(), -1, -1);
 			}
 		}
-		System.out.println("Kill");
+//		System.out.println("Kill");
 		return ;
 	}
 }

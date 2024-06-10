@@ -23,15 +23,14 @@ public class TickListener {
 	}
 	
 	public void step() {
-		Iterator<Pair<Automate,Entity>> iter;
-		iter = auto_list.iterator();
-		while(iter.hasNext()) {
-			Pair<Automate,Entity> p = iter.next();
+		int length = auto_list.size();
+		for (int i = 0; i < length; i++) {
+			Pair<Automate,Entity> p = auto_list.get(i);
 			Automate auto = p.x();
 			Entity e = p.y();
 			auto.step(e);
 		}
-		terrain.print();
+//		terrain.print();
 	}
 
 }

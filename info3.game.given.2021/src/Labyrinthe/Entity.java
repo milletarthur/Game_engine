@@ -6,7 +6,7 @@ public abstract class Entity {
 	protected int x;
 	protected int y;
 
-	protected int Orientation = Direction.N;
+	// protected int Orientation = Direction.N;
 
 	protected boolean Valid = true;
 
@@ -26,8 +26,6 @@ public abstract class Entity {
 
 	abstract public void wizz();
 
-	abstract public void wait();
-
 	abstract public void explode();
 
 	public void kill() {
@@ -46,9 +44,9 @@ public abstract class Entity {
 		return y;
 	}
 
-	public int direction() {
-		return this.Orientation;
-	}
+	/*
+	 * public int direction() { return this.Orientation; }
+	 */
 
 	public int category() {
 		return this.category;

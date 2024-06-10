@@ -39,12 +39,6 @@ public class Teleporteur extends Entity {
 	}
 
 	@Override
-	public void wait() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void explode() {
 		// TODO Auto-generated method stub
 

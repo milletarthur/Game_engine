@@ -38,10 +38,6 @@ public class Apple extends Entity {
 	}
 
 	@Override
-	public void wait() {
-	}
-
-	@Override
 	public void explode() {
 	}
 

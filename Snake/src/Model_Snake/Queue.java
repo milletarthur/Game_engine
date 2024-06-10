@@ -22,6 +22,7 @@ public class Queue extends Entity {
 		if (!newQueue) {
 			this.x = x;
 			this.y = y;
+			this.Orientation = Direction;
 		} else {
 			newQueue = false;
 		}
@@ -38,7 +39,7 @@ public class Queue extends Entity {
 	@Override
 	public void turn(int dir) {
 	}
-	
+
 	public void kill() {
 		super.kill();
 		x = -1;

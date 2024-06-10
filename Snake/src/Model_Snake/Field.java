@@ -149,6 +149,18 @@ public class Field {
 		return rv;
 	}
 	
+	public LinkedList<Pair<Integer,Integer>> getSnakeList() {
+		LinkedList<Pair<Integer,Integer>> rv = new LinkedList<Pair<Integer,Integer>>();
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				if (elementAt(i, j) instanceof Snake) {
+					rv.add(new Pair<Integer,Integer>(i,j));
+				}
+			}
+		}
+		return rv;
+	}
+	
 //	public static final int A = 0;	// un Autre (adversaire ou membre de l'autre équipe)
 //	public static final int C = 1;	// un indice d'un précédent passage (Clue)
 //	public static final int D = 2;	// un Danger

@@ -21,6 +21,13 @@ public class Turn implements IAction {
 		this.Direction = Direction;
 		this.terrain = terrain;
 	}
+	
+	public void print() {
+		if (Direction == -3)
+			System.out.println("L");
+		else 
+			System.out.println("R");
+	}
 
 	@Override
 	public void exec(Entity e) {

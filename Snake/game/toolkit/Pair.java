@@ -16,4 +16,12 @@ public class Pair<X,Y> {
 	public Y y() {
 		return y;
 	}
+	
+	public void setx(X x) {
+		this.x = x;
+	}
+
+	public void sety(Y y) {
+		this.y = y;
+	}
 }

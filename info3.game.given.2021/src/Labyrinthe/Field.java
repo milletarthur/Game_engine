@@ -23,6 +23,7 @@ public class Field {
 		this.ligne = lig;
 		grille(lig, col);
 		grille2(lig, col);
+		grow();
 	}
 
 	public void labyrinthe() {

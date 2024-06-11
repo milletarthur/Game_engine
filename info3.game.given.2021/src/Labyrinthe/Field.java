@@ -22,20 +22,21 @@ public class Field {
 		tmp = new int[lig][col];
 		this.colonne = col;
 		this.ligne = lig;
-		labyrinthe = new Entity[ligne][colonne][nb_element];
+		labyrinthe = new Entity[lig][col][nb_element];
 		grille(lig, col);
 		grille2(lig, col);
-		grow();
 		labyrinthe();
+		grow();
+
 	}
 
 	public void labyrinthe() {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				if(tmp[i][j] == -1) {
-					labyrinthe[i][j][0] = new Normal(i,j,1,1,this);
+				if (tmp[i][j] == -1) {
+					labyrinthe[i][j][0] = new Normal(i, j, 1, 1, this);
 				} else {
-					labyrinthe[i][j][0] = new Void(i,j,1,1,this);;
+					labyrinthe[i][j][0] = new Void(i, j, 1, 1, this);
 				}
 			}
 		}
@@ -153,7 +154,7 @@ public class Field {
 		}
 
 	}
-	
+
 	public void printGame() {
 		for (int i = 0; i < this.ligne; i++) {
 			for (int j = 0; j < this.colonne; j++) {
@@ -170,32 +171,32 @@ public class Field {
 	public void grow() {
 		int nb_ligne = ligne;
 		int nb_colonne = 2 * colonne;
-		int[][] new_labyrinthe = new int[nb_ligne][nb_colonne];
+		Entity[][][] new_labyrinthe = new Entity[nb_ligne][nb_colonne][6];
 		for (int i = 0; i < ligne; i++) {
 			int cpt = 0;
 			for (int j = 0; j < colonne; j++) {
-				new_labyrinthe[i][cpt] = tmp[i][j];
-				new_labyrinthe[i][++cpt] = tmp[i][j];
+				new_labyrinthe[i][cpt][0] = labyrinthe[i][j][0];
+				new_labyrinthe[i][++cpt][0] = labyrinthe[i][j][0];
 				cpt++;
 			}
 		}
-		tmp = new_labyrinthe;
+		labyrinthe = new_labyrinthe;
 		colonne = nb_colonne;
 		nb_ligne = 2 * ligne;
 		nb_colonne = colonne;
-		new_labyrinthe = new int[nb_ligne][nb_colonne];
+		new_labyrinthe = new Entity[nb_ligne][nb_colonne][6];
 		int cpt = 0;
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				new_labyrinthe[cpt][j] = tmp[i][j];
+				new_labyrinthe[cpt][j][0] = labyrinthe[i][j][0];
 			}
 			cpt++;
 			for (int j = 0; j < colonne; j++) {
-				new_labyrinthe[cpt][j] = tmp[i][j];
+				new_labyrinthe[cpt][j][0] = labyrinthe[i][j][0];
 			}
 			cpt++;
 		}
-		tmp = new_labyrinthe;
+		labyrinthe = new_labyrinthe;
 		ligne = nb_ligne;
 	}
 

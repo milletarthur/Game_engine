@@ -1,6 +1,5 @@
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.text.html.parser.Entity;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

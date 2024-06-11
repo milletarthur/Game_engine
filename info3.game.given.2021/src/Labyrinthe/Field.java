@@ -30,6 +30,56 @@ public class Field {
 
 	}
 
+	public Field(int lig, int col, int densite) {
+		if (col % 2 == 0) {
+			col++;
+		}
+		if (lig % 2 == 0) {
+			lig++;
+		}
+		tmp = new int[lig][col];
+		this.colonne = col;
+		this.ligne = lig;
+		labyrinthe = new Entity[lig][col][nb_element];
+		grille(lig, col);
+		grille2(lig, col);
+		printLabyrinthe();
+		System.out.println("#################################");
+		detruire_mur(densite);
+		labyrinthe();
+		grow();
+	}
+
+	int calcul_densite() {
+		int count = 0;
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				if (tmp[i][j] == -1) {
+					count++;
+				}
+			}
+		}
+		int total = ligne * colonne;
+		return ((100 * count) / total);
+	}
+
+	void detruire_mur(int densite) {
+		Random rand = new Random();
+		int d = calcul_densite();
+		int x;
+		int y;
+		while (densite <= d) {
+			x = rand.nextInt(ligne);
+			y = rand.nextInt(colonne);
+			while (tmp[x][y] != -1) {
+				x = rand.nextInt(ligne);
+				y = rand.nextInt(colonne);
+			}
+			tmp[x][y] = 0;
+			d = calcul_densite();
+		}
+	}
+
 	public void labyrinthe() {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {

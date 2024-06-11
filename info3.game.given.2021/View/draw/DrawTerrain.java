@@ -87,11 +87,11 @@ public class DrawTerrain extends JPanel {
 	public void chargement_Image() throws IOException {
 		
 		//chemins
-		this.CHEMIN = new Sprite("resources/graphisme/chemin.png", 24, 24); //obtenir le sprite
+		this.CHEMIN = new Sprite("resources/graphisme/Structures/stone_room.png", 24, 24); //obtenir le sprite
 		chemin = CHEMIN.getSprite(0, 0); //obtenir l'image du chemin
 		
 		//murs
-		this.MUR = new Sprite("resources/graphisme/mur.png", 24, 24);
+		this.MUR = new Sprite("resources/graphisme/Structures/stone_wall.png", 24, 24);
 		this.mur = MUR.getSprite(0,0);
 		
 	}

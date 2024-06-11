@@ -41,6 +41,7 @@ public class Field {
 	}
 
 	public void grille2(int l, int c) {
+
 		Random rand = new Random();
 		int tmp[][] = labyrinthe;
 		int c1 = labyrinthe[1][0];
@@ -83,6 +84,32 @@ public class Field {
 		}
 	}
 
+	/*
+	 * Entity elementAt(int x, int y) { return labyrinthe[x][y]; }
+	 */
+
+	public int get_ligne() {
+		return this.ligne;
+	}
+
+	public int get_colonne() {
+		return this.colonne;
+	}
+
+	void c_init(int c) {
+		this.colonne = c;
+	}
+
+	void l_init(int l) {
+		this.ligne = l;
+	}
+
+	/*
+	 * public void printGame(PrintStream ps) { for (int i = 0; i < this.ligne; i++)
+	 * { for (int j = 0; j < this.colonne; j++) { Entity e = elementAt(i, j); if (e
+	 * instanceof Void) ps.print(" "); if (e instanceof Mur) ps.print("O"); if (e
+	 * instanceof Apple) ps.print("*"); } } }
+	 */
 	public int is_finished(int c) {
 		for (int i = 1; i < ligne; i++) {
 			for (int j = 1; j < colonne; j++) {

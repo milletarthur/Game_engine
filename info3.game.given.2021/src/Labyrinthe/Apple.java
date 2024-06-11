@@ -1,6 +1,15 @@
 package Labyrinthe;
 
 public class Apple extends Entity {
+	
+	public Apple(int x, int y, int team, int category, Field f) {
+		this.x = x;
+		this.y = y;
+		this.category = category;
+		this.team = team;
+		this.f = f;
+	}
+
 
 	@Override
 	void egg(int x, int y) {

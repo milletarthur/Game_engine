@@ -7,8 +7,8 @@ public class Test {
 	public static void main(String args[]) throws IOException {
 		//for (int i = 0; i < 3; i++) {
 			System.out.println("Hello!");
-			Field f = new Field(20, 30);
-			f.printGame(System.out);
+			Field f = new Field(20, 20);
+			f.printLabyrinthe();
 		}
 	//}
 }

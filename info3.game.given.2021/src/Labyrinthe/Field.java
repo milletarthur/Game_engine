@@ -2,12 +2,21 @@ package Labyrinthe;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Field {
 	private int colonne;
 	private int ligne;
 	private int[][] labyrinthe;
+	
+	public final static int Mur = -1;
+	public final static int Void = 0;
+	public final static int Pomme = 1;
+	public final static int Potion = 2;
+	public final static int Epee = 3;
+	public final static int Arc = 4;
 
 	public Field(int lig, int col) {
 		if (col % 2 == 0) {
@@ -22,7 +31,7 @@ public class Field {
 		grille(lig, col);
 		grille2(lig, col);
 	}
-
+	
 	public void grille(int l, int c) {
 		int nombre = 0;
 		for (int i = 0; i < l; i++) {
@@ -126,6 +135,8 @@ public class Field {
 			for (int j = 0; j < colonne; j++) {
 				if (labyrinthe[i][j] == -1) {
 					System.out.print("O");
+				} else if (labyrinthe[i][j] == -3) {
+					System.out.print("*");
 				} else {
 					// System.out.print(labyrinthe[i][j]);
 					System.out.print(" ");
@@ -144,7 +155,11 @@ public class Field {
 			int cpt = 0;
 			for (int j = 0; j < colonne; j++) {
 				new_labyrinthe[i][cpt] = labyrinthe[i][j];
-				new_labyrinthe[i][++cpt] = labyrinthe[i][j];
+				if(labyrinthe[i][j] != -3) {
+					new_labyrinthe[i][++cpt] = labyrinthe[i][j];
+				} else {
+					new_labyrinthe[i][++cpt] = 0;
+				}
 				cpt++;
 			}
 		}
@@ -160,7 +175,11 @@ public class Field {
 			}
 			cpt++;
 			for (int j = 0; j < colonne; j++) {
-				new_labyrinthe[cpt][j] = labyrinthe[i][j];
+				if(labyrinthe[i][j] != -3) {
+					new_labyrinthe[cpt][j] = labyrinthe[i][j];
+				} else {
+					new_labyrinthe[cpt][j] = 0;
+				}
 			}
 			cpt++;
 		}
@@ -168,5 +187,18 @@ public class Field {
 		ligne = nb_ligne;
 	}
 	
+	public void Obstacle(int densite, int val) {
+		Random random = new Random();
+		for(int i=0; i<ligne; i++) {
+			for(int j=0; j<colonne; j++) {
+				if(labyrinthe[i][j] != -1) {
+					int rdm = random.nextInt(100);
+					if(rdm <= densite) {
+						labyrinthe[i][j] = val;
+					}
+				}
+			}
+		}
+	}
 
 }

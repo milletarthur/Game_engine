@@ -24,9 +24,9 @@ public class Field {
 		grille(lig, col);
 		grille2(lig, col);
 	}
-	
+
 	public void labyrinthe() {
-		
+
 	}
 
 	public void grille(int l, int c) {
@@ -47,15 +47,16 @@ public class Field {
 	}
 
 	public void grille2(int l, int c) {
+
 		Random rand = new Random();
-		//int tmp[][] = tmp;
+		// int tmp[][] = tmp;
 		int c1 = tmp[1][0];
 		int c2;
 		int count = 0;
-		while (is_finished(c1) == 0 && count<=ligne*colonne*2) {
-			//System.out.println("################################################################");
-			//System.out.println(count);
-			//printtmp();
+		while (is_finished(c1) == 0 && count <= ligne * colonne * 2) {
+			// System.out.println("################################################################");
+			// System.out.println(count);
+			// printLabyrinthe();
 			int x = rand.nextInt(l - 2) + 1;
 			int y;
 
@@ -89,6 +90,32 @@ public class Field {
 		}
 	}
 
+	/*
+	 * Entity elementAt(int x, int y) { return labyrinthe[x][y]; }
+	 */
+
+	public int get_ligne() {
+		return this.ligne;
+	}
+
+	public int get_colonne() {
+		return this.colonne;
+	}
+
+	void c_init(int c) {
+		this.colonne = c;
+	}
+
+	void l_init(int l) {
+		this.ligne = l;
+	}
+
+	/*
+	 * public void printGame(PrintStream ps) { for (int i = 0; i < this.ligne; i++)
+	 * { for (int j = 0; j < this.colonne; j++) { Entity e = elementAt(i, j); if (e
+	 * instanceof Void) ps.print(" "); if (e instanceof Mur) ps.print("O"); if (e
+	 * instanceof Apple) ps.print("*"); } } }
+	 */
 	public int is_finished(int c) {
 		for (int i = 1; i < ligne; i++) {
 			for (int j = 1; j < colonne; j++) {
@@ -99,20 +126,52 @@ public class Field {
 		}
 		return 1;
 	}
-	
+
 	public void printLabyrinthe() {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
 				if (tmp[i][j] == -1) {
 					System.out.print("O");
 				} else {
-					//System.out.print(tmp[i][j]);
-					 System.out.print(" ");
+					// System.out.print(tmp[i][j]);
+					System.out.print(" ");
 				}
 			}
 			System.out.println();
 		}
 
+	}
+
+	public void grow() {
+		int nb_ligne = ligne;
+		int nb_colonne = 2 * colonne;
+		int[][] new_labyrinthe = new int[nb_ligne][nb_colonne];
+		for (int i = 0; i < ligne; i++) {
+			int cpt = 0;
+			for (int j = 0; j < colonne; j++) {
+				new_labyrinthe[i][cpt] = tmp[i][j];
+				new_labyrinthe[i][++cpt] = tmp[i][j];
+				cpt++;
+			}
+		}
+		tmp = new_labyrinthe;
+		colonne = nb_colonne;
+		nb_ligne = 2 * ligne;
+		nb_colonne = colonne;
+		new_labyrinthe = new int[nb_ligne][nb_colonne];
+		int cpt = 0;
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				new_labyrinthe[cpt][j] = tmp[i][j];
+			}
+			cpt++;
+			for (int j = 0; j < colonne; j++) {
+				new_labyrinthe[cpt][j] = tmp[i][j];
+			}
+			cpt++;
+		}
+		tmp = new_labyrinthe;
+		ligne = nb_ligne;
 	}
 
 }

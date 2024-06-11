@@ -10,6 +10,7 @@ public class Field {
 	private int ligne;
 	private int[][] tmp;
 	Entity[][][] labyrinthe;
+	int nb_element = 6;
 
 	public Field(int lig, int col) {
 		if (col % 2 == 0) {
@@ -21,13 +22,41 @@ public class Field {
 		tmp = new int[lig][col];
 		this.colonne = col;
 		this.ligne = lig;
+		labyrinthe = new Entity[lig][col][nb_element];
 		grille(lig, col);
 		grille2(lig, col);
+		labyrinthe();
+		grow();
+	}
+	
+	public Field(int lig, int col, int densite) {
+		if (col % 2 == 0) {
+			col++;
+		}
+		if (lig % 2 == 0) {
+			lig++;
+		}
+		tmp = new int[lig][col];
+		this.colonne = col;
+		this.ligne = lig;
+		labyrinthe = new Entity[lig][col][nb_element];
+		grille(lig, col);
+		grille2(lig, col);
+		labyrinthe();
+		Obstacle(densite);
 		grow();
 	}
 
 	public void labyrinthe() {
-
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				if (tmp[i][j] == -1) {
+					labyrinthe[i][j][0] = new Normal(i, j, 1, 1, this);
+				} else {
+					labyrinthe[i][j][0] = new Void(i, j, 1, 1, this);
+				}
+			}
+		}
 	}
 	
 	public void grille(int l, int c) {
@@ -133,7 +162,7 @@ public class Field {
 			for (int j = 0; j < colonne; j++) {
 				if (tmp[i][j] == -1) {
 					System.out.print("O");
-				} else if (labyrinthe[i][j] == -3) {
+				} else if (labyrinthe[i][j][0] instanceof Mine) {
 					System.out.print("*");
 				} else {
 					// System.out.print(tmp[i][j]);
@@ -145,54 +174,69 @@ public class Field {
 
 	}
 
+	public void printGame() {
+		for (int i = 0; i < this.ligne; i++) {
+			for (int j = 0; j < this.colonne; j++) {
+				Entity e = labyrinthe[i][j][0];
+				if (e instanceof Void)
+					System.out.print(" ");
+				if (e instanceof Mur)
+					System.out.print("O");
+				if(e instanceof Mine)
+					System.out.print("*");
+			}
+			System.out.print("\n");
+		}
+	}
+
 	public void grow() {
 		int nb_ligne = ligne;
 		int nb_colonne = 2 * colonne;
-		int[][] new_labyrinthe = new int[nb_ligne][nb_colonne];
+		Entity[][][] new_labyrinthe = new Entity[nb_ligne][nb_colonne][6];
 		for (int i = 0; i < ligne; i++) {
 			int cpt = 0;
 			for (int j = 0; j < colonne; j++) {
-				new_labyrinthe[i][cpt] = labyrinthe[i][j];
-				if(labyrinthe[i][j] != -3) {
-					new_labyrinthe[i][++cpt] = labyrinthe[i][j];
+				new_labyrinthe[i][cpt][0] = labyrinthe[i][j][0];
+				if(!(labyrinthe[i][j][0] instanceof Mine)) {
+					new_labyrinthe[i][++cpt][0] = labyrinthe[i][j][0];
 				} else {
-					new_labyrinthe[i][++cpt] = 0;
+					new_labyrinthe[i][++cpt][0] = new Void(i, j, 1, 1, this);
 				}
 				cpt++;
 			}
 		}
-		tmp = new_labyrinthe;
+		labyrinthe = new_labyrinthe;
 		colonne = nb_colonne;
 		nb_ligne = 2 * ligne;
 		nb_colonne = colonne;
-		new_labyrinthe = new int[nb_ligne][nb_colonne];
+		new_labyrinthe = new Entity[nb_ligne][nb_colonne][6];
 		int cpt = 0;
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				new_labyrinthe[cpt][j] = tmp[i][j];
+				new_labyrinthe[cpt][j][0] = labyrinthe[i][j][0];
 			}
 			cpt++;
 			for (int j = 0; j < colonne; j++) {
-				if(labyrinthe[i][j] != -3) {
-					new_labyrinthe[cpt][j] = labyrinthe[i][j];
+				if(!(labyrinthe[i][j][0] instanceof Mine)) {
+					new_labyrinthe[cpt][j][0] = labyrinthe[i][j][0];
 				} else {
-					new_labyrinthe[cpt][j] = 0;
+					new_labyrinthe[cpt][j][0] = new Void(i, j, 1, 1, this);
 				}
 			}
 			cpt++;
 		}
-		tmp = new_labyrinthe;
+		labyrinthe = new_labyrinthe;
 		ligne = nb_ligne;
 	}
 	
-	public void Obstacle(int densite, int val) {
+	public void Obstacle(int densite) {
 		Random random = new Random();
 		for(int i=0; i<ligne; i++) {
 			for(int j=0; j<colonne; j++) {
-				if(labyrinthe[i][j] != -1) {
+				if(labyrinthe[i][j][0] instanceof Void) {
 					int rdm = random.nextInt(100);
 					if(rdm <= densite) {
-						labyrinthe[i][j] = val;
+						labyrinthe[i][j][0] = new Mine();
 					}
 				}
 			}

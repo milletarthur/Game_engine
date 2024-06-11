@@ -2,6 +2,9 @@
  * Main de test pour la view
  */
 
+import ViewWindow.DrawTerrain;
+import ViewWindow.Window;
+
 public class Game {
 	
 	/* TODO - HAUTEUR et LARGEUR seront les dimensions de la matrice */

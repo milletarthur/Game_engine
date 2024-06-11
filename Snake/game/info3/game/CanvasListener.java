@@ -32,7 +32,7 @@ public class CanvasListener implements GameCanvasListener {
   CanvasListener(Game game) {
     m_game = game;
   }
-
+  
   @Override
   public void mouseClicked(MouseEvent e) {
     System.out.println("Mouse clicked: ("+e.getX()+","+e.getY()+")");

@@ -33,7 +33,7 @@ public class Field {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
 				if(tmp[i][j] == -1) {
-					labyrinthe[i][j][0] = new Normal(i,j,1,1,this);;
+					labyrinthe[i][j][0] = new Normal(i,j,1,1,this);
 				} else {
 					labyrinthe[i][j][0] = new Void(i,j,1,1,this);;
 				}

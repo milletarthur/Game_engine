@@ -2,21 +2,14 @@ package Labyrinthe;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
 public class Field {
 	private int colonne;
 	private int ligne;
-	private int[][] labyrinthe;
-	
-	public final static int Mur = -1;
-	public final static int Void = 0;
-	public final static int Pomme = 1;
-	public final static int Potion = 2;
-	public final static int Epee = 3;
-	public final static int Arc = 4;
+	private int[][] tmp;
+	Entity[][][] labyrinthe;
 
 	public Field(int lig, int col) {
 		if (col % 2 == 0) {
@@ -25,11 +18,16 @@ public class Field {
 		if (lig % 2 == 0) {
 			lig++;
 		}
-		labyrinthe = new int[lig][col];
+		tmp = new int[lig][col];
 		this.colonne = col;
 		this.ligne = lig;
 		grille(lig, col);
 		grille2(lig, col);
+		grow();
+	}
+
+	public void labyrinthe() {
+
 	}
 	
 	public void grille(int l, int c) {
@@ -37,13 +35,13 @@ public class Field {
 		for (int i = 0; i < l; i++) {
 			for (int j = 0; j < c; j++) {
 				if (i % 2 == 0) {
-					labyrinthe[i][j] = -1;
+					tmp[i][j] = -1;
 				} else if (i % 2 != 0 && j % 2 != 0) {
-					labyrinthe[i][j] = nombre;
+					tmp[i][j] = nombre;
 					nombre++;
 
 				} else {
-					labyrinthe[i][j] = -1;
+					tmp[i][j] = -1;
 				}
 			}
 		}
@@ -52,8 +50,8 @@ public class Field {
 	public void grille2(int l, int c) {
 
 		Random rand = new Random();
-		int tmp[][] = labyrinthe;
-		int c1 = labyrinthe[1][0];
+		// int tmp[][] = tmp;
+		int c1 = tmp[1][0];
 		int c2;
 		int count = 0;
 		while (is_finished(c1) == 0 && count <= ligne * colonne * 2) {
@@ -69,23 +67,23 @@ public class Field {
 				y = (rand.nextInt((c - 2) / 2)) * 2 + 2;
 			}
 
-			if (labyrinthe[x - 1][y] == -1) {
-				c1 = labyrinthe[x][y - 1];
-				c2 = labyrinthe[x][y + 1];
+			if (tmp[x - 1][y] == -1) {
+				c1 = tmp[x][y - 1];
+				c2 = tmp[x][y + 1];
 			} else {
-				c1 = labyrinthe[x - 1][y];
-				c2 = labyrinthe[x + 1][y];
+				c1 = tmp[x - 1][y];
+				c2 = tmp[x + 1][y];
 			}
 			if (c1 != c2) {
-				labyrinthe[x][y] = 0;
+				tmp[x][y] = 0;
 				for (int i = 1; i < l - 1; i = i + 2) {
 					for (int j = 1; j < c - 1; j = j + 2) {
-						if (labyrinthe[i][j] == c2) {
-							labyrinthe[i][j] = c1;
+						if (tmp[i][j] == c2) {
+							tmp[i][j] = c1;
 						}
 
-						labyrinthe[1][0] = c1;
-						labyrinthe[ligne - 2][colonne - 1] = c1;
+						tmp[1][0] = c1;
+						tmp[ligne - 2][colonne - 1] = c1;
 					}
 				}
 			}
@@ -122,7 +120,7 @@ public class Field {
 	public int is_finished(int c) {
 		for (int i = 1; i < ligne; i++) {
 			for (int j = 1; j < colonne; j++) {
-				if (!((labyrinthe[i][j] == -1 || labyrinthe[i][j] == c))) {
+				if (!((tmp[i][j] == -1 || tmp[i][j] == c))) {
 					return 0;
 				}
 			}
@@ -133,12 +131,12 @@ public class Field {
 	public void printLabyrinthe() {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				if (labyrinthe[i][j] == -1) {
+				if (tmp[i][j] == -1) {
 					System.out.print("O");
 				} else if (labyrinthe[i][j] == -3) {
 					System.out.print("*");
 				} else {
-					// System.out.print(labyrinthe[i][j]);
+					// System.out.print(tmp[i][j]);
 					System.out.print(" ");
 				}
 			}
@@ -163,7 +161,7 @@ public class Field {
 				cpt++;
 			}
 		}
-		labyrinthe = new_labyrinthe;
+		tmp = new_labyrinthe;
 		colonne = nb_colonne;
 		nb_ligne = 2 * ligne;
 		nb_colonne = colonne;
@@ -171,7 +169,7 @@ public class Field {
 		int cpt = 0;
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				new_labyrinthe[cpt][j] = labyrinthe[i][j];
+				new_labyrinthe[cpt][j] = tmp[i][j];
 			}
 			cpt++;
 			for (int j = 0; j < colonne; j++) {
@@ -183,7 +181,7 @@ public class Field {
 			}
 			cpt++;
 		}
-		labyrinthe = new_labyrinthe;
+		tmp = new_labyrinthe;
 		ligne = nb_ligne;
 	}
 	
@@ -199,6 +197,10 @@ public class Field {
 				}
 			}
 		}
+	}
+	
+	public Entity[] getElement(int x, int y) {
+		return labyrinthe[x][y];
 	}
 
 }

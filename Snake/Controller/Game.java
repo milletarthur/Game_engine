@@ -1,5 +1,3 @@
-import java.awt.*;
-import javax.swing.*;
 /*
  * Main de test pour la view
  */

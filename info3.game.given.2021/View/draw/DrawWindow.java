@@ -1,7 +1,11 @@
+package draw;
+
 import java.awt.*;
+import javax.swing.*;
+
 import java.io.IOException;
 
-import javax.swing.*;
+import Labyrinthe.Field ;
 
 /*
  * Classe qui gère la fenêtre
@@ -10,14 +14,16 @@ import javax.swing.*;
 public class DrawWindow extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	int LARGEUR ;
-	int HAUTEUR ;
+	private int LARGEUR ;
+	private int HAUTEUR ;
+	private int T_case ;
 	
-	DrawTerrain dt ;
+	private DrawTerrain dt ;
 	
-	public DrawWindow (int LARGEUR, int HAUTEUR) throws IOException {
+	public DrawWindow (int LARGEUR, int HAUTEUR, Field terrain, int T_case) throws IOException {
 		this.LARGEUR = LARGEUR ;
 		this.HAUTEUR = HAUTEUR ;
+		this.T_case = T_case ;
 		this.getContentPane().setLayout(new BorderLayout());
 		// nom de la fenêtre
 		this.setTitle("Labyrinth"); // TODO - mettre le nom dans le fichier de config pour le nom du jeu (Labyrinth / Arène)
@@ -29,7 +35,7 @@ public class DrawWindow extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// initialisation du terrain
-		this.dt = new DrawTerrain(LARGEUR, HAUTEUR);
+		this.dt = new DrawTerrain(terrain, T_case);
 		
 		// TODO - rajouter le timer ?
 		
@@ -37,7 +43,7 @@ public class DrawWindow extends JFrame {
 	
 	public void init_Window() {
 		// impose la taille de la fenêtre avec celui du JPanel
-		dt.setPreferredSize(new Dimension(LARGEUR, HAUTEUR));
+		dt.setPreferredSize(new Dimension(LARGEUR*T_case, HAUTEUR*T_case));
 		
 		// ajout du terrain à la fenêtre
 		this.add(dt, BorderLayout.CENTER);

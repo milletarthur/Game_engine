@@ -9,7 +9,8 @@ public class Field {
 	private int colonne;
 	private int ligne;
 	private int[][] tmp;
-	LinkedList<Entity>[][] labyrinthe;
+	Entity[][][] labyrinthe;
+	int nb_element = 6;
 
 	public Field(int lig, int col) {
 		if (col % 2 == 0) {
@@ -21,13 +22,23 @@ public class Field {
 		tmp = new int[lig][col];
 		this.colonne = col;
 		this.ligne = lig;
+		labyrinthe = new Entity[ligne][colonne][nb_element];
 		grille(lig, col);
 		grille2(lig, col);
 		grow();
+		labyrinthe();
 	}
 
 	public void labyrinthe() {
-
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				if(tmp[i][j] == -1) {
+					labyrinthe[i][j][0] = new Normal(i,j,1,1,this);;
+				} else {
+					labyrinthe[i][j][0] = new Void(i,j,1,1,this);;
+				}
+			}
+		}
 	}
 
 	public void grille(int l, int c) {
@@ -141,6 +152,19 @@ public class Field {
 			System.out.println();
 		}
 
+	}
+	
+	public void printGame() {
+		for (int i = 0; i < this.ligne; i++) {
+			for (int j = 0; j < this.colonne; j++) {
+				Entity e = labyrinthe[i][j][0];
+				if (e instanceof Void)
+					System.out.print(" ");
+				if (e instanceof Mur)
+					System.out.print("O");
+			}
+			System.out.print("\n");
+		}
 	}
 
 	public void grow() {

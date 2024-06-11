@@ -8,7 +8,7 @@ public class Test {
 		// for (int i = 0; i < 3; i++) {
 		System.out.println("Hello!");
 		Field f = new Field(20, 40);
-		f.printLabyrinthe();
+		f.printGame();
 	}
 	// }
 }

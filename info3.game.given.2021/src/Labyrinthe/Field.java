@@ -46,10 +46,10 @@ public class Field {
 		int c1 = labyrinthe[1][0];
 		int c2;
 		int count = 0;
-		while (is_finished(c1) == 0 && count<=ligne*colonne*2) {
-			//System.out.println("################################################################");
-			//System.out.println(count);
-			//printLabyrinthe();
+		while (is_finished(c1) == 0 && count <= ligne * colonne * 2) {
+			// System.out.println("################################################################");
+			// System.out.println(count);
+			// printLabyrinthe();
 			int x = rand.nextInt(l - 2) + 1;
 			int y;
 
@@ -93,20 +93,53 @@ public class Field {
 		}
 		return 1;
 	}
-	
+
 	public void printLabyrinthe() {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
 				if (labyrinthe[i][j] == -1) {
 					System.out.print("O");
 				} else {
-					//System.out.print(labyrinthe[i][j]);
-					 System.out.print(" ");
+					// System.out.print(labyrinthe[i][j]);
+					System.out.print(" ");
 				}
 			}
 			System.out.println();
 		}
 
 	}
+
+	public void grow() {
+		int nb_ligne = ligne;
+		int nb_colonne = 2 * colonne;
+		int[][] new_labyrinthe = new int[nb_ligne][nb_colonne];
+		for (int i = 0; i < ligne; i++) {
+			int cpt = 0;
+			for (int j = 0; j < colonne; j++) {
+				new_labyrinthe[i][cpt] = labyrinthe[i][j];
+				new_labyrinthe[i][++cpt] = labyrinthe[i][j];
+				cpt++;
+			}
+		}
+		labyrinthe = new_labyrinthe;
+		colonne = nb_colonne;
+		nb_ligne = 2 * ligne;
+		nb_colonne = colonne;
+		new_labyrinthe = new int[nb_ligne][nb_colonne];
+		int cpt = 0;
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				new_labyrinthe[cpt][j] = labyrinthe[i][j];
+			}
+			cpt++;
+			for (int j = 0; j < colonne; j++) {
+				new_labyrinthe[cpt][j] = labyrinthe[i][j];
+			}
+			cpt++;
+		}
+		labyrinthe = new_labyrinthe;
+		ligne = nb_ligne;
+	}
+	
 
 }

@@ -9,7 +9,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
-import Labyrinthe.Field ;
+
+import Labyrinthe.*;
+import Labyrinthe.Void;
+
 
 /*
  * Classe qui gère le dessin du terrain
@@ -23,9 +26,14 @@ public class DrawTerrain extends JPanel {
 	
 	private Sprite CHEMIN ;
 	private Sprite MUR ;
+	private Sprite MINE ;
+	private Sprite PLAYER ;
 	
 	private BufferedImage chemin ;
 	private BufferedImage mur ;
+	private BufferedImage mine ;
+	private BufferedImage player1 ;
+	private BufferedImage player2 ;
 	
 	// temp
 	Color black = Color.black ;
@@ -70,15 +78,18 @@ public class DrawTerrain extends JPanel {
 	public void drawElements(Graphics g) {
 		for (int i = 0 ; i < terrain.get_colonne() ; i++) {
 			for (int j = 0 ; j < terrain.get_ligne() ; j++) {
-				int temp = terrain.elementAt(j,i); // TODO - à convertir en Entity
+				Entity[] temp = terrain.getElement(j,i); // TODO - à convertir en Entity
 				//iterateur
-				
-				if (temp == -1) {
-					g.drawImage(mur,i*T_case,j*T_case,T_case,T_case,null);
-				}
-				else {
+				//for (int k = 0 ; k < 6 ; k++) {
+				if (temp[0] instanceof Void) { //chemin
 					g.drawImage(chemin,i*T_case,j*T_case,T_case,T_case,null);
-				}				
+				} else if (temp[0] instanceof Normal) { //mur normal
+					g.drawImage(mur,i*T_case,j*T_case,T_case,T_case,null);
+				} else if (temp[0] instanceof Mine) { //mine
+					// TODO - refaire propre avec le tableau complet
+					g.drawImage(chemin,i*T_case,j*T_case,T_case,T_case,null);
+					g.drawImage(mine,i*T_case,j*T_case,T_case,T_case,null);
+				}
 			}
 		}
 		
@@ -93,6 +104,13 @@ public class DrawTerrain extends JPanel {
 		//murs
 		this.MUR = new Sprite("resources/graphisme/Structures/stone_wall.png", 24, 24);
 		this.mur = MUR.getSprite(0,0);
+		
+		this.MINE = new Sprite("resources/graphisme/items.png",16,16);
+		this.mine = MINE.getSprite(6,21);
+		
+		this.PLAYER = new Sprite("resources/graphisme/Personnages/sprites_weaponless.png",26,26);
+		this.player1 = PLAYER.getSprite(0,20);
+		this.player2 = PLAYER.getSprite(0,0);
 		
 	}
 

@@ -11,13 +11,13 @@ import Labyrinthe.Field;
 
 public class Game {
 	
-	private final static int LARGEUR = 50 ;
-	private final static int HAUTEUR = 30 ;
-	private static final int T_case = 10 ;
+	private final static int LARGEUR = 10 ;
+	private final static int HAUTEUR = 10 ;
+	private static final int T_case = 20 ;
 	
 	public static void main(String[] args) throws IOException {
 		
-		Field terrain = new Field(HAUTEUR, LARGEUR);
+		Field terrain = new Field(HAUTEUR, LARGEUR, 10);
 		
 		//initialisation de la fenêtre
 		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case);

@@ -12,13 +12,13 @@ public class Turn implements IAction {
 	
 	public Turn (Entity entity) {
 		this.entity = entity ;
-//		this.dt = ;
+//		this.dt =  ; TODO
 	}
 	
 	public Turn (Entity entity, int Direction) {
 		this.entity = entity ;
 		this.Direction = Direction ;
-//		this.dt = ;		
+//		this.dt =  ; TODO	
 	}
 
 	@Override

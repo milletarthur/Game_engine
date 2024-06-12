@@ -25,9 +25,6 @@ public class Field {
 		
 	}
 
-	Entity elementAt(int x, int y) {
-		return grid[x][y];
-	}
 
 	public int get_ligne() {
 		return this.ligne;
@@ -35,6 +32,12 @@ public class Field {
 
 	public int get_colonne() {
 		return this.colonne;
+	}
+	
+	public Entity elementAt(int x, int y) {
+		// throw new RuntimeException("Not implemented Yet !");
+		return grid[x][y];
+
 	}
 
 	void c_init(int c) {

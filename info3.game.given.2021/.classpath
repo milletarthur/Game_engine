@@ -9,7 +9,10 @@
 	<classpathentry kind="src" path="graphics"/>
 	<classpathentry kind="src" path="audio"/>
 	<classpathentry kind="src" path="game"/>
+<<<<<<< HEAD
 	<classpathentry kind="src" path="View"/>
+=======
+>>>>>>> ControllerArthurEtPierre
 	<classpathentry kind="src" path="Controller"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

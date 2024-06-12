@@ -3,6 +3,8 @@ package listener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import Labyrinthe.Joueur;
+
 public class Key_Listener implements KeyListener {
 	
 	Joueur j1 ;

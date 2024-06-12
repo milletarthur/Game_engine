@@ -1,17 +1,13 @@
 package Labyrinthe;
 
-import toolkit.Direction;
+public class Lave extends Entity {
 
-/*
- * Classe Joueur
- * 
- * x et y sont les coordonnées de ce joueur dans la matrice
- */
-public class Joueur extends Entity {
-	
-	public Joueur(int x, int y) {
-		this.x = x ;
-		this.y = y ;
+	public Lave(int x, int y, int team, int category, Field f) {
+		this.x = x;
+		this.y = y;
+		this.category = category;
+		this.team = team;
+		this.f = f;
 	}
 
 	@Override
@@ -22,22 +18,8 @@ public class Joueur extends Entity {
 
 	@Override
 	public void move() {
-		switch (Orientation) {
-			case Direction.N:
-				this.y -= 1;
-				break;
-			case Direction.S:
-				this.y += 1;
-				break;
-			case Direction.E:
-				this.x += 1;
-				break;
-			case Direction.W:
-				this.x -= 1;
-				break;
-			default:
-				break;
-		}
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override

@@ -170,6 +170,7 @@ public class Field {
 				}
 			}
 		}
+		set_element(3,0,new Joueur(3,0),labyrinthe);
 	}
 
 	public void grille(int l, int c) {

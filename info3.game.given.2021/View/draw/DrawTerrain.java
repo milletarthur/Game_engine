@@ -87,11 +87,11 @@ public class DrawTerrain extends JPanel {
 					g.drawImage(chemin[x], i * T_case, j * T_case, T_case, T_case, null);
 					g.setColor(new Color(90, 90, 90));
 					g.fillRect(i * T_case + y, j * T_case + z, 2, 2);
+				} else if (temp[0] instanceof Joueur) {
+					g.drawImage(player1, i*T_case, j*T_case, T_case, T_case, null);
 				}
 			}
 		}
-		g.drawImage(player1, 1*T_case, 2*T_case, T_case, T_case, null);
-
 	}
 
 	public void chargement_Image() throws IOException {

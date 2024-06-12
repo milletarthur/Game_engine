@@ -4,8 +4,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Key_Listener implements KeyListener {
+	
+	Joueur j1 ;
 
-	public Key_Listener () {
+	public Key_Listener (Joueur j1) {
+		this.j1 = j1 ;
 		
 	}
 		
@@ -17,6 +20,7 @@ public class Key_Listener implements KeyListener {
 			int touche = e.getKeyCode();
 			switch(touche) {
 			case KeyEvent.VK_UP : //haut
+				j1.move();
 				break;
 			case KeyEvent.VK_LEFT : //droite
 				break;

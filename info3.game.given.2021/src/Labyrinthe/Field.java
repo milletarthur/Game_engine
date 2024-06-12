@@ -112,7 +112,7 @@ public class Field {
 		//grow();
 	}
 
-	int calcul_densite() {
+	int calcul_nombre_mur() {
 		int count = 0;
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
@@ -122,15 +122,18 @@ public class Field {
 			}
 		}
 		int total = ligne * colonne;
-		return ((100 * count) / total);
+		//return ((100 * count) / total);
+		return count;
 	}
 
 	void detruire_mur(int densite) {
 		Random rand = new Random();
-		int d = calcul_densite();
+		int nb_mur_totale = calcul_nombre_mur();
+		int new_nb_mur = nb_mur_totale;
+		int d = new_nb_mur*100/nb_mur_totale;
 		int x;
 		int y;
-		while (densite <= d) {
+		while (densite < d) {
 			x = rand.nextInt(ligne);
 			y = rand.nextInt(colonne);
 			while (tmp[x][y] != -1) {
@@ -138,7 +141,8 @@ public class Field {
 				y = rand.nextInt(colonne);
 			}
 			tmp[x][y] = 0;
-			d = calcul_densite();
+			new_nb_mur = calcul_nombre_mur();
+			d = new_nb_mur*100/nb_mur_totale;
 		}
 	}
 	

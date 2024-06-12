@@ -16,7 +16,7 @@ public class TicTac {
 	long last_tick ;
 	long init = System.currentTimeMillis();
 	
-	private static final int TICK_PERIOD = 1000; // en milliseconde
+	private static final int TICK_PERIOD = 500; // en milliseconde
 	
 	private Window w ;
 	private TickListener List;
@@ -40,7 +40,7 @@ public class TicTac {
 
     private void tick() {
     	List.step();
-    	last_tick = (System.currentTimeMillis() - init) / 1000 ;
+    	last_tick = (System.currentTimeMillis() - init) / 500 ;
         w.repaint();
         //System.out.println("Tick at: " + last_tick);
     }

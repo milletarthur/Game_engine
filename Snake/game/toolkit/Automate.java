@@ -11,9 +11,9 @@ public abstract class Automate {
 	
 	public void step(Entity e) {
 		Iterator<Transition> iter = Transitions.iterator();
-		System.out.print(e.x());
-	    System.out.print(",");
-	    System.out.println(e.y());
+//		System.out.print(e.x());
+//	    System.out.print(",");
+//	    System.out.println(e.y());
 		while(iter.hasNext()) {
 			Transition trans = iter.next();
 			if (Current.equals(trans.getSource()) && trans.CheckCondition(e)) {

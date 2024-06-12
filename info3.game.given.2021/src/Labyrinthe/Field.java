@@ -107,7 +107,6 @@ public class Field {
 		detruire_mur(densite);
 		labyrinthe();
 		deposer_Porte();
-		// grow();
 	}
 
 	int calcul_nombre_mur() {
@@ -295,6 +294,8 @@ public class Field {
 					System.out.print("O");
 				if (e instanceof Mine)
 					System.out.print("*");
+				if (e instanceof Sable)
+					System.out.print("S");
 			}
 			System.out.print("\n");
 		}
@@ -386,6 +387,7 @@ public class Field {
 		}
 	}
 
+
 	public void deposer_Porte() {
 		int len = 10;
 		LinkedList<int[]> liste = bulldozer(len);
@@ -415,7 +417,6 @@ public class Field {
 					if (get_element(x, y--) instanceof Void && y > 0) {
 						tab[0] = x;
 						tab[1] = y;
-						// liste.add(tab);
 					}
 					break;
 				case 1: // Bas
@@ -446,6 +447,81 @@ public class Field {
 			}
 		}
 		return liste;
+	}
+
+	public void SableMouvant(int densite) {
+		Random random = new Random();
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				int eval = 1;
+
+				int k_i = i;
+				int k_j_min = Math.max(0, j - 1);
+				int k_j_max = Math.min(colonne - 1, j + 1);
+
+				// Vérification ligne actuelle
+				for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+					if (ContainsInstanceof(this.getElement(k_i, k_j), (new Sable()).getClass()) == 1) {
+						eval = 0;
+					}
+				}
+
+				// Vérification ligne suivante
+				k_i = i + 1;
+				if (k_i < ligne) {
+					for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+						if (ContainsInstanceof(this.getElement(k_i, k_j), (new Sable()).getClass()) == 1) {
+							eval = 0;
+						}
+					}
+				}
+
+				// Vérification ligne précédente
+				k_i = i - 1;
+				if (k_i >= 0) {
+					for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+						if (ContainsInstanceof(this.getElement(k_i, k_j), (new Sable()).getClass()) == 1) {
+							eval = 0;
+						}
+					}
+				}
+
+				if (ContainsInstanceof(this.getElement(i, j), (new Teleporteur()).getClass()) == 0) {
+					// Case Void pu lave au début
+					if ((this.getElement(i, j)).get(0) instanceof Void
+							|| (this.getElement(i, j)).get(0) instanceof Lave) {
+						int rdm = random.nextInt(100);
+
+						if (rdm <= densite && eval == 1) {
+							this.getElement(i, j).add(new Sable());
+							// this.getElement(i, j).add(0, new Sable());
+						}
+					} else {
+						int rdm = random.nextInt(100);
+						if (rdm <= densite && eval == 1) {
+							this.getElement(i, j).add(0, new Sable());
+							// this.getElement(i, j).add(new Sable());
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/*
+	 * La méthode suivante prend une liste chainé et un objet o en parametre. Elle
+	 * renvoie 1 si jamais la liste contient un objet instanceof ( type de o )
+	 */
+	public int ContainsInstanceof(LinkedList<Entity> liste, Class<?> c) {
+
+		// Parcourir la liste pour voir si elle contient un objet du même type que o
+		for (int i = 0; i < liste.size(); i++) {
+			if (c.isAssignableFrom(liste.get(i).getClass())) {
+				return 1;
+			}
+		}
+		return 0;
+
 	}
 
 	public LinkedList<Entity> getElement(int x, int y) {

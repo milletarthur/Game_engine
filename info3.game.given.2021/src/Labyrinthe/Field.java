@@ -1,7 +1,5 @@
 package Labyrinthe;
 
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
@@ -13,7 +11,7 @@ public class Field {
 //	Entity[][][] labyrinthe;
 //	ArrayList<ArrayList<LinkedList<Entity>>> Labyrinthe;
 	ArrayList<Object> labyrinthe;
-	int nb_element = 6;
+//	int nb_element = 6;
 
 //	public Field(int l, int c) {
 //	labyrinthe = new ArrayList<Object>(new ArrayList<Object>(new LinkedList<Entity>()));
@@ -144,13 +142,14 @@ public class Field {
 	}
 
 	public void set_element(int indice_i, int indice_j, Entity e, ArrayList<Object> lab) {
-		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(indice_i);
+		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) lab.get(indice_i);
 		LinkedList<Entity> elem = row.get(indice_j);
-		elem.addLast(e);
+//		elem.addLast(e);
+		elem.addFirst(e);
 	}
 
-	public Entity get_element(int indice_i, int indice_j) {
-		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(indice_i);
+	public Entity get_element(int indice_i, int indice_j, ArrayList<Object> lab) {
+		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) lab.get(indice_i);
 		LinkedList<Entity> elem = row.get(indice_j);
 		return elem.element();
 	}
@@ -287,7 +286,7 @@ public class Field {
 	public void printGame() {
 		for (int i = 0; i < this.ligne; i++) {
 			for (int j = 0; j < this.colonne; j++) {
-				Entity e = get_element(i, j);
+				Entity e = get_element(i, j, labyrinthe);
 				if (e instanceof Void)
 					System.out.print(" ");
 				if (e instanceof Mur)
@@ -308,9 +307,9 @@ public class Field {
 		Entity e;
 //		Entity[][][] new_labyrinthe = new Entity[nb_ligne][nb_colonne][6];
 		ArrayList<Object> new_labyrinthe = new ArrayList<Object>();
-		for(int i=0; i < ligne; i++) {
+		for (int i = 0; i < ligne; i++) {
 			ArrayList<LinkedList<Entity>> row = new ArrayList<>();
-			for (int j = 0; j < colonne; j++) {
+			for (int j = 0; j < nb_colonne; j++) {
 				row.add(new LinkedList<Entity>());
 			}
 			new_labyrinthe.add(row);
@@ -318,24 +317,24 @@ public class Field {
 		for (int i = 0; i < ligne; i++) {
 			int cpt = 0;
 			for (int j = 0; j < colonne; j++) {
-				e = get_element(i,j);
+				e = get_element(i, j, labyrinthe);
 				int val = rdm.nextInt(2);
 				set_element(i, cpt, e, new_labyrinthe);
 //				new_labyrinthe[i][cpt][0] = labyrinthe[i][j][0];
 				cpt++;
 //				if (new_labyrinthe[i][cpt - 1][0] instanceof Mine) {
-				if(get_element(i, cpt-1) instanceof Mine) {
+				if (get_element(i, cpt - 1, new_labyrinthe) instanceof Mine) {
 					if (val == 0) {
 						set_element(i, cpt, new Void(i, cpt, 1, 1, this), new_labyrinthe);
 //						new_labyrinthe[i][cpt][0] = new Void(i, cpt, 1, 1, this);
 					} else {
-						set_element(i, cpt-1, new Void(i, cpt-1, 1, 1, this), new_labyrinthe);
+						set_element(i, cpt - 1, new Void(i, cpt - 1, 1, 1, this), new_labyrinthe);
 //						new_labyrinthe[i][cpt - 1][0] = new Void(i, cpt-1, 1, 1, this);
 						set_element(i, cpt, new Mine(), new_labyrinthe);
 //						new_labyrinthe[i][cpt][0] = new Mine();
 					}
 				} else {
-					e = get_element(i, j);
+					e = get_element(i, j, labyrinthe);
 					set_element(i, cpt, e, new_labyrinthe);
 //					new_labyrinthe[i][cpt][0] = labyrinthe[i][j][0];
 				}
@@ -358,28 +357,29 @@ public class Field {
 		int cpt = 0;
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				e = get_element(cpt, j);
+				e = get_element(i, j, new_labyrinthe);
+				set_element(cpt, j, e, new_labyrinthe2);
 //				 new_labyrinthe[cpt][j][0] = labyrinthe[i][j][0];
 			}
 			cpt++;
 			for (int j = 0; j < colonne; j++) {
 				int val = rdm.nextInt(2);
-				e = get_element(i, j);
+				e = get_element(i, j, labyrinthe);
 				if (e instanceof Mine) {
-					if(val == 0) {
-						set_element(cpt, j, new Void(cpt, j, 1, 1, this), new_labyrinthe);
+					if (val == 0) {
+						set_element(cpt, j, new Void(cpt, j, 1, 1, this), new_labyrinthe2);
 //						new_labyrinthe[cpt][j][0] = new Void(cpt, j, 1, 1, this);
-						set_element(cpt-1, j, new Mine(), new_labyrinthe);
+						set_element(cpt - 1, j, new Mine(), new_labyrinthe2);
 //						new_labyrinthe[cpt-1][j][0] = new Mine();
 					} else {
-						set_element(cpt, j, new Mine(), new_labyrinthe);
+						set_element(cpt, j, new Mine(), new_labyrinthe2);
 //						new_labyrinthe[cpt][j][0] = new Mine();
-						set_element(cpt-1, j, new Void(cpt-1, j, 1, 1, this), new_labyrinthe);
+						set_element(cpt - 1, j, new Void(cpt - 1, j, 1, 1, this), new_labyrinthe2);
 //						new_labyrinthe[cpt-1][j][0] = new Void(cpt-1, j, 1, 1, this);
 					}
 				} else {
-					e = get_element(i, j);
-					set_element(cpt, j, e, new_labyrinthe);
+					e = get_element(i, j, labyrinthe);
+					set_element(cpt, j, e, new_labyrinthe2);
 //					new_labyrinthe[cpt][j][0] = labyrinthe[i][j][0];
 				}
 			}
@@ -393,16 +393,17 @@ public class Field {
 		Random random = new Random();
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				if (labyrinthe[i][j][0] instanceof Void) {
+				Entity e = get_element(i, j, labyrinthe);
+				if (e instanceof Void) {
 					int rdm = random.nextInt(100);
 					if (rdm <= densite) {
-						labyrinthe[i][j][0] = new Mine();
+//						labyrinthe[i][j][0] = new Mine();
+						set_element(i, j, new Mine(), labyrinthe);
 					}
 				}
 			}
 		}
 	}
-
 
 	public void deposer_Porte() {
 		int len = 10;
@@ -430,25 +431,25 @@ public class Field {
 				int direction = r.nextInt(4);
 				switch (direction) {
 				case 0: // Haut
-					if (get_element(x, y--) instanceof Void && y > 0) {
+					if (get_element(x, y--, labyrinthe) instanceof Void && y > 0) {
 						tab[0] = x;
 						tab[1] = y;
 					}
 					break;
 				case 1: // Bas
-					if (get_element(x, y++) instanceof Void && y < colonne - 1) {
+					if (get_element(x, y++, labyrinthe) instanceof Void && y < colonne - 1) {
 						tab[0] = x;
 						tab[1] = y;
 					}
 					break;
 				case 2: // Gauche
-					if (get_element(x--, y) instanceof Void && x > 0) {
+					if (get_element(x--, y, labyrinthe) instanceof Void && x > 0) {
 						tab[0] = x;
 						tab[1] = y;
 					}
 					break;
 				case 3: // Droite
-					if (get_element(x++, y) instanceof Void && y < ligne - 1) {
+					if (get_element(x++, y, labyrinthe) instanceof Void && y < ligne - 1) {
 						tab[0] = x;
 						tab[1] = y;
 					}

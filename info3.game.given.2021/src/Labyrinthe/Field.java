@@ -57,8 +57,10 @@ public class Field {
 		grille(lig, col);
 		grille2(lig, col);
 		labyrinthe();
-//		Obstacle(densite);
+		Obstacle(densite);
+		printGame();
 		grow();
+		lave();
 		SableMouvant(densite);
 	}
 
@@ -137,11 +139,12 @@ public class Field {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
 				if (tmp[i][j] == -1) {
-					Entity e = new Normal(i, j, 1, 1, this);
-					set_element(i, j, e, labyrinthe);
+					set_element(i, j, new Normal(i, j, 1, 1, this), labyrinthe);
+					set_element(i, j, new Void(i, j, 1, 1, this), labyrinthe);
+					set_element(i, j, new Lave(i, j, 1, 1, this), labyrinthe);
 				} else {
-					Entity e = new Void(i, j, 1, 1, this);
-					set_element(i, j, e, labyrinthe);
+					set_element(i, j, new Void(i, j, 1, 1, this), labyrinthe);
+					set_element(i, j, new Lave(i, j, 1, 1, this), labyrinthe);
 				}
 			}
 		}
@@ -248,7 +251,8 @@ public class Field {
 	public void printGame() {
 		for (int i = 0; i < this.ligne; i++) {
 			for (int j = 0; j < this.colonne; j++) {
-				Entity e = get_element(i, j, labyrinthe);
+//				Entity e = get_element(i, j, labyrinthe);
+				Entity e = getElement(i,j).getLast();
 				if (e instanceof Void)
 					System.out.print(" ");
 				if (e instanceof Mur)
@@ -257,6 +261,8 @@ public class Field {
 					System.out.print("*");
 				if (e instanceof Sable)
 					System.out.print("S");
+				if (e instanceof Lave)
+					System.out.print("L");
 			}
 			System.out.print("\n");
 		}
@@ -338,16 +344,16 @@ public class Field {
 	}
 
 	public void Obstacle(int densite) {
-		if(densite == 0)
+		if (densite == 0)
 			return;
 		Random random = new Random();
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				Entity e = get_element(i, j, labyrinthe);
-				if (e instanceof Void) {
+				Entity e = getElement(i, j).getLast();
+				if (e instanceof Void || e instanceof Cassable) {
 					int rdm = random.nextInt(100);
 					if (rdm <= densite) {
-						set_element(i, j, new Mine(), labyrinthe);
+						getElement(i,j).addLast(new Mine());
 					}
 				}
 			}
@@ -414,9 +420,9 @@ public class Field {
 		}
 		return liste;
 	}
-	
+
 	public void SableMouvant(int densite) {
-		if(densite == 0)
+		if (densite == 0)
 			return;
 		Random random = new Random();
 		for (int i = 0; i < ligne; i++) {
@@ -456,10 +462,9 @@ public class Field {
 
 				if (ContainsInstanceof(getElement(i, j), (new Teleporteur()).getClass()) == 0) {
 					// Case Void pu lave au début
-					if (((getElement(i, j)).get(0) instanceof Void
-							|| (getElement(i, j)).get(0) instanceof Lave)) {
+					if (((getElement(i, j)).get(0) instanceof Void || (getElement(i, j)).get(0) instanceof Lave)) {
 						int rdm = random.nextInt(100);
-						
+
 						if (rdm <= densite && eval == 1 && ContainsInstanceof(getElement(i, j), Mur.class) == 0) {
 							getElement(i, j).add(new Sable());
 						}
@@ -472,6 +477,22 @@ public class Field {
 				}
 			}
 		}
+	}
+
+	public void lave() {
+//		for (int i = 0; i < ligne; i++) {
+//			for (int j = 0; j < colonne; j++) {
+//				if ((ContainsInstanceof(this.getElement(i, j), (new Void(i, j, 1, 1, this)).getClass()) == 1)
+//						|| (((ContainsInstanceof(this.getElement(i, j), (new Teleporteur()).getClass()) == 0)
+//								&& (ContainsInstanceof(this.getElement(i, j),
+//										(new Normal(0, 0, 0, 0, this)).getClass()) == 0))
+//								&& ((ContainsInstanceof(this.getElement(i, j), (new Cassable()).getClass()) == 1)
+//										|| (ContainsInstanceof(this.getElement(i, j),
+//												(new Invisible()).getClass()) == 1)))) {
+//					this.getElement(i, j).add(0, new Lave(i, j, 1, 1, this));
+//				}
+//			}
+//		}
 	}
 
 	/*

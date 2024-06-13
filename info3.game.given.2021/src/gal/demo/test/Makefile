@@ -1,7 +1,7 @@
-#JAVAPROJECT = ../../../..
-#CLASSPATH = $(JAVAPROJECT)/bin
-JAVAPROJECT = /home/toni/Documents/Projet_fin_INFO3/g5/info3.game.given.2021/
-CLASSPATH = /home/toni/Documents/Projet_fin_INFO3/g5/info3.game.given.2021/bin/
+JAVAPROJECT = ../../../..
+CLASSPATH = $(JAVAPROJECT)/bin
+#JAVAPROJECT = /home/toni/Documents/Projet_fin_INFO3/g5/info3.game.given.2021/
+#CLASSPATH = /home/toni/Documents/Projet_fin_INFO3/g5/info3.game.given.2021/bin/
 PARSER = gal.parser.Parser
 
 OUTPUT_DIR = ../output

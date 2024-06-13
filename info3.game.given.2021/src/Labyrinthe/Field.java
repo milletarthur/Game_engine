@@ -1,14 +1,19 @@
 package Labyrinthe;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
+import toolkit.Pair;
+
 public class Field {
+	
 	private int colonne;
 	private int ligne;
 	private int[][] tmp;
 	ArrayList<Object> labyrinthe;
+	LinkedList<Pair<Integer,Integer>> l_void = new LinkedList<Pair<Integer,Integer>>();
 
 	public Field(int lig, int col) {
 		if (col % 2 == 0) {
@@ -57,11 +62,11 @@ public class Field {
 		grille(lig, col);
 		grille2(lig, col);
 		labyrinthe();
-		Obstacle(densite);
-		printGame();
+		recup_liste_void();
 		grow();
+		Obstacle(densite, "Mine");
+		Obstacle(densite, "Sable");
 		lave();
-		SableMouvant(densite);
 	}
 
 	public Field(int lig, int col, int densite, int joker) {
@@ -267,12 +272,13 @@ public class Field {
 			System.out.print("\n");
 		}
 	}
-
+	
 	public void grow() {
 		int nb_ligne = ligne;
 		int nb_colonne = 2 * colonne;
-		Random rdm = new Random();
-		Entity e;
+//		Random rdm = new Random();
+//		Entity e;
+		LinkedList<Entity> l;
 		ArrayList<Object> new_labyrinthe = new ArrayList<Object>();
 		for (int i = 0; i < ligne; i++) {
 			ArrayList<LinkedList<Entity>> row = new ArrayList<>();
@@ -284,20 +290,19 @@ public class Field {
 		for (int i = 0; i < ligne; i++) {
 			int cpt = 0;
 			for (int j = 0; j < colonne; j++) {
-				e = get_element(i, j, labyrinthe);
-				int val = rdm.nextInt(2);
-				set_element(i, cpt, e, new_labyrinthe);
+//				e = get_element(i, j, labyrinthe);
+				l = getElement(i, j);
+//				int val = rdm.nextInt(2);
+//				set_element(i, cpt, e, new_labyrinthe);
+				for(int k=0; k<l.size(); k++) {
+					set_element(i, cpt, l.get(k), new_labyrinthe);
+				}
 				cpt++;
-				if (get_element(i, cpt - 1, new_labyrinthe) instanceof Mine) {
-					if (val == 0) {
-						set_element(i, cpt, new Void(i, cpt, 1, 1, this), new_labyrinthe);
-					} else {
-						set_element(i, cpt - 1, new Void(i, cpt - 1, 1, 1, this), new_labyrinthe);
-						set_element(i, cpt, new Mine(), new_labyrinthe);
-					}
-				} else {
-					e = get_element(i, j, labyrinthe);
-					set_element(i, cpt, e, new_labyrinthe);
+//				e = get_element(i, j, labyrinthe);
+				l = getElement(i, j);
+//				set_element(i, cpt, e, new_labyrinthe);
+				for(int k=0; k<l.size(); k++) {
+					set_element(i, cpt, l.get(k), new_labyrinthe);
 				}
 				cpt++;
 			}
@@ -317,47 +322,27 @@ public class Field {
 		int cpt = 0;
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				e = get_element(i, j, new_labyrinthe);
-				set_element(cpt, j, e, new_labyrinthe2);
+//				e = get_element(i, j, new_labyrinthe);
+				l = getElement(i, j);
+//				set_element(cpt, j, e, new_labyrinthe2);
+				for(int k=0; k<l.size(); k++) {
+					set_element(cpt, j, l.get(k), new_labyrinthe2);	
+				}
 			}
 			cpt++;
 			for (int j = 0; j < colonne; j++) {
-				int val = rdm.nextInt(2);
-				e = get_element(i, j, labyrinthe);
-				if (e instanceof Mine) {
-					if (val == 0) {
-						set_element(cpt, j, new Void(cpt, j, 1, 1, this), new_labyrinthe2);
-						set_element(cpt - 1, j, new Mine(), new_labyrinthe2);
-					} else {
-						set_element(cpt, j, new Mine(), new_labyrinthe2);
-						set_element(cpt - 1, j, new Void(cpt - 1, j, 1, 1, this), new_labyrinthe2);
-					}
-				} else {
-					e = get_element(i, j, labyrinthe);
-					set_element(cpt, j, e, new_labyrinthe2);
+//				int val = rdm.nextInt(2);
+//				e = get_element(i, j, labyrinthe);
+				l = getElement(i, j);
+//				set_element(cpt, j, e, new_labyrinthe2);
+				for(int k=0; k<l.size(); k++) {
+					set_element(cpt, j, l.get(k), new_labyrinthe2);
 				}
 			}
 			cpt++;
 		}
 		labyrinthe = new_labyrinthe2;
 		ligne = nb_ligne;
-	}
-
-	public void Obstacle(int densite) {
-		if (densite == 0)
-			return;
-		Random random = new Random();
-		for (int i = 0; i < ligne; i++) {
-			for (int j = 0; j < colonne; j++) {
-				Entity e = getElement(i, j).getLast();
-				if (e instanceof Void || e instanceof Cassable) {
-					int rdm = random.nextInt(100);
-					if (rdm <= densite) {
-						getElement(i,j).addLast(new Mine());
-					}
-				}
-			}
-		}
 	}
 
 	public void deposer_Porte() {
@@ -421,9 +406,21 @@ public class Field {
 		return liste;
 	}
 
-	public void SableMouvant(int densite) {
+	public void Obstacle(int densite, String s) {
 		if (densite == 0)
 			return;
+		Entity e;
+		switch(s) {
+		case "Sable":
+			e = new Sable();
+			break;
+		case "Mine":
+			e = new Mine();
+			break;
+		default:
+			e = null;
+			break;
+		}
 		Random random = new Random();
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
@@ -435,7 +432,8 @@ public class Field {
 
 				// Vérification ligne actuelle
 				for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
-					if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1) {
+					if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1
+							|| ContainsInstanceof(getElement(k_i, k_j), (new Mine()).getClass()) == 1) {
 						eval = 0;
 					}
 				}
@@ -444,7 +442,8 @@ public class Field {
 				k_i = i + 1;
 				if (k_i < ligne) {
 					for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
-						if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1) {
+						if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1
+								|| ContainsInstanceof(getElement(k_i, k_j), (new Mine()).getClass()) == 1) {
 							eval = 0;
 						}
 					}
@@ -454,7 +453,8 @@ public class Field {
 				k_i = i - 1;
 				if (k_i >= 0) {
 					for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
-						if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1) {
+						if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1
+								|| ContainsInstanceof(getElement(k_i, k_j), (new Mine()).getClass()) == 1) {
 							eval = 0;
 						}
 					}
@@ -466,12 +466,28 @@ public class Field {
 						int rdm = random.nextInt(100);
 
 						if (rdm <= densite && eval == 1 && ContainsInstanceof(getElement(i, j), Mur.class) == 0) {
-							getElement(i, j).add(new Sable());
+							if(e instanceof Sable) {
+								getElement(i, j).add(new Sable());
+								Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+								l_void.remove(p);
+							} else if (e instanceof Mine){
+								getElement(i, j).add(new Mine());
+								Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+								l_void.remove(p);
+							}
 						}
 					} else {
 						int rdm = random.nextInt(100);
 						if (rdm <= densite && eval == 1 && ContainsInstanceof(getElement(i, j), Mur.class) == 0) {
-							getElement(i, j).add(0, new Sable());
+							if(e instanceof Sable) {
+								getElement(i, j).add(new Sable());
+								Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+								l_void.remove(p);
+							} else if (e instanceof Mine){
+								getElement(i, j).add(new Mine());
+								Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+								l_void.remove(p);
+							}
 						}
 					}
 				}
@@ -480,19 +496,19 @@ public class Field {
 	}
 
 	public void lave() {
-//		for (int i = 0; i < ligne; i++) {
-//			for (int j = 0; j < colonne; j++) {
-//				if ((ContainsInstanceof(this.getElement(i, j), (new Void(i, j, 1, 1, this)).getClass()) == 1)
-//						|| (((ContainsInstanceof(this.getElement(i, j), (new Teleporteur()).getClass()) == 0)
-//								&& (ContainsInstanceof(this.getElement(i, j),
-//										(new Normal(0, 0, 0, 0, this)).getClass()) == 0))
-//								&& ((ContainsInstanceof(this.getElement(i, j), (new Cassable()).getClass()) == 1)
-//										|| (ContainsInstanceof(this.getElement(i, j),
-//												(new Invisible()).getClass()) == 1)))) {
-//					this.getElement(i, j).add(0, new Lave(i, j, 1, 1, this));
-//				}
-//			}
-//		}
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				if ((ContainsInstanceof(this.getElement(i, j), (new Void(i, j, 1, 1, this)).getClass()) == 1)
+						|| (((ContainsInstanceof(this.getElement(i, j), (new Teleporteur()).getClass()) == 0)
+								&& (ContainsInstanceof(this.getElement(i, j),
+										(new Normal(0, 0, 0, 0, this)).getClass()) == 0))
+								&& ((ContainsInstanceof(this.getElement(i, j), (new Cassable()).getClass()) == 1)
+										|| (ContainsInstanceof(this.getElement(i, j),
+												(new Invisible()).getClass()) == 1)))) {
+					this.getElement(i, j).add(0, new Lave(i, j, 1, 1, this));
+				}
+			}
+		}
 	}
 
 	/*
@@ -515,6 +531,18 @@ public class Field {
 		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(x);
 		LinkedList<Entity> elem = row.get(y);
 		return elem;
+	}
+	
+	public void recup_liste_void() {
+		for(int i=0; i<ligne; i++) {
+			for(int j=0; j<colonne; j++) {
+				LinkedList<Entity> l = getElement(i, j);
+				if(l.getLast() instanceof Void) {
+					Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+					l_void.add(p);
+				}
+			}
+		}
 	}
 
 }

@@ -1,7 +1,5 @@
 package Labyrinthe;
 
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
@@ -13,7 +11,7 @@ public class Field {
 //	Entity[][][] labyrinthe;
 //	ArrayList<ArrayList<LinkedList<Entity>>> Labyrinthe;
 	ArrayList<Object> labyrinthe;
-	int nb_element = 6;
+//	int nb_element = 6;
 
 //	public Field(int l, int c) {
 //	labyrinthe = new ArrayList<Object>(new ArrayList<Object>(new LinkedList<Entity>()));
@@ -102,12 +100,11 @@ public class Field {
 		}
 		grille(lig, col);
 		grille2(lig, col);
-		printLabyrinthe_tmp();
+		// printLabyrinthe_tmp();
 		System.out.println("#################################");
 		detruire_mur(densite);
 		labyrinthe();
-		// grow();
-		this.SableMouvant(densite);
+		deposer_Porte();
 	}
 
 	int calcul_nombre_mur() {
@@ -120,7 +117,7 @@ public class Field {
 			}
 		}
 		int total = ligne * colonne;
-		//return ((100 * count) / total);
+		// return ((100 * count) / total);
 		return count;
 	}
 
@@ -128,7 +125,7 @@ public class Field {
 		Random rand = new Random();
 		int nb_mur_totale = calcul_nombre_mur();
 		int new_nb_mur = nb_mur_totale;
-		int d = new_nb_mur*100/nb_mur_totale;
+		int d = new_nb_mur * 100 / nb_mur_totale;
 		int x;
 		int y;
 		while (densite < d) {
@@ -140,18 +137,19 @@ public class Field {
 			}
 			tmp[x][y] = 0;
 			new_nb_mur = calcul_nombre_mur();
-			d = new_nb_mur*100/nb_mur_totale;
+			d = new_nb_mur * 100 / nb_mur_totale;
 		}
 	}
 
 	public void set_element(int indice_i, int indice_j, Entity e, ArrayList<Object> lab) {
-		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(indice_i);
+		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) lab.get(indice_i);
 		LinkedList<Entity> elem = row.get(indice_j);
-		elem.addLast(e);
+//		elem.addLast(e);
+		elem.addFirst(e);
 	}
 
-	public Entity get_element(int indice_i, int indice_j) {
-		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(indice_i);
+	public Entity get_element(int indice_i, int indice_j, ArrayList<Object> lab) {
+		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) lab.get(indice_i);
 		LinkedList<Entity> elem = row.get(indice_j);
 		return elem.element();
 	}
@@ -288,7 +286,7 @@ public class Field {
 	public void printGame() {
 		for (int i = 0; i < this.ligne; i++) {
 			for (int j = 0; j < this.colonne; j++) {
-				Entity e = get_element(i, j);
+				Entity e = get_element(i, j, labyrinthe);
 				if (e instanceof Void)
 					System.out.print(" ");
 				if (e instanceof Mur)
@@ -305,30 +303,40 @@ public class Field {
 	public void grow() {
 		int nb_ligne = ligne;
 		int nb_colonne = 2 * colonne;
-
-		ArrayList<Object> new_labyrinthe = new ArrayList<Object>(new ArrayList<Object>(new LinkedList<Entity>()));
+		Random rdm = new Random();
+		Entity e;
+//		Entity[][][] new_labyrinthe = new Entity[nb_ligne][nb_colonne][6];
+		ArrayList<Object> new_labyrinthe = new ArrayList<Object>();
 		for (int i = 0; i < ligne; i++) {
 			ArrayList<LinkedList<Entity>> row = new ArrayList<>();
-			for (int j = 0; j < colonne; j++) {
+			for (int j = 0; j < nb_colonne; j++) {
 				row.add(new LinkedList<Entity>());
 			}
 			new_labyrinthe.add(row);
 		}
-		// Entity[][][] new_labyrinthe = new Entity[nb_ligne][nb_colonne][6];
 		for (int i = 0; i < ligne; i++) {
 			int cpt = 0;
 			for (int j = 0; j < colonne; j++) {
-				Entity e = get_element(i, j);
+				e = get_element(i, j, labyrinthe);
+				int val = rdm.nextInt(2);
 				set_element(i, cpt, e, new_labyrinthe);
-				// new_labyrinthe[i][cpt][0] = labyrinthe[i][j][0];
-				if (!(get_element(i, j) instanceof Mine)) {
-					Entity m = get_element(i, j);
-					set_element(i, ++cpt, m, new_labyrinthe);
-					// new_labyrinthe[i][++cpt][0] = labyrinthe[i][j][0];
+//				new_labyrinthe[i][cpt][0] = labyrinthe[i][j][0];
+				cpt++;
+//				if (new_labyrinthe[i][cpt - 1][0] instanceof Mine) {
+				if (get_element(i, cpt - 1, new_labyrinthe) instanceof Mine) {
+					if (val == 0) {
+						set_element(i, cpt, new Void(i, cpt, 1, 1, this), new_labyrinthe);
+//						new_labyrinthe[i][cpt][0] = new Void(i, cpt, 1, 1, this);
+					} else {
+						set_element(i, cpt - 1, new Void(i, cpt - 1, 1, 1, this), new_labyrinthe);
+//						new_labyrinthe[i][cpt - 1][0] = new Void(i, cpt-1, 1, 1, this);
+						set_element(i, cpt, new Mine(), new_labyrinthe);
+//						new_labyrinthe[i][cpt][0] = new Mine();
+					}
 				} else {
-					Void v = new Void(i, j, 1, 1, this);
-					set_element(i, ++cpt, v, new_labyrinthe);
-					// new_labyrinthe[i][++cpt][0] = new Void(i, j, 1, 1, this);
+					e = get_element(i, j, labyrinthe);
+					set_element(i, cpt, e, new_labyrinthe);
+//					new_labyrinthe[i][cpt][0] = labyrinthe[i][j][0];
 				}
 				cpt++;
 			}
@@ -349,21 +357,30 @@ public class Field {
 		int cpt = 0;
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				// new_labyrinthe[cpt][j][0] = labyrinthe[i][j][0];
-				Entity e = get_element(i, j);
+				e = get_element(i, j, new_labyrinthe);
 				set_element(cpt, j, e, new_labyrinthe2);
+//				 new_labyrinthe[cpt][j][0] = labyrinthe[i][j][0];
 			}
 			cpt++;
 			for (int j = 0; j < colonne; j++) {
-				if (!(get_element(i, j) instanceof Mine)) {
-					// new_labyrinthe[cpt][j][0] = labyrinthe[i][j][0];
-					Entity mine = get_element(i, j);
-					set_element(cpt, j, mine, new_labyrinthe2);
+				int val = rdm.nextInt(2);
+				e = get_element(i, j, labyrinthe);
+				if (e instanceof Mine) {
+					if (val == 0) {
+						set_element(cpt, j, new Void(cpt, j, 1, 1, this), new_labyrinthe2);
+//						new_labyrinthe[cpt][j][0] = new Void(cpt, j, 1, 1, this);
+						set_element(cpt - 1, j, new Mine(), new_labyrinthe2);
+//						new_labyrinthe[cpt-1][j][0] = new Mine();
+					} else {
+						set_element(cpt, j, new Mine(), new_labyrinthe2);
+//						new_labyrinthe[cpt][j][0] = new Mine();
+						set_element(cpt - 1, j, new Void(cpt - 1, j, 1, 1, this), new_labyrinthe2);
+//						new_labyrinthe[cpt-1][j][0] = new Void(cpt-1, j, 1, 1, this);
+					}
 				} else {
-					// new_labyrinthe[cpt][j][0] = new Void(i, j, 1, 1, this);
-					Void vide = new Void(i, j, 1, 1, this);
-					set_element(cpt, j, vide, new_labyrinthe2);
-
+					e = get_element(i, j, labyrinthe);
+					set_element(cpt, j, e, new_labyrinthe2);
+//					new_labyrinthe[cpt][j][0] = labyrinthe[i][j][0];
 				}
 			}
 			cpt++;
@@ -376,32 +393,77 @@ public class Field {
 		Random random = new Random();
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				if (get_element(i, j) instanceof Void) {
+				Entity e = get_element(i, j, labyrinthe);
+				if (e instanceof Void) {
 					int rdm = random.nextInt(100);
 					if (rdm <= densite) {
-						// labyrinthe[i][j][0] = new Mine();
-						Mine m = new Mine();
-						set_element(i, j, m, labyrinthe);
+//						labyrinthe[i][j][0] = new Mine();
+						set_element(i, j, new Mine(), labyrinthe);
 					}
 				}
 			}
 		}
 	}
 
-	public void Porte(int densite) {
-		Random random = new Random();
-		for (int i = 0; i < ligne; i++) {
-			for (int j = 0; j < colonne; j++) {
-				if (get_element(i, j) instanceof Void) {
-					int rdm = random.nextInt(100);
-					if (rdm <= densite) {
-						// labyrinthe[i][j][0] = new Porte(i, j, 1, 1, this);
-						Porte porte = new Porte(i, j, 1, 1, this);
-						set_element(i, j, porte, labyrinthe);
+	public void deposer_Porte() {
+		int len = 10;
+		LinkedList<int[]> liste = bulldozer(len);
+		for (int i = 0; i < len; i++) {
+			System.out.println("x : ");
+			System.out.print(liste.element()[0]);
+			System.out.println("y : ");
+			System.out.print(liste.element()[1]);
+		}
+	}
+
+	public LinkedList<int[]> bulldozer(int longueur) {
+		Random r = new Random();
+		LinkedList<int[]> liste = new LinkedList<int[]>();
+		int[] debut = new int[2];
+		debut[0] = 1;
+		debut[1] = 0;
+		int x = 1;
+		int y = 0;
+		for (int i = 1; i <= longueur; i++) {
+			int[] tab = new int[2];
+			int condition = 1;
+			while (condition == 1) {
+				int direction = r.nextInt(4);
+				switch (direction) {
+				case 0: // Haut
+					if (get_element(x, y--, labyrinthe) instanceof Void && y > 0) {
+						tab[0] = x;
+						tab[1] = y;
 					}
+					break;
+				case 1: // Bas
+					if (get_element(x, y++, labyrinthe) instanceof Void && y < colonne - 1) {
+						tab[0] = x;
+						tab[1] = y;
+					}
+					break;
+				case 2: // Gauche
+					if (get_element(x--, y, labyrinthe) instanceof Void && x > 0) {
+						tab[0] = x;
+						tab[1] = y;
+					}
+					break;
+				case 3: // Droite
+					if (get_element(x++, y, labyrinthe) instanceof Void && y < ligne - 1) {
+						tab[0] = x;
+						tab[1] = y;
+					}
+					break;
+				}
+				if (liste.contains(tab)) {
+					condition = 1;
+				} else {
+					liste.add(tab);
+					condition = 0;
 				}
 			}
 		}
+		return liste;
 	}
 
 	public void SableMouvant(int densite) {
@@ -449,13 +511,13 @@ public class Field {
 
 						if (rdm <= densite && eval == 1) {
 							this.getElement(i, j).add(new Sable());
-							//this.getElement(i, j).add(0, new Sable());
+							// this.getElement(i, j).add(0, new Sable());
 						}
 					} else {
 						int rdm = random.nextInt(100);
 						if (rdm <= densite && eval == 1) {
 							this.getElement(i, j).add(0, new Sable());
-							//this.getElement(i, j).add(new Sable());
+							// this.getElement(i, j).add(new Sable());
 						}
 					}
 				}

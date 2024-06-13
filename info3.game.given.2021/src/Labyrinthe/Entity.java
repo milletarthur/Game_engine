@@ -1,12 +1,14 @@
 package Labyrinthe;
 
+import toolkit.Direction;
+
 public abstract class Entity {
 	protected Field f;
 
 	protected int x;
 	protected int y;
 
-	// protected int Orientation = Direction.N;
+	protected int Orientation = Direction.N;
 
 	protected boolean Valid = true;
 

@@ -102,12 +102,11 @@ public class Field {
 		}
 		grille(lig, col);
 		grille2(lig, col);
-		printLabyrinthe_tmp();
+		// printLabyrinthe_tmp();
 		System.out.println("#################################");
 		detruire_mur(densite);
 		labyrinthe();
-		// grow();
-		this.SableMouvant(densite);
+		deposer_Porte();
 	}
 
 	int calcul_nombre_mur() {
@@ -120,7 +119,7 @@ public class Field {
 			}
 		}
 		int total = ligne * colonne;
-		//return ((100 * count) / total);
+		// return ((100 * count) / total);
 		return count;
 	}
 
@@ -128,7 +127,7 @@ public class Field {
 		Random rand = new Random();
 		int nb_mur_totale = calcul_nombre_mur();
 		int new_nb_mur = nb_mur_totale;
-		int d = new_nb_mur*100/nb_mur_totale;
+		int d = new_nb_mur * 100 / nb_mur_totale;
 		int x;
 		int y;
 		while (densite < d) {
@@ -140,7 +139,7 @@ public class Field {
 			}
 			tmp[x][y] = 0;
 			new_nb_mur = calcul_nombre_mur();
-			d = new_nb_mur*100/nb_mur_totale;
+			d = new_nb_mur * 100 / nb_mur_totale;
 		}
 	}
 
@@ -404,20 +403,66 @@ public class Field {
 		}
 	}
 
-	public void Porte(int densite) {
-		Random random = new Random();
-		for (int i = 0; i < ligne; i++) {
-			for (int j = 0; j < colonne; j++) {
-				if (get_element(i, j) instanceof Void) {
-					int rdm = random.nextInt(100);
-					if (rdm <= densite) {
-						// labyrinthe[i][j][0] = new Porte(i, j, 1, 1, this);
-						Porte porte = new Porte(i, j, 1, 1, this);
-						set_element(i, j, porte, labyrinthe);
+
+	public void deposer_Porte() {
+		int len = 10;
+		LinkedList<int[]> liste = bulldozer(len);
+		for (int i = 0; i < len; i++) {
+			System.out.println("x : ");
+			System.out.print(liste.element()[0]);
+			System.out.println("y : ");
+			System.out.print(liste.element()[1]);
+		}
+	}
+
+	public LinkedList<int[]> bulldozer(int longueur) {
+		Random r = new Random();
+		LinkedList<int[]> liste = new LinkedList<int[]>();
+		int[] debut = new int[2];
+		debut[0] = 1;
+		debut[1] = 0;
+		int x = 1;
+		int y = 0;
+		for (int i = 1; i <= longueur; i++) {
+			int[] tab = new int[2];
+			int condition = 1;
+			while (condition == 1) {
+				int direction = r.nextInt(4);
+				switch (direction) {
+				case 0: // Haut
+					if (get_element(x, y--) instanceof Void && y > 0) {
+						tab[0] = x;
+						tab[1] = y;
 					}
+					break;
+				case 1: // Bas
+					if (get_element(x, y++) instanceof Void && y < colonne - 1) {
+						tab[0] = x;
+						tab[1] = y;
+					}
+					break;
+				case 2: // Gauche
+					if (get_element(x--, y) instanceof Void && x > 0) {
+						tab[0] = x;
+						tab[1] = y;
+					}
+					break;
+				case 3: // Droite
+					if (get_element(x++, y) instanceof Void && y < ligne - 1) {
+						tab[0] = x;
+						tab[1] = y;
+					}
+					break;
+				}
+				if (liste.contains(tab)) {
+					condition = 1;
+				} else {
+					liste.add(tab);
+					condition = 0;
 				}
 			}
 		}
+		return liste;
 	}
 
 	public void SableMouvant(int densite) {
@@ -465,13 +510,13 @@ public class Field {
 
 						if (rdm <= densite && eval == 1) {
 							this.getElement(i, j).add(new Sable());
-							//this.getElement(i, j).add(0, new Sable());
+							// this.getElement(i, j).add(0, new Sable());
 						}
 					} else {
 						int rdm = random.nextInt(100);
 						if (rdm <= densite && eval == 1) {
 							this.getElement(i, j).add(0, new Sable());
-							//this.getElement(i, j).add(new Sable());
+							// this.getElement(i, j).add(new Sable());
 						}
 					}
 				}

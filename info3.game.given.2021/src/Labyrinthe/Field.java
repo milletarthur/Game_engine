@@ -463,6 +463,7 @@ public class Field {
 		}
 	}
 
+
 	/*
 	 * La méthode suivante prend une liste chainé et un objet o en parametre. Elle
 	 * renvoie 1 si jamais la liste contient un objet instanceof ( type de o )

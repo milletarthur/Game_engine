@@ -8,7 +8,7 @@ public class Test {
 		// for (int i = 0; i < 3; i++) {
 		System.out.println("Hello!");
 
-		Field f = new Field(10, 10, 30, 0);
+		Field f = new Field(10, 10, 30);
 		f.printGame();
 	}
 	// }

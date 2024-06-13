@@ -75,7 +75,10 @@ public class Field {
 		grille2(lig, col);
 		labyrinthe();
 		Obstacle(densite);
-		// grow();
+		
+		grow();
+		lave( );
+		this.SableMouvant(densite);
 	}
 
 	public Field(int lig, int col, int densite, int joker) {
@@ -295,6 +298,8 @@ public class Field {
 					System.out.print("*");
 				if (e instanceof Sable)
 					System.out.print("S");
+				if (e instanceof Lave)
+					System.out.print("L");
 			}
 			System.out.print("\n");
 		}
@@ -520,6 +525,21 @@ public class Field {
 							// this.getElement(i, j).add(new Sable());
 						}
 					}
+				}
+			}
+		}
+	}
+	
+	public void lave() {
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				if (  (ContainsInstanceof(this.getElement(i, j), (new Void(  i , j , 1 , 1 , this )).getClass()) == 1 )
+						|| 
+						( ( (ContainsInstanceof(this.getElement(i, j), (new Teleporteur()).getClass()) == 0)  
+						&& (ContainsInstanceof(this.getElement(i, j), (new Normal( 0 , 0 , 0 , 0 , this)).getClass()) == 0)  )
+						&& 
+						( (ContainsInstanceof(this.getElement(i, j), (new Cassable( )).getClass()) == 1) || (ContainsInstanceof(this.getElement(i, j), (new Invisible()).getClass()) == 1) ) ) ){
+					this.getElement(i, j).add(0, new Lave( i , j , 1 , 1 , this));
 				}
 			}
 		}

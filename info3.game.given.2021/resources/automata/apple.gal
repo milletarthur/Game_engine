@@ -1,6 +1,6 @@
 Apple(Init){
 
 * (Init):
-| True ? Move ; Move ; Turn(L) ; Move :(Init)
+| True ? Move / Move / Turn(L) / Move :(Init)
 
 }

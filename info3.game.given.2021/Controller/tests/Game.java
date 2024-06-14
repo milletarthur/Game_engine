@@ -25,16 +25,20 @@ public class Game {
 
 		// ajout d'un joueur pour tester
 		Joueur j1 = new Joueur(20, 20, terrain);
+		Joueur j2 = new Joueur(10, 10, terrain);
 		terrain.set_element(20, 20, j1, null);
+		terrain.set_element(10, 10, j2, null);
 
 		// initialisation de la fenêtre
 		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case);
-		Viewport v = new Viewport(w.get_dt1(), T_case, visibility);
-		w.init_Window(v);
-		v.centrerViewport(j1);
+		Viewport v1 = new Viewport(w.get_dt1(), T_case, visibility);
+		Viewport v2 = new Viewport(w.get_dt2(), T_case, visibility);
+		w.init_Window(v1, v2);
+		v1.centrerViewport(j1);
+		v2.centrerViewport(j2);
 
 		// ajout d'un Keylistener
-		Key_Listener k = new Key_Listener(j1, w.get_dt1(), v);
+		Key_Listener k = new Key_Listener(j1, j2, w.get_dt1(), w.get_dt2(), v1, v2);
 		w.addKeyListener(k);
 
 	}

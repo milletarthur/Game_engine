@@ -25,29 +25,29 @@ public class DrawWindow extends JFrame {
 									// / Arène)
 
 		// empêcher le redimensionnement de la fenêtre
-		//this.setResizable(false);
+		this.setResizable(false);
 
 		// application terminé quand utilisateur quitte
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// initialisation du terrain
 		this.dt1 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
-		//this.dt2 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
+		this.dt2 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
 		
 		// TODO - rajouter le timer ?
 
 	}
 
-	public void init_Window(Viewport v) {
+	public void init_Window(Viewport v1, Viewport v2) {
 
-		this.add(v);
+		this.add(v1, BorderLayout.WEST);
         //this.add(dt1, BorderLayout.WEST);
         
-       /* JPanel middle = new JPanel();
+        JPanel middle = new JPanel();
         middle.setBackground(Color.BLACK);
         this.add(middle, BorderLayout.CENTER);
         
-        this.add(dt2, BorderLayout.EAST);*/
+        this.add(v2, BorderLayout.EAST);
 
 		// fenêtre de la taille du JPanel qu'il contient
 		this.pack();
@@ -58,6 +58,10 @@ public class DrawWindow extends JFrame {
 
 	public DrawTerrain get_dt1() {
 		return this.dt1;
+	}
+	
+	public DrawTerrain get_dt2() {
+		return this.dt2;
 	}
 
 }

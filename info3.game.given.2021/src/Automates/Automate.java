@@ -13,15 +13,11 @@ public class Automate {
 	
 	public void step(Entity e) {
 		Iterator<Transition> iter = Transitions.iterator();
-//		System.out.print(e.x());
-//	    System.out.print(",");
-//	    System.out.println(e.y());
 		while(iter.hasNext()) {
 			Transition trans = iter.next();
 			if (Current.equals(trans.getSource()) && trans.CheckCondition(e)) {
 				Current = trans.getCible();
 				trans.doActions(e);
-//				System.out.println("succes");
 				return;
 			}
 		}

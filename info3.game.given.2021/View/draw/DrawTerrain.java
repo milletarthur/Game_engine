@@ -35,10 +35,31 @@ public class DrawTerrain extends JPanel {
 
 	private Image lave, sand, bombe, mur, fragile, int_pop, int_wizz, int_neutre;
 
-	public DrawTerrain(Field terrain, int T_case) throws IOException {
+	Random random;
+
+	int[][] rand_chemin;
+	int[][] rand_mine_x;
+	int[][] rand_mine_y;
+
+	public DrawTerrain(int HAUTEUR, int LARGEUR, Field terrain, int T_case) throws IOException {
 		this.terrain = terrain;
 		this.T_case = T_case;
 		this.chargement_Image();
+		this.random = new Random(); // TODO - seed a ajouté
+		this.rand_chemin = new int[HAUTEUR][LARGEUR];
+		this.rand_mine_x = new int[HAUTEUR][LARGEUR];
+		this.rand_mine_y = new int[HAUTEUR][LARGEUR];
+
+		for (int i = 0; i < HAUTEUR; i++) {
+			for (int j = 0; j < LARGEUR; j++) {
+				rand_chemin[i][j] = -1;
+				rand_mine_x[i][j] = -1;
+				rand_mine_y[i][j] = -1;
+			}
+		}
+	
+		// impose la taille de la fenêtre avec celui du JPanel
+		this.setPreferredSize(new Dimension(LARGEUR * T_case, HAUTEUR * T_case));
 	}
 
 	public void paintComponent(Graphics g) {
@@ -70,61 +91,58 @@ public class DrawTerrain extends JPanel {
 	}
 
 	public void drawElements(Graphics g) {
-		Random random = new Random();
-		for (int i = 0; i < terrain.get_colonne(); i++) {
-			for (int j = 0; j < terrain.get_ligne(); j++) {
-				LinkedList<Entity> temp = terrain.getElement(j, i);
+		for (int i = 0; i < terrain.get_ligne(); i++) {
+			for (int j = 0; j < terrain.get_colonne(); j++) {
+				LinkedList<Entity> temp = terrain.getElement(i,j);
 				for (int k = 0; k < temp.size(); k++) {
 					Entity e = temp.get(k);
 					if (e instanceof Apple) {
-						g.drawImage(pomme, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(pomme, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Arc) {
-						g.drawImage(arc, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(arc, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Bombe) {
-						g.drawImage(bombe, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(bombe, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Cassable) { // mur fragile
-						g.drawImage(fragile, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(fragile, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Epee) {
-						g.drawImage(epee, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(epee, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Interrupteur) {
 						// TODO - savoir et rajouter la position de l'interrupteur
-						g.drawImage(int_pop, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(int_pop, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Invisible) { // mur magique
 						// TODO - rendre opaque si joueur dessus
-						g.drawImage(mur, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Joueur) {
 						// TODO - gérer les cas ou le joueur a une arme et quel joueur c'est
-						g.drawImage(player1, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(player1, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Lave) {
-						g.drawImage(lave, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(lave, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Mine) {
-						int y = random.nextInt((17 - 3) + 1) + 3;
-						int z = random.nextInt((17 - 3) + 1) + 3;
 						g.setColor(new Color(90, 90, 90));
-						g.fillRect(i * T_case + y, j * T_case + z, 2, 2);
+						g.fillRect(j * T_case + x_mine(i, j), i * T_case + y_mine(i, j), 2, 2);
 					} else if (e instanceof Normal) { // mur normal
-						g.drawImage(mur, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Pioche) {
-						g.drawImage(pioche, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(pioche, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Porte) {
 						// TODO - savoir et rajouter quand la porte est ouverte ou fermée
-						g.drawImage(porte_fermee, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(porte_fermee, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Potion) {
-						g.drawImage(potion, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(potion, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Sable) {
-						g.drawImage(sand, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(sand, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Squelette) {
 						// TODO - gérer quand le squelette attaque / meurt / fixe
-						g.drawImage(squelette, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(squelette, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Teleporteur) {
-						g.drawImage(teleporte, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(teleporte, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Void) { // chemin
-						int x = random.nextInt(6);
-						g.drawImage(chemin[x], i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(chemin[this.donnees_chemin(i, j)], j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Zombie) {
 						// TODO - gérer quand le zombie attaque / meurt / fixe
-						g.drawImage(zombie, i * T_case, j * T_case, T_case, T_case, null);
+						g.drawImage(zombie, j * T_case, i * T_case, T_case, T_case, null);
 					}
+					// TODO - rajouter la sélection
 				}
 			}
 		}
@@ -183,6 +201,27 @@ public class DrawTerrain extends JPanel {
 		this.SQUELETTE = new Sprite("resources/graphisme/Personnages/Skeleton_enemy.png", 64, 64);
 		this.squelette = SQUELETTE.getSprite(0, 0);
 
+	}
+
+	private int donnees_chemin(int x, int y) {
+		if (rand_chemin[x][y] == -1) {
+			rand_chemin[x][y] = random.nextInt(6);
+		}
+		return rand_chemin[x][y];
+	}
+
+	private int x_mine(int x, int y) {
+		if (rand_mine_x[x][y] == -1) {
+			rand_mine_x[x][y] = random.nextInt((17 - 3) + 1) + 3;
+		}
+		return rand_mine_x[x][y];
+	}
+
+	private int y_mine(int x, int y) {
+		if (rand_mine_y[x][y] == -1) {
+			rand_mine_y[x][y] = random.nextInt((17 - 3) + 1) + 3;
+		}
+		return rand_mine_y[x][y];
 	}
 
 }

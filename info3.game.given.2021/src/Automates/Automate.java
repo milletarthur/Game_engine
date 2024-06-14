@@ -3,6 +3,8 @@ package Automates;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import Labyrinthe.Entity;
+
 
 public class Automate {
 	protected LinkedList<Transition> Transitions;

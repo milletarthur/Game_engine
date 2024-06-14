@@ -4,6 +4,8 @@ package Automates;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import Labyrinthe.Entity;
+
 public class Transition {
 	private State Source;
 	private State Cible;

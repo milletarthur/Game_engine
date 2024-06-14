@@ -1,6 +1,6 @@
 package Automates;
 
-import Model_Snake.Entity;
+import Labyrinthe.Entity;
 
 public interface ICondition {
 

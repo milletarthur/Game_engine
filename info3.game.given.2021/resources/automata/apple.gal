@@ -1,0 +1,6 @@
+Apple(init){
+
+* (init):
+| True ? Move ; Move ; Turn(L) ; Move :(init)
+
+}

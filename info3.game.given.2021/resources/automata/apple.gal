@@ -1,6 +1,6 @@
-Apple(init){
+Apple(Init){
 
-* (init):
-| True ? Move ; Move ; Turn(L) ; Move :(init)
+* (Init):
+| True ? Move ; Move ; Turn(L) ; Move :(Init)
 
 }

@@ -3,8 +3,11 @@ package Labyrinthe;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
+import toolkit.Pair;
+import toolkit.Triple;
 
 public class Field {
 	private int colonne;
@@ -104,9 +107,16 @@ public class Field {
 		grille2(lig, col);
 		// printLabyrinthe_tmp();
 		System.out.println("#################################");
-		detruire_mur(densite);
+		// detruire_mur(densite);
 		labyrinthe();
-		deposer_Porte();
+		// depotPorte(5);
+		// printGame();
+		// Obstacle(densite);
+
+		depotPorte(1);
+		// bulldozer(10);
+		// LinkedList<Entity> liste = null;
+		// deposer_Porte_2(liste);
 	}
 
 	int calcul_nombre_mur() {
@@ -144,16 +154,10 @@ public class Field {
 	}
 
 	public void set_element(int indice_i, int indice_j, Entity e, ArrayList<Object> lab) {
-		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(indice_i);
-		LinkedList<Entity> elem = row.get(indice_j);
-		elem.addLast(e);
-	}
-
-	public Entity get_element(int indice_i, int indice_j) {
-		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(indice_i);
-		LinkedList<Entity> elem = row.get(indice_j);
-		return elem.element();
-	}
+        ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) lab.get(indice_i);
+        LinkedList<Entity> elem = row.get(indice_j);
+        elem.addFirst(e);
+    }
 
 	public void labyrinthe() {
 		for (int i = 0; i < ligne; i++) {
@@ -296,6 +300,10 @@ public class Field {
 					System.out.print("*");
 				if (e instanceof Sable)
 					System.out.print("S");
+				if (e instanceof Porte)
+					System.out.print("+");
+				if (e instanceof Interrupteur)
+					System.out.print("<");
 			}
 			System.out.print("\n");
 		}
@@ -304,30 +312,33 @@ public class Field {
 	public void grow() {
 		int nb_ligne = ligne;
 		int nb_colonne = 2 * colonne;
-
-		ArrayList<Object> new_labyrinthe = new ArrayList<Object>(new ArrayList<Object>(new LinkedList<Entity>()));
+//		Random rdm = new Random();
+//		Entity e;
+		LinkedList<Entity> l;
+		ArrayList<Object> new_labyrinthe = new ArrayList<Object>();
 		for (int i = 0; i < ligne; i++) {
 			ArrayList<LinkedList<Entity>> row = new ArrayList<>();
-			for (int j = 0; j < colonne; j++) {
+			for (int j = 0; j < nb_colonne; j++) {
 				row.add(new LinkedList<Entity>());
 			}
 			new_labyrinthe.add(row);
 		}
-		// Entity[][][] new_labyrinthe = new Entity[nb_ligne][nb_colonne][6];
 		for (int i = 0; i < ligne; i++) {
 			int cpt = 0;
 			for (int j = 0; j < colonne; j++) {
-				Entity e = get_element(i, j);
-				set_element(i, cpt, e, new_labyrinthe);
-				// new_labyrinthe[i][cpt][0] = labyrinthe[i][j][0];
-				if (!(get_element(i, j) instanceof Mine)) {
-					Entity m = get_element(i, j);
-					set_element(i, ++cpt, m, new_labyrinthe);
-					// new_labyrinthe[i][++cpt][0] = labyrinthe[i][j][0];
-				} else {
-					Void v = new Void(i, j, 1, 1, this);
-					set_element(i, ++cpt, v, new_labyrinthe);
-					// new_labyrinthe[i][++cpt][0] = new Void(i, j, 1, 1, this);
+//				e = get_element(i, j, labyrinthe);
+				l = getElement(i, j);
+//				int val = rdm.nextInt(2);
+//				set_element(i, cpt, e, new_labyrinthe);
+				for(int k=0; k<l.size(); k++) {
+					set_element(i, cpt, l.get(k), new_labyrinthe);
+				}
+				cpt++;
+//				e = get_element(i, j, labyrinthe);
+				l = getElement(i, j);
+//				set_element(i, cpt, e, new_labyrinthe);
+				for(int k=0; k<l.size(); k++) {
+					set_element(i, cpt, l.get(k), new_labyrinthe);
 				}
 				cpt++;
 			}
@@ -336,7 +347,6 @@ public class Field {
 		colonne = nb_colonne;
 		nb_ligne = 2 * ligne;
 		nb_colonne = colonne;
-		// new_labyrinthe = new Entity[nb_ligne][nb_colonne][6];
 		ArrayList<Object> new_labyrinthe2 = new ArrayList<Object>(new ArrayList<Object>(new LinkedList<Entity>()));
 		for (int i = 0; i < nb_ligne; i++) {
 			ArrayList<LinkedList<Entity>> row = new ArrayList<>();
@@ -348,21 +358,21 @@ public class Field {
 		int cpt = 0;
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				// new_labyrinthe[cpt][j][0] = labyrinthe[i][j][0];
-				Entity e = get_element(i, j);
-				set_element(cpt, j, e, new_labyrinthe2);
+//				e = get_element(i, j, new_labyrinthe);
+				l = getElement(i, j);
+//				set_element(cpt, j, e, new_labyrinthe2);
+				for(int k=0; k<l.size(); k++) {
+					set_element(cpt, j, l.get(k), new_labyrinthe2);	
+				}
 			}
 			cpt++;
 			for (int j = 0; j < colonne; j++) {
-				if (!(get_element(i, j) instanceof Mine)) {
-					// new_labyrinthe[cpt][j][0] = labyrinthe[i][j][0];
-					Entity mine = get_element(i, j);
-					set_element(cpt, j, mine, new_labyrinthe2);
-				} else {
-					// new_labyrinthe[cpt][j][0] = new Void(i, j, 1, 1, this);
-					Void vide = new Void(i, j, 1, 1, this);
-					set_element(cpt, j, vide, new_labyrinthe2);
-
+//				int val = rdm.nextInt(2);
+//				e = get_element(i, j, labyrinthe);
+				l = getElement(i, j);
+//				set_element(cpt, j, e, new_labyrinthe2);
+				for(int k=0; k<l.size(); k++) {
+					set_element(cpt, j, l.get(k), new_labyrinthe2);
 				}
 			}
 			cpt++;
@@ -387,61 +397,179 @@ public class Field {
 		}
 	}
 
+	public LinkedList<LinkedList<Entity>> croisement() {
+		LinkedList<LinkedList<Entity>> RES = null;
+		for (int i = 0; i < ligne; i++) {
+			ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(i);
+			for (int j = 0; j < colonne; j++) {
+				LinkedList<Entity> col = row.get(j);
+				int count = 0;
+				if (col.getFirst().x > 0 && col.getFirst() instanceof Void
+						&& (get_element(col.getFirst().x - 1, col.getFirst().y) instanceof Void)) {
+					count++;
+				}
+				if (col.getFirst().y < ligne - 1 && col.getFirst() instanceof Void
+						&& (get_element(col.getFirst().x + 1, col.getFirst().y) instanceof Void)) {
+					count++;
+				}
+				if (col.getFirst().y > 0 && col.getFirst() instanceof Void
+						&& (get_element(col.getFirst().x, col.getFirst().y - 1) instanceof Void)) {
+					count++;
+				}
+				if (col.getFirst().y < colonne - 1 && col.getFirst() instanceof Void
+						&& (get_element(col.getFirst().x, col.getFirst().y + 1) instanceof Void)) {
+					count++;
+				}
 
-	public void deposer_Porte() {
-		int len = 10;
-		LinkedList<int[]> liste = bulldozer(len);
-		for (int i = 0; i < len; i++) {
-			System.out.println("x : ");
-			System.out.print(liste.element()[0]);
-			System.out.println("y : ");
-			System.out.print(liste.element()[1]);
+				if (count >= 2 && RES != null) {
+					RES.add(col);
+				}
+			}
 		}
+		return RES;
 	}
 
-	public LinkedList<int[]> bulldozer(int longueur) {
-		Random r = new Random();
-		LinkedList<int[]> liste = new LinkedList<int[]>();
-		int[] debut = new int[2];
-		debut[0] = 1;
-		debut[1] = 0;
+	public void depotPorte(int Nombre_Porte) {
+		LinkedList<LinkedList<Entity>> RES = croisement();
+		LinkedList<Entity> chemin_enregistre = new LinkedList<Entity>();
 		int x = 1;
 		int y = 0;
-		for (int i = 1; i <= longueur; i++) {
-			int[] tab = new int[2];
-			int condition = 1;
-			while (condition == 1) {
-				int direction = r.nextInt(4);
+		for (int t = 0; t < 3; t++) {
+			Triple<LinkedList<Entity>, Entity, LinkedList<Entity>> liste = new Triple<LinkedList<Entity>, Entity, LinkedList<Entity>>(null,null, null);
+			liste = deposer_Porte_2(x, y, chemin_enregistre);
+			for(int g = 0; g<liste.x().size(); g++) {
+				chemin_enregistre.add(liste.x().get(g));
+			}
+			for (int i = 0; i < liste.x().size(); i++) {
+				if (!(liste.x().get(i) instanceof Mur)) {
+					System.out.print(" x : ");
+					System.out.print(liste.x().get(i).x);
+					System.out.print(" y : ");
+					System.out.print(liste.x().get(i).y);
+					System.out.print("\n");
+				} else {
+					System.out.println("C'est un Mur");
+				}
+			}
+			x = liste.z().getFirst().x;
+			y = liste.z().getFirst().y;
+		}
+
+	}
+
+	Triple<LinkedList<Entity>, Entity, LinkedList<Entity>> deposer_Porte_2(int x, int y, LinkedList<Entity> chemin_enregistre) {
+		int len = 10;
+		Random r = new Random();
+		LinkedList<Entity> liste = bulldozer(len, x, y, chemin_enregistre);
+		while (liste.size() != 10) {
+			liste = bulldozer(len, x, y, chemin_enregistre);
+		}
+		int i = liste.size() - 1;
+		x = liste.getLast().x;
+		y = liste.getLast().y;
+		Triple<LinkedList<Entity>, Entity, LinkedList<Entity>> res = new Triple<LinkedList<Entity>, Entity, LinkedList<Entity>>(
+				null, null, null);
+		res.setx(liste);
+		Entity elem = null;
+		int condition = 1;
+		Porte p = null;
+		while (i > 0 && condition == 1) {
+			if ((get_element(liste.get(i).x - 1, y) instanceof Mur)
+					&& (get_element(liste.get(i).x + 1, y) instanceof Mur)) {
+				p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1, this);
+				p.Orientation = 3;
+				set_element(liste.get(i).x, liste.get(i).y, p, labyrinthe);
+				elem = liste.remove(i);
+				condition = 0;
+			} else if ((get_element(liste.get(i).x, liste.get(i).y - 1) instanceof Mur)
+					&& (get_element(liste.get(i).x, liste.get(i).y + 1) instanceof Mur)) {
+				p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1, this);
+				p.Orientation = 1;
+				set_element(liste.get(i).x, liste.get(i).y, p, labyrinthe);
+				elem = liste.remove(i);
+				condition = 0;
+			}
+			i = i - 1;
+		}
+		if (condition == 0) {
+			int levier = r.nextInt(liste.size());
+			while (!(liste.get(levier) instanceof Void) && !(liste.get(levier) instanceof Porte)) {
+				levier = r.nextInt(liste.size());
+			}
+			LinkedList<Entity> l = new LinkedList<Entity>();
+			l.add(p);
+			Interrupteur Int = new Interrupteur(liste.getLast().x, liste.getLast().y, 1, 1, this, l);
+			set_element(liste.get(levier).x, liste.get(levier).y, Int, labyrinthe);
+			res.setz(l);
+		}
+		res.sety(elem);
+		return res;
+
+	}
+
+	public Entity get_element(int indice_i, int indice_j) {
+		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(indice_i);
+		LinkedList<Entity> elem = row.get(indice_j);
+		return elem.element();
+	}
+
+	public LinkedList<Entity> bulldozer(int longueur, int x, int y, LinkedList<Entity> chemin_enregistre) {
+		Random r = new Random();
+		LinkedList<Entity> liste = new LinkedList<Entity>();
+		Entity elemxy = null;
+		// int x = 1;
+		// int y = 0;
+		int x2 = x;
+		int y2 = y;
+		int condition = 1;
+		for (int i = 0; i < longueur; i++) {
+			if (condition != 1) {
+				x = x2;
+				y = y2;
+			}
+			condition = 1;
+			LinkedList<Integer> cases = new LinkedList<Integer>();
+			cases.add(0);
+			cases.add(1);
+			cases.add(2);
+			cases.add(3);
+			while (condition == 1 && cases.size() != 0) {
+				int direction = cases.get((new Random()).nextInt(cases.size()));
 				switch (direction) {
 				case 0: // Haut
-					if (get_element(x, y--) instanceof Void && y > 0) {
-						tab[0] = x;
-						tab[1] = y;
+					x2 = x;
+					y2 = y - 1;
+					if (y2 > 0 && (get_element(x2, y2) instanceof Void)) {
+						elemxy = get_element(x2, y2);
 					}
 					break;
 				case 1: // Bas
-					if (get_element(x, y++) instanceof Void && y < colonne - 1) {
-						tab[0] = x;
-						tab[1] = y;
+					x2 = x;
+					y2 = y + 1;
+					if (y2 < colonne - 1 && (get_element(x2, y2) instanceof Void)) {
+						elemxy = get_element(x2, y2);
 					}
 					break;
 				case 2: // Gauche
-					if (get_element(x--, y) instanceof Void && x > 0) {
-						tab[0] = x;
-						tab[1] = y;
+					x2 = x - 1;
+					y2 = y;
+					if (x2 > 0 && (get_element(x2, y2) instanceof Void)) {
+						elemxy = get_element(x2, y2);
 					}
 					break;
 				case 3: // Droite
-					if (get_element(x++, y) instanceof Void && y < ligne - 1) {
-						tab[0] = x;
-						tab[1] = y;
+					x2 = x + 1;
+					y2 = y;
+					if (y2 < ligne - 1 && (get_element(x2, y2) instanceof Void)) {
+						elemxy = get_element(x2, y2);
 					}
 					break;
 				}
-				if (liste.contains(tab)) {
+				if (chemin_enregistre.contains(elemxy) || liste.contains(elemxy) || elemxy == null) {
+					cases.remove((Object) direction);
 					condition = 1;
 				} else {
-					liste.add(tab);
+					liste.add(elemxy);
 					condition = 0;
 				}
 			}

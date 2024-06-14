@@ -1,7 +1,24 @@
 package Labyrinthe;
 
-public class Interrupteur extends Entity {
+import java.util.LinkedList;
 
+public class Interrupteur extends Entity {
+	
+	private LinkedList<Entity> liste_elem;
+	
+	public Interrupteur(int x, int y, int team, int category, Field f, LinkedList<Entity> elem) {
+		this.x = x;
+		this.y = y;
+		this.category = category;
+		this.team = team;
+		this.f = f;
+		this.liste_elem = elem;
+	}
+
+	public LinkedList<Entity> get_entity() {
+		return this.liste_elem;
+	}
+	
 	@Override
 	void egg(int x, int y) {
 		// TODO Auto-generated method stub

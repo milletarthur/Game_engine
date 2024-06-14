@@ -16,24 +16,25 @@ public class Game {
 	private final static int LARGEUR = 30;
 	private final static int HAUTEUR = 30;
 	private static final int T_case = 20;
+	private static final int visibility = 5; // nb de cases visible autour des joueurs
 
 	public static void main(String[] args) throws IOException {
 
-		//initialisation de la grille
+		// initialisation de la grille
 		Field terrain = new Field(HAUTEUR, LARGEUR, 10);
-		
+
 		// ajout d'un joueur pour tester
 		Joueur j1 = new Joueur(20, 20, terrain);
 		terrain.set_element(20, 20, j1, null);
 
 		// initialisation de la fenêtre
 		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case);
-		//Viewport v = new Viewport(w.get_dt(), T_case);
-		w.init_Window();
-		//v.centrerViewport(j1);
-		
+		Viewport v = new Viewport(w.get_dt1(), T_case, visibility);
+		w.init_Window(v);
+		v.centrerViewport(j1);
+
 		// ajout d'un Keylistener
-		Key_Listener k = new Key_Listener(j1, w.get_dt1());
+		Key_Listener k = new Key_Listener(j1, w.get_dt1(), v);
 		w.addKeyListener(k);
 
 	}

@@ -32,22 +32,22 @@ public class DrawWindow extends JFrame {
 
 		// initialisation du terrain
 		this.dt1 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
-		this.dt2 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
+		//this.dt2 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
 		
 		// TODO - rajouter le timer ?
 
 	}
 
-	public void init_Window() {
+	public void init_Window(Viewport v) {
 
-        // le viewport est encapsulé dans la fenêtre
-        this.add(dt1, BorderLayout.WEST);
+		this.add(v);
+        //this.add(dt1, BorderLayout.WEST);
         
-        JPanel middle = new JPanel();
+       /* JPanel middle = new JPanel();
         middle.setBackground(Color.BLACK);
         this.add(middle, BorderLayout.CENTER);
         
-        this.add(dt2, BorderLayout.EAST);
+        this.add(dt2, BorderLayout.EAST);*/
 
 		// fenêtre de la taille du JPanel qu'il contient
 		this.pack();

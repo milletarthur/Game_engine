@@ -12,10 +12,12 @@ public class Key_Listener implements KeyListener {
 
 	Joueur j1;
 	DrawTerrain dt;
+	Viewport v;
 
-	public Key_Listener(Joueur j1, DrawTerrain dt) {
+	public Key_Listener(Joueur j1, DrawTerrain dt, Viewport v) {
 		this.j1 = j1;
 		this.dt = dt;
+		this.v = v;
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -27,25 +29,19 @@ public class Key_Listener implements KeyListener {
 		switch (touche) {
 		case KeyEvent.VK_UP: // haut
 			j1.setOrientation(Direction.N);
-			j1.move();
-			dt.repaint();
 			break;
 		case KeyEvent.VK_LEFT: // droite
 			j1.setOrientation(Direction.W);
-			j1.move();
-			dt.repaint();
 			break;
 		case KeyEvent.VK_RIGHT: // gauche
 			j1.setOrientation(Direction.E);
-			j1.move();
-			dt.repaint();
 			break;
 		case KeyEvent.VK_DOWN: // bas
 			j1.setOrientation(Direction.S);
-			j1.move();
-			dt.repaint();
 			break;
 		}
+		j1.move();
+		v.centrerViewport(j1);
 	}
 
 	public void keyReleased(KeyEvent e) {

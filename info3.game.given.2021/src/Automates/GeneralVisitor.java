@@ -19,6 +19,8 @@ import gal.ast.UnaryOp;
 import gal.ast.Underscore;
 import gal.ast.Value;
 
+import toolkit.*;
+
 public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
@@ -29,8 +31,36 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object visit(Direction dir) {
-		// TODO Auto-generated method stub
-		return null;
+		switch (dir.terminal.content) {
+		case "N":
+			return toolkit.Direction.N;
+		case "S":
+			return toolkit.Direction.S;
+		case "E":
+			return toolkit.Direction.E;
+		case "W":
+			return toolkit.Direction.W;
+		case "NE":
+			return toolkit.Direction.NE;
+		case "NW":
+			return toolkit.Direction.NW;
+		case "SE":
+			return toolkit.Direction.SE;
+		case "SW":
+			return toolkit.Direction.SW;
+		case "H":
+			return toolkit.Direction.H;
+		case "F":
+			return toolkit.Direction.F;
+		case "B":
+			return toolkit.Direction.B;
+		case "L":
+			return toolkit.Direction.L;
+		case "R":
+			return toolkit.Direction.R;
+		default:
+			return null;
+		}
 	}
 
 	@Override
@@ -54,19 +84,19 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(FunCall funcall) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void visit(FunCall funcall) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exit(FunCall funcall) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -78,19 +108,19 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(BinaryOp binop) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void visit(BinaryOp binop) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exit(BinaryOp binop) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -102,13 +132,13 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(UnaryOp unop) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exit(UnaryOp unop) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -126,19 +156,19 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(Mode mode) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void visit(Mode mode) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exit(Mode mode) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -156,13 +186,13 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(Condition condition) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exit(Condition condition) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -174,19 +204,19 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(Actions action) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void visit(Actions action) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exit(Actions action) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -198,13 +228,13 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(Transition transition) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exit(Transition transition) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -216,13 +246,13 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(Automaton automaton) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exit(Automaton automaton) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -234,13 +264,13 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(AST ast) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exit(AST ast) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

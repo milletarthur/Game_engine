@@ -120,7 +120,7 @@ public class Field {
 			}
 		}
 		int total = ligne * colonne;
-		//return ((100 * count) / total);
+		// return ((100 * count) / total);
 		return count;
 	}
 
@@ -128,7 +128,7 @@ public class Field {
 		Random rand = new Random();
 		int nb_mur_totale = calcul_nombre_mur();
 		int new_nb_mur = nb_mur_totale;
-		int d = new_nb_mur*100/nb_mur_totale;
+		int d = new_nb_mur * 100 / nb_mur_totale;
 		int x;
 		int y;
 		while (densite < d) {
@@ -140,7 +140,7 @@ public class Field {
 			}
 			tmp[x][y] = 0;
 			new_nb_mur = calcul_nombre_mur();
-			d = new_nb_mur*100/nb_mur_totale;
+			d = new_nb_mur * 100 / nb_mur_totale;
 		}
 	}
 
@@ -148,6 +148,12 @@ public class Field {
 		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(indice_i);
 		LinkedList<Entity> elem = row.get(indice_j);
 		elem.addLast(e);
+	}
+
+	public void update_element(int indice_i, int indice_j, LinkedList<Entity> l, ArrayList<Object> lab) {
+		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(indice_i);
+		row.set(indice_j, l);
+
 	}
 
 	public Entity get_element(int indice_i, int indice_j) {
@@ -170,7 +176,7 @@ public class Field {
 				}
 			}
 		}
-		set_element(3,0,new Joueur(3,0),labyrinthe);
+		// set_element(3,0,new Joueur(3,0),labyrinthe);
 	}
 
 	public void grille(int l, int c) {
@@ -450,13 +456,13 @@ public class Field {
 
 						if (rdm <= densite && eval == 1) {
 							this.getElement(i, j).add(new Sable());
-							//this.getElement(i, j).add(0, new Sable());
+							// this.getElement(i, j).add(0, new Sable());
 						}
 					} else {
 						int rdm = random.nextInt(100);
 						if (rdm <= densite && eval == 1) {
 							this.getElement(i, j).add(0, new Sable());
-							//this.getElement(i, j).add(new Sable());
+							// this.getElement(i, j).add(new Sable());
 						}
 					}
 				}

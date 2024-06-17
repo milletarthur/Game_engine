@@ -106,13 +106,13 @@ public class Joueur extends Entity {
 	public void setOrientation(int or) {
 		this.Orientation = or;
 	}
-	
+
 	public int getX() {
-		return this.x ;
+		return this.x;
 	}
-	
+
 	public int getY() {
-		return this.y ;
+		return this.y;
 	}
 
 }

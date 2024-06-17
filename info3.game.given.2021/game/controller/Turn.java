@@ -36,4 +36,14 @@ public class Turn implements IAction {
 //		System.out.println("Turn");
 		return;
 	}
+
+	@Override
+	public Entity getEntity() {
+		return entity;
+	}
+
+	@Override
+	public void setEntity(Entity e) {
+		entity = e;
+	}
 }

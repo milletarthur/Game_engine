@@ -10,6 +10,10 @@ public class Cell implements ICondition {
 	private Field f;
 	private int dir;
 	private int cat;
+	
+	public Cell(Field f) {
+		this.f = f;
+	}
 
 	public Cell(Field f, int dir, int cat) {
 		this.f = f;

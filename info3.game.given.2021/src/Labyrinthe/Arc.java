@@ -3,15 +3,15 @@ package Labyrinthe;
 public class Arc extends Entity {
 
 	@Override
-	void egg(int x, int y) {
+	public Entity egg(int x, int y) {
 		// TODO Auto-generated method stub
+		return null;
 
 	}
 
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
-
+		super.move();
 	}
 
 	@Override

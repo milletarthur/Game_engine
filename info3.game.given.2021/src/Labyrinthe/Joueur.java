@@ -15,9 +15,9 @@ public class Joueur extends Entity {
 	}
 
 	@Override
-	void egg(int x, int y) {
+	public Entity egg(int x, int y) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override

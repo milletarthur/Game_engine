@@ -1,8 +1,12 @@
 package controller;
 
+import java.util.LinkedList;
+
 import Automates.IAction;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Joueur;
+import toolkit.Direction;
 
 public class Pick implements IAction {
 
@@ -20,6 +24,11 @@ public class Pick implements IAction {
 
 	@Override
 	public void exec(Entity e) {
+		if (e instanceof Joueur) {
+			Entity pick = terrain.getPickable(e.x(),e.y());
+			if (pick != null)
+				terrain.remove(pick);
+		}
 		e.pick();
 	}
 

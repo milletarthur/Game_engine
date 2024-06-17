@@ -11,12 +11,13 @@ public class Apple extends Entity {
 	}
 
 	@Override
-	void egg(int x, int y) {
-		new Apple(x, y, this.team, this.category, this.f);
+	public Entity egg(int x, int y) {
+		return new Apple(x, y, this.team, this.category, this.f);
 	}
 
 	@Override
 	public void move() {
+		super.move();
 	}
 
 	@Override

@@ -684,7 +684,7 @@ public class Field {
 		return l_void;
 	}
 	
-	private int[] next_to(Entity e, int d) {
+	public int[] next_to(Entity e, int d) {
 		int[] rv = new int[2];
 		rv[0] = e.x();
 		rv[1] = e.y();

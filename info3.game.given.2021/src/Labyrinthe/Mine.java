@@ -3,9 +3,9 @@ package Labyrinthe;
 public class Mine extends Entity {
 
 	@Override
-	void egg(int x, int y) {
+	public Entity egg(int x, int y) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
@@ -16,8 +16,7 @@ public class Mine extends Entity {
 
 	@Override
 	public void pick() {
-		// TODO Auto-generated method stub
-
+		super.move();
 	}
 
 	@Override

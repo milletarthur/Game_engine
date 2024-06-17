@@ -22,28 +22,13 @@ public class Joueur extends Entity {
 
 	@Override
 	public void move() {
-		switch (Orientation) {
-			case Direction.N:
-				this.y -= 1;
-				break;
-			case Direction.S:
-				this.y += 1;
-				break;
-			case Direction.E:
-				this.x += 1;
-				break;
-			case Direction.W:
-				this.x -= 1;
-				break;
-			default:
-				break;
-		}
+		super.move();
 	}
 
 	@Override
 	public void pick() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

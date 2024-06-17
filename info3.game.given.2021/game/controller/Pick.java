@@ -13,13 +13,14 @@ public class Pick implements IAction {
 		this.entity = entity;
 		this.terrain = terrain;
 	}
+	
+	public Pick(Field terrain) {
+		this.terrain = terrain;
+	}
 
 	@Override
 	public void exec(Entity e) {
-//		int rnd = 1; // egg not working
 		e.pick();
-//		System.out.println("Pick");
-		return;
 	}
 
 	@Override

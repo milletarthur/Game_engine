@@ -16,16 +16,20 @@ public class Move implements IAction {
 		this.entity = entity;
 		this.terrain = terrain;
 	}
+	
+	public Move(Field terrain) {
+		this.terrain = terrain;
+	}
 
 	@Override
 	public void exec(Entity e) {
 		LinkedList<Entity> elem = terrain.getElement(e.x(), e.y());
 		elem.remove(e);
-//		terrain.updateAt(e.x(), e.y(), elem);
+		terrain.updateAt(e.x(), e.y(), elem);
 		e.move();
 		elem = terrain.getElement(e.x(), e.y());
 		elem.add(e);
-//		terrain.updateAt(e.x(), e.y(), elem);
+		terrain.updateAt(e.x(), e.y(), elem);
 
 //		System.out.println("Move");
 		return;

@@ -16,7 +16,7 @@ public abstract class Entity {
 
 	protected int category;
 
-	abstract void egg(int x, int y);
+	public abstract Entity egg(int x, int y);
 
 	public void move() {
 		switch (Orientation) {

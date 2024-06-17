@@ -671,7 +671,7 @@ public class Field {
 		return elem;
 	}
 	
-	public void recup_liste_void() {
+	public LinkedList<Pair<Integer,Integer>> recup_liste_void() {
 		for(int i=0; i<ligne; i++) {
 			for(int j=0; j<colonne; j++) {
 				LinkedList<Entity> l = getElement(i, j);
@@ -681,6 +681,7 @@ public class Field {
 				}
 			}
 		}
+		return l_void;
 	}
 	
 	private int[] next_to(Entity e, int d) {
@@ -777,6 +778,10 @@ public class Field {
 				return true;
 		}
 		return false;
+	}
+	
+	public void add(Entity e, int x, int y) {
+		
 	}
 
 }

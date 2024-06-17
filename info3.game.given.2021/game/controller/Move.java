@@ -23,14 +23,9 @@ public class Move implements IAction {
 
 	@Override
 	public void exec(Entity e) {
-		LinkedList<Entity> elem = terrain.getElement(e.x(), e.y());
-		elem.remove(e);
-		terrain.updateAt(e.x(), e.y(), elem);
+		terrain.remove(e.x(), e.y(), e);	
 		e.move();
-		elem = terrain.getElement(e.x(), e.y());
-		elem.add(e);
-		terrain.updateAt(e.x(), e.y(), elem);
-
+		terrain.add(e, e.x(), e.y());
 //		System.out.println("Move");
 		return;
 	}

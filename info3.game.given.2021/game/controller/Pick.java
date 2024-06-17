@@ -27,7 +27,7 @@ public class Pick implements IAction {
 		if (e instanceof Joueur) {
 			Entity pick = terrain.getPickable(e.x(),e.y());
 			if (pick != null)
-				terrain.remove(pick);
+				terrain.remove(e.x(),e.y(),pick);
 		}
 		e.pick();
 	}

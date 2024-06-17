@@ -21,47 +21,61 @@ import gal.ast.Underscore;
 import gal.ast.Value;
 import toolkit.*;
 
-import toolkit.*;
-
 public class GeneralVisitor implements gal.ast.IVisitor {
 	
 	LinkedList<Automate> l_aut;
 	LinkedList<Transition> l_trans;
 	LinkedList<IAction> l_act;
 	State current;
+	boolean is_action;
+	int category;
 
 	@Override
 	public Object visit(Category cat) {
 		switch (cat.toString()) {
 		case "A":
-			return Categorie.A;
+			category = Categorie.A;
+			break;
 		case "C":
-			return Categorie.C;
+			category = Categorie.C;
+			break;
 		case "D":
-			return Categorie.D;
+			category = Categorie.D;
+			break;
 		case "G":
-			return Categorie.G;
+			category = Categorie.G;
+			break;
 		case "J":
-			return Categorie.J;
+			category = Categorie.J;
+			break;
 		case "M":
-			return Categorie.M;
+			category = Categorie.M;
+			break;
 		case "O":
-			return Categorie.O;
+			category = Categorie.O;
+			break;
 		case "P":
-			return Categorie.P;
+			category = Categorie.P;
+			break;
 		case "T":
-			return Categorie.T;
+			category = Categorie.T;
+			break;
 		case "V":
-			return Categorie.V;
+			category = Categorie.V;
+			break;
 		case "Arobase":
-			return Categorie.Arobase;
+			category = Categorie.Arobase;
+			break;
 		case "Diese":
-			return Categorie.Diese;
+			category = Categorie.Diese;
+			break;
 		case "Tiret":
-			return Categorie.Tiret;
+			category = Categorie.Tiret;
+			break;
 		default:
 			return null;
 		}
+		return category;
 	}
 
 	@Override
@@ -236,7 +250,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(Actions action) {
 		// TODO Auto-generated method stub
-
+		is_action = true;
 	}
 
 	@Override
@@ -248,7 +262,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void exit(Actions action) {
 		// TODO Auto-generated method stub
-
+		is_action = false;
 	}
 
 	@Override

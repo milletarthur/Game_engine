@@ -31,6 +31,6 @@ public class AutomatonLoader {
 	}
 	
 	public static void main(String[] args) {
-		 loadAutomata("/home/toni/Documents/Projet_fin_INFO3/g5/info3.game.given.2021/resources/automata/apple.gal");
+		 loadAutomata("resources/automata/apple.gal");
 	}
 }

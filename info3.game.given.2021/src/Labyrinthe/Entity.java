@@ -15,6 +15,8 @@ public abstract class Entity {
 	protected int team;
 
 	protected int category;
+	
+	protected int layer;
 
 	public abstract Entity egg(int x, int y);
 
@@ -69,6 +71,10 @@ public abstract class Entity {
 
 	public int category() {
 		return this.category;
+	}
+	
+	public int layer() {
+		return this.layer;
 	}
 
 }

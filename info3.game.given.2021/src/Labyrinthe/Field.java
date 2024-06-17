@@ -781,7 +781,39 @@ public class Field {
 	}
 	
 	public void add(Entity e, int x, int y) {
-		
+		LinkedList<Entity> l_entity = getElement(x,y);
+		int cpt = 0;
+		Entity elem = l_entity.get(0);
+		while(cpt < l_entity.size() && elem.layer() < e.layer()) {
+			cpt++;
+			elem = l_entity.get(cpt);
+		}
+		if(elem.layer() == e.layer()) {
+			return;
+		} else {
+			l_entity.add(cpt-1, e);
+		}
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public void setElement(int x, int y, LinkedList<Entity> l_entity) {
+		((ArrayList<Object>)labyrinthe.get(x)).add(y, l_entity);
+	}
+	
+	public void remove(int x, int y, Entity e) {
+		LinkedList<Entity> l_entity = getElement(x,y);
+		l_entity.remove(e);
+	}
+	
+	public Entity getPickable(int x, int y) {
+		LinkedList<Entity> l_entity = getElement(x,y);
+		Entity elem;
+		for(int i=0; i<l_entity.size(); i++) {
+			elem = l_entity.get(i);
+			if(elem.category() == Categorie.P) {
+				return elem;
+			}
+		}
+		return null;
+	}
 }

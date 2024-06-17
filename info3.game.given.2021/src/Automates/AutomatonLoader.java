@@ -1,22 +1,36 @@
 package Automates;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 import gal.ast.AST;
 import gal.parser.Parser;
 
+import gal.ast.IVisitor;
+
+import gal.ast.export.Ast2Gal;
+
 public class AutomatonLoader {
 
-	LinkedList<Automate> loadAutomata(String filename) {
-		LinkedList<Automate> fsm_list = new LinkedList<Automate>();
+	static Object loadAutomata(String filename) {
+		//LinkedList<Automate> fsm_list = new LinkedList<Automate>();
 		try {
 			AST ast = (AST) Parser.from_file(filename);
-
-			// TODO à vous de constuire les FSM (automates exécutables) à partir de l'AST
-
+			
+			Ast2Gal vis = new Ast2Gal();
+			
+			Object  fsm_list = ast.accept(vis);
+			
+			
+			
+			
 			return fsm_list;
 		} catch (Exception ex) {
-			return null;
+			throw new RuntimeException(ex);
 		}
+	}
+	
+	public static void main(String[] args) {
+		 loadAutomata("/home/toni/Documents/Projet_fin_INFO3/g5/info3.game.given.2021/resources/automata/apple.gal");
 	}
 }

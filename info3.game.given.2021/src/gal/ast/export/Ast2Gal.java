@@ -30,6 +30,7 @@ public class Ast2Gal implements IVisitor {
   // EXPORT
 
   public String export() {
+	  System.out.println(string_builder.toString());
     return string_builder.toString();
   }
 
@@ -276,6 +277,7 @@ public class Ast2Gal implements IVisitor {
   }
 
   public void exit(AST ast) {
+	  System.out.println(string_builder.toString());
   }
 
   @Override

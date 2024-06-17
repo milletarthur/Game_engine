@@ -32,7 +32,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object visit(Category cat) {
-		switch (cat.terminal.content) {
+		switch (cat.toString()) {
 		case "A":
 			return Categorie.A;
 		case "C":
@@ -66,7 +66,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object visit(Direction dir) {
-		switch (dir.terminal.content) {
+		switch (dir.toString()) {
 		case "N":
 			return toolkit.Direction.N;
 		case "S":

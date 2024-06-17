@@ -1,8 +1,11 @@
 package controller;
 
+import java.util.LinkedList;
+
 import Automates.IAction;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Joueur;
 
 public class Move implements IAction {
 	
@@ -16,7 +19,14 @@ public class Move implements IAction {
 
 	@Override
 	public void exec(Entity e) {
+		LinkedList<Entity> elem = terrain.getElement(e.x(), e.y());
+		elem.remove(e);
+//		terrain.updateAt(e.x(), e.y(), elem);
 		e.move();
+		elem = terrain.getElement(e.x(), e.y());
+		elem.add(e);
+//		terrain.updateAt(e.x(), e.y(), elem);
+		
 //		System.out.println("Move");
 		return ;		
 	}

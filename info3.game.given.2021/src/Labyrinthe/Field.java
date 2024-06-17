@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
-import toolkit.Pair;
-import toolkit.Triple;
+import toolkit.*;
 
 import toolkit.Pair;
 
@@ -682,6 +681,15 @@ public class Field {
 					l_void.add(p);
 				}
 			}
+		}
+	}
+	
+	public boolean cell(Entity e, int dir, Categorie cat) {
+		int x = e.x();
+		int y = e.y();
+		switch(dir) {
+			default : 
+				return false;
 		}
 	}
 

@@ -8,10 +8,10 @@ import toolkit.Direction;
 
 public class Cell implements ICondition {
 	private Field f;
-	private Direction dir;
-	private Categorie cat;
+	private int dir;
+	private int cat;
 
-	public Cell(Field f, Direction dir, Categorie cat) {
+	public Cell(Field f, int dir, int cat) {
 		this.f = f;
 		this.dir = dir;
 		this.cat = cat;
@@ -19,27 +19,26 @@ public class Cell implements ICondition {
 
 	@Override
 	public boolean eval(Entity e) {
-//		return f.cell(e,dir,cat);
-		return true;
+		return f.cell(e,dir,cat);
 	}
 
 	@Override
-	public void setDir(Direction dir) {
+	public void setDir(int dir) {
 		this.dir = dir;
 	}
 
 	@Override
-	public void setCat(Categorie cat) {
+	public void setCat(int cat) {
 		this.cat = cat;
 	}
 
 	@Override
-	public Categorie getCategorie() {
+	public int getCategorie() {
 		return cat;
 	}
 
 	@Override
-	public Direction getDirection() {
+	public int getDirection() {
 		return dir;
 	}
 

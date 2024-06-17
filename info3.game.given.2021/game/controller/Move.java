@@ -8,11 +8,11 @@ import Labyrinthe.Field;
 import Labyrinthe.Joueur;
 
 public class Move implements IAction {
-	
+
 	public Entity entity;
 	public Field terrain;
-	
-	public Move (Entity entity, Field terrain) {
+
+	public Move(Entity entity, Field terrain) {
 		this.entity = entity;
 		this.terrain = terrain;
 	}
@@ -26,8 +26,18 @@ public class Move implements IAction {
 		elem = terrain.getElement(e.x(), e.y());
 		elem.add(e);
 //		terrain.updateAt(e.x(), e.y(), elem);
-		
+
 //		System.out.println("Move");
-		return ;		
+		return;
+	}
+
+	@Override
+	public Entity getEntity() {
+		return entity;
+	}
+
+	@Override
+	public void setEntity(Entity e) {
+		this.entity = e;
 	}
 }

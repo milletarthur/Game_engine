@@ -100,14 +100,12 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object visit(Key key) {
-		// TODO Auto-generated method stub
-		return null;
+		return key.toString();
 	}
 
 	@Override
 	public Object visit(Value v) {
-		// TODO Auto-generated method stub
-		return null;
+		return Integer.valueOf(v.toString());
 	}
 
 	@Override

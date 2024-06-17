@@ -10,6 +10,10 @@ public class Turn implements IAction {
 	private int Direction;
 	private Field terrain;
 	
+	public Turn(Field f) {
+		terrain = f;
+	}
+	
 	public Turn(Entity entity, Field terrain) {
 		this.entity = entity;
 		this.terrain = terrain;
@@ -30,8 +34,6 @@ public class Turn implements IAction {
 
 	@Override
 	public void exec(Entity e) {
-		int old_x = e.x();
-		int old_y = e.y();
 		e.turn(this.Direction);
 //		System.out.println("Turn");
 		return;
@@ -45,5 +47,13 @@ public class Turn implements IAction {
 	@Override
 	public void setEntity(Entity e) {
 		entity = e;
+	}
+	
+	public int getDirection() {
+		return Direction;
+	}
+	
+	public void setDirection(int dir) {
+		Direction = dir;
 	}
 }

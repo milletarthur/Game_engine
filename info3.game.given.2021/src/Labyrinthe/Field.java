@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
-import toolkit.*;
 
-import toolkit.Pair;
+import toolkit.*;
 
 public class Field {
 	
@@ -684,13 +683,100 @@ public class Field {
 		}
 	}
 	
-	public boolean cell(Entity e, int dir, Categorie cat) {
-		int x = e.x();
-		int y = e.y();
-		switch(dir) {
-			default : 
-				return false;
+	private int[] next_to(Entity e, int d) {
+		int[] rv = new int[2];
+		rv[0] = e.x();
+		rv[1] = e.y();
+		switch (e.direction()) {
+		case Direction.N:
+			switch (d) {
+			case Direction.L:
+				rv[0]--;
+				break;
+			case Direction.R:
+				rv[0]++;
+				break;
+			case Direction.B:
+				rv[1]++;
+				break;
+			case Direction.F:
+				rv[1]--;
+				break;
+			default:
+				break;
+			}
+			break;
+		case Direction.S:
+			switch (d) {
+			case Direction.L:
+				rv[0]++;
+				break;
+			case Direction.R:
+				rv[0]--;
+				break;
+			case Direction.B:
+				rv[1]--;
+				break;
+			case Direction.F:
+				rv[1]++;
+				break;
+			default:
+				break;
+			}
+			break;
+		case Direction.E:
+			switch (d) {
+			case Direction.L:
+				rv[1]--;
+				break;
+			case Direction.R:
+				rv[1]++;
+				break;
+			case Direction.B:
+				rv[0]--;
+				break;
+			case Direction.F:
+				rv[0]++;
+				break;
+			default:
+				break;
+			}
+			break;
+		case Direction.W:
+			switch (d) {
+			case Direction.L:
+				rv[1]++;
+				break;
+			case Direction.R:
+				rv[1]--;
+				break;
+			case Direction.B:
+				rv[0]++;
+				break;
+			case Direction.F:
+				rv[0]--;
+				break;
+			default:
+				break;
+			}
+			break;
+		default:
+			break;
 		}
+		return rv;
+	}
+	
+	public boolean cell(Entity e, int dir, int cat) {
+		int[] coo = next_to(e,dir);
+		int x = coo[0];
+		int y = coo[1];
+		LinkedList<Entity> elem = getElement(x,y);
+		Iterator<Entity> iter = elem.iterator();
+		while(iter.hasNext()) {
+			if(iter.next().category() == cat)
+				return true;
+		}
+		return false;
 	}
 
 }

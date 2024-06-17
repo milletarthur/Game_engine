@@ -21,14 +21,13 @@ import gal.ast.Underscore;
 import gal.ast.Value;
 import toolkit.*;
 
-import toolkit.*;
-
 public class GeneralVisitor implements gal.ast.IVisitor {
 	
 	LinkedList<Automate> l_aut;
 	LinkedList<Transition> l_trans;
 	LinkedList<IAction> l_act;
 	State current;
+	int direction ;
 
 	@Override
 	public Object visit(Category cat) {
@@ -68,34 +67,48 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public Object visit(Direction dir) {
 		switch (dir.toString()) {
 		case "N":
-			return toolkit.Direction.N;
+			direction = toolkit.Direction.N;
+			break;
 		case "S":
-			return toolkit.Direction.S;
+			direction = toolkit.Direction.S;
+			break;
 		case "E":
-			return toolkit.Direction.E;
+			direction = toolkit.Direction.E;
+			break;
 		case "W":
-			return toolkit.Direction.W;
+			direction = toolkit.Direction.W;
+			break;
 		case "NE":
-			return toolkit.Direction.NE;
+			direction = toolkit.Direction.NE;
+			break;
 		case "NW":
-			return toolkit.Direction.NW;
+			direction = toolkit.Direction.NW;
+			break;
 		case "SE":
-			return toolkit.Direction.SE;
+			direction = toolkit.Direction.SE;
+			break;
 		case "SW":
-			return toolkit.Direction.SW;
+			direction = toolkit.Direction.SW;
+			break;
 		case "H":
-			return toolkit.Direction.H;
+			direction = toolkit.Direction.H;
+			break;
 		case "F":
-			return toolkit.Direction.F;
+			direction = toolkit.Direction.F;
+			break;
 		case "B":
-			return toolkit.Direction.B;
+			direction = toolkit.Direction.B;
+			break;
 		case "L":
-			return toolkit.Direction.L;
+			direction = toolkit.Direction.L;
+			break;
 		case "R":
-			return toolkit.Direction.R;
+			direction = toolkit.Direction.R;
+			break;
 		default:
 			return null;
 		}
+		return direction;
 	}
 
 	@Override

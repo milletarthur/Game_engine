@@ -21,6 +21,8 @@ import gal.ast.Underscore;
 import gal.ast.Value;
 import toolkit.*;
 
+import toolkit.*;
+
 public class GeneralVisitor implements gal.ast.IVisitor {
 	
 	LinkedList<Automate> l_aut;
@@ -64,7 +66,36 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object visit(Direction dir) {
-		return null;
+		switch (dir.terminal.content) {
+		case "N":
+			return toolkit.Direction.N;
+		case "S":
+			return toolkit.Direction.S;
+		case "E":
+			return toolkit.Direction.E;
+		case "W":
+			return toolkit.Direction.W;
+		case "NE":
+			return toolkit.Direction.NE;
+		case "NW":
+			return toolkit.Direction.NW;
+		case "SE":
+			return toolkit.Direction.SE;
+		case "SW":
+			return toolkit.Direction.SW;
+		case "H":
+			return toolkit.Direction.H;
+		case "F":
+			return toolkit.Direction.F;
+		case "B":
+			return toolkit.Direction.B;
+		case "L":
+			return toolkit.Direction.L;
+		case "R":
+			return toolkit.Direction.R;
+		default:
+			return null;
+		}
 	}
 
 	@Override
@@ -166,7 +197,6 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void visit(Mode mode) {
 		current = mode.state;
-
 	}
 
 	@Override

@@ -21,4 +21,15 @@ public class Explode implements IAction {
 //		System.out.println("Kill");
 		return ;
 	}
+
+	@Override
+	public Entity getEntity() {
+		return entity;
+	}
+
+	@Override
+	public void setEntity(Entity e) {
+		// TODO Auto-generated method stub
+		entity = e;
+	}
 }

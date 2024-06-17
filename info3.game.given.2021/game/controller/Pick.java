@@ -21,4 +21,14 @@ public class Pick implements IAction {
 //		System.out.println("Pick");
 		return;
 	}
+
+	@Override
+	public Entity getEntity() {
+		return entity;
+	}
+
+	@Override
+	public void setEntity(Entity e) {
+		entity = e;
+	}
 }

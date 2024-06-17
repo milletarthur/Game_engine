@@ -11,34 +11,36 @@ public class Not implements ICondition {
 	public Not(ICondition c) {
 		this.c = c;
 	}
-	
+
 	@Override
 	public boolean eval(Entity e) {
-		return !(c.eval(e));
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public void setDir(Direction dir) {
+	public void setDir(int dir) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setCat(Categorie cat) {
+	public void setCat(int cat) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Categorie getCategorie() {
+	public int getCategorie() {
 		// TODO Auto-generated method stub
-		return null;
+		return -1;
 	}
 
 	@Override
-	public Direction getDirection() {
+	public int getDirection() {
 		// TODO Auto-generated method stub
-		return null;
+		return -5;
 	}
+	
 
 }

@@ -37,9 +37,11 @@ public class DrawTerrain extends JPanel {
 
 	Random random;
 
-	int[][] rand_chemin;
-	int[][] rand_mine_x;
-	int[][] rand_mine_y;
+	private int[][] rand_chemin;
+	private int[][] rand_mine_x;
+	private int[][] rand_mine_y;
+	
+	private boolean perso1 = false ;
 
 	public DrawTerrain(int HAUTEUR, int LARGEUR, Field terrain, int T_case) throws IOException {
 		this.terrain = terrain;

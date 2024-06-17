@@ -22,14 +22,14 @@ import gal.ast.Value;
 import toolkit.*;
 
 public class GeneralVisitor implements gal.ast.IVisitor {
-	
-	LinkedList<Automate> l_aut;
-	LinkedList<Transition> l_trans;
+
+	LinkedList<Automates.Automate> l_aut;
+	LinkedList<Automates.Transition> l_trans;
 	LinkedList<IAction> l_act;
 	State current;
 	boolean is_action;
 	int category;
-	int direction ;
+	int direction;
 
 	@Override
 	public Object visit(Category cat) {
@@ -288,8 +288,8 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Transition transition) {
-		// TODO Auto-generated method stub
-
+		Automate a = l_aut.getLast();
+		a.add_transition(new Automates.Transition());
 	}
 
 	@Override
@@ -306,24 +306,24 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Automaton automaton) {
-		l_aut = new LinkedList<Automate>();
+		l_aut.add(new Automate());
 	}
 
 	@Override
 	public void exit(Automaton automaton) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public Object build(Automaton automaton, Object initial_state, List<Object> modes) {
-		// TODO Auto-generated method stub
-		return null;
+		Automate a = l_aut.getLast();
+		//a.add_init_state((Automates.State) initial_state);
+		// ... + ajouter une liste de transitions 
+		return a;
 	}
 
 	@Override
 	public void enter(AST ast) {
-		// TODO Auto-generated method stub
+		l_aut = new LinkedList<Automate>();
 
 	}
 

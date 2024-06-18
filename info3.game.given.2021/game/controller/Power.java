@@ -6,33 +6,16 @@ import Labyrinthe.Field;
 
 public class Power implements IAction {
 	
-	private Entity entity;
 	private Field terrain;
 	private int vie = 0;
 
-	public Power(Entity e, Field f, int vie) {
-		entity = e;
+	public Power(Field f, int vie) {
 		terrain = f;
 		this.vie = vie;
 	}
 	
-	public Power(Entity e, Field f) {
-		entity = e;
-		terrain = f;
-	}
-	
 	public Power(Field f) {
 		terrain = f;
-	}
-	
-	@Override
-	public Entity getEntity() {
-		 return entity;
-	}
-
-	@Override
-	public void setEntity(Entity e) {
-		entity = e;
 	}
 	
 	public int getVie() {

@@ -18,26 +18,10 @@ import toolkit.Categorie;
 
 public class Hit implements IAction {
 	
-	public Entity entity;
 	public Field terrain;
 
-	public Hit(Entity entity, Field terrain) {
-		this.entity = entity;
-		this.terrain = terrain;
-	}
-	
 	public Hit(Field terrain) {
 		this.terrain = terrain;
-	}
-
-	@Override
-	public Entity getEntity() {
-		return entity;
-	}
-
-	@Override
-	public void setEntity(Entity e) {
-		entity = e;		
 	}
 
 	@Override
@@ -66,10 +50,10 @@ public class Hit implements IAction {
 			terrain.add(f, x, y);
 		} else if (damage == -2) { // cas Pioche
 			if (tohit instanceof Labyrinthe.Void) {
-				Wizz wi = new Wizz(((Joueur)e).picked(),terrain);
+				Wizz wi = new Wizz(terrain);
 				wi.exec(((Joueur)e).picked());
 			} else if (tohit instanceof Cassable) {
-				Pop po = new Pop(terrain,((Joueur)e).picked());
+				Pop po = new Pop(terrain);
 				po.exec(((Joueur)e).picked());
 			} else if ((tohit instanceof Joueur) || (tohit instanceof Zombie) || (tohit instanceof Squelette)) {
 				tohit.power(-2);
@@ -89,7 +73,7 @@ public class Hit implements IAction {
 				e.power(2);
 			}
 		} else if (damage == -5) { // cas bombe
-			Explode ex = new Explode(((Joueur)e).picked(), terrain);
+			Explode ex = new Explode(terrain);
 			ex.exec(((Joueur)e).picked());
 		}
 		

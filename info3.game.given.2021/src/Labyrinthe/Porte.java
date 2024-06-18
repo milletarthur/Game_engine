@@ -1,13 +1,14 @@
 package Labyrinthe;
 
 public class Porte extends Entity {
+	
+	private int layer = 2;
 
-	public Porte(int x, int y, int team, int category, Field f) {
+	public Porte(int x, int y, int team, int category) {
 		this.x = x;
 		this.y = y;
 		this.category = category;
 		this.team = team;
-		this.f = f;
 	}
 
 	@Override
@@ -50,5 +51,10 @@ public class Porte extends Entity {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void power(int vie) {
+		// TODO Auto-generated method stub
 
+	}
 }

@@ -1,5 +1,9 @@
 package Labyrinthe;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import toolkit.Categorie;
 import toolkit.Direction;
 
 /*
@@ -9,14 +13,18 @@ import toolkit.Direction;
  */
 public class Joueur extends Entity {
 	
+	Entity picked;
+	private int layer = 2;
+	
 	public Joueur(int x, int y) {
 		this.x = x ;
 		this.y = y ;
+		super.vie = 10;
 	}
-
+	
 	@Override
 	public Entity egg(int x, int y) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -27,14 +35,12 @@ public class Joueur extends Entity {
 
 	@Override
 	public void pick() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
+		super.turn(dir);
 	}
 
 	@Override
@@ -45,14 +51,17 @@ public class Joueur extends Entity {
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		super.turn(Direction.B);
 	}
 
 	@Override
 	public void explode() {
-		// TODO Auto-generated method stub
+		super.kill();
+	}
 
+	@Override
+	public void power(int vie) {
+		super.power(vie);
 	}
 
 }

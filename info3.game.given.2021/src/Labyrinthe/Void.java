@@ -1,13 +1,14 @@
 package Labyrinthe;
 
 public class Void extends Entity {
+	
+	private int layer = 1;
 
-	public Void(int x, int y, int team, int category, Field f) {
+	public Void(int x, int y, int team, int category) {
 		this.x = x;
 		this.y = y;
 		this.category = category;
 		this.team = team;
-		this.f = f;
 	}
 
 	@Override
@@ -47,6 +48,12 @@ public class Void extends Entity {
 
 	@Override
 	public void explode() {
+		// TODO Auto-generated method stub
+
+	}
+	
+	@Override
+	public void power(int vie) {
 		// TODO Auto-generated method stub
 
 	}

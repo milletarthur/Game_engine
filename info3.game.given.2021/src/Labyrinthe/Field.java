@@ -155,12 +155,12 @@ public class Field {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
 				if (tmp[i][j] == -1) {
-					set_element(i, j, new Normal(i, j, 1, 1, this), labyrinthe);
-					set_element(i, j, new Void(i, j, 1, 1, this), labyrinthe);
-					set_element(i, j, new Lave(i, j, 1, 1, this), labyrinthe);
+					set_element(i, j, new Normal(i, j, 1, 1), labyrinthe);
+					set_element(i, j, new Void(i, j, 1, 1), labyrinthe);
+					set_element(i, j, new Lave(i, j, 1, 1), labyrinthe);
 				} else {
-					set_element(i, j, new Void(i, j, 1, 1, this), labyrinthe);
-					set_element(i, j, new Lave(i, j, 1, 1, this), labyrinthe);
+					set_element(i, j, new Void(i, j, 1, 1), labyrinthe);
+					set_element(i, j, new Lave(i, j, 1, 1), labyrinthe);
 				}
 			}
 		}
@@ -443,14 +443,14 @@ public class Field {
 		while (i > 0 && condition == 1) {
 			if ((get_element(liste.get(i).x - 1, y) instanceof Mur)
 					&& (get_element(liste.get(i).x + 1, y) instanceof Mur)) {
-				p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1, this);
+				p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1);
 				p.Orientation = 3;
 				set_element(liste.get(i).x, liste.get(i).y, p, labyrinthe);
 				elem = liste.remove(i);
 				condition = 0;
 			} else if ((get_element(liste.get(i).x, liste.get(i).y - 1) instanceof Mur)
 					&& (get_element(liste.get(i).x, liste.get(i).y + 1) instanceof Mur)) {
-				p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1, this);
+				p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1);
 				p.Orientation = 1;
 				set_element(liste.get(i).x, liste.get(i).y, p, labyrinthe);
 				elem = liste.remove(i);
@@ -465,7 +465,7 @@ public class Field {
 			}
 			LinkedList<Entity> l = new LinkedList<Entity>();
 			l.add(p);
-			Interrupteur Int = new Interrupteur(liste.getLast().x, liste.getLast().y, 1, 1, this, l);
+			Interrupteur Int = new Interrupteur(liste.getLast().x, liste.getLast().y, 1, 1, l);
 			set_element(liste.get(levier).x, liste.get(levier).y, Int, labyrinthe);
 			res.setz(l);
 		}
@@ -636,14 +636,14 @@ public class Field {
 	public void lave() {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				if ((ContainsInstanceof(this.getElement(i, j), (new Void(i, j, 1, 1, this)).getClass()) == 1)
+				if ((ContainsInstanceof(this.getElement(i, j), (new Void(i, j, 1, 1)).getClass()) == 1)
 						|| (((ContainsInstanceof(this.getElement(i, j), (new Teleporteur()).getClass()) == 0)
 								&& (ContainsInstanceof(this.getElement(i, j),
-										(new Normal(0, 0, 0, 0, this)).getClass()) == 0))
+										(new Normal(0, 0, 0, 0)).getClass()) == 0))
 								&& ((ContainsInstanceof(this.getElement(i, j), (new Cassable()).getClass()) == 1)
 										|| (ContainsInstanceof(this.getElement(i, j),
 												(new Invisible()).getClass()) == 1)))) {
-					this.getElement(i, j).add(0, new Lave(i, j, 1, 1, this));
+					this.getElement(i, j).add(0, new Lave(i, j, 1, 1));
 				}
 			}
 		}

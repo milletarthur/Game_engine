@@ -1,6 +1,8 @@
 package Labyrinthe;
 
 public class Cassable extends Mur {
+	
+	private int layer = 3;
 
 	@Override
 	public Entity egg(int x, int y) {
@@ -41,6 +43,12 @@ public class Cassable extends Mur {
 	public void explode() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void power(int vie) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

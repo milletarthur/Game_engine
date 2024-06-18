@@ -8,4 +8,13 @@ public class Pair<A, T> {
 		this.o1 = o1;
 		this.o2 = o2;
 	}
+	
+	public A geto1() {
+		return this.o1 ;
+	}
+	
+	public T geto2() {
+		return this.o2 ;
+	}
+	
 }

@@ -126,6 +126,22 @@ public abstract class Entity {
 		inventory.add(picked);
 		picked = null;
 	}
+	
+	public Entity get() {
+		return null;
+	}
+	
+	public void throw_() {
+		
+	}
+	
+	public void wait_() {
+		
+	}
+	
+	public void closest() {
+		
+	}
 
 	public void kill() {
 		this.Valid = false;

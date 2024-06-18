@@ -6,10 +6,15 @@ import java.util.List;
 
 import Labyrinthe.Field;
 import controller.Cell;
+import controller.Egg;
 import controller.Explode;
 import controller.False;
+import controller.Got;
+import controller.Hit;
 import controller.Move;
 import controller.Pick;
+import controller.Power;
+import controller.Store;
 import controller.True;
 import controller.Turn;
 import gal.ast.AST;
@@ -308,7 +313,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		case "Key":
 			if(l_param.size() != 1)
 				throw new RuntimeException("Wrong arguments");
-			return new Key(f, l_param.get(0));  //il ne reconnait pas le bon key !
+			return new controller.Key(f, l_param.get(0));
 		case "Got":
 			if(l_param.size() != 1)
 				throw new RuntimeException("Wrong arguments");

@@ -3,15 +3,16 @@ package controller;
 import Automates.ICondition;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import toolkit.KeyBoard;
 
 public class Key implements ICondition {
 	
 	private Field f;
 	private int direction;
 	private int categorie;
-	private KeyBoard key;
+	private int key;
 	
-	public Key(Field f, KeyBoard key) {
+	public Key(Field f, int key) {
 		this.f = f;
 		this.key = key;
 	}

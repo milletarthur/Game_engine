@@ -11,21 +11,10 @@ public class Mine extends Entity {
 	}
 
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void pick() {
-		super.move();
-	}
-
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
 
 	}
+
 
 	@Override
 	public void pop() {
@@ -43,12 +32,6 @@ public class Mine extends Entity {
 	public void explode() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void power(int vie) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

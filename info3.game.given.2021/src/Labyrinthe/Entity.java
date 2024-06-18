@@ -5,6 +5,8 @@ import toolkit.Direction;
 public abstract class Entity {
 	
 	protected Inventory inventory;
+	
+	protected Entity picked;
 
 	protected int x;
 	protected int y;
@@ -120,7 +122,10 @@ public abstract class Entity {
 		this.vie += vie;
 	}
 	
-	abstract public void store();
+	public void store() {
+		inventory.add(picked);
+		picked = null;
+	}
 
 	public void kill() {
 		this.Valid = false;

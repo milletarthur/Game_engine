@@ -28,12 +28,6 @@ public class Fleche extends Entity {
 	}
 
 	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void pop() {
 		// TODO Auto-generated method stub
 		

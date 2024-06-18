@@ -1,9 +1,5 @@
 package Labyrinthe;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
-import toolkit.Categorie;
 import toolkit.Direction;
 
 /*
@@ -13,7 +9,6 @@ import toolkit.Direction;
  */
 public class Joueur extends Entity {
 
-	private Entity picked;
 	private int layer = 2;
 
 	public Joueur(int x, int y) {
@@ -37,18 +32,8 @@ public class Joueur extends Entity {
 	}
 
 	@Override
-	public void move() {
-		super.move();
-	}
-
-	@Override
 	public void pick() {
 
-	}
-
-	@Override
-	public void turn(int dir) {
-		super.turn(dir);
 	}
 
 	@Override
@@ -65,17 +50,6 @@ public class Joueur extends Entity {
 	@Override
 	public void explode() {
 		super.kill();
-	}
-
-	@Override
-	public void power(int vie) {
-		super.power(vie);
-	}
-
-	@Override
-	public void store() {
-		inventory.add(picked);
-		picked = null;
 	}
 
 	public int hit() {

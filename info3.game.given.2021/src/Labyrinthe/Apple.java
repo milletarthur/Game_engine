@@ -18,16 +18,7 @@ public class Apple extends Entity {
 	}
 
 	@Override
-	public void move() {
-		super.move();
-	}
-
-	@Override
 	public void pick() {
-	}
-
-	@Override
-	public void turn(int dir) {
 	}
 
 	@Override
@@ -47,11 +38,6 @@ public class Apple extends Entity {
 	@Override
 	public int hit() {
 		return -3;
-	}
-	
-	@Override
-	public void power(int vie) {
-		// TODO Auto-generated method stub
 	}
 	
 	public boolean poisoned() {

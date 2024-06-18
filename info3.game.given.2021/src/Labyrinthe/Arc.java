@@ -18,12 +18,6 @@ public class Arc extends Entity {
 	}
 
 	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void pop() {
 		// TODO Auto-generated method stub
 
@@ -46,10 +40,4 @@ public class Arc extends Entity {
 		return -1;
 	}
 	
-	@Override
-	public void power(int vie) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

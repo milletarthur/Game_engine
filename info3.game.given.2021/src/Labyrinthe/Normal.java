@@ -18,18 +18,7 @@ public class Normal extends Mur {
 	}
 
 	@Override
-	public void move() {
-		super.move();
-	}
-
-	@Override
 	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
 		// TODO Auto-generated method stub
 
 	}
@@ -52,12 +41,6 @@ public class Normal extends Mur {
 	public void explode() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void power(int vie) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

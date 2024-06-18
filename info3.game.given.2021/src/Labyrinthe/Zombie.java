@@ -11,18 +11,7 @@ public class Zombie extends Entity {
 	}
 
 	@Override
-	public void move() {
-		super.move();
-	}
-
-	@Override
 	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
 		// TODO Auto-generated method stub
 
 	}
@@ -43,11 +32,6 @@ public class Zombie extends Entity {
 	public void explode() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void power(int vie) {
-		super.power(vie);
 	}
 
 	@Override

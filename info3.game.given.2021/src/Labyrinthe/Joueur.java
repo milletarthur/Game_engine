@@ -12,20 +12,28 @@ import toolkit.Direction;
  * x et y sont les coordonnées de ce joueur dans la matrice
  */
 public class Joueur extends Entity {
-	
-	Entity picked;
+
+	private Entity picked;
 	private int layer = 2;
-	
+
 	public Joueur(int x, int y) {
-		this.x = x ;
-		this.y = y ;
+		this.x = x;
+		this.y = y;
 		super.vie = 10;
 	}
-	
+
 	@Override
 	public Entity egg(int x, int y) {
-		
+
 		return null;
+	}
+
+	public Entity picked() {
+		return picked;
+	}
+
+	public void setpicked(Entity p) {
+		picked = p;
 	}
 
 	@Override
@@ -35,7 +43,7 @@ public class Joueur extends Entity {
 
 	@Override
 	public void pick() {
-		
+
 	}
 
 	@Override
@@ -68,6 +76,12 @@ public class Joueur extends Entity {
 	public void store() {
 		inventory.add(picked);
 		picked = null;
+	}
+
+	public int hit() {
+		if (picked != null)
+			return 1;
+		return picked.hit();
 	}
 
 }

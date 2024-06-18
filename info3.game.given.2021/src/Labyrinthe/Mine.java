@@ -51,4 +51,9 @@ public class Mine extends Entity {
 		
 	}
 
+	@Override
+	public int hit() {
+		return 5;
+	}
+
 }

@@ -41,7 +41,9 @@ public abstract class Entity {
 			break;
 		}
 	}
-
+	
+	abstract public int hit();
+	
 	abstract public void pick();
 
 	public void turn(int dir) {
@@ -146,6 +148,10 @@ public abstract class Entity {
 	
 	public int layer() {
 		return this.layer;
+	}
+	
+	public int team() {
+		return this.team;
 	}
 
 }

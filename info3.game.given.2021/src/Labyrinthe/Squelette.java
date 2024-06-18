@@ -50,4 +50,10 @@ public class Squelette extends Entity {
 		super.power(vie);
 	}
 
+	@Override
+	public int hit() {
+		// TODO Auto-generated method stub
+		return 2;
+	}
+
 }

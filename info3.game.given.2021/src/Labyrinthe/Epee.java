@@ -51,4 +51,9 @@ public class Epee extends Entity {
 		
 	}
 
+	@Override
+	public int hit() {
+		return 3;
+	}
+
 }

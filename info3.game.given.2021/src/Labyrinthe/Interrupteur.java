@@ -37,11 +37,6 @@ public class Interrupteur extends Entity {
 
 	}
 
-	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public int hit() {

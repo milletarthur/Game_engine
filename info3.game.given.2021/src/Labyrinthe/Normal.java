@@ -29,14 +29,6 @@ public class Normal extends Mur {
 
 	}
 
-
-
-	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
-	}
-
 	@Override
 	public int hit() {
 		// TODO Auto-generated method stub

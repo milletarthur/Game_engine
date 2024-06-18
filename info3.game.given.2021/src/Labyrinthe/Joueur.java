@@ -38,11 +38,6 @@ public class Joueur extends Entity {
 		super.turn(Direction.B);
 	}
 
-	@Override
-	public void explode() {
-		super.kill();
-	}
-
 	public int hit() {
 		if (picked != null)
 			return 1;

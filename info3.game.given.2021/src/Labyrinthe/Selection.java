@@ -25,11 +25,4 @@ public class Selection extends Entity {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

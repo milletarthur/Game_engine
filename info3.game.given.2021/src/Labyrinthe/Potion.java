@@ -20,12 +20,6 @@ public class Potion extends Entity {
 	public void wizz() {
 		poison = true;
 	}
-
-	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
-	}
 	
 	public boolean poisoned() {
 		return poison;

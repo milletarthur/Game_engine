@@ -1,35 +1,24 @@
 package Labyrinthe;
 
 public class Porte extends Entity {
+	
+	private int layer = 2;
 
-	public Porte(int x, int y, int team, int category, Field f) {
+	public Porte(int x, int y, int team, int category) {
 		this.x = x;
 		this.y = y;
 		this.category = category;
 		this.team = team;
-		this.f = f;
 	}
 
 	@Override
-	void egg(int x, int y) {
+	public Entity egg(int x, int y) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
 	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
 		// TODO Auto-generated method stub
 
 	}
@@ -52,4 +41,9 @@ public class Porte extends Entity {
 
 	}
 
+	@Override
+	public int hit() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

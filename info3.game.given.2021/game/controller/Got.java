@@ -2,46 +2,57 @@ package controller;
 
 import Automates.ICondition;
 import Labyrinthe.Entity;
-import toolkit.Categorie;
-import toolkit.Direction;
+import Labyrinthe.Field;
 
-public class Conjonction implements ICondition {
+public class Got implements ICondition {
 
-	private ICondition c1;
-	private ICondition c2;
+	private Field f;
+	private int value;
 	
-	public Conjonction(ICondition c1, ICondition c2) {
-		this.c1 = c1;
-		this.c2 = c2;
+	public Got(Field f, int value) {
+		this.f = f;
+		this.value = value;
 	}
 	
+	public Got(Field f) {
+		this.f = f;
+	}
+
 	@Override
 	public boolean eval(Entity e) {
-		return c1.eval(e) && c2.eval(e);
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public void setDir(int dir) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setCat(int cat) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public int getCategorie() {
 		// TODO Auto-generated method stub
-		return -1;
+		return 0;
 	}
 
 	@Override
 	public int getDirection() {
 		// TODO Auto-generated method stub
-		return -5;
+		return 0;
 	}
-
+	
+	public void setValue(int v) {
+		value = v;
+	}
+	
+	public int getvalue() {
+		return value;
+	}
 }

@@ -5,13 +5,13 @@ import java.util.LinkedList;
 public class Interrupteur extends Entity {
 	
 	private LinkedList<Entity> liste_elem;
+	private int layer = 2;
 	
-	public Interrupteur(int x, int y, int team, int category, Field f, LinkedList<Entity> elem) {
+	public Interrupteur(int x, int y, int team, int category, LinkedList<Entity> elem) {
 		this.x = x;
 		this.y = y;
 		this.category = category;
 		this.team = team;
-		this.f = f;
 		this.liste_elem = elem;
 	}
 
@@ -20,25 +20,13 @@ public class Interrupteur extends Entity {
 	}
 	
 	@Override
-	void egg(int x, int y) {
+	public Entity egg(int x, int y) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
 	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
 		// TODO Auto-generated method stub
 
 	}
@@ -59,6 +47,11 @@ public class Interrupteur extends Entity {
 	public void explode() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public int hit() {
+		return 1;
 	}
 
 }

@@ -1,27 +1,17 @@
 package Labyrinthe;
 
 public class Pioche extends Entity {
+	
+	private int layer = 2;
 
 	@Override
-	void egg(int x, int y) {
+	public Entity egg(int x, int y) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
 	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
 		// TODO Auto-generated method stub
 
 	}
@@ -42,6 +32,11 @@ public class Pioche extends Entity {
 	public void explode() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	public int hit() {
+		return -2;
 	}
 
 }

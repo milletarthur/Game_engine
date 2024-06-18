@@ -8,11 +8,11 @@ public interface ICondition {
 
 	public boolean eval(Entity e);
 	
-	public void setDir(Direction dir);
+	public void setDir(int dir);
 	
-	public void setCat(Categorie cat);
+	public void setCat(int cat);
 	
-	public Categorie getCategorie();
+	public int getCategorie();
 	
-	public Direction getDirection();
+	public int getDirection();
 }

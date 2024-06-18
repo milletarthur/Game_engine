@@ -3,10 +3,15 @@ package Labyrinthe;
 import toolkit.Direction;
 
 public abstract class Entity {
-	protected Field f;
+	
+	protected Inventory inventory;
+	
+	protected Entity picked;
 
 	protected int x;
 	protected int y;
+	
+	protected int vie = 5;
 
 	protected int Orientation = Direction.N;
 
@@ -15,37 +20,112 @@ public abstract class Entity {
 	protected int team;
 
 	protected int category;
+	
+	protected int layer;
 
-	abstract void egg(int x, int y);
+	public abstract Entity egg(int x, int y);
 
 	public void move() {
-		switch(Orientation) {
+		switch (Orientation) {
 		case Direction.N:
-			y = Math.max(0, y-1);
+			y--;
 			break;
 		case Direction.S:
-			y = Math.min(y+1, f.get_ligne()-1);
+			y++;
 			break;
 		case Direction.E:
-			x = Math.min(x+1, f.get_colonne()-1);
+			x++;
 			break;
 		case Direction.W:
-			x = Math.max(0, x-1);
+			x--;
 			break;
 		default:
 			break;
 		}
 	}
-
+	
+	abstract public int hit();
+	
 	abstract public void pick();
 
-	abstract public void turn(int dir);
+	public void turn(int dir) {
+		// positions absolues SANS prendre en compte NE NW SE SW
+		if(1 <= dir && dir <= 4) {
+			Orientation = dir;
+		} else {
+			// positions relatives
+			switch(dir) {
+			case Direction.L:
+				switch(Orientation) {
+				case Direction.N:
+					Orientation = Direction.W;
+					break;
+				case Direction.E:
+					Orientation = Direction.N;
+					break;
+				case Direction.S:
+					Orientation = Direction.E;
+					break;
+				case Direction.W:
+					Orientation = Direction.S;
+					break;
+				default:
+					break;
+				}
+			case Direction.R:
+				switch(Orientation) {
+				case Direction.N:
+					Orientation = Direction.E;
+					break;
+				case Direction.E:
+					Orientation = Direction.S;
+					break;
+				case Direction.S:
+					Orientation = Direction.W;
+					break;
+				case Direction.W:
+					Orientation = Direction.N;
+					break;
+				default:
+					break;
+				}
+			case Direction.B:
+				switch(Orientation) {
+				case Direction.N:
+					Orientation = Direction.S;
+					break;
+				case Direction.E:
+					Orientation = Direction.W;
+					break;
+				case Direction.S:
+					Orientation = Direction.N;
+					break;
+				case Direction.W:
+					Orientation = Direction.E;
+					break;
+				default:
+					break;
+				}
+			default:
+				break;
+			}
+		}
+	}
 
 	abstract public void pop();
 
 	abstract public void wizz();
 
 	abstract public void explode();
+	
+	public void power(int vie) {
+		this.vie += vie;
+	}
+	
+	public void store() {
+		inventory.add(picked);
+		picked = null;
+	}
 
 	public void kill() {
 		this.Valid = false;
@@ -63,12 +143,20 @@ public abstract class Entity {
 		return y;
 	}
 
-	/*
-	 * public int direction() { return this.Orientation; }
-	 */
+	public int direction() {
+		return this.Orientation;
+	}
 
 	public int category() {
 		return this.category;
+	}
+	
+	public int layer() {
+		return this.layer;
+	}
+	
+	public int team() {
+		return this.team;
 	}
 
 }

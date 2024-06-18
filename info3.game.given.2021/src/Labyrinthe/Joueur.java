@@ -8,47 +8,31 @@ import toolkit.Direction;
  * x et y sont les coordonnées de ce joueur dans la matrice
  */
 public class Joueur extends Entity {
-	
+
+	private int layer = 2;
+
 	public Joueur(int x, int y) {
-		this.x = x ;
-		this.y = y ;
+		this.x = x;
+		this.y = y;
+		super.vie = 10;
 	}
 
 	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
+	public Entity egg(int x, int y) {
 
+		return null;
 	}
 
-	@Override
-	public void move() {
-		switch (Orientation) {
-			case Direction.N:
-				this.y -= 1;
-				break;
-			case Direction.S:
-				this.y += 1;
-				break;
-			case Direction.E:
-				this.x += 1;
-				break;
-			case Direction.W:
-				this.x -= 1;
-				break;
-			default:
-				break;
-		}
+	public Entity picked() {
+		return picked;
+	}
+
+	public void setpicked(Entity p) {
+		picked = p;
 	}
 
 	@Override
 	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -60,14 +44,18 @@ public class Joueur extends Entity {
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		super.turn(Direction.B);
 	}
 
 	@Override
 	public void explode() {
-		// TODO Auto-generated method stub
+		super.kill();
+	}
 
+	public int hit() {
+		if (picked != null)
+			return 1;
+		return picked.hit();
 	}
 
 }

@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
-import toolkit.Pair;
-import toolkit.Triple;
 
-import toolkit.Pair;
+import toolkit.*;
 
 public class Field {
 	
@@ -157,12 +155,12 @@ public class Field {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
 				if (tmp[i][j] == -1) {
-					set_element(i, j, new Normal(i, j, 1, 1, this), labyrinthe);
-					set_element(i, j, new Void(i, j, 1, 1, this), labyrinthe);
-					set_element(i, j, new Lave(i, j, 1, 1, this), labyrinthe);
+					set_element(i, j, new Normal(i, j, 1, 1), labyrinthe);
+					set_element(i, j, new Void(i, j, 1, 1), labyrinthe);
+					set_element(i, j, new Lave(i, j, 1, 1), labyrinthe);
 				} else {
-					set_element(i, j, new Void(i, j, 1, 1, this), labyrinthe);
-					set_element(i, j, new Lave(i, j, 1, 1, this), labyrinthe);
+					set_element(i, j, new Void(i, j, 1, 1), labyrinthe);
+					set_element(i, j, new Lave(i, j, 1, 1), labyrinthe);
 				}
 			}
 		}
@@ -445,14 +443,14 @@ public class Field {
 		while (i > 0 && condition == 1) {
 			if ((get_element(liste.get(i).x - 1, y) instanceof Mur)
 					&& (get_element(liste.get(i).x + 1, y) instanceof Mur)) {
-				p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1, this);
+				p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1);
 				p.Orientation = 3;
 				set_element(liste.get(i).x, liste.get(i).y, p, labyrinthe);
 				elem = liste.remove(i);
 				condition = 0;
 			} else if ((get_element(liste.get(i).x, liste.get(i).y - 1) instanceof Mur)
 					&& (get_element(liste.get(i).x, liste.get(i).y + 1) instanceof Mur)) {
-				p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1, this);
+				p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1);
 				p.Orientation = 1;
 				set_element(liste.get(i).x, liste.get(i).y, p, labyrinthe);
 				elem = liste.remove(i);
@@ -467,7 +465,7 @@ public class Field {
 			}
 			LinkedList<Entity> l = new LinkedList<Entity>();
 			l.add(p);
-			Interrupteur Int = new Interrupteur(liste.getLast().x, liste.getLast().y, 1, 1, this, l);
+			Interrupteur Int = new Interrupteur(liste.getLast().x, liste.getLast().y, 1, 1, l);
 			set_element(liste.get(levier).x, liste.get(levier).y, Int, labyrinthe);
 			res.setz(l);
 		}
@@ -638,14 +636,14 @@ public class Field {
 	public void lave() {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-				if ((ContainsInstanceof(this.getElement(i, j), (new Void(i, j, 1, 1, this)).getClass()) == 1)
+				if ((ContainsInstanceof(this.getElement(i, j), (new Void(i, j, 1, 1)).getClass()) == 1)
 						|| (((ContainsInstanceof(this.getElement(i, j), (new Teleporteur()).getClass()) == 0)
 								&& (ContainsInstanceof(this.getElement(i, j),
-										(new Normal(0, 0, 0, 0, this)).getClass()) == 0))
+										(new Normal(0, 0, 0, 0)).getClass()) == 0))
 								&& ((ContainsInstanceof(this.getElement(i, j), (new Cassable()).getClass()) == 1)
 										|| (ContainsInstanceof(this.getElement(i, j),
 												(new Invisible()).getClass()) == 1)))) {
-					this.getElement(i, j).add(0, new Lave(i, j, 1, 1, this));
+					this.getElement(i, j).add(0, new Lave(i, j, 1, 1));
 				}
 			}
 		}
@@ -673,7 +671,7 @@ public class Field {
 		return elem;
 	}
 	
-	public void recup_liste_void() {
+	public LinkedList<Pair<Integer,Integer>> recup_liste_void() {
 		for(int i=0; i<ligne; i++) {
 			for(int j=0; j<colonne; j++) {
 				LinkedList<Entity> l = getElement(i, j);
@@ -683,6 +681,166 @@ public class Field {
 				}
 			}
 		}
+		return l_void;
 	}
-
+	
+	public int[] next_to(Entity e, int d) {
+		int[] rv = new int[2];
+		rv[0] = e.x();
+		rv[1] = e.y();
+		switch (e.direction()) {
+		case Direction.N:
+			switch (d) {
+			case Direction.L:
+				rv[0]--;
+				break;
+			case Direction.R:
+				rv[0]++;
+				break;
+			case Direction.B:
+				rv[1]++;
+				break;
+			case Direction.F:
+				rv[1]--;
+				break;
+			default:
+				break;
+			}
+			break;
+		case Direction.S:
+			switch (d) {
+			case Direction.L:
+				rv[0]++;
+				break;
+			case Direction.R:
+				rv[0]--;
+				break;
+			case Direction.B:
+				rv[1]--;
+				break;
+			case Direction.F:
+				rv[1]++;
+				break;
+			default:
+				break;
+			}
+			break;
+		case Direction.E:
+			switch (d) {
+			case Direction.L:
+				rv[1]--;
+				break;
+			case Direction.R:
+				rv[1]++;
+				break;
+			case Direction.B:
+				rv[0]--;
+				break;
+			case Direction.F:
+				rv[0]++;
+				break;
+			default:
+				break;
+			}
+			break;
+		case Direction.W:
+			switch (d) {
+			case Direction.L:
+				rv[1]++;
+				break;
+			case Direction.R:
+				rv[1]--;
+				break;
+			case Direction.B:
+				rv[0]++;
+				break;
+			case Direction.F:
+				rv[0]--;
+				break;
+			default:
+				break;
+			}
+			break;
+		default:
+			break;
+		}
+		return rv;
+	}
+	
+	public boolean cell(Entity e, int dir, int cat) {
+		int[] coo = next_to(e,dir);
+		int x = coo[0];
+		int y = coo[1];
+		LinkedList<Entity> elem = getElement(x,y);
+		int ilastelem = elem.size() - 1;
+		if (elem.getLast() instanceof Selection)
+			ilastelem--;
+		Entity lastelem = elem.get(ilastelem);
+		int catlast = lastelem.category();
+		switch (cat) {
+			case Categorie.A :
+				if (e.team() != lastelem.team())
+					return true;
+				return false;
+			case Categorie.T :
+				if (lastelem.team() == e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
+					return false;
+				if (lastelem.team() == e.team())
+					return true;
+				return false;
+			case Categorie.Tiret :
+				if (lastelem.category() == Categorie.V)
+					return false;
+				return true;
+			case Categorie.Arobase : 
+				if (lastelem.team() == e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
+					return true;
+				return false;
+			case Categorie.Diese : 
+				if (lastelem.team() != e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
+					return true;
+				return false;
+			default :
+				if (lastelem.category() == cat)
+					return true;
+				return false;				
+		}
+	}
+	
+	public void add(Entity e, int x, int y) {
+		LinkedList<Entity> l_entity = getElement(x,y);
+		int cpt = 0;
+		Entity elem = l_entity.get(0);
+		while(cpt < l_entity.size() && elem.layer() < e.layer()) {
+			cpt++;
+			elem = l_entity.get(cpt);
+		}
+		if(elem.layer() == e.layer()) {
+			return;
+		} else {
+			l_entity.add(cpt-1, e);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void setElement(int x, int y, LinkedList<Entity> l_entity) {
+		((ArrayList<Object>)labyrinthe.get(x)).add(y, l_entity);
+	}
+	
+	public void remove(int x, int y, Entity e) {
+		LinkedList<Entity> l_entity = getElement(x,y);
+		l_entity.remove(e);
+	}
+	
+	public Entity getPickable(int x, int y) {
+		LinkedList<Entity> l_entity = getElement(x,y);
+		Entity elem;
+		for(int i=0; i<l_entity.size(); i++) {
+			elem = l_entity.get(i);
+			if(elem.category() == Categorie.P) {
+				return elem;
+			}
+		}
+		return null;
+	}
 }

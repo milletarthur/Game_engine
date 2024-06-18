@@ -6,17 +6,14 @@ import Labyrinthe.Field;
 
 public class Turn implements IAction {
 
-	private Entity entity;
 	private int Direction;
 	private Field terrain;
 	
-	public Turn(Entity entity, Field terrain) {
-		this.entity = entity;
-		this.terrain = terrain;
+	public Turn(Field f) {
+		terrain = f;
 	}
-
-	public Turn(Entity entity, int Direction, Field terrain) {
-		this.entity = entity;
+	
+	public Turn(Field terrain, int Direction) {
 		this.Direction = Direction;
 		this.terrain = terrain;
 	}
@@ -30,10 +27,16 @@ public class Turn implements IAction {
 
 	@Override
 	public void exec(Entity e) {
-		int old_x = e.x();
-		int old_y = e.y();
 		e.turn(this.Direction);
 //		System.out.println("Turn");
 		return;
+	}
+	
+	public int getDirection() {
+		return Direction;
+	}
+	
+	public void setDirection(int dir) {
+		Direction = dir;
 	}
 }

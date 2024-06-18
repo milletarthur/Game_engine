@@ -1,20 +1,20 @@
 package controller;
 
-
 import Automates.IAction;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
 
-public class Explode implements IAction {
+public class Store implements IAction {
 	
 	private Field terrain;
 	
-	public Explode (Field terrain) {
-		this.terrain = terrain;
+	public Store(Field f) {
+		terrain = f;
 	}
 
 	@Override
 	public void exec(Entity e) {
-		e.explode();
+		e.store();
 	}
+
 }

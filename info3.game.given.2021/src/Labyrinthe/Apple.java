@@ -1,6 +1,8 @@
 package Labyrinthe;
 
 public class Apple extends Entity {
+	
+	boolean poison;
 
 	public Apple(int x, int y, int team, int category, Field f) {
 		this.x = x;
@@ -38,6 +40,11 @@ public class Apple extends Entity {
 
 	@Override
 	public void explode() {
+	}
+
+	@Override
+	public int hit() {
+		return 10;	//valeur inutilisés, juste drole
 	}
 
 }

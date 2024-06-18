@@ -376,6 +376,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		l_cond = new LinkedList<ICondition>();
 	}
 
+
 	@Override
 	public void visit(BinaryOp binop) {
 		// TODO Auto-generated method stub

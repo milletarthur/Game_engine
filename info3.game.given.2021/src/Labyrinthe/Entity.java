@@ -6,6 +6,8 @@ public abstract class Entity {
 	
 	protected Inventory inventory;
 	
+	protected int time;
+	
 	protected Entity picked;
 
 	protected int x;
@@ -138,11 +140,12 @@ public abstract class Entity {
 	}
 	
 	public void throw_() {
-		
+		Entity e = picked;
+		picked = null;
 	}
 	
-	public void wait_() {
-		
+	public void wait_(int value) {
+		time += value;
 	}
 	
 	public void closest() {
@@ -191,5 +194,9 @@ public abstract class Entity {
 	
 	public int getVie() {
 		return vie;
+	}
+	
+	public int getTime() {
+		return time;
 	}
 }

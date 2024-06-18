@@ -5,16 +5,29 @@ import Labyrinthe.Entity;
 import Labyrinthe.Field;
 
 public class Wait implements IAction {
-	
-private Field terrain;
-	
-	public Wait (Field terrain) {
+
+	private Field terrain;
+	private int time;
+
+	public Wait(Field terrain, int time) {
+		this.terrain = terrain;
+		this.time = time;
+	}
+
+	public Wait(Field terrain) {
 		this.terrain = terrain;
 	}
 
-	@Override
-	public void exec(Entity e) {
-		e.wait_();
+	public void setTime(int time) {
+		this.time = time;
+	}
+	
+	public int getTime() {
+		return time;
+	}
+
+	@Override public void exec(Entity e) {
+		e.wait_(time);
 	}
 
 }

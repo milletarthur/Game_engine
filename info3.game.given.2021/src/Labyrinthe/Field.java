@@ -772,12 +772,39 @@ public class Field {
 		int x = coo[0];
 		int y = coo[1];
 		LinkedList<Entity> elem = getElement(x,y);
-		Iterator<Entity> iter = elem.iterator();
-		while(iter.hasNext()) {
-			if(iter.next().category() == cat)
+		int ilastelem = elem.size() - 1;
+		if (elem.getLast() instanceof Selection)
+			ilastelem--;
+		Entity lastelem = elem.get(ilastelem);
+		int catlast = lastelem.category();
+		switch (cat) {
+			case Categorie.A :
+				if (e.team() != lastelem.team())
+					return true;
+				return false;
+			case Categorie.T :
+				if (lastelem.team() == e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
+					return false;
+				if (lastelem.team() == e.team())
+					return true;
+				return false;
+			case Categorie.Tiret :
+				if (lastelem.category() == Categorie.V)
+					return false;
 				return true;
+			case Categorie.Arobase : 
+				if (lastelem.team() == e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
+					return true;
+				return false;
+			case Categorie.Diese : 
+				if (lastelem.team() != e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
+					return true;
+				return false;
+			default :
+				if (lastelem.category() == cat)
+					return true;
+				return false;				
 		}
-		return false;
 	}
 	
 	public void add(Entity e, int x, int y) {

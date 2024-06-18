@@ -3,6 +3,8 @@ package Labyrinthe;
 import toolkit.Direction;
 
 public abstract class Entity {
+	
+	protected Inventory inventory;
 
 	protected int x;
 	protected int y;
@@ -115,6 +117,8 @@ public abstract class Entity {
 	public void power(int vie) {
 		this.vie += vie;
 	}
+	
+	abstract public void store();
 
 	public void kill() {
 		this.Valid = false;

@@ -64,4 +64,10 @@ public class Joueur extends Entity {
 		super.power(vie);
 	}
 
+	@Override
+	public void store() {
+		inventory.add(picked);
+		picked = null;
+	}
+
 }

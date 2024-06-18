@@ -27,15 +27,6 @@ public class Joueur extends Entity {
 		return picked;
 	}
 
-	public void setpicked(Entity p) {
-		picked = p;
-	}
-
-	@Override
-	public void pick() {
-
-	}
-
 	@Override
 	public void pop() {
 		// TODO Auto-generated method stub

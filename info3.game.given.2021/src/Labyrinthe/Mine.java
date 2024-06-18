@@ -11,12 +11,6 @@ public class Mine extends Entity {
 	}
 
 	@Override
-	public void pick() {
-
-	}
-
-
-	@Override
 	public void pop() {
 		// TODO Auto-generated method stub
 

@@ -46,7 +46,13 @@ public abstract class Entity {
 	
 	abstract public int hit();
 	
-	abstract public void pick();
+	public boolean pick(Entity e) {
+		if(picked == null) {
+			picked = e;
+			return true;
+		}
+		return false;
+	}
 
 	public void turn(int dir) {
 		// positions absolues SANS prendre en compte NE NW SE SW

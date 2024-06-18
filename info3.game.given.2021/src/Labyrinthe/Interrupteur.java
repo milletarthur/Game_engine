@@ -26,12 +26,6 @@ public class Interrupteur extends Entity {
 	}
 
 	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void pop() {
 		// TODO Auto-generated method stub
 

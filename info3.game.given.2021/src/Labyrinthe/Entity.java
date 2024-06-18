@@ -127,8 +127,8 @@ public abstract class Entity {
 		picked = null;
 	}
 	
-	public Entity get() {
-		return null;
+	public void get() {
+		return;
 	}
 	
 	public void throw_() {
@@ -174,5 +174,16 @@ public abstract class Entity {
 	public int team() {
 		return this.team;
 	}
-
+	
+	public Entity picked() {
+		return picked;
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
+	public int getVie() {
+		return vie;
+	}
 }

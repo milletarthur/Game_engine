@@ -42,17 +42,4 @@ public class Chance implements IAction {
 			}
 		}
 	}
-
-	@Override
-	public Entity getEntity() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setEntity(Entity e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

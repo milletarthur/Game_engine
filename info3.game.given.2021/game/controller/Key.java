@@ -4,17 +4,25 @@ import Automates.ICondition;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
 
-public class Got implements ICondition {
-
-	private Field f;
-	private int value;
+public class Key implements ICondition {
 	
-	public Got(Field f, int value) {
+	private Field f;
+	private int direction;
+	private int categorie;
+	private KeyBoard key;
+	
+	public Key(Field f, KeyBoard key) {
 		this.f = f;
-		this.value = value;
+		this.key = key;
 	}
 	
-	public Got(Field f) {
+	public Key(Field f, int dir, int cat){
+		this.f = f;
+		direction = dir;
+		categorie = cat;
+	}
+	
+	public Key(Field f) {
 		this.f = f;
 	}
 
@@ -26,33 +34,22 @@ public class Got implements ICondition {
 
 	@Override
 	public void setDir(int dir) {
-		// TODO Auto-generated method stub
-
+		direction = dir;
 	}
 
 	@Override
 	public void setCat(int cat) {
-		// TODO Auto-generated method stub
-
+		categorie = cat;
 	}
 
 	@Override
 	public int getCategorie() {
-		// TODO Auto-generated method stub
-		return 0;
+		return categorie;
 	}
 
 	@Override
 	public int getDirection() {
-		// TODO Auto-generated method stub
-		return 0;
+		return direction;
 	}
-	
-	public void setValue(int v) {
-		value = v;
-	}
-	
-	public int getvalue() {
-		return value;
-	}
+
 }

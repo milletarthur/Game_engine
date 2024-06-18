@@ -1,8 +1,17 @@
 package Automates;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import Labyrinthe.Field;
+import controller.Cell;
+import controller.Explode;
+import controller.False;
+import controller.Move;
+import controller.Pick;
+import controller.True;
+import controller.Turn;
 import gal.ast.AST;
 import gal.ast.Actions;
 import gal.ast.Automaton;
@@ -22,131 +31,251 @@ import gal.ast.Value;
 import toolkit.*;
 
 public class GeneralVisitor implements gal.ast.IVisitor {
+	Field f;
 
 	LinkedList<Automates.Automate> l_aut;
 	LinkedList<Automates.Transition> l_trans;
 	LinkedList<IAction> l_act;
+	LinkedList<Automates.State> l_state = new LinkedList<Automates.State>();
+	LinkedList<Integer> l_param;
 	State current;
-	boolean is_action;
-	int category;
-	int direction;
+	boolean is_in_mode = false;
 
 	@Override
 	public Object visit(Category cat) {
+		int category;
 		switch (cat.toString()) {
-		case "A":
-			category = Categorie.A;
-			break;
-		case "C":
-			category = Categorie.C;
-			break;
-		case "D":
-			category = Categorie.D;
-			break;
-		case "G":
-			category = Categorie.G;
-			break;
-		case "J":
-			category = Categorie.J;
-			break;
-		case "M":
-			category = Categorie.M;
-			break;
-		case "O":
-			category = Categorie.O;
-			break;
-		case "P":
-			category = Categorie.P;
-			break;
-		case "T":
-			category = Categorie.T;
-			break;
-		case "V":
-			category = Categorie.V;
-			break;
-		case "Arobase":
-			category = Categorie.Arobase;
-			break;
-		case "Diese":
-			category = Categorie.Diese;
-			break;
-		case "Tiret":
-			category = Categorie.Tiret;
-			break;
-		default:
-			return null;
-		}
-		return category;
+        case "A":
+            category = Categorie.A;
+            break;
+        case "C":
+            category = Categorie.C;
+            break;
+        case "D":
+            category = Categorie.D;
+            break;
+        case "G":
+            category = Categorie.G;
+            break;
+        case "J":
+            category = Categorie.J;
+            break;
+        case "M":
+            category = Categorie.M;
+            break;
+        case "O":
+            category = Categorie.O;
+            break;
+        case "P":
+            category = Categorie.P;
+            break;
+        case "T":
+            category = Categorie.T;
+            break;
+        case "V":
+            category = Categorie.V;
+            break;
+        case "Arobase":
+            category = Categorie.Arobase;
+            break;
+        case "Diese":
+            category = Categorie.Diese;
+            break;
+        case "Tiret":
+            category = Categorie.Tiret;
+            break;
+        default:
+            return null;
+        }
+		l_param.add(category);
+        return category;
 	}
 
 	@Override
 	public Object visit(Direction dir) {
+		int direction;
 		switch (dir.toString()) {
-		case "N":
-			direction = toolkit.Direction.N;
-			break;
-		case "S":
-			direction = toolkit.Direction.S;
-			break;
-		case "E":
-			direction = toolkit.Direction.E;
-			break;
-		case "W":
-			direction = toolkit.Direction.W;
-			break;
-		case "NE":
-			direction = toolkit.Direction.NE;
-			break;
-		case "NW":
-			direction = toolkit.Direction.NW;
-			break;
-		case "SE":
-			direction = toolkit.Direction.SE;
-			break;
-		case "SW":
-			direction = toolkit.Direction.SW;
-			break;
-		case "H":
-			direction = toolkit.Direction.H;
-			break;
-		case "F":
-			direction = toolkit.Direction.F;
-			break;
-		case "B":
-			direction = toolkit.Direction.B;
-			break;
-		case "L":
-			direction = toolkit.Direction.L;
-			break;
-		case "R":
-			direction = toolkit.Direction.R;
-			break;
-		default:
-			return null;
-		}
-		return direction;
+        case "N":
+            direction = toolkit.Direction.N;
+            break;
+        case "S":
+            direction = toolkit.Direction.S;
+            break;
+        case "E":
+            direction = toolkit.Direction.E;
+            break;
+        case "W":
+            direction = toolkit.Direction.W;
+            break;
+        case "NE":
+            direction = toolkit.Direction.NE;
+            break;
+        case "NW":
+            direction = toolkit.Direction.NW;
+            break;
+        case "SE":
+            direction = toolkit.Direction.SE;
+            break;
+        case "SW":
+            direction = toolkit.Direction.SW;
+            break;
+        case "H":
+            direction = toolkit.Direction.H;
+            break;
+        case "F":
+            direction = toolkit.Direction.F;
+            break;
+        case "B":
+            direction = toolkit.Direction.B;
+            break;
+        case "L":
+            direction = toolkit.Direction.L;
+            break;
+        case "R":
+            direction = toolkit.Direction.R;
+            break;
+        default:
+            return null;
+        }
+		l_param.add(direction);
+        return direction;
 	}
 
 	@Override
 	public Object visit(Key key) {
-		return key.toString();
+		int keyboard;
+		switch (key.toString()) {
+		case "VK_0":
+			keyboard = toolkit.KeyBoard.VK_0;
+			break;
+		case "VK_1":
+			keyboard = toolkit.KeyBoard.VK_1;
+			break;
+		case "VK_2":
+			keyboard = toolkit.KeyBoard.VK_2;
+			break;
+		case "VK_3":
+			keyboard = toolkit.KeyBoard.VK_3;
+			break;
+		case "VK_4":
+			keyboard = toolkit.KeyBoard.VK_4;
+			break;
+		case "VK_5":
+			keyboard = toolkit.KeyBoard.VK_5;
+			break;
+		case "VK_6":
+			keyboard = toolkit.KeyBoard.VK_6;
+			break;
+		case "VK_7":
+			keyboard = toolkit.KeyBoard.VK_7;
+			break;
+		case "VK_8":
+			keyboard = toolkit.KeyBoard.VK_8;
+			break;
+		case "VK_9":
+			keyboard = toolkit.KeyBoard.VK_9;
+			break;
+		case "VK_A":
+			keyboard = toolkit.KeyBoard.VK_A;
+			break;
+		case "VK_B":
+			keyboard = toolkit.KeyBoard.VK_B;
+			break;
+		case "VK_C":
+			keyboard = toolkit.KeyBoard.VK_C;
+			break;
+		case "VK_D":
+			keyboard = toolkit.KeyBoard.VK_D;
+			break;
+		case "VK_E":
+			keyboard = toolkit.KeyBoard.VK_E;
+			break;
+		case "VK_F":
+			keyboard = toolkit.KeyBoard.VK_F;
+			break;
+		case "VK_G":
+			keyboard = toolkit.KeyBoard.VK_G;
+			break;
+		case "VK_H":
+			keyboard = toolkit.KeyBoard.VK_H;
+			break;
+		case "VK_I":
+			keyboard = toolkit.KeyBoard.VK_I;
+			break;
+		case "VK_J":
+			keyboard = toolkit.KeyBoard.VK_J;
+			break;
+		case "VK_K":
+			keyboard = toolkit.KeyBoard.VK_K;
+			break;
+		case "VK_L":
+			keyboard = toolkit.KeyBoard.VK_L;
+			break;
+		case "VK_M":
+			keyboard = toolkit.KeyBoard.VK_M;
+			break;
+		case "VK_N":
+			keyboard = toolkit.KeyBoard.VK_N;
+			break;
+		case "VK_O":
+			keyboard = toolkit.KeyBoard.VK_O;
+			break;
+		case "VK_P":
+			keyboard = toolkit.KeyBoard.VK_P;
+			break;
+		case "VK_Q":
+			keyboard = toolkit.KeyBoard.VK_Q;
+			break;
+		case "VK_R":
+			keyboard = toolkit.KeyBoard.VK_R;
+			break;
+		case "VK_S":
+			keyboard = toolkit.KeyBoard.VK_S;
+			break;
+		case "VK_T":
+			keyboard = toolkit.KeyBoard.VK_T;
+			break;
+		case "VK_U":
+			keyboard = toolkit.KeyBoard.VK_U;
+			break;
+		case "VK_V":
+			keyboard = toolkit.KeyBoard.VK_V;
+			break;
+		case "VK_W":
+			keyboard = toolkit.KeyBoard.VK_W;
+			break;
+		case "VK_X":
+			keyboard = toolkit.KeyBoard.VK_X;
+			break;
+		case "VK_Y":
+			keyboard = toolkit.KeyBoard.VK_Y;
+			break;
+		case "VK_Z":
+			keyboard = toolkit.KeyBoard.VK_Z;
+			break;
+		default:
+			return null;
+		}
+		l_param.add(keyboard);
+		return keyboard;
 	}
 
 	@Override
 	public Object visit(Value v) {
-		return Integer.valueOf(v.toString());
+		l_param.add(v.value);
+		return v.value;
 	}
 
 	@Override
 	public Object visit(Underscore u) {
-		// TODO Auto-generated method stub
-		return null;
+		int i = 0; //mettre le code d'underscore
+		l_param.add(i);
+		return Categorie.Tiret;
 	}
 
 	@Override
 	public void enter(FunCall funcall) {
-		// TODO Auto-generated method stub
-
+		l_param = new LinkedList<Integer>();
 	}
 
 	@Override
@@ -163,8 +292,77 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object build(FunCall funcall, List<Object> parameters) {
-		// TODO Auto-generated method stub
-		return null;
+		switch (funcall.name) {
+		case "Cell":
+			if(l_param.size() != 2)
+				throw new RuntimeException("Wrong arguments");
+			return new Cell(f, l_param.get(0), l_param.get(1));
+		case "True":
+			if(l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new True();
+		case "False":
+			if(l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new False();
+		case "Key":
+			if(l_param.size() != 1)
+				throw new RuntimeException("Wrong arguments");
+			return new Key(f, l_param.get(0));  //il ne reconnait pas le bon key !
+		case "Got":
+			if(l_param.size() != 1)
+				throw new RuntimeException("Wrong arguments");
+			return new Got(f, l_param.get(0));
+		case "Pick":
+			if(l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Pick(f);
+		case "Throw":
+			if(l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Throw(f);
+		case "Hit":
+			if(l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Hit(f);
+		case "Turn":
+			if(l_param.size() != 1)
+				throw new RuntimeException("Wrong arguments");
+			return new Turn(f, l_param.get(0));
+		case "Egg":
+			if(l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Egg(f);
+		case "Store":
+			if(l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Store(f);
+		case "Explode":
+			if(l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Explode(f);
+		case "Get":
+			if(l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Get(f);
+		case "Power":
+			if(l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Power(f);
+		case "Wait":
+			if(l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Wait(f);
+		case "Closest":
+			if(l_param.size() != 2)
+				throw new RuntimeException("Wrong arguments");
+			return new Closest(f, l_param.get(0), l_param.get(1));
+		case "Move":
+			if(l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Move(f);
+		}
+		throw new RuntimeException("Unknown action !");
 	}
 
 	@Override
@@ -211,25 +409,33 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object visit(State state) {
-		// TODO Auto-generated method stub
-		return null;
+		Iterator<Automates.State> i = l_state.iterator();
+		String ast_state_name = state.toString();
+		while(i.hasNext()) {
+			Automates.State s = i.next();
+			if(ast_state_name.equals(s.getName()))
+				return s;
+		}
+		Automates.State s = new Automates.State(ast_state_name);
+		l_state.add(s);
+		return s;
 	}
 
 	@Override
 	public void enter(Mode mode) {
-		// TODO Auto-generated method stub
-
+		current = (State) visit(mode.state);
+		is_in_mode = true;
 	}
 
 	@Override
 	public void visit(Mode mode) {
-		current = mode.state;
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void exit(Mode mode) {
-		// TODO Auto-generated method stub
-
+		is_in_mode = false;
 	}
 
 	@Override
@@ -265,7 +471,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(Actions action) {
 		// TODO Auto-generated method stub
-		is_action = true;
+
 	}
 
 	@Override
@@ -277,7 +483,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void exit(Actions action) {
 		// TODO Auto-generated method stub
-		is_action = false;
+
 	}
 
 	@Override
@@ -288,8 +494,8 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Transition transition) {
-		Automate a = l_aut.getLast();
-		a.add_transition(new Automates.Transition());
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -306,25 +512,24 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Automaton automaton) {
-		l_aut.add(new Automate());
+		l_aut.add(new Automates.Automate());
 	}
 
 	@Override
 	public void exit(Automaton automaton) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public Object build(Automaton automaton, Object initial_state, List<Object> modes) {
-		Automate a = l_aut.getLast();
-		//a.add_init_state((Automates.State) initial_state);
-		// ... + ajouter une liste de transitions 
-		return a;
+
+		return null;
 	}
 
 	@Override
 	public void enter(AST ast) {
-		l_aut = new LinkedList<Automate>();
-
+		l_aut = new LinkedList<Automates.Automate>();
 	}
 
 	@Override
@@ -335,7 +540,8 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object build(AST ast, List<Object> automata) {
-		return l_aut;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

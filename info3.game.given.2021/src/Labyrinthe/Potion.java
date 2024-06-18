@@ -1,6 +1,8 @@
 package Labyrinthe;
 
 public class Potion extends Entity {
+	
+	private int layer = 2;
 
 	@Override
 	public Entity egg(int x, int y) {
@@ -39,6 +41,12 @@ public class Potion extends Entity {
 
 	@Override
 	public void explode() {
+		// TODO Auto-generated method stub
+
+	}
+	
+	@Override
+	public void power(int vie) {
 		// TODO Auto-generated method stub
 
 	}

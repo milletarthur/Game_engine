@@ -1,18 +1,19 @@
 package Labyrinthe;
 
 public class Apple extends Entity {
+	
+	private int layer = 2;
 
-	public Apple(int x, int y, int team, int category, Field f) {
+	public Apple(int x, int y, int team, int category) {
 		this.x = x;
 		this.y = y;
 		this.category = category;
 		this.team = team;
-		this.f = f;
 	}
 
 	@Override
 	public Entity egg(int x, int y) {
-		return new Apple(x, y, this.team, this.category, this.f);
+		return new Apple(x, y, this.team, this.category);
 	}
 
 	@Override
@@ -38,6 +39,12 @@ public class Apple extends Entity {
 
 	@Override
 	public void explode() {
+	}
+
+	@Override
+	public void power(int vie) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

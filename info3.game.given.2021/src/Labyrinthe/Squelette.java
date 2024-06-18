@@ -1,6 +1,8 @@
 package Labyrinthe;
 
 public class Squelette extends Entity {
+	
+	private int layer = 3;
 
 	@Override
 	public Entity egg(int x, int y) {
@@ -41,6 +43,11 @@ public class Squelette extends Entity {
 	public void explode() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void power(int vie) {
+		super.power(vie);
 	}
 
 }

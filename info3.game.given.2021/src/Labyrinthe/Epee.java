@@ -1,7 +1,9 @@
 package Labyrinthe;
 
 public class Epee extends Entity {
-
+	
+	private int layer = 2;
+	
 	@Override
 	public Entity egg(int x, int y) {
 		// TODO Auto-generated method stub
@@ -41,6 +43,12 @@ public class Epee extends Entity {
 	public void explode() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void power(int vie) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

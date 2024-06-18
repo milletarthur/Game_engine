@@ -25,6 +25,7 @@ public class Transition {
 	public void doActions(Entity e) {
 		Iterator<IAction> iter = Actions.iterator();
 		while(iter.hasNext()) {
+			
 			IAction a = iter.next();
 			a.exec(e);
 		}

@@ -23,12 +23,6 @@ public class Zombie extends Entity {
 	}
 
 	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public int hit() {
 		// TODO Auto-generated method stub
 		return 3;

@@ -32,11 +32,5 @@ public class Fleche extends Entity {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

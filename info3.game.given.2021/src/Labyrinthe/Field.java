@@ -688,6 +688,8 @@ public class Field {
 		int[] rv = new int[2];
 		rv[0] = e.x();
 		rv[1] = e.y();
+		if (d == Direction.H)
+			return rv;
 		switch (e.direction()) {
 		case Direction.N:
 			switch (d) {
@@ -702,6 +704,22 @@ public class Field {
 				break;
 			case Direction.F:
 				rv[1]--;
+				break;
+			case Direction.FR:
+				rv[0]++;
+				rv[1]--;
+				break;
+			case Direction.FL:
+				rv[0]--;
+				rv[1]--;
+				break;
+			case Direction.BR:
+				rv[0]++;
+				rv[1]++;
+				break;
+			case Direction.BL:
+				rv[0]--;
+				rv[1]++;
 				break;
 			default:
 				break;
@@ -721,6 +739,22 @@ public class Field {
 			case Direction.F:
 				rv[1]++;
 				break;
+			case Direction.FR:
+				rv[0]--;
+				rv[1]++;
+				break;
+			case Direction.FL:
+				rv[0]++;
+				rv[1]++;
+				break;
+			case Direction.BR:
+				rv[0]--;
+				rv[1]--;
+				break;
+			case Direction.BL:
+				rv[0]++;
+				rv[1]--;
+				break;
 			default:
 				break;
 			}
@@ -739,6 +773,22 @@ public class Field {
 			case Direction.F:
 				rv[0]++;
 				break;
+			case Direction.FR:
+				rv[0]++;
+				rv[1]++;
+				break;
+			case Direction.FL:
+				rv[0]++;
+				rv[1]--;
+				break;
+			case Direction.BR:
+				rv[0]--;
+				rv[1]++;
+				break;
+			case Direction.BL:
+				rv[0]--;
+				rv[1]--;
+				break;
 			default:
 				break;
 			}
@@ -756,6 +806,22 @@ public class Field {
 				break;
 			case Direction.F:
 				rv[0]--;
+				break;
+			case Direction.FR:
+				rv[0]--;
+				rv[1]--;
+				break;
+			case Direction.FL:
+				rv[0]--;
+				rv[1]++;
+				break;
+			case Direction.BR:
+				rv[0]++;
+				rv[1]--;
+				break;
+			case Direction.BL:
+				rv[0]++;
+				rv[1]++;
 				break;
 			default:
 				break;
@@ -842,5 +908,20 @@ public class Field {
 			}
 		}
 		return null;
+	}
+	
+	public Entity getLastnotSelect(int x, int y) {
+		LinkedList<Entity> l_entity = getElement(x,y);
+		Entity elem = l_entity.get(0);
+		int taille = l_entity.size();
+		Entity select = l_entity.getLast();
+		if (select instanceof Selection)
+			taille--;
+		else
+			return select;
+		for(int i=0; i<taille; i++) {
+			elem = l_entity.get(i);
+		}
+		return elem;
 	}
 }

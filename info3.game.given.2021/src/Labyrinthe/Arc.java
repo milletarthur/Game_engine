@@ -24,12 +24,6 @@ public class Arc extends Entity {
 	}
 
 	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public int hit() {
 		return -1;
 	}

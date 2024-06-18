@@ -21,12 +21,6 @@ public class Sable extends Entity {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
-	}
 	
 	@Override
 	public int hit() {

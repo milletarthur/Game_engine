@@ -23,12 +23,6 @@ public class Epee extends Entity {
 	}
 
 	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public int hit() {
 		return 3;
 	}

@@ -28,10 +28,6 @@ public class Apple extends Entity {
 	}
 
 	@Override
-	public void explode() {
-	}
-
-	@Override
 	public int hit() {
 		return -3;
 	}

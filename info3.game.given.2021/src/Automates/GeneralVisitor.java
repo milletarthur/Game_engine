@@ -41,6 +41,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	LinkedList<Automates.Automate> l_aut;
 	LinkedList<Automates.Transition> l_trans;
 	LinkedList<IAction> l_act;
+	LinkedList<ICondition> l_cond;
 	LinkedList<Automates.State> l_state = new LinkedList<Automates.State>();
 	LinkedList<Integer> l_param;
 	State current;
@@ -273,9 +274,9 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object visit(Underscore u) {
-		int i = 0; //mettre le code d'underscore
+		int i = Categorie.Tiret;
 		l_param.add(i);
-		return Categorie.Tiret;
+		return i;
 	}
 
 	@Override
@@ -372,8 +373,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(BinaryOp binop) {
-		// TODO Auto-generated method stub
-
+		l_cond = new LinkedList<ICondition>();
 	}
 
 	@Override
@@ -396,8 +396,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(UnaryOp unop) {
-		// TODO Auto-generated method stub
-
+		l_cond = new LinkedList<ICondition>();
 	}
 
 	@Override

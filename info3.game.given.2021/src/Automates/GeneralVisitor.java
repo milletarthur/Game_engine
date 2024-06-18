@@ -7,6 +7,8 @@ import java.util.List;
 import Labyrinthe.Field;
 import controller.Cell;
 import controller.Closest;
+import controller.Conjonction;
+import controller.Disjonction;
 import controller.Egg;
 import controller.Explode;
 import controller.False;
@@ -14,6 +16,7 @@ import controller.Get;
 import controller.Got;
 import controller.Hit;
 import controller.Move;
+import controller.Not;
 import controller.Pick;
 import controller.Power;
 import controller.Store;
@@ -46,109 +49,110 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	LinkedList<Automates.Transition> l_trans;
 	LinkedList<IAction> l_act;
 	LinkedList<ICondition> l_cond;
+	ICondition cond;
 	LinkedList<Automates.State> l_state = new LinkedList<Automates.State>();
 	LinkedList<Integer> l_param;
-	State current;
+	Automates.State current;
 	boolean is_in_mode = false;
 
 	@Override
 	public Object visit(Category cat) {
 		int category;
 		switch (cat.toString()) {
-        case "A":
-            category = Categorie.A;
-            break;
-        case "C":
-            category = Categorie.C;
-            break;
-        case "D":
-            category = Categorie.D;
-            break;
-        case "G":
-            category = Categorie.G;
-            break;
-        case "J":
-            category = Categorie.J;
-            break;
-        case "M":
-            category = Categorie.M;
-            break;
-        case "O":
-            category = Categorie.O;
-            break;
-        case "P":
-            category = Categorie.P;
-            break;
-        case "T":
-            category = Categorie.T;
-            break;
-        case "V":
-            category = Categorie.V;
-            break;
-        case "Arobase":
-            category = Categorie.Arobase;
-            break;
-        case "Diese":
-            category = Categorie.Diese;
-            break;
-        case "Tiret":
-            category = Categorie.Tiret;
-            break;
-        default:
-            return null;
-        }
+		case "A":
+			category = Categorie.A;
+			break;
+		case "C":
+			category = Categorie.C;
+			break;
+		case "D":
+			category = Categorie.D;
+			break;
+		case "G":
+			category = Categorie.G;
+			break;
+		case "J":
+			category = Categorie.J;
+			break;
+		case "M":
+			category = Categorie.M;
+			break;
+		case "O":
+			category = Categorie.O;
+			break;
+		case "P":
+			category = Categorie.P;
+			break;
+		case "T":
+			category = Categorie.T;
+			break;
+		case "V":
+			category = Categorie.V;
+			break;
+		case "Arobase":
+			category = Categorie.Arobase;
+			break;
+		case "Diese":
+			category = Categorie.Diese;
+			break;
+		case "Tiret":
+			category = Categorie.Tiret;
+			break;
+		default:
+			return null;
+		}
 		l_param.add(category);
-        return category;
+		return category;
 	}
 
 	@Override
 	public Object visit(Direction dir) {
 		int direction;
 		switch (dir.toString()) {
-        case "N":
-            direction = toolkit.Direction.N;
-            break;
-        case "S":
-            direction = toolkit.Direction.S;
-            break;
-        case "E":
-            direction = toolkit.Direction.E;
-            break;
-        case "W":
-            direction = toolkit.Direction.W;
-            break;
-        case "NE":
-            direction = toolkit.Direction.NE;
-            break;
-        case "NW":
-            direction = toolkit.Direction.NW;
-            break;
-        case "SE":
-            direction = toolkit.Direction.SE;
-            break;
-        case "SW":
-            direction = toolkit.Direction.SW;
-            break;
-        case "H":
-            direction = toolkit.Direction.H;
-            break;
-        case "F":
-            direction = toolkit.Direction.F;
-            break;
-        case "B":
-            direction = toolkit.Direction.B;
-            break;
-        case "L":
-            direction = toolkit.Direction.L;
-            break;
-        case "R":
-            direction = toolkit.Direction.R;
-            break;
-        default:
-            return null;
-        }
+		case "N":
+			direction = toolkit.Direction.N;
+			break;
+		case "S":
+			direction = toolkit.Direction.S;
+			break;
+		case "E":
+			direction = toolkit.Direction.E;
+			break;
+		case "W":
+			direction = toolkit.Direction.W;
+			break;
+		case "NE":
+			direction = toolkit.Direction.NE;
+			break;
+		case "NW":
+			direction = toolkit.Direction.NW;
+			break;
+		case "SE":
+			direction = toolkit.Direction.SE;
+			break;
+		case "SW":
+			direction = toolkit.Direction.SW;
+			break;
+		case "H":
+			direction = toolkit.Direction.H;
+			break;
+		case "F":
+			direction = toolkit.Direction.F;
+			break;
+		case "B":
+			direction = toolkit.Direction.B;
+			break;
+		case "L":
+			direction = toolkit.Direction.L;
+			break;
+		case "R":
+			direction = toolkit.Direction.R;
+			break;
+		default:
+			return null;
+		}
 		l_param.add(direction);
-        return direction;
+		return direction;
 	}
 
 	@Override
@@ -303,83 +307,97 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public Object build(FunCall funcall, List<Object> parameters) {
 		switch (funcall.name) {
-		case "Cell":
-			if(l_param.size() != 2)
-				throw new RuntimeException("Wrong arguments");
-			return new Cell(f, l_param.get(0), l_param.get(1));
-		case "True":
-			if(l_param.size() != 0)
-				throw new RuntimeException("Wrong arguments");
-			return new True();
-		case "False":
-			if(l_param.size() != 0)
-				throw new RuntimeException("Wrong arguments");
-			return new False();
-		case "Key":
-			if(l_param.size() != 1)
-				throw new RuntimeException("Wrong arguments");
-			return new controller.Key(f, l_param.get(0));
-		case "Got":
-			if(l_param.size() != 1)
-				throw new RuntimeException("Wrong arguments");
-			return new Got(f, l_param.get(0));
 		case "Pick":
-			if(l_param.size() != 0)
+			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Pick(f);
 		case "Throw":
-			if(l_param.size() != 0)
+			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Throw(f);
 		case "Hit":
-			if(l_param.size() != 0)
+			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Hit(f);
 		case "Turn":
-			if(l_param.size() != 1)
+			if (l_param.size() != 1)
 				throw new RuntimeException("Wrong arguments");
 			return new Turn(f, l_param.get(0));
 		case "Egg":
-			if(l_param.size() != 0)
+			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Egg(f);
 		case "Store":
-			if(l_param.size() != 0)
+			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Store(f);
 		case "Explode":
-			if(l_param.size() != 0)
+			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Explode(f);
 		case "Get":
-			if(l_param.size() != 0)
+			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Get(f);
 		case "Power":
-			if(l_param.size() != 0)
+			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Power(f);
 		case "Wait":
-			if(l_param.size() != 0)
+			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Wait(f);
 		case "Closest":
-			if(l_param.size() != 2)
+			if (l_param.size() != 2)
 				throw new RuntimeException("Wrong arguments");
 			return new Closest(f, l_param.get(0), l_param.get(1));
 		case "Move":
-			if(l_param.size() != 0)
+			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Move(f);
+		default:
+			break;
 		}
-		throw new RuntimeException("Unknown action !");
+
+		ICondition c;
+		switch (funcall.name) {
+		case "Cell":
+			if (l_param.size() != 2)
+				throw new RuntimeException("Wrong arguments");
+			c = new Cell(f, l_param.get(0), l_param.get(1));
+			break;
+		case "True":
+			if (l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			c = new True();
+			break;
+		case "False":
+			if (l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			c = new False();
+			break;
+		case "Key":
+			if (l_param.size() != 1)
+				throw new RuntimeException("Wrong arguments");
+			c = new controller.Key(f, l_param.get(0));
+			break;
+		case "Got":
+			if (l_param.size() != 1)
+				throw new RuntimeException("Wrong arguments");
+			c = new Got(f, l_param.get(0));
+			break;
+		default:
+			throw new RuntimeException("Unknown action !");
+		}
+		l_cond.add(c);
+		cond = c;
+		return c;
 	}
 
 	@Override
 	public void enter(BinaryOp binop) {
 		l_cond = new LinkedList<ICondition>();
 	}
-
 
 	@Override
 	public void visit(BinaryOp binop) {
@@ -395,8 +413,21 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object build(BinaryOp binop, Object left, Object right) {
-		// TODO Auto-generated method stub
-		return null;
+		if (l_cond.size() != 2)
+			throw new RuntimeException("wrong arguments !");
+		ICondition c;
+		switch (binop.operator) {
+		case "&":
+			c = new Disjonction(l_cond.get(0), l_cond.get(1));
+			break;
+		case "|":
+			c = new Conjonction(l_cond.get(0), l_cond.get(1));
+			break;
+		default:
+			throw new RuntimeException("Wrong arguments");
+		}
+		cond = c;
+		return c;
 	}
 
 	@Override
@@ -412,17 +443,24 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object build(UnaryOp unop, Object expression) {
-		// TODO Auto-generated method stub
-		return null;
+		if (l_cond.size() != 1)
+			throw new RuntimeException("wrong arguments !");
+		ICondition c;
+		if (unop.operator.equals("!")) {
+			c = new Not(l_cond.get(0));
+			cond = c;
+			return c;
+		}
+		throw new RuntimeException("Wrong arguments");
 	}
 
 	@Override
 	public Object visit(State state) {
 		Iterator<Automates.State> i = l_state.iterator();
 		String ast_state_name = state.toString();
-		while(i.hasNext()) {
+		while (i.hasNext()) {
 			Automates.State s = i.next();
-			if(ast_state_name.equals(s.getName()))
+			if (ast_state_name.equals(s.getName()))
 				return s;
 		}
 		Automates.State s = new Automates.State(ast_state_name);
@@ -432,7 +470,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Mode mode) {
-		current = (State) visit(mode.state);
+		current = (Automates.State) visit(mode.state);
 		is_in_mode = true;
 	}
 
@@ -503,20 +541,25 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Transition transition) {
-		// TODO Auto-generated method stub
-
+		l_trans.add(new Automates.Transition());
+		l_act = new LinkedList<IAction>();
+		l_cond = new LinkedList<ICondition>();
 	}
 
 	@Override
 	public void exit(Transition transition) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public Object build(Transition transition, Object condition, Object action, Object target_state) {
-		// TODO Auto-generated method stub
-		return null;
+		Automates.Transition t = l_trans.getLast();
+		Iterator<IAction> i = l_act.iterator();
+		while(i.hasNext())
+			t.add_action(i.next());
+		t.add_condition(cond);
+		t.add_source_state(current);
+		t.add_cible_state((Automates.State) visit(transition.target));
+		return t;
 	}
 
 	@Override
@@ -526,14 +569,16 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void exit(Automaton automaton) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public Object build(Automaton automaton, Object initial_state, List<Object> modes) {
-
-		return null;
+		Automate a = l_aut.getLast();
+		a.add_init_state((Automates.State) visit((State) initial_state));
+		Iterator<Automates.Transition> i = l_trans.iterator();
+		while(i.hasNext())
+			a.add_transition(i.next());
+		return a;
 	}
 
 	@Override
@@ -543,14 +588,11 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void exit(AST ast) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public Object build(AST ast, List<Object> automata) {
-		// TODO Auto-generated method stub
-		return null;
+		return l_aut;
 	}
 
 }

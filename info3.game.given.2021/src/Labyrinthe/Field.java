@@ -18,6 +18,7 @@ public class Field {
 	LinkedList<Pair<Integer, Integer>> l_void = new LinkedList<Pair<Integer, Integer>>();
 	LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<Pair<Integer, Integer>>();
 
+
 	public Field(int lig, int col) {
 		if (col % 2 == 0) {
 			col++;
@@ -79,12 +80,24 @@ public class Field {
 		grow();
 		System.out.println("Labyrinthe initial sans obstacles :\n\n");
 		printGame();
-		// Obstacle(densite, "Mine");
+		// TEST CHEMIN
+		// #########################
+		/*System.out.println("CHEMIN :\n");
+		LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<Pair<Integer, Integer>>();
+		chemin = this.TrouverChemin(new Pair<Integer, Integer>(2, 0), new Pair<Integer, Integer>(this.ligne-3,colonne-1));
+		for (int i = 0; i < chemin.size(); i++) {
+			System.out.printf("( %d , %d ) \n", chemin.get(i).geto1() , chemin.get(i).geto2() );
+		}*/
+
+		// #########################
+		//Obstacle(densite, "Mine");
 		Obstacle(densite, "Sable");
-		/*
-		 * lave(); this.pickable(densite, "Pomme"); this.pickable(densite, "Potion");
-		 * this.pickable(densite, "Pioche"); this.pickable(densite, "Bombe");
-		 */
+		//porte(densite);
+		lave();
+		/*this.pickable(densite, "Pomme"); 
+		this.pickable(densite, "Potion");
+		this.pickable(densite, "Pioche");
+		this.pickable(densite, "Bombe");*/
 		System.out.println("\n\nLabyrinthe Avec obstacles :\n\n");
 	}
 
@@ -680,16 +693,15 @@ public class Field {
 			e = null;
 			break;
 		}
-		LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<Pair<Integer, Integer>>(); // ############ AJOUTÉ
+		//LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<Pair<Integer, Integer>>(); // ############ AJOUTÉ
 																								// ############
 		Random random = new Random();
-		for (int i = 0; i < ligne; i++) {
-			for (int j = 0; j < colonne; j++) {
-
-				System.out.println("###########################################");
-				chemin.add(new Pair<Integer, Integer>(i, j)); // ############ AJOUTÉ ############
+		for (int i = 3; i < ligne; i++) {
+			for (int j = 3; j < colonne; j++) {
+				
 				int eval = 1;
-
+				// int eval_interr = 1 ; 
+				
 				int k_i = i;
 				int k_j_min = Math.max(0, j - 1);
 				int k_j_max = Math.min(colonne - 1, j + 1);
@@ -699,7 +711,10 @@ public class Field {
 					if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1
 							|| ContainsInstanceof(getElement(k_i, k_j), (new Mine()).getClass()) == 1) {
 						eval = 0;
-					}
+					}/*
+					if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+						eval_interr = 0;
+					}*/
 				}
 
 				// Vérification ligne suivante
@@ -709,7 +724,10 @@ public class Field {
 						if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1
 								|| ContainsInstanceof(getElement(k_i, k_j), (new Mine()).getClass()) == 1) {
 							eval = 0;
-						}
+						}/*
+						if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+							eval_interr = 0;
+						}*/
 					}
 				}
 
@@ -720,7 +738,10 @@ public class Field {
 						if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1
 								|| ContainsInstanceof(getElement(k_i, k_j), (new Mine()).getClass()) == 1) {
 							eval = 0;
-						}
+						}/*
+						if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+							eval_interr = 0;
+						}*/
 					}
 				}
 
@@ -732,14 +753,79 @@ public class Field {
 						if (rdm <= densite && eval == 1 && ContainsInstanceof(getElement(i, j), Mur.class) == 0) {
 							if (e instanceof Sable) {
 								getElement(i, j).add(new Sable());
-								// ############ AJOUTÉ ############
+								// ############ AJOUTÉ #############
 								// #################################
-								int position_interupteur = random.nextInt(chemin.size());
-								while (ContainsInstanceof(this.getElement(chemin.get(position_interupteur).geto1(),
-										chemin.get(position_interupteur).geto2()), Mur.class) == 1) {
-									position_interupteur = random.nextInt(chemin.size());
+								int i_interupteur = random.nextInt( this.ligne );
+								int j_interupteur = random.nextInt( this.colonne );
+								int eval_interr = 1 ; 
+								
+								k_i = i_interupteur;
+								k_j_min = Math.max(0, j_interupteur - 1);
+								k_j_max = Math.min(colonne - 1, j_interupteur + 1);
+
+								// Vérification ligne actuelle
+								for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+									if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+										eval_interr = 0;
+									}
 								}
-								Pair<Integer, Integer> Case_inter = chemin.get(position_interupteur);
+
+								// Vérification ligne suivante
+								k_i = i + 1;
+								if (k_i < ligne) {
+									for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+										if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+											eval_interr = 0;
+										}
+									}
+								}
+
+								// Vérification ligne précédente
+								k_i = i - 1;
+								if (k_i >= 0) {
+									for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+										if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+											eval_interr = 0;
+										}
+									}
+								}
+								while ( eval_interr == 0 ) {
+									i_interupteur = random.nextInt( this.ligne );
+									j_interupteur = random.nextInt( this.colonne );
+									eval_interr = 1 ; 
+									
+									k_i = i_interupteur;
+									k_j_min = Math.max(0, j_interupteur - 1);
+									k_j_max = Math.min(colonne - 1, j_interupteur + 1);
+
+									// Vérification ligne actuelle
+									for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+										if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+											eval_interr = 0;
+										}
+									}
+
+									// Vérification ligne suivante
+									k_i = i + 1;
+									if (k_i < ligne) {
+										for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+											if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+												eval_interr = 0;
+											}
+										}
+									}
+
+									// Vérification ligne précédente
+									k_i = i - 1;
+									if (k_i >= 0) {
+										for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+											if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+												eval_interr = 0;
+											}
+										}
+									}
+								}
+								Pair<Integer, Integer> Case_inter = new Pair<Integer, Integer>( i_interupteur , j_interupteur  );
 								int x_lab_courant = Case_inter.geto1();
 								int y_lab_courant = Case_inter.geto2();
 								int indice = 0;
@@ -759,8 +845,7 @@ public class Field {
 								}
 								LinkedList<Entity> Liste_connexion = new LinkedList<Entity>();
 								Liste_connexion.add(e);
-								this.getElement(Case_inter.geto1(), Case_inter.geto2()).add(indice,
-										new Interrupteur(x_lab_courant, y_lab_courant, 1, 1, this, Liste_connexion));
+								this.getElement(Case_inter.geto1(), Case_inter.geto2()).add( new Interrupteur(x_lab_courant, y_lab_courant, 1, 1, this, Liste_connexion));
 								// #################################
 								// #################################
 								Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
@@ -778,33 +863,86 @@ public class Field {
 								getElement(i, j).add(new Sable());
 								// ############ AJOUTÉ ############
 								// #################################
-								int position_interupteur = random.nextInt(chemin.size());
-								while (ContainsInstanceof(this.getElement(chemin.get(position_interupteur).geto1(),
-										chemin.get(position_interupteur).geto2()), Mur.class) == 1) {
-									position_interupteur = random.nextInt(chemin.size());
+
+								int i_interupteur = random.nextInt( this.ligne );
+								int j_interupteur = random.nextInt( this.colonne );
+								int eval_interr = 1 ; 
+								
+								if ( !( this.getElement(i_interupteur, j_interupteur).getLast() instanceof Mur ) ){
+									eval_interr = 0;
 								}
-								Pair<Integer, Integer> Case_inter = chemin.get(position_interupteur);
-								int x_lab_courant = Case_inter.geto1();
-								int y_lab_courant = Case_inter.geto2();
-								int indice = 0;
-								for (int k = 0; k < this.getElement(x_lab_courant, y_lab_courant).size(); k++) {
-									if ((this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Invisible)
-											|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Joueur)
-											|| (this.getElement(x_lab_courant, y_lab_courant)
-													.get(k) instanceof Cassable)
-											|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Apple)
-											|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Pioche)
-											|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Bombe)
-											|| (this.getElement(x_lab_courant, y_lab_courant)
-													.get(k) instanceof Potion)) {
-										break;
+								
+								k_i = i_interupteur;
+								k_j_min = Math.max(0, j_interupteur - 1);
+								k_j_max = Math.min(colonne - 1, j_interupteur + 1);
+
+								// Vérification ligne actuelle
+								for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+									if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+										eval_interr = 0;
 									}
-									indice++;
 								}
-								LinkedList<Entity> Liste_connexion = new LinkedList<Entity>();
-								Liste_connexion.add(e);
-								this.getElement(Case_inter.geto1(), Case_inter.geto2()).add(indice,
-										new Interrupteur(x_lab_courant, y_lab_courant, 1, 1, this, Liste_connexion));
+
+								// Vérification ligne suivante
+								k_i = i + 1;
+								if (k_i < ligne) {
+									for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+										if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+											eval_interr = 0;
+										}
+									}
+								}
+
+								// Vérification ligne précédente
+								k_i = i - 1;
+								if (k_i >= 0) {
+									for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+										if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+											eval_interr = 0;
+										}
+									}
+								}
+								
+								while ( eval_interr == 0 ) {
+									i_interupteur = random.nextInt( this.ligne );
+									j_interupteur = random.nextInt( this.colonne );
+									eval_interr = 1 ; 
+									
+									k_i = i_interupteur;
+									k_j_min = Math.max(0, j_interupteur - 1);
+									k_j_max = Math.min(colonne - 1, j_interupteur + 1);
+
+									// Vérification ligne actuelle
+									for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+										if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+											eval_interr = 0;
+										}
+									}
+
+									// Vérification ligne suivante
+									k_i = i + 1;
+									if (k_i < ligne) {
+										for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+											if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+												eval_interr = 0;
+											}
+										}
+									}
+
+									// Vérification ligne précédente
+									k_i = i - 1;
+									if (k_i >= 0) {
+										for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+											if ( !( this.getElement(k_i, k_j).getLast() instanceof Void ) && !( this.getElement(k_i, k_j).getLast() instanceof Mur )  ){
+												eval_interr = 0;
+											}
+										}
+									}
+									if ( !( this.getElement(i_interupteur, j_interupteur).getLast() instanceof Mur ) ){
+										eval_interr = 0;
+									}
+								}
+								Pair<Integer, Integer> Case_inter = new Pair<Integer, Integer>( i_interupteur , j_interupteur  );
 								// #################################
 								// #################################
 								Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
@@ -832,6 +970,214 @@ public class Field {
 		}
 		return false;
 	}
+	// ##########################################################
+
+	/*public void porte(int densite) {
+		Random random = new Random();
+
+		// On parcours le labyrinthe
+		for (int i = 0; i < this.ligne; i++) {
+			for (int j = 0; j < this.colonne; j++) {
+				int eval = 0;
+
+				if ((ContainsInstanceof(this.getElement(i, j), (new Normal(i, j, 1, 1, this)).getClass()) == 1)) {
+					continue;
+				}
+
+				// Placer porte vertical
+				int rdm = random.nextInt(100);
+				if (rdm <= densite) {
+					if (i > 0 && (ContainsInstanceof(this.getElement(i - 1, j),
+							(new Normal(i, j, 1, 1, this)).getClass()) == 1)) {
+						if (i + 2 < this.ligne && (ContainsInstanceof(this.getElement(i + 2, j),
+								(new Normal(i, j, 1, 1, this)).getClass()) == 1)) {
+
+							// On regarde les cases adjacentes
+							if (i + 1 < this.ligne && !this.ContientSableMur(i + 1, j)) {
+								this.getElement(i + 1, j).add(new Normal(i + 1, j, 1, 1, this));
+							}
+
+							eval = 1;
+							Entity MaPorte = new Porte(i, j, 1, 1, this);
+							this.getElement(i, j).add(MaPorte);
+
+							// ###### Maintenant l'interrupteur ######
+							// ########################################################################
+							LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<Pair<Integer, Integer>>();
+							Pair<Integer, Integer> start = new Pair<Integer, Integer>(2, 0);
+							Pair<Integer, Integer> dst = new Pair<Integer, Integer>(i, j);
+							chemin = this.TrouverChemin(start, dst);
+							if (chemin.isEmpty()) {
+								continue;
+							}
+							int position_interupteur = random.nextInt(chemin.size());
+							while (ContainsInstanceof(this.getElement(chemin.get(position_interupteur).geto1(),
+									chemin.get(position_interupteur).geto2()), Mur.class) == 1) {
+								position_interupteur = random.nextInt(chemin.size());
+							}
+							Pair<Integer, Integer> Case_inter = chemin.get(position_interupteur);
+							int x_lab_courant = Case_inter.geto1();
+							int y_lab_courant = Case_inter.geto2();
+							int indice = 0;
+							for (int k = 0; k < this.getElement(x_lab_courant, y_lab_courant).size(); k++) {
+								if ((this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Invisible)
+										|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Joueur)
+										|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Cassable)
+										|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Apple)
+										|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Pioche)
+										|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Bombe)
+										|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Potion)) {
+									break;
+								}
+								indice++;
+							}
+							LinkedList<Entity> Liste_connexion = new LinkedList<Entity>();
+							Liste_connexion.add(MaPorte);
+							this.getElement(Case_inter.geto1(), Case_inter.geto2()).add(indice,
+									new Interrupteur(x_lab_courant, y_lab_courant, 1, 1, this, Liste_connexion));
+						}
+						Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+						l_void.remove(p);
+						// ########################################################################
+
+					}
+					if (eval == 0) {
+						if (j > 0 && (ContainsInstanceof(this.getElement(i, j - 1),
+								(new Normal(i, j, 1, 1, this)).getClass()) == 1)) {
+							if (j + 2 < this.colonne && (ContainsInstanceof(this.getElement(i, j + 2),
+									(new Normal(i, j, 1, 1, this)).getClass()) == 1)) {
+								if (j + 1 < this.ligne && !ContientSableMur(i, j + 1)) {
+									this.getElement(i, j + 1).add(new Normal(i, j + 1, 1, 1, this));
+								}
+
+								eval = 1;
+								Entity MaPorte = new Porte(i, j, 1, 1, this);
+								this.getElement(i, j).add(MaPorte);
+								// ## Maintenant l'interrupteur
+								LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<Pair<Integer, Integer>>();
+								Pair<Integer, Integer> start = new Pair<Integer, Integer>(2, 0);
+								Pair<Integer, Integer> dst = new Pair<Integer, Integer>(i, j);
+								chemin = this.TrouverChemin(start, dst);
+								if (chemin.isEmpty()) {
+									continue;
+								}
+								int position_interupteur = random.nextInt(chemin.size());
+								while (ContainsInstanceof(this.getElement(chemin.get(position_interupteur).geto1(),
+										chemin.get(position_interupteur).geto2()), Mur.class) == 1) {
+									position_interupteur = random.nextInt(chemin.size());
+								}
+								Pair<Integer, Integer> Case_inter = chemin.get(position_interupteur);
+								int x_lab_courant = Case_inter.geto1();
+								int y_lab_courant = Case_inter.geto2();
+								int indice = 0;
+								for (int k = 0; k < this.getElement(x_lab_courant, y_lab_courant).size(); k++) {
+									if ((this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Invisible)
+											|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Joueur)
+											|| (this.getElement(x_lab_courant, y_lab_courant)
+													.get(k) instanceof Cassable)
+											|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Apple)
+											|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Pioche)
+											|| (this.getElement(x_lab_courant, y_lab_courant).get(k) instanceof Bombe)
+											|| (this.getElement(x_lab_courant, y_lab_courant)
+													.get(k) instanceof Potion)) {
+										break;
+									}
+									indice++;
+								}
+								LinkedList<Entity> Liste_connexion = new LinkedList<Entity>();
+								Liste_connexion.add(MaPorte);
+								this.getElement(Case_inter.geto1(), Case_inter.geto2()).add(indice,
+										new Interrupteur(x_lab_courant, y_lab_courant, 1, 1, this, Liste_connexion));
+							}
+						}
+						Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+						l_void.remove(p);
+
+					}
+				}
+			}
+		}
+
+	}*/
+
+	private boolean isValidPosition1(int x, int y) {
+		return x >= 0 && x < ligne && y >= 0 && y < colonne;
+	}
+
+	public LinkedList<Pair<Integer, Integer>> TrouverChemin_abdel(Pair<Integer, Integer> case_depart,
+			Pair<Integer, Integer> case_dst) {
+		LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<>();
+		int x_dst = case_dst.geto1();
+		int y_dst = case_dst.geto2();
+
+		// Les cases à explorer
+		LinkedList<Pair<Integer, Integer>> A_Explorer = new LinkedList<>();
+		// Tableau de boolean afin de voir quelles cases ont été visitées
+		boolean[][] visite = new boolean[this.ligne][this.colonne];
+		// On initialise toutes les cases à false
+		for (int i = 0; i < this.ligne; i++) {
+			for (int j = 0; j < this.colonne; j++) {
+				visite[i][j] = false;
+			}
+		}
+
+		int x_start = case_depart.geto1();
+		int y_start = case_depart.geto2();
+		// Liste chainée pour stocker les parents de chaque case
+		LinkedList<Pair<Integer, Integer>> parent = new LinkedList<>();
+
+		// Cases à explorer au début
+		Pair<Integer, Integer> CaseInit = new Pair<>(x_start, y_start);
+		A_Explorer.add(CaseInit);
+		visite[x_start][y_start] = true;
+
+		// Tant qu'il reste des cases à explorer, on rentre dans la boucle
+		while (!A_Explorer.isEmpty()) {
+			// On récupère le premier élément de la liste
+			Pair<Integer, Integer> CaseCourante = A_Explorer.removeFirst();
+			int x_courrant = CaseCourante.geto1();
+			int y_courrant = CaseCourante.geto2();
+
+			if (x_courrant == x_dst && y_courrant == y_dst) {
+				/*if ((ContainsInstanceof(this.getElement(x_courrant, x_courrant),
+						(new Normal(1, 1, 1, 1, this)).getClass()) == 0)) {
+					chemin.add(CaseCourante);
+				}*/
+				chemin.add(CaseCourante);
+
+				// On reconstruit le chemin
+				Iterator<Pair<Integer, Integer>> iter = parent.iterator();
+				while (iter.hasNext()) {
+					Pair<Integer, Integer> c = iter.next();
+					/*if ((ContainsInstanceof(this.getElement(c.geto1(), c.geto2()),
+							(new Normal(1, 1, 1, 1, this)).getClass()) == 0)) {
+						chemin.add(c);
+					}*/
+					chemin.add(c);
+				}
+				return chemin;
+			}
+
+			LinkedList<Pair<Integer, Integer>> direction = new LinkedList<>();
+			direction.add(new Pair<>(-1, 0));
+			direction.add(new Pair<>(1, 0));
+			direction.add(new Pair<>(0, -1));
+			direction.add(new Pair<>(0, 1));
+			for (int i = 0; i < direction.size(); i++) {
+				Pair<Integer, Integer> c_courante = direction.get(i);
+				int my_x = x_courrant + c_courante.geto1();
+				int my_y = y_courrant + c_courante.geto2();
+				if (isValidPosition1(my_x, my_y) && !visite[my_x][my_y] && getElement(my_x, my_y).getLast() instanceof Void) {
+					Pair<Integer, Integer> voisin = new Pair<>(my_x, my_y);
+					A_Explorer.add(voisin);
+					visite[my_x][my_y] = true;
+					parent.add(voisin);
+				}
+			}
+		}
+		return chemin;
+	}
+
 	// ##########################################################
 
 	public void lave() {

@@ -374,7 +374,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public void enter(BinaryOp binop) {
 		// TODO Auto-generated method stub
 
-	}
+	} 
 
 	@Override
 	public void visit(BinaryOp binop) {

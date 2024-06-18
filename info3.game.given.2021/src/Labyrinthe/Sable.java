@@ -1,8 +1,17 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Sable extends Entity {
 	
-	private int layer = 3;
+	
+	public Sable(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.category = Categorie.D;
+		this.team = 4;
+		layer = 3;
+	}
 
 	@Override
 	public Entity egg(int x, int y) {

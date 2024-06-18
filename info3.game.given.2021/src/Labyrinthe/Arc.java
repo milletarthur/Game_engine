@@ -1,8 +1,16 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Arc extends Entity {
 	
-	private int layer = 2;
+	public Arc(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.category = Categorie.P;
+		this.team = 3;
+		layer = 2;
+	}
 
 	@Override
 	public Entity egg(int x, int y) {

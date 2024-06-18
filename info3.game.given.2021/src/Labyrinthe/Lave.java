@@ -1,14 +1,15 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Lave extends Entity {
 	
-	private int layer = 0;
-
-	public Lave(int x, int y, int team, int category) {
+	public Lave(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.category = category;
-		this.team = team;
+		this.category = Categorie.D;
+		this.team = 3;
+		layer = 0;
 	}
 
 	@Override

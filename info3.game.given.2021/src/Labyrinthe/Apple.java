@@ -1,20 +1,22 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Apple extends Entity {
 	
 	boolean poison;
-	private int layer = 2;
 
-	public Apple(int x, int y, int team, int category) {
+	public Apple(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.category = category;
-		this.team = team;
+		this.category = Categorie.P;
+		this.team = 3;
+		layer = 2;
 	}
 
 	@Override
 	public Entity egg(int x, int y) {
-		return new Apple(x, y, this.team, this.category);
+		return new Apple(x, y);
 	}
 
 	@Override

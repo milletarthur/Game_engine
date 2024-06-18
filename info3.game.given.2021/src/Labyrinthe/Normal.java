@@ -1,14 +1,15 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Normal extends Mur {
 	
-	private int layer = 2;
-	
-	public Normal(int x, int y, int team, int category) {
+	public Normal(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.category = category;
-		this.team = team;
+		this.category = Categorie.O;
+		this.team = 3;
+		layer = 2;
 	}
 
 	@Override

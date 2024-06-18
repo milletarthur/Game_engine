@@ -1,13 +1,15 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Fleche extends Entity {
 	
-	public Fleche(int x, int y, int team, int category, int dir) {
+	public Fleche(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.category = category;
-		this.team = team;
-		this.Orientation = dir;
+		this.category = Categorie.M;
+		this.team = 5;
+		layer = 2;
 	}
 	
 	@Override

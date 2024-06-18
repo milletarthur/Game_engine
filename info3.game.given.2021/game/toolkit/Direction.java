@@ -16,5 +16,9 @@ public class Direction {
 	public static final int B = -2; // Backward
 	public static final int L = -3; // Left
 	public static final int R = -4; // Right
+	public static final int FR = -5; // Forward Right
+	public static final int FL = -6; // Forward Left
+	public static final int BR = -7; // Backward Right
+	public static final int BL = -8; // Backward Left
 }
 

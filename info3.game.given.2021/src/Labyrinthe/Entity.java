@@ -116,7 +116,9 @@ public abstract class Entity {
 
 	abstract public void wizz();
 
-	abstract public void explode();
+	public void explode() {
+		kill();
+	}
 	
 	public void power(int vie) {
 		this.vie += vie;

@@ -29,12 +29,6 @@ public class Cassable extends Mur {
 	}
 
 	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public int hit() {
 		// TODO Auto-generated method stub
 		return 0;

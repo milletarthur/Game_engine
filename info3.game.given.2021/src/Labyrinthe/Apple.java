@@ -32,10 +32,12 @@ public class Apple extends Entity {
 
 	@Override
 	public void pop() {
+		poison = false;
 	}
 
 	@Override
 	public void wizz() {
+		poison = true;
 	}
 
 	@Override
@@ -44,12 +46,16 @@ public class Apple extends Entity {
 
 	@Override
 	public int hit() {
-		return 10;	//valeur inutilisés, juste drole
+		return -3;
 	}
 	
 	@Override
 	public void power(int vie) {
 		// TODO Auto-generated method stub
+	}
+	
+	public boolean poisoned() {
+		return poison;
 	}
 
 }

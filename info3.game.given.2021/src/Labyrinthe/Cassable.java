@@ -51,4 +51,10 @@ public class Cassable extends Mur {
 		
 	}
 
+	@Override
+	public int hit() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

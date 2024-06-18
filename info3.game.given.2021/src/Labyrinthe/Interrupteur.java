@@ -66,4 +66,9 @@ public class Interrupteur extends Entity {
 		
 	}
 
+	@Override
+	public int hit() {
+		return 1;
+	}
+
 }

@@ -58,4 +58,9 @@ public class Lave extends Entity {
 		
 	}
 
+	@Override
+	public int hit() {
+		return 20;
+	}
+
 }

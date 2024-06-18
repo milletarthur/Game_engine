@@ -43,7 +43,7 @@ public class Arc extends Entity {
 
 	@Override
 	public int hit() {
-		return layer;
+		return -1;
 	}
 	
 	@Override

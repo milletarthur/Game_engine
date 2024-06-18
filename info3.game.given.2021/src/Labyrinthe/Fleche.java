@@ -17,9 +17,8 @@ public class Fleche extends Entity {
 	}
 
 	@Override
-	public void hit() {
-		// TODO Auto-generated method stub
-		
+	public int hit() {
+		return 3;
 	}
 
 	@Override

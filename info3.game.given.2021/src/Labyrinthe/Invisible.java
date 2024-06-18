@@ -51,4 +51,9 @@ public class Invisible extends Mur {
 		
 	}
 
+	@Override
+	public int hit() {
+		return 0;
+	}
+
 }

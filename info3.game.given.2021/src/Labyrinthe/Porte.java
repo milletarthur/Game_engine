@@ -57,4 +57,10 @@ public class Porte extends Entity {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public int hit() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

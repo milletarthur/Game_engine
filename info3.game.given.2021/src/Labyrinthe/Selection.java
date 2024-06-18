@@ -1,8 +1,6 @@
 package Labyrinthe;
 
-public class Pioche extends Entity {
-	
-	private int layer = 2;
+public class Selection extends Entity {
 
 	@Override
 	public Entity egg(int x, int y) {
@@ -11,18 +9,13 @@ public class Pioche extends Entity {
 	}
 
 	@Override
-	public void move() {
-		super.move();
+	public int hit() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
 		// TODO Auto-generated method stub
 
 	}
@@ -43,17 +36,6 @@ public class Pioche extends Entity {
 	public void explode() {
 		// TODO Auto-generated method stub
 
-	}
-	
-	@Override
-	public void power(int vie) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int hit() {
-		return -2;
 	}
 
 }

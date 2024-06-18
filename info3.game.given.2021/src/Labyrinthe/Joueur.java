@@ -13,7 +13,7 @@ import toolkit.Direction;
  */
 public class Joueur extends Entity {
 	
-	Entity picked;
+	private Entity picked;
 	private int layer = 2;
 	
 	public Joueur(int x, int y) {
@@ -26,6 +26,14 @@ public class Joueur extends Entity {
 	public Entity egg(int x, int y) {
 		
 		return null;
+	}
+	
+	public Entity picked() {
+		return picked;
+	}
+	
+	public void setpicked(Entity p) {
+		picked = p;
 	}
 
 	@Override
@@ -62,6 +70,13 @@ public class Joueur extends Entity {
 	@Override
 	public void power(int vie) {
 		super.power(vie);
+	}
+
+	@Override
+	public int hit() {
+		if (picked != null)
+			return 1;
+		return picked.hit();
 	}
 
 }

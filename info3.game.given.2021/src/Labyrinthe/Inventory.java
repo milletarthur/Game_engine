@@ -15,6 +15,13 @@ public class Inventory {
 		inventory = l;
 	}
 	
+	public boolean isEmpty() {
+		if(inventory.size() == 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void add(Entity e) {
 		inventory.add(e);
 	}
@@ -47,5 +54,17 @@ public class Inventory {
 		int i = inventory.indexOf(current_j2);
 		i = (i+1)%len;
 		current_j2 = inventory.get(i);
+	}
+	
+	public Entity popJ1() {
+		Entity e = getCurrentJ1();
+		inventory.remove(e);
+		return e;
+	}
+	
+	public Entity popJ2() {
+		Entity e = getCurrentJ2();
+		inventory.remove(e);
+		return e;
 	}
 }

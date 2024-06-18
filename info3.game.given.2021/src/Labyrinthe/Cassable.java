@@ -11,12 +11,6 @@ public class Cassable extends Mur {
 	}
 
 	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void pop() {
 		// TODO Auto-generated method stub
 

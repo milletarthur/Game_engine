@@ -18,10 +18,6 @@ public class Apple extends Entity {
 	}
 
 	@Override
-	public void pick() {
-	}
-
-	@Override
 	public void pop() {
 		poison = false;
 	}

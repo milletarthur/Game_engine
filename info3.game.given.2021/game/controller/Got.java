@@ -3,6 +3,7 @@ package controller;
 import Automates.ICondition;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Inventory;
 
 public class Got implements ICondition {
 
@@ -20,8 +21,22 @@ public class Got implements ICondition {
 
 	@Override
 	public boolean eval(Entity e) {
-		// TODO Auto-generated method stub
-		return false;
+		switch(value) {
+		case 0:
+			Inventory inv = e.getInventory();
+			return inv.isEmpty();
+		case 1:
+			
+			break;
+		case 2:
+			int vie = e.getVie();
+			if(vie <=0) {
+				return false;
+			}
+			return true;
+		default:
+			break;
+		}
 	}
 
 	@Override

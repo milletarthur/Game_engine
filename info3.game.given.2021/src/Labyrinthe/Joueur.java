@@ -27,15 +27,6 @@ public class Joueur extends Entity {
 		return picked;
 	}
 
-	public void setpicked(Entity p) {
-		picked = p;
-	}
-
-	@Override
-	public void pick() {
-
-	}
-
 	@Override
 	public void pop() {
 		// TODO Auto-generated method stub
@@ -57,5 +48,18 @@ public class Joueur extends Entity {
 			return 1;
 		return picked.hit();
 	}
-
+	
+	@Override
+	public void get() {
+		switch(team()) {
+		case 1:
+			picked = inventory.popJ1();
+			break;
+		case 2:
+			picked = inventory.popJ2();
+			break;
+		default:
+			break;
+		}
+	}
 }

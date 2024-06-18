@@ -46,7 +46,13 @@ public abstract class Entity {
 	
 	abstract public int hit();
 	
-	abstract public void pick();
+	public boolean pick(Entity e) {
+		if(picked == null) {
+			picked = e;
+			return true;
+		}
+		return false;
+	}
 
 	public void turn(int dir) {
 		// positions absolues SANS prendre en compte NE NW SE SW
@@ -129,8 +135,8 @@ public abstract class Entity {
 		picked = null;
 	}
 	
-	public Entity get() {
-		return null;
+	public void get() {
+		return;
 	}
 	
 	public void throw_() {
@@ -176,5 +182,16 @@ public abstract class Entity {
 	public int team() {
 		return this.team;
 	}
-
+	
+	public Entity picked() {
+		return picked;
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
+	public int getVie() {
+		return vie;
+	}
 }

@@ -30,18 +30,18 @@ public class DrawTerrain extends JPanel {
 	private Sprite CHEMIN, PLAYER, OBJET, ITEM, DEPLAC, ZOMBIE, SQUELETTE;
 
 	private BufferedImage[] chemin = new BufferedImage[6];
-	private BufferedImage player1, player2, pioche, pomme, arc, potion, porte_fermee, porte_ouverte, teleporte, epee,
-			zombie, squelette;
+	private BufferedImage player1, player2, porte_fermee, porte_ouverte, teleporte, zombie, squelette;
 
-	private Image lave, sand, bombe, mur, fragile, int_pop, int_wizz, int_neutre;
+	private Image lave, sand, mur, fragile, int_pop, int_wizz, int_neutre;
+	
+	// partager avec DrawInventaire
+	public static BufferedImage pioche, pomme, arc, potion, epee, bombe;
 
 	Random random;
 
 	private int[][] rand_chemin;
 	private int[][] rand_mine_x;
 	private int[][] rand_mine_y;
-	
-	private boolean perso1 = false ;
 
 	public DrawTerrain(int HAUTEUR, int LARGEUR, Field terrain, int T_case) throws IOException {
 		this.terrain = terrain;
@@ -59,7 +59,7 @@ public class DrawTerrain extends JPanel {
 				rand_mine_y[i][j] = -1;
 			}
 		}
-	
+
 		// impose la taille de la fenêtre avec celui du JPanel
 		this.setPreferredSize(new Dimension(LARGEUR * T_case, HAUTEUR * T_case));
 	}
@@ -95,7 +95,7 @@ public class DrawTerrain extends JPanel {
 	public void drawElements(Graphics g) {
 		for (int i = 0; i < terrain.get_ligne(); i++) {
 			for (int j = 0; j < terrain.get_colonne(); j++) {
-				LinkedList<Entity> temp = terrain.getElement(i,j);
+				LinkedList<Entity> temp = terrain.getElement(i, j);
 				for (int k = 0; k < temp.size(); k++) {
 					Entity e = temp.get(k);
 					if (e instanceof Apple) {
@@ -115,8 +115,9 @@ public class DrawTerrain extends JPanel {
 						// TODO - rendre opaque si joueur dessus
 						g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Joueur) {
-						// TODO - gérer les cas ou le joueur a une arme et quel joueur c'est
+						// TODO - gérer les cas ou le joueur a une arme et quel joueur c'est (avec les teams / positions)
 						g.drawImage(player1, j * T_case, i * T_case, T_case, T_case, null);
+						
 					} else if (e instanceof Lave) {
 						g.drawImage(lave, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Mine) {
@@ -179,10 +180,10 @@ public class DrawTerrain extends JPanel {
 		this.pioche = OBJET.getSprite(6, 1);
 		this.pomme = OBJET.getSprite(0, 10);
 
-		this.bombe = drawEntity("bombe");
+		this.bombe = (BufferedImage) drawEntity("resources/graphisme/bombe.png");
 
 		this.ITEM = new Sprite("resources/graphisme/items.png", 16, 16);
-		this.arc = ITEM.getSprite(6, 8);
+		this.arc = ITEM.getSprite(8, 6);
 		this.potion = ITEM.getSprite(0, 6);
 		this.epee = ITEM.getSprite(9, 11);
 

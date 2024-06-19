@@ -6,9 +6,9 @@ public class Porte extends Entity {
 	
 	boolean isOpen;
 	
-	public Porte(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Porte(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.G;
 		this.team = 6;
 		layer = 2;
@@ -16,8 +16,8 @@ public class Porte extends Entity {
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Porte(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Porte(ligne,colonne);
 	}
 
 	@Override

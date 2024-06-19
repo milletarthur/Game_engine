@@ -6,17 +6,17 @@ public class Potion extends Entity {
 	
 	boolean poison;
 	
-	public Potion(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Potion(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.P;
 		this.team = 3;
 		layer = 2;
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Potion(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Potion(ligne,colonne);
 	}
 
 	@Override

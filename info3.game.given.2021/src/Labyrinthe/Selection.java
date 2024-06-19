@@ -4,17 +4,17 @@ import toolkit.Categorie;
 
 public class Selection extends Entity {
 
-	public Selection(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Selection(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.T;
 		this.team = 8;
 		layer = 5;
 	}
 	
 	@Override
-	public Entity egg(int x, int y) {
-		return new Selection(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Selection(ligne,colonne);
 	}
 
 	@Override

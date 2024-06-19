@@ -4,17 +4,17 @@ import toolkit.Categorie;
 
 public class Pioche extends Entity {
 	
-	public Pioche(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Pioche(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.P;
 		this.team = 3;
 		layer = 2;
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Pioche(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Pioche(ligne,colonne);
 	}
 
 	@Override

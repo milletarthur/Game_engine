@@ -744,6 +744,49 @@ public class Field {
 		}
 	}
 
+	private boolean ContientVoidMur(int x, int y) {
+		Entity elm = this.getElement(x, y).getLast();
+		if (elm instanceof Mur || elm instanceof Void) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public Boolean ContientObs(int l, int c) {
+		/*
+		 * Pair<Integer, Integer> Case = new Pair<Integer, Integer>(l, c);
+		 */
+		int k_i = l;
+		int k_j_min = Math.max(0, c - 1);
+		int k_j_max = Math.min(colonne - 1, c + 1);
+
+		if ((this.get_element2(l, c, labyrinthe) instanceof Void)) {
+
+			// Vérification ligne actuelle
+			for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
+				if (k_j != c && !(this.ContientVoidMur(k_i, k_j))) {
+					return false;
+				}
+			}
+
+			if (l > 0 && !(this.ContientVoidMur(l - 1, c))) {
+				return false;
+			}
+			if (l < this.ligne - 1) {
+				if (!(this.ContientVoidMur(l + 1, c))) {
+
+					return false;
+				}
+			}
+		}
+		return true;
+		/*
+		 * int eval = 1 ; if ( !( this.get_element2(l, c, labyrinthe) instanceof Void )
+		 * ) { eval = 0 ; }
+		 */
+	}
+
 	public void pickable(int densitepickable, int mine, int pomme, int potion, int pioche, int bombe) {
 		Random r = new Random();
 		if (densitepickable == 0) {
@@ -751,22 +794,24 @@ public class Field {
 		}
 		int len_void = l_void.size();
 		int nb_libre_pour_pickable = densitepickable * len_void / 100;
-		int nb_mine = (100 / mine) * nb_libre_pour_pickable / 100;
+		//int nb_mine = (100 / mine) * nb_libre_pour_pickable / 100;
+		int nb_mine = ( nb_libre_pour_pickable * mine ) / densitepickable ;
 		int count = 0;
 		int x, y;
 		while (count < nb_mine) {
-			x = r.nextInt(ligne - 1);
-			y = r.nextInt(colonne - 1);
-			while (!(get_element2(x, y, labyrinthe) instanceof Void)) {
-				x = r.nextInt(ligne - 1);
-				y = r.nextInt(colonne - 1);
+			x = r.nextInt(ligne);// - 1);
+			y = r.nextInt(colonne);// - 1);\
+			while ((this.ContientObs(x, y)) ) {
+				x = r.nextInt(ligne);
+				y = r.nextInt(colonne);
 			}
 			Mine m = new Mine(x, y);
 			set_element2(x, y, m, labyrinthe);
 			count++;
 		}
 		count = 0;
-		int nb_pomme = (100 / pomme) * nb_libre_pour_pickable / 100;
+		//int nb_pomme = (100 / pomme) * nb_libre_pour_pickable / 100;
+		int nb_pomme = ( nb_libre_pour_pickable * pomme ) / densitepickable ;
 		while (count < nb_pomme) {
 			x = r.nextInt(ligne - 1);
 			y = r.nextInt(colonne - 1);
@@ -779,7 +824,8 @@ public class Field {
 			count++;
 		}
 		count = 0;
-		int nb_potion = (100 / potion) * nb_libre_pour_pickable / 100;
+		//int nb_potion = (100 / potion) * nb_libre_pour_pickable / 100;
+		int nb_potion = ( nb_libre_pour_pickable * potion ) / densitepickable ;
 		while (count < nb_potion) {
 			x = r.nextInt(ligne - 1);
 			y = r.nextInt(colonne - 1);
@@ -792,7 +838,8 @@ public class Field {
 			count++;
 		}
 		count = 0;
-		int nb_pioche = (100 / pioche) * nb_libre_pour_pickable / 100;
+		//int nb_pioche = (100 / pioche) * nb_libre_pour_pickable / 100;
+		int nb_pioche = ( nb_libre_pour_pickable * pioche ) / densitepickable ;
 		while (count < nb_pioche) {
 			x = r.nextInt(ligne - 1);
 			y = r.nextInt(colonne - 1);
@@ -805,7 +852,8 @@ public class Field {
 			count++;
 		}
 		count = 0;
-		int nb_bombe = (100 / bombe) * nb_libre_pour_pickable / 100;
+		//int nb_bombe = (100 / bombe) * nb_libre_pour_pickable / 100;
+		int nb_bombe = ( nb_libre_pour_pickable * bombe ) / densitepickable ;
 		while (count < nb_bombe) {
 			x = r.nextInt(ligne - 1);
 			y = r.nextInt(colonne - 1);

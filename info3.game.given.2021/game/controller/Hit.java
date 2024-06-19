@@ -19,9 +19,9 @@ public class Hit implements IAction {
 	public void exec(Entity e) {
 		int damage = e.hit(); // renvoie les dégats que fait l'entitée a une autre. (positif)
 		int[] spot = terrain.next_to(e, e.direction());
-		int x = spot[0];
-		int y = spot[1];
-		LinkedList<Entity> list = terrain.getElement(x, y);
+		int ligne = spot[0];
+		int colonne = spot[1];
+		LinkedList<Entity> list = terrain.getElement(ligne, colonne);
 		int cpt = 0;
 		Entity tohit = list.get(cpt);
 		int taille = list.size();
@@ -33,22 +33,22 @@ public class Hit implements IAction {
 			tohit = list.get(cpt);
 		}
 		if (damage > 0) {
-			// terrain.remove(x, y, tohit);
+			// terrain.remove(ligne, colonne, tohit);
 			if ((tohit instanceof Joueur) || (tohit instanceof Zombie) || (tohit instanceof Squelette)) {
 				tohit.power(-damage);
 			}
-			// terrain.add(tohit, x, y);
+			// terrain.add(tohit, ligne, colonne);
 		} else if (damage == -1) { // cas arc
 			Arc arc = (Arc) e;
 			Fleche f;
 			if(arc.getTrans()) {
 				f = new Fleche(arc.ligne(), arc.colonne(), arc.direction(), true);
 			} else {
-				f = new Fleche(x, y, e.direction());
+				f = new Fleche(ligne, colonne, e.direction());
 			}
 			((Arc)e).setFleche(f);
 			f.hit();
-			terrain.add(f, x, y);
+			terrain.add(f, ligne, colonne);
 		} else if (damage == -2) { // cas Pioche
 			if (tohit instanceof Labyrinthe.Void) {
 				Wizz wi = new Wizz(terrain);
@@ -79,9 +79,9 @@ public class Hit implements IAction {
 		} else if (damage == -6) { // cas épée avec hitCircle
 			for (int i = 0; i < 8; i++) {
 				spot = terrain.next_to(e, e.direction());
-				x = spot[0];
-				y = spot[1];
-				list = terrain.getElement(x, y);
+				ligne = spot[0];
+				colonne = spot[1];
+				list = terrain.getElement(ligne, colonne);
 				cpt = 0;
 				tohit = list.get(cpt);
 				taille = list.size();

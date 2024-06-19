@@ -9,7 +9,7 @@ public class Sable extends Entity {
 		this.x = x;
 		this.y = y;
 		this.category = Categorie.D;
-		this.team = 4;
+		this.team = 5;
 		layer = 3;
 	}
 

@@ -8,7 +8,7 @@ public class Invisible extends Mur {
 		this.x = x;
 		this.y = y;
 		this.category = Categorie.J;
-		this.team = 3;
+		this.team = 4;
 		this.layer = 4;
 	}
 

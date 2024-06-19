@@ -8,7 +8,7 @@ public class Normal extends Mur {
 		this.x = x;
 		this.y = y;
 		this.category = Categorie.O;
-		this.team = 3;
+		this.team = 4;
 		layer = 2;
 	}
 

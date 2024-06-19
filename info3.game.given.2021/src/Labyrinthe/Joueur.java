@@ -19,7 +19,7 @@ public class Joueur extends Entity {
 		else
 			this.category = Categorie.Diese;
 		this.team = team;
-		layer = 2;
+		layer = 3;
 
 	}
 

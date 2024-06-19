@@ -8,7 +8,7 @@ public class Lave extends Entity {
 		this.x = x;
 		this.y = y;
 		this.category = Categorie.D;
-		this.team = 3;
+		this.team = 5;
 		layer = 0;
 	}
 

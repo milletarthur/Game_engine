@@ -9,7 +9,7 @@ public class Teleporteur extends Entity {
 		this.x = x;
 		this.y = y;
 		this.category = Categorie.G;
-		this.team = 3;
+		this.team = 6;
 		this.layer = 0;
 	}
 

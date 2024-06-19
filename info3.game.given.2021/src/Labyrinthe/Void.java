@@ -9,7 +9,7 @@ public class Void extends Entity {
 		this.x = x;
 		this.y = y;
 		this.category = Categorie.V;
-		this.team = 4;
+		this.team = 6;
 		this.layer = 1;
 	}
 

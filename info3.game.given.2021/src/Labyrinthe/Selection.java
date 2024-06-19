@@ -8,7 +8,7 @@ public class Selection extends Entity {
 		this.x = x;
 		this.y = y;
 		this.category = Categorie.T;
-		this.team = 3;
+		this.team = 8;
 		layer = 5;
 	}
 	

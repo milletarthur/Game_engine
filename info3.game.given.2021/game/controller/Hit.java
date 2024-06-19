@@ -46,7 +46,7 @@ public class Hit implements IAction {
 				tohit.power(-damage);
 	//		terrain.add(tohit, x, y);
 		} else if (damage == -1){ // cas arc
-			Fleche f = new Fleche(x,y,e.team(),Categorie.M,e.direction());
+			Fleche f = new Fleche(x,y,e.direction());
 			terrain.add(f, x, y);
 		} else if (damage == -2) { // cas Pioche
 			if (tohit instanceof Labyrinthe.Void) {

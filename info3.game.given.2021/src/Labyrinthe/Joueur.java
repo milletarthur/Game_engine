@@ -8,10 +8,10 @@ import toolkit.Direction;
  * x et y sont les coordonnées de ce joueur dans la matrice
  */
 public class Joueur extends Entity {
-	
+
 	public Joueur(int x, int y) {
-		this.x = x ;
-		this.y = y ;
+		this.x = x;
+		this.y = y;
 	}
 
 	@Override
@@ -23,20 +23,20 @@ public class Joueur extends Entity {
 	@Override
 	public void move() {
 		switch (Orientation) {
-			case Direction.N:
-				this.y -= 1;
-				break;
-			case Direction.S:
-				this.y += 1;
-				break;
-			case Direction.E:
-				this.x += 1;
-				break;
-			case Direction.W:
-				this.x -= 1;
-				break;
-			default:
-				break;
+		case Direction.N:
+			this.y -= 1;
+			break;
+		case Direction.S:
+			this.y += 1;
+			break;
+		case Direction.E:
+			this.x += 1;
+			break;
+		case Direction.W:
+			this.x -= 1;
+			break;
+		default:
+			break;
 		}
 	}
 

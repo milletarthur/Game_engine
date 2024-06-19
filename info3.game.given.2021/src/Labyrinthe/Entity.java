@@ -19,18 +19,18 @@ public abstract class Entity {
 	abstract void egg(int x, int y);
 
 	public void move() {
-		switch(Orientation) {
+		switch (Orientation) {
 		case Direction.N:
-			y = Math.max(0, y-1);
+			y = Math.max(0, y - 1);
 			break;
 		case Direction.S:
-			y = Math.min(y+1, f.get_ligne()-1);
+			y = Math.min(y + 1, f.get_ligne() - 1);
 			break;
 		case Direction.E:
-			x = Math.min(x+1, f.get_colonne()-1);
+			x = Math.min(x + 1, f.get_colonne() - 1);
 			break;
 		case Direction.W:
-			x = Math.max(0, x-1);
+			x = Math.max(0, x - 1);
 			break;
 		default:
 			break;

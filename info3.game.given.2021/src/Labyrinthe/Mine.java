@@ -2,6 +2,11 @@ package Labyrinthe;
 
 public class Mine extends Entity {
 
+	public Mine(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	@Override
 	void egg(int x, int y) {
 		// TODO Auto-generated method stub

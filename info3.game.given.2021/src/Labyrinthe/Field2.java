@@ -9,7 +9,6 @@ import toolkit.Triple;
 
 import toolkit.Pair;
 
-
 public class Field2 {
 
 	private int colonne;
@@ -40,7 +39,7 @@ public class Field2 {
 
 		grille(lig, col);
 		grille2(lig, col);
-		//labyrinthe();
+		// labyrinthe();
 	}
 
 	public Field2(int lig, int col, int densite) {
@@ -64,13 +63,13 @@ public class Field2 {
 		}
 		grille(lig, col);
 		grille2(lig, col);
-		//labyrinthe();
+		// labyrinthe();
 
 		recup_liste_void();
 		grow();
-	//	Obstacle(densite, "Mine");
-		//Obstacle(densite, "Sable");
-		//lave();
+		// Obstacle(densite, "Mine");
+		// Obstacle(densite, "Sable");
+		// lave();
 	}
 
 	public Field2(int lig, int col, int densite, int joker) {
@@ -96,13 +95,13 @@ public class Field2 {
 		grille2(lig, col);
 		System.out.println("#################################");
 		// detruire_mur(densite);
-		//labyrinthe();
+		// labyrinthe();
 
 		// depotPorte(5);
 		printGame();
 		// Obstacle(densite);
 
-		//depotPorte(1);
+		// depotPorte(1);
 		// bulldozer(10);
 		// LinkedList<Entity> liste = null;
 		// deposer_Porte_2(liste);
@@ -153,20 +152,12 @@ public class Field2 {
 		LinkedList<Entity> elem = row.get(indice_j);
 		return elem.element();
 	}
-/*
-	public void labyrinthe() {
-		for (int i = 0; i < ligne; i++) {
-			for (int j = 0; j < colonne; j++) {
-				if (tmp[i][j] == -1) {
-					Entity e = new Normal(i, j, 1, 1, this);
-					set_element(i, j, e, labyrinthe);
-				} else {
-					Entity e = new Void(i, j, 1, 1, this);
-					set_element(i, j, e, labyrinthe);
-				}
-			}
-		}
-	}*/
+	/*
+	 * public void labyrinthe() { for (int i = 0; i < ligne; i++) { for (int j = 0;
+	 * j < colonne; j++) { if (tmp[i][j] == -1) { Entity e = new Normal(i, j, 1, 1,
+	 * this); set_element(i, j, e, labyrinthe); } else { Entity e = new Void(i, j,
+	 * 1, 1, this); set_element(i, j, e, labyrinthe); } } } }
+	 */
 
 	/*
 	 * public void set_element(int indice_i, int indice_j, Entity e,
@@ -383,140 +374,81 @@ public class Field2 {
 		labyrinthe = new_labyrinthe2;
 		ligne = nb_ligne;
 	}
-/*
-	public LinkedList<LinkedList<Entity>> croisement() {
-		LinkedList<LinkedList<Entity>> RES = null;
-		for (int i = 0; i < ligne; i++) {
-			ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(i);
-			for (int j = 0; j < colonne; j++) {
-				LinkedList<Entity> col = row.get(j);
-				int count = 0;
-				if (col.getFirst().x > 0 && (get_element(col.get(i), col.get(j), labyrinthe)) instanceof Void
-						&& (get_element(col.getFirst().x - 1, col.getFirst().y, labyrinthe) instanceof Void)) {
-					count++;
-				}
-				if (col.getFirst().y < ligne - 1 && get_element(col.getFirst().x, col.getFirst().y, labyrinthe) instanceof Void
-						&& (get_element(col.getFirst().x + 1, col.getFirst().y, labyrinthe) instanceof Void)) {
-					count++;
-				}
-				if (col.getFirst().y > 0 && get_element(col.getFirst().x, col.getFirst().y, labyrinthe) instanceof Void
-						&& (get_element(col.getFirst().x, col.getFirst().y - 1, labyrinthe) instanceof Void)) {
-					count++;
-				}
-				if (col.getFirst().y < colonne - 1 && get_element(col.getFirst().x, col.getFirst().y, labyrinthe) instanceof Void
-						&& (get_element(col.getFirst().x, col.getFirst().y + 1, labyrinthe) instanceof Void)) {
-					count++;
-				}
-
-				if (count >= 2 && RES != null) {
-					RES.add(col);
-				}
-			}
-		}
-		return RES;
-	}
-
-	public void depotPorte(int Nombre_Porte) {
-		LinkedList<LinkedList<Entity>> RES = croisement();
-		LinkedList<Entity> chemin_enregistre = new LinkedList<Entity>();
-		int x = 1;
-		int y = 0;
-		for (int t = 0; t < 5; t++) {
-			Triple<LinkedList<Entity>, Entity, LinkedList<Entity>> liste = new Triple<LinkedList<Entity>, Entity, LinkedList<Entity>>(
-					null, null, null);
-			liste = deposer_Porte_2(x, y, chemin_enregistre);
-			while (liste.x().size() == 0 && liste.z() != null) {
-				liste = deposer_Porte_2(x, y, chemin_enregistre);
-			}
-			for (int g = 0; g < liste.x().size(); g++) {
-				chemin_enregistre.add(liste.x().get(g));
-			}
-			for (int i = 0; i < liste.x().size(); i++) {
-				if (!(liste.x().get(i) instanceof Mur)) {
-					System.out.print(" x : ");
-					System.out.print(liste.x().get(i).x);
-					System.out.print(" y : ");
-					System.out.print(liste.x().get(i).y);
-					System.out.print("\n");
-				} else {
-					System.out.println("C'est un Mur");
-				}
-			}
-			x = liste.z().getFirst().x;
-			y = liste.z().getFirst().y;
-			printGame();
-		}
-
-	}
-
-	
-	Triple<LinkedList<Entity>, Entity, LinkedList<Entity>> deposer_Porte_2(int x, int y,
-			LinkedList<Entity> chemin_enregistre) {
-		int len = 10;
-		Random r = new Random();
-		LinkedList<Entity> liste = bulldozer(len, x, y, chemin_enregistre);
-		int count = 0;
-		int count2 = 0;
-		LinkedList<LinkedList<Entity>> Croise = croisement();
-		while (liste.size() != 10 && count2 < 10 && chemin_enregistre.size() != 0) {
-			if (count > 3) {
-				if (chemin_enregistre.size() != 0) {
-					Entity en = chemin_enregistre.pop();
-					while(!Croise.contains(en)) {
-						en = chemin_enregistre.pop();
-					}
-					x = en.x;
-					y = en.y;
-					count = 0;
-					count2++;
-				}
-			}
-			System.out.println("#################################");
-			liste = bulldozer(len, x, y, chemin_enregistre);
-			//count2++;
-			count++;
-		}
-		int i = liste.size() - 1;
-		Triple<LinkedList<Entity>, Entity, LinkedList<Entity>> res = new Triple<LinkedList<Entity>, Entity, LinkedList<Entity>>(
-				null, null, null);
-		res.setx(liste);
-		Entity elem = null;
-		int condition = 1;
-		Porte p = null;
-		while (i > 0 && condition == 1 && p == null) {
-			if ((get_element(liste.get(i).x - 1, y, labyrinthe) instanceof Mur)
-					&& (get_element(liste.get(i).x + 1, y, labyrinthe) instanceof Mur)) {
-				p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1, this);
-				p.Orientation = 3;
-				set_element(liste.get(i).x, liste.get(i).y, p, labyrinthe);
-				elem = liste.remove(i);
-				condition = 0;
-			} else if ((get_element(liste.get(i).x, liste.get(i).y - 1, labyrinthe) instanceof Mur)
-					&& (get_element(liste.get(i).x, liste.get(i).y + 1, labyrinthe) instanceof Mur)) {
-				p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1, this);
-				p.Orientation = 1;
-				set_element(liste.get(i).x, liste.get(i).y, p, labyrinthe);
-				elem = liste.remove(i);
-				condition = 0;
-			}
-
-			i = i - 1;
-		}
-		if (condition == 0) {
-			int levier = r.nextInt(liste.size());
-			while (!(liste.get(levier) instanceof Void) && !(liste.get(levier) instanceof Porte)) {
-				levier = r.nextInt(liste.size());
-			}
-			LinkedList<Entity> l = new LinkedList<Entity>();
-			l.add(p);
-			Interrupteur Int = new Interrupteur(liste.getLast().x, liste.getLast().y, 1, 1, this, l);
-			set_element(liste.get(levier).x, liste.get(levier).y, Int, labyrinthe);
-			res.setz(l);
-		}
-		res.sety(elem);
-		return res;
-
-	}*/
+	/*
+	 * public LinkedList<LinkedList<Entity>> croisement() {
+	 * LinkedList<LinkedList<Entity>> RES = null; for (int i = 0; i < ligne; i++) {
+	 * ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>)
+	 * labyrinthe.get(i); for (int j = 0; j < colonne; j++) { LinkedList<Entity> col
+	 * = row.get(j); int count = 0; if (col.getFirst().x > 0 &&
+	 * (get_element(col.get(i), col.get(j), labyrinthe)) instanceof Void &&
+	 * (get_element(col.getFirst().x - 1, col.getFirst().y, labyrinthe) instanceof
+	 * Void)) { count++; } if (col.getFirst().y < ligne - 1 &&
+	 * get_element(col.getFirst().x, col.getFirst().y, labyrinthe) instanceof Void
+	 * && (get_element(col.getFirst().x + 1, col.getFirst().y, labyrinthe)
+	 * instanceof Void)) { count++; } if (col.getFirst().y > 0 &&
+	 * get_element(col.getFirst().x, col.getFirst().y, labyrinthe) instanceof Void
+	 * && (get_element(col.getFirst().x, col.getFirst().y - 1, labyrinthe)
+	 * instanceof Void)) { count++; } if (col.getFirst().y < colonne - 1 &&
+	 * get_element(col.getFirst().x, col.getFirst().y, labyrinthe) instanceof Void
+	 * && (get_element(col.getFirst().x, col.getFirst().y + 1, labyrinthe)
+	 * instanceof Void)) { count++; }
+	 * 
+	 * if (count >= 2 && RES != null) { RES.add(col); } } } return RES; }
+	 * 
+	 * public void depotPorte(int Nombre_Porte) { LinkedList<LinkedList<Entity>> RES
+	 * = croisement(); LinkedList<Entity> chemin_enregistre = new
+	 * LinkedList<Entity>(); int x = 1; int y = 0; for (int t = 0; t < 5; t++) {
+	 * Triple<LinkedList<Entity>, Entity, LinkedList<Entity>> liste = new
+	 * Triple<LinkedList<Entity>, Entity, LinkedList<Entity>>( null, null, null);
+	 * liste = deposer_Porte_2(x, y, chemin_enregistre); while (liste.x().size() ==
+	 * 0 && liste.z() != null) { liste = deposer_Porte_2(x, y, chemin_enregistre); }
+	 * for (int g = 0; g < liste.x().size(); g++) {
+	 * chemin_enregistre.add(liste.x().get(g)); } for (int i = 0; i <
+	 * liste.x().size(); i++) { if (!(liste.x().get(i) instanceof Mur)) {
+	 * System.out.print(" x : "); System.out.print(liste.x().get(i).x);
+	 * System.out.print(" y : "); System.out.print(liste.x().get(i).y);
+	 * System.out.print("\n"); } else { System.out.println("C'est un Mur"); } } x =
+	 * liste.z().getFirst().x; y = liste.z().getFirst().y; printGame(); }
+	 * 
+	 * }
+	 * 
+	 * 
+	 * Triple<LinkedList<Entity>, Entity, LinkedList<Entity>> deposer_Porte_2(int x,
+	 * int y, LinkedList<Entity> chemin_enregistre) { int len = 10; Random r = new
+	 * Random(); LinkedList<Entity> liste = bulldozer(len, x, y, chemin_enregistre);
+	 * int count = 0; int count2 = 0; LinkedList<LinkedList<Entity>> Croise =
+	 * croisement(); while (liste.size() != 10 && count2 < 10 &&
+	 * chemin_enregistre.size() != 0) { if (count > 3) { if
+	 * (chemin_enregistre.size() != 0) { Entity en = chemin_enregistre.pop();
+	 * while(!Croise.contains(en)) { en = chemin_enregistre.pop(); } x = en.x; y =
+	 * en.y; count = 0; count2++; } }
+	 * System.out.println("#################################"); liste =
+	 * bulldozer(len, x, y, chemin_enregistre); //count2++; count++; } int i =
+	 * liste.size() - 1; Triple<LinkedList<Entity>, Entity, LinkedList<Entity>> res
+	 * = new Triple<LinkedList<Entity>, Entity, LinkedList<Entity>>( null, null,
+	 * null); res.setx(liste); Entity elem = null; int condition = 1; Porte p =
+	 * null; while (i > 0 && condition == 1 && p == null) { if
+	 * ((get_element(liste.get(i).x - 1, y, labyrinthe) instanceof Mur) &&
+	 * (get_element(liste.get(i).x + 1, y, labyrinthe) instanceof Mur)) { p = new
+	 * Porte(liste.get(i).x, liste.get(i).y, 1, 1, this); p.Orientation = 3;
+	 * set_element(liste.get(i).x, liste.get(i).y, p, labyrinthe); elem =
+	 * liste.remove(i); condition = 0; } else if ((get_element(liste.get(i).x,
+	 * liste.get(i).y - 1, labyrinthe) instanceof Mur) &&
+	 * (get_element(liste.get(i).x, liste.get(i).y + 1, labyrinthe) instanceof Mur))
+	 * { p = new Porte(liste.get(i).x, liste.get(i).y, 1, 1, this); p.Orientation =
+	 * 1; set_element(liste.get(i).x, liste.get(i).y, p, labyrinthe); elem =
+	 * liste.remove(i); condition = 0; }
+	 * 
+	 * i = i - 1; } if (condition == 0) { int levier = r.nextInt(liste.size());
+	 * while (!(liste.get(levier) instanceof Void) && !(liste.get(levier) instanceof
+	 * Porte)) { levier = r.nextInt(liste.size()); } LinkedList<Entity> l = new
+	 * LinkedList<Entity>(); l.add(p); Interrupteur Int = new
+	 * Interrupteur(liste.getLast().x, liste.getLast().y, 1, 1, this, l);
+	 * set_element(liste.get(levier).x, liste.get(levier).y, Int, labyrinthe);
+	 * res.setz(l); } res.sety(elem); return res;
+	 * 
+	 * }
+	 */
 
 	public LinkedList<Entity> bulldozer(int longueur, int x, int y, LinkedList<Entity> chemin_enregistre) {
 		Random r = new Random();
@@ -581,113 +513,59 @@ public class Field2 {
 		}
 		return liste;
 	}
-/*
-	public void Obstacle(int densite, String s) {
-		if (densite == 0)
-			return;
-		Entity e;
-		switch (s) {
-		case "Sable":
-			//e = new Sable();
-			break;
-		case "Mine":
-			e = new Mine();
-			break;
-		default:
-			e = null;
-			break;
-		}
-		Random random = new Random();
-		for (int i = 0; i < ligne; i++) {
-			for (int j = 0; j < colonne; j++) {
-				int eval = 1;
+	/*
+	 * public void Obstacle(int densite, String s) { if (densite == 0) return;
+	 * Entity e; switch (s) { case "Sable": //e = new Sable(); break; case "Mine": e
+	 * = new Mine(); break; default: e = null; break; } Random random = new
+	 * Random(); for (int i = 0; i < ligne; i++) { for (int j = 0; j < colonne; j++)
+	 * { int eval = 1;
+	 * 
+	 * int k_i = i; int k_j_min = Math.max(0, j - 1); int k_j_max = Math.min(colonne
+	 * - 1, j + 1);
+	 * 
+	 * // Vérification ligne actuelle for (int k_j = k_j_min; k_j <= k_j_max; k_j++)
+	 * { if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1
+	 * || ContainsInstanceof(getElement(k_i, k_j), (new Mine()).getClass()) == 1) {
+	 * eval = 0; } }
+	 * 
+	 * // Vérification ligne suivante k_i = i + 1; if (k_i < ligne) { for (int k_j =
+	 * k_j_min; k_j <= k_j_max; k_j++) { if (ContainsInstanceof(getElement(k_i,
+	 * k_j), (new Sable()).getClass()) == 1 || ContainsInstanceof(getElement(k_i,
+	 * k_j), (new Mine()).getClass()) == 1) { eval = 0; } } }
+	 * 
+	 * // Vérification ligne précédente k_i = i - 1; if (k_i >= 0) { for (int k_j =
+	 * k_j_min; k_j <= k_j_max; k_j++) { if (ContainsInstanceof(getElement(k_i,
+	 * k_j), (new Sable()).getClass()) == 1 || ContainsInstanceof(getElement(k_i,
+	 * k_j), (new Mine()).getClass()) == 1) { eval = 0; } } }
+	 * 
+	 * if (ContainsInstanceof(getElement(i, j), (new Teleporteur()).getClass()) ==
+	 * 0) { // Case Void pu lave au début if (((getElement(i, j)).get(0) instanceof
+	 * Void || (getElement(i, j)).get(0) instanceof Lave)) { int rdm =
+	 * random.nextInt(100);
+	 * 
+	 * if (rdm <= densite && eval == 1 && ContainsInstanceof(getElement(i, j),
+	 * Mur.class) == 0) { if (e instanceof Sable) { getElement(i, j).add(new
+	 * Sable()); Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+	 * l_void.remove(p); } else if (e instanceof Mine) { getElement(i, j).add(new
+	 * Mine()); Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+	 * l_void.remove(p); } } } else { int rdm = random.nextInt(100); if (rdm <=
+	 * densite && eval == 1 && ContainsInstanceof(getElement(i, j), Mur.class) == 0)
+	 * { if (e instanceof Sable) { getElement(i, j).add(new Sable()); Pair<Integer,
+	 * Integer> p = new Pair<Integer, Integer>(i, j); l_void.remove(p); } else if (e
+	 * instanceof Mine) { getElement(i, j).add(new Mine()); Pair<Integer, Integer> p
+	 * = new Pair<Integer, Integer>(i, j); l_void.remove(p); } } } } } } }
+	 * 
+	 * public void lave() { for (int i = 0; i < ligne; i++) { for (int j = 0; j <
+	 * colonne; j++) { if ((ContainsInstanceof(this.getElement(i, j), (new Void(i,
+	 * j, 1, 1, this)).getClass()) == 1) || (((ContainsInstanceof(this.getElement(i,
+	 * j), (new Teleporteur()).getClass()) == 0) &&
+	 * (ContainsInstanceof(this.getElement(i, j), (new Normal(0, 0, 0, 0,
+	 * this)).getClass()) == 0)) && ((ContainsInstanceof(this.getElement(i, j), (new
+	 * Cassable()).getClass()) == 1) || (ContainsInstanceof(this.getElement(i, j),
+	 * (new Invisible()).getClass()) == 1)))) { this.getElement(i, j).add(0, new
+	 * Lave(i, j, 1, 1, this)); } } } }
+	 */
 
-				int k_i = i;
-				int k_j_min = Math.max(0, j - 1);
-				int k_j_max = Math.min(colonne - 1, j + 1);
-
-				// Vérification ligne actuelle
-				for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
-					if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1
-							|| ContainsInstanceof(getElement(k_i, k_j), (new Mine()).getClass()) == 1) {
-						eval = 0;
-					}
-				}
-
-				// Vérification ligne suivante
-				k_i = i + 1;
-				if (k_i < ligne) {
-					for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
-						if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1
-								|| ContainsInstanceof(getElement(k_i, k_j), (new Mine()).getClass()) == 1) {
-							eval = 0;
-						}
-					}
-				}
-
-				// Vérification ligne précédente
-				k_i = i - 1;
-				if (k_i >= 0) {
-					for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
-						if (ContainsInstanceof(getElement(k_i, k_j), (new Sable()).getClass()) == 1
-								|| ContainsInstanceof(getElement(k_i, k_j), (new Mine()).getClass()) == 1) {
-							eval = 0;
-						}
-					}
-				}
-
-				if (ContainsInstanceof(getElement(i, j), (new Teleporteur()).getClass()) == 0) {
-					// Case Void pu lave au début
-					if (((getElement(i, j)).get(0) instanceof Void || (getElement(i, j)).get(0) instanceof Lave)) {
-						int rdm = random.nextInt(100);
-
-						if (rdm <= densite && eval == 1 && ContainsInstanceof(getElement(i, j), Mur.class) == 0) {
-							if (e instanceof Sable) {
-								getElement(i, j).add(new Sable());
-								Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
-								l_void.remove(p);
-							} else if (e instanceof Mine) {
-								getElement(i, j).add(new Mine());
-								Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
-								l_void.remove(p);
-							}
-						}
-					} else {
-						int rdm = random.nextInt(100);
-						if (rdm <= densite && eval == 1 && ContainsInstanceof(getElement(i, j), Mur.class) == 0) {
-							if (e instanceof Sable) {
-								getElement(i, j).add(new Sable());
-								Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
-								l_void.remove(p);
-							} else if (e instanceof Mine) {
-								getElement(i, j).add(new Mine());
-								Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
-								l_void.remove(p);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public void lave() {
-		for (int i = 0; i < ligne; i++) {
-			for (int j = 0; j < colonne; j++) {
-				if ((ContainsInstanceof(this.getElement(i, j), (new Void(i, j, 1, 1, this)).getClass()) == 1)
-						|| (((ContainsInstanceof(this.getElement(i, j), (new Teleporteur()).getClass()) == 0)
-								&& (ContainsInstanceof(this.getElement(i, j),
-										(new Normal(0, 0, 0, 0, this)).getClass()) == 0))
-								&& ((ContainsInstanceof(this.getElement(i, j), (new Cassable()).getClass()) == 1)
-										|| (ContainsInstanceof(this.getElement(i, j),
-												(new Invisible()).getClass()) == 1)))) {
-					this.getElement(i, j).add(0, new Lave(i, j, 1, 1, this));
-				}
-			}
-		}
-	}*/
-
-	
 	public int ContainsInstanceof(LinkedList<Entity> liste, Class<?> c) {
 
 		// Parcourir la liste pour voir si elle contient un objet du même type que o

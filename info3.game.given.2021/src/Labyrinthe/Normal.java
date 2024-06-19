@@ -1,7 +1,7 @@
 package Labyrinthe;
 
 public class Normal extends Mur {
-	
+
 	public Normal(int x, int y, int team, int category, Field f) {
 		this.x = x;
 		this.y = y;
@@ -45,8 +45,6 @@ public class Normal extends Mur {
 		// TODO Auto-generated method stub
 
 	}
-
-
 
 	@Override
 	public void explode() {

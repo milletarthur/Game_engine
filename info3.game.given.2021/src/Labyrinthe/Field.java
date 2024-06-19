@@ -92,7 +92,7 @@ public class Field {
 
 		// #########################
 		// Obstacle(densite, "Mine");
-		//Obstacle(densite, "Sable");
+		// Obstacle(densite, "Sable");
 		// porte(densite);
 		lave();
 		/*
@@ -102,7 +102,8 @@ public class Field {
 		System.out.println("\n\nLabyrinthe Avec obstacles :\n\n");
 	}
 
-	public Field(int lig, int col, int densite_field, int densite_pickable, int mine, int pomme, int potion, int pioche, int bombe, int nb_porte_sable) {
+	public Field(int lig, int col, int densite_field, int densite_pickable, int mine, int pomme, int potion, int pioche,
+			int bombe, int nb_porte_sable) {
 		if (col % 2 == 0) {
 			col++;
 		}
@@ -140,57 +141,22 @@ public class Field {
 		for (int i = 0; i < chemin.size(); i++) {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
-		deposer_Porte(nb_porte_sable);
-		
+		if (densite_field == 100) {
+			deposer_Porte(nb_porte_sable);
+		}
 
 		grow();
-		recup_liste_void();
 		printGame();
 		grow_porte();
-		lave();
-		Apple a = new Apple(3,0);
-		set_element2(3, 0, a, labyrinthe);
-		
-		
+		recup_liste_void();
+		// lave();
+		pickable(densite_pickable, mine, pomme, potion, pioche, bombe);
 
 		/*
 		 * Obstacle(densite, "Mine"); this.pickable(densite, "Pomme");
 		 * this.pickable(densite, "Potion"); this.pickable(densite, "Pioche");
 		 * this.pickable(densite, "Bombe");
 		 */
-	}
-
-	int calcul_nombre_mur() {
-		int count = 0;
-		for (int i = 0; i < ligne; i++) {
-			for (int j = 0; j < colonne; j++) {
-				if (tmp[i][j] == -1) {
-					count++;
-				}
-			}
-		}
-		int total = ligne * colonne;
-		return count;
-	}
-
-	void detruire_mur(int densite) {
-		Random rand = new Random();
-		int nb_mur_totale = calcul_nombre_mur();
-		int new_nb_mur = nb_mur_totale;
-		int d = new_nb_mur * 100 / nb_mur_totale;
-		int x;
-		int y;
-		while (densite < d) {
-			x = rand.nextInt(ligne);
-			y = rand.nextInt(colonne);
-			while (tmp[x][y] != -1) {
-				x = rand.nextInt(ligne);
-				y = rand.nextInt(colonne);
-			}
-			tmp[x][y] = 0;
-			new_nb_mur = calcul_nombre_mur();
-			d = new_nb_mur * 100 / nb_mur_totale;
-		}
 	}
 
 	void trouver_chemin_1() {
@@ -291,6 +257,9 @@ public class Field {
 	}
 
 	void deposer_Porte(int nb_porte) {
+		if (nb_porte == 0) {
+			return;
+		}
 		Random r = new Random();
 		int count = 0;
 		LinkedList<Pair<Integer, Integer>> chemin2 = new LinkedList<Pair<Integer, Integer>>();
@@ -366,8 +335,9 @@ public class Field {
 				while (!(get_element2(chemin3.get(levier).geto1(), chemin3.get(levier).geto2(),
 						labyrinthe) instanceof Void)
 						&& (get_element2(chemin3.get(levier).geto1(), chemin3.get(levier).geto2(),
-								labyrinthe) instanceof Porte) && (get_element2(chemin3.get(levier).geto1(), chemin3.get(levier).geto2(),
-										labyrinthe) instanceof Sable)) {
+								labyrinthe) instanceof Porte)
+						&& (get_element2(chemin3.get(levier).geto1(), chemin3.get(levier).geto2(),
+								labyrinthe) instanceof Sable)) {
 					levier = r.nextInt(chemin3.size() - 2);
 				}
 
@@ -727,81 +697,6 @@ public class Field {
 		return x >= 0 && x < ligne && y >= 0 && y < colonne;
 	}
 
-	public LinkedList<Pair<Integer, Integer>> TrouverChemin_abdel(Pair<Integer, Integer> case_depart,
-			Pair<Integer, Integer> case_dst) {
-		LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<>();
-		int x_dst = case_dst.geto1();
-		int y_dst = case_dst.geto2();
-
-		// Les cases à explorer
-		LinkedList<Pair<Integer, Integer>> A_Explorer = new LinkedList<>();
-		// Tableau de boolean afin de voir quelles cases ont été visitées
-		boolean[][] visite = new boolean[this.ligne][this.colonne];
-		// On initialise toutes les cases à false
-		for (int i = 0; i < this.ligne; i++) {
-			for (int j = 0; j < this.colonne; j++) {
-				visite[i][j] = false;
-			}
-		}
-
-		int x_start = case_depart.geto1();
-		int y_start = case_depart.geto2();
-		// Liste chainée pour stocker les parents de chaque case
-		LinkedList<Pair<Integer, Integer>> parent = new LinkedList<>();
-
-		// Cases à explorer au début
-		Pair<Integer, Integer> CaseInit = new Pair<>(x_start, y_start);
-		A_Explorer.add(CaseInit);
-		visite[x_start][y_start] = true;
-
-		// Tant qu'il reste des cases à explorer, on rentre dans la boucle
-		while (!A_Explorer.isEmpty()) {
-			// On récupère le premier élément de la liste
-			Pair<Integer, Integer> CaseCourante = A_Explorer.removeFirst();
-			int x_courrant = CaseCourante.geto1();
-			int y_courrant = CaseCourante.geto2();
-
-			if (x_courrant == x_dst && y_courrant == y_dst) {
-				/*
-				 * if ((ContainsInstanceof(this.getElement(x_courrant, x_courrant), (new
-				 * Normal(1, 1, 1, 1, this)).getClass()) == 0)) { chemin.add(CaseCourante); }
-				 */
-				chemin.add(CaseCourante);
-
-				// On reconstruit le chemin
-				Iterator<Pair<Integer, Integer>> iter = parent.iterator();
-				while (iter.hasNext()) {
-					Pair<Integer, Integer> c = iter.next();
-					/*
-					 * if ((ContainsInstanceof(this.getElement(c.geto1(), c.geto2()), (new Normal(1,
-					 * 1, 1, 1, this)).getClass()) == 0)) { chemin.add(c); }
-					 */
-					chemin.add(c);
-				}
-				return chemin;
-			}
-
-			LinkedList<Pair<Integer, Integer>> direction = new LinkedList<>();
-			direction.add(new Pair<>(-1, 0));
-			direction.add(new Pair<>(1, 0));
-			direction.add(new Pair<>(0, -1));
-			direction.add(new Pair<>(0, 1));
-			for (int i = 0; i < direction.size(); i++) {
-				Pair<Integer, Integer> c_courante = direction.get(i);
-				int my_x = x_courrant + c_courante.geto1();
-				int my_y = y_courrant + c_courante.geto2();
-				if (isValidPosition1(my_x, my_y) && !visite[my_x][my_y]
-						&& getElement(my_x, my_y).getLast() instanceof Void) {
-					Pair<Integer, Integer> voisin = new Pair<>(my_x, my_y);
-					A_Explorer.add(voisin);
-					visite[my_x][my_y] = true;
-					parent.add(voisin);
-				}
-			}
-		}
-		return chemin;
-	}
-
 	// ##########################################################
 
 	public void lave() {
@@ -834,73 +729,127 @@ public class Field {
 		}
 		return 0;
 
-	}// ###############################################################
-		// ################################################################
-		// MODIF ABDEL
+	}
 
-/*	public void pickable(int densite, String s) {
-		// LinkedList<Pair<Integer,Integer>> l_void = new
-		// LinkedList<Pair<Integer,Integer>>();
-		if (densite == 0)
-			return;
-		Entity e;
-		// int i_entite = 0 ;
-		// int j_entite = 0 ;
-		switch (s) {
-		case "Pomme":
-			//e = new Apple(0, 0, 1, 1, this);
-			break;
-		case "Potion":
-			e = new Potion();
-			break;
-		case "Bombe":
-			e = new Bombe();
-			break;
-		case "Pioche":
-			e = new Pioche();
-			break;
-		default:
-			e = null;
-			break;
-		}
-		if (e == null) {
-			return; // Si e est null, on sort de la méthode
-		}
-		Random random = new Random();
-		int len = this.l_void.size();
-		LinkedList<Pair<Integer, Integer>> void2 = new LinkedList<Pair<Integer, Integer>>();
-		for (int i1 = 0; i1 < len; i1++) {
-			void2.addLast(l_void.get(i1));
-		}
-		for (int i = 0; i < len; i++) {
-			int rdm = random.nextInt(100);
-			if (rdm <= densite) {
-				int r = random.nextInt(void2.size() - 1);
-				Pair<Integer, Integer> PaireCourante = void2.get(r);
-				int x_lab = PaireCourante.geto1();
-				int y_lab = PaireCourante.geto2();
-				if (ContainsInstanceof(this.getElement(x_lab, y_lab), Mur.class) == 1) {
-					continue; // Passer à la prochaine itération si c'est un mur
+	int calcul_nombre_mur() {
+		int count = 0;
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				if (tmp[i][j] == -1) {
+					count++;
 				}
-				int indice = 0;
-				for (int k = 0; k < this.getElement(x_lab, y_lab).size(); k++) {
-					if ((this.getElement(x_lab, y_lab).get(k) instanceof Invisible)
-							|| (this.getElement(x_lab, y_lab).get(k) instanceof Joueur)
-							|| (this.getElement(x_lab, y_lab).get(k) instanceof Cassable)) {
-						break;
-					}
-					indice++;
-				}
-				if (e instanceof Apple) {
-					//e = new Apple(x_lab, y_lab, 1, 1, this);
-				}
-				(this.getElement(x_lab, y_lab)).add(indice, e);
-				// Supprimer la case de l_void après l'ajout de l'entité
-				void2.remove(r);
-				// i--; // Ajuster l'indice pour compenser la suppression
 			}
 		}
-	}*/
+		int total = ligne * colonne;
+		return count;
+	}
+
+	void detruire_mur(int densite) {
+		Random rand = new Random();
+		int nb_mur_totale = calcul_nombre_mur();
+		int new_nb_mur = nb_mur_totale;
+		int d = new_nb_mur * 100 / nb_mur_totale;
+		int x;
+		int y;
+		while (densite < d) {
+			x = rand.nextInt(ligne);
+			y = rand.nextInt(colonne);
+			while (tmp[x][y] != -1) {
+				x = rand.nextInt(ligne);
+				y = rand.nextInt(colonne);
+			}
+			tmp[x][y] = 0;
+			new_nb_mur = calcul_nombre_mur();
+			d = new_nb_mur * 100 / nb_mur_totale;
+		}
+	}
+
+	public void pickable(int densitepickable, int mine, int pomme, int potion, int pioche, int bombe) {
+		Random r = new Random();
+		if (densitepickable == 0) {
+			return;
+		}
+		int len_void = l_void.size();
+		// int pourcentage_field = (100*len_void)/(ligne*colonne);
+		int nb_libre_pour_pickable = densitepickable * len_void / 100;
+		int nb_mine = (100 / mine) * nb_libre_pour_pickable / 100;
+		int count = 0;
+		int x, y;
+
+		while (count < nb_mine) {
+			x = r.nextInt(ligne - 1);
+			y = r.nextInt(colonne - 1);
+			while (!(get_element2(x, y, labyrinthe) instanceof Void)
+			/*
+			 * && (get_element2(x, y - 1, labyrinthe) instanceof Porte) && (get_element2(x +
+			 * 1, y, labyrinthe) instanceof Porte) && (get_element2(x - 1, y, labyrinthe)
+			 * instanceof Porte) && (get_element2(x, y + 1, labyrinthe) instanceof Porte)
+			 */) {
+				x = r.nextInt(ligne - 1);
+				y = r.nextInt(colonne - 1);
+			}
+			Mine m = new Mine(x, y);
+			set_element2(x, y, m, labyrinthe);
+			count++;
+		}
+		count = 0;
+		int nb_pomme = (100 / pomme) * nb_libre_pour_pickable / 100;
+		while (count < nb_pomme) {
+			x = r.nextInt(ligne - 1);
+			y = r.nextInt(colonne - 1);
+			while (!(get_element2(x, y, labyrinthe) instanceof Void)) {
+				x = r.nextInt(ligne - 1);
+				y = r.nextInt(colonne - 1);
+			}
+			Apple a = new Apple(x, y);
+			set_element2(x, y, a, labyrinthe);
+			count++;
+		}
+		count = 0;
+		int nb_potion = (100 / potion) * nb_libre_pour_pickable / 100;
+		while (count < nb_potion) {
+			x = r.nextInt(ligne - 1);
+			y = r.nextInt(colonne - 1);
+			while (!(get_element2(x, y, labyrinthe) instanceof Void)) {
+				x = r.nextInt(ligne - 1);
+				y = r.nextInt(colonne - 1);
+			}
+			Potion pot = new Potion(x, y);
+			set_element2(x, y, pot, labyrinthe);
+			count++;
+		}
+		count = 0;
+		int nb_pioche = (100 / pioche) * nb_libre_pour_pickable / 100;
+		while (count < nb_pioche) {
+			x = r.nextInt(ligne - 1);
+			y = r.nextInt(colonne - 1);
+			while (!(get_element2(x, y, labyrinthe) instanceof Void)) {
+				x = r.nextInt(ligne - 1);
+				y = r.nextInt(colonne - 1);
+			}
+			Pioche pio = new Pioche(x, y);
+			set_element2(x, y, pio, labyrinthe);
+			count++;
+		}
+		count = 0;
+		int nb_bombe = (100 / bombe) * nb_libre_pour_pickable / 100;
+		while (count < nb_bombe) {
+			x = r.nextInt(ligne - 1);
+			y = r.nextInt(colonne - 1);
+			while (!(get_element2(x, y, labyrinthe) instanceof Void)) {
+				x = r.nextInt(ligne - 1);
+				y = r.nextInt(colonne - 1);
+			}
+			Bombe b = new Bombe(x, y);
+			set_element2(x, y, b, labyrinthe);
+			count++;
+		}
+
+		// System.out.printf("nb_void = \t%d, pourcentage_field = \t%d, field = \t%d,
+		// librepickable = \t%d, nb_mine = \t%d \n", len_void, pourcentage_field,
+		// ligne*colonne, nb_libre_pour_pickable, nb_mine);
+
+	}
 	// ################################################################
 	// ################################################################
 

@@ -24,10 +24,10 @@ public class Game {
 		Field terrain = new Field(HAUTEUR, LARGEUR, 10);
 
 		// ajout d'un joueur pour tester
-		Joueur j1 = new Joueur(20, 20, terrain);
-		Joueur j2 = new Joueur(10, 10, terrain);
-		terrain.set_element(20, 20, j1, null);
-		terrain.set_element(10, 10, j2, null);
+		Joueur j1 = new Joueur(3, 0, 1);
+		Joueur j2 = new Joueur(4, 0, 2);
+		terrain.set_element(3, 0, j1, terrain.get_labyrinthe());
+		terrain.set_element(4, 0, j2, terrain.get_labyrinthe());
 
 		// initialisation de la fenêtre
 		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case, visibility);

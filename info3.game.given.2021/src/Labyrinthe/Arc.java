@@ -1,28 +1,20 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Arc extends Entity {
-
-	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
-
+	
+	public Arc(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.category = Categorie.P;
+		this.team = 3;
+		layer = 2;
 	}
 
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
+	public Entity egg(int x, int y) {
+		return new Arc(x,y);
 
 	}
 
@@ -39,9 +31,8 @@ public class Arc extends Entity {
 	}
 
 	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
+	public int hit() {
+		return -1;
 	}
-
+	
 }

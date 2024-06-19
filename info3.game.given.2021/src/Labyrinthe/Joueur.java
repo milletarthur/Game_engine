@@ -1,7 +1,6 @@
 package Labyrinthe;
 
-import java.util.LinkedList;
-
+import toolkit.Categorie;
 import toolkit.Direction;
 
 /*
@@ -10,79 +9,25 @@ import toolkit.Direction;
  * x et y sont les coordonnées de ce joueur dans la matrice
  */
 public class Joueur extends Entity {
-
-	public Joueur(int x, int y, Field f) {
+	public Joueur(int x, int y, int team) {
 		this.x = x;
 		this.y = y;
-		this.f = f;
-		this.Orientation = Direction.E;
-	}
-
-	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void move() {
-		LinkedList<Entity> l = f.getElement(y, x);
-		switch (Orientation) {
-		case Direction.N:
-			if (y == 0) {
-				break;
-			} else {
-				l.remove(this);
-				f.update_element(y, x, l, null);
-				this.y -= 1;
-				this.f.set_element(y, x, this, null);
-				break;
-			}
-		case Direction.S:
-			if (y == f.get_ligne() - 1) {
-				break;
-			} else {
-				l.remove(this);
-				f.update_element(y, x, l, null);
-				this.y += 1;
-				this.f.set_element(y, x, this, null);
-				break;
-			}
-		case Direction.E:
-			if (x == f.get_colonne() - 1) {
-				break;
-			} else {
-				l.remove(this);
-				f.update_element(y, x, l, null);
-				this.x += 1;
-				this.f.set_element(y, x, this, null);
-				break;
-			}
-		case Direction.W:
-			if (x == 0) {
-				break;
-			} else {
-				l.remove(this);
-				f.update_element(y, x, l, null);
-				this.x -= 1;
-				this.f.set_element(y, x, this, null);
-				break;
-			}
-		default:
-			break;
-		}
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
+		super.vie = 10;
+		if (team == 1)
+			this.category = Categorie.Arobase;
+		else
+			this.category = Categorie.Diese;
+		this.team = team;
+		layer = 3;
 
 	}
+	
+	public Entity egg(int x, int y) {
+		return new Joueur(x,y,team);
+	}
 
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
+	public Entity picked() {
+		return picked;
 	}
 
 	@Override
@@ -93,14 +38,27 @@ public class Joueur extends Entity {
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
+		super.turn(Direction.B);
+	}
 
+	public int hit() {
+		if (picked != null)
+			return 1;
+		return picked.hit();
 	}
 
 	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
+	public void get() {
+		switch (team()) {
+		case 1:
+			picked = inventory.popJ1();
+			break;
+		case 2:
+			picked = inventory.popJ2();
+			break;
+		default:
+			break;
+		}
 	}
 
 	public void setOrientation(int or) {
@@ -114,5 +72,4 @@ public class Joueur extends Entity {
 	public int getY() {
 		return this.y;
 	}
-
 }

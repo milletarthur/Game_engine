@@ -1,29 +1,21 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Teleporteur extends Entity {
-
-	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
-
+	
+	
+	public Teleporteur(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.category = Categorie.G;
+		this.team = 6;
+		this.layer = 0;
 	}
 
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
+	public Entity egg(int x, int y) {
+		return new Teleporteur(x,y);
 	}
 
 	@Override
@@ -37,11 +29,11 @@ public class Teleporteur extends Entity {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	@Override
-	public void explode() {
+	public int hit() {
 		// TODO Auto-generated method stub
-
+		return 0;
 	}
 
 }

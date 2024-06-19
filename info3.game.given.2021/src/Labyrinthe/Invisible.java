@@ -1,29 +1,20 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Invisible extends Mur {
-
-	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
-
+	
+	public Invisible(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.category = Categorie.J;
+		this.team = 4;
+		this.layer = 4;
 	}
 
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
+	public Entity egg(int x, int y) {
+		return new Invisible(x,y);
 	}
 
 	@Override
@@ -39,9 +30,8 @@ public class Invisible extends Mur {
 	}
 
 	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
+	public int hit() {
+		return 0;
 	}
 
 }

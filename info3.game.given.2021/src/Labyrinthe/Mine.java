@@ -1,29 +1,20 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Mine extends Entity {
-
-	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
-
+	
+	public Mine(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.category = Categorie.D;
+		this.team = 5;
+		layer = 2;
 	}
 
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
+	public Entity egg(int x, int y) {
+		return new Mine(x,y);
 	}
 
 	@Override
@@ -39,9 +30,8 @@ public class Mine extends Entity {
 	}
 
 	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
+	public int hit() {
+		return 5;
 	}
 
 }

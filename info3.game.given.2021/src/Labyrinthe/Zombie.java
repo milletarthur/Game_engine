@@ -1,29 +1,20 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Zombie extends Entity {
-
-	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
-
+	
+	public Zombie(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.category = Categorie.A;
+		this.team = 0;
+		layer = 3;
 	}
 
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
+	public Entity egg(int x, int y) {
+		return new Zombie(x,y);
 	}
 
 	@Override
@@ -39,9 +30,9 @@ public class Zombie extends Entity {
 	}
 
 	@Override
-	public void explode() {
+	public int hit() {
 		// TODO Auto-generated method stub
-
+		return 3;
 	}
 
 }

@@ -16,6 +16,7 @@ public class Field {
 	private int[][] tmp3;
 	ArrayList<Object> labyrinthe;
 	LinkedList<Pair<Integer, Integer>> l_void = new LinkedList<Pair<Integer, Integer>>();
+	LinkedList<Pair<Integer, Integer>> mur = new LinkedList<Pair<Integer, Integer>>();
 	LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<Pair<Integer, Integer>>();
 
 	public Field(int lig, int col) {
@@ -79,31 +80,14 @@ public class Field {
 		grow();
 		System.out.println("Labyrinthe initial sans obstacles :\n\n");
 		printGame();
-		// TEST CHEMIN
-		// #########################
-		/*
-		 * System.out.println("CHEMIN :\n"); LinkedList<Pair<Integer, Integer>> chemin =
-		 * new LinkedList<Pair<Integer, Integer>>(); chemin = this.TrouverChemin(new
-		 * Pair<Integer, Integer>(2, 0), new Pair<Integer,
-		 * Integer>(this.ligne-3,colonne-1)); for (int i = 0; i < chemin.size(); i++) {
-		 * System.out.printf("( %d , %d ) \n", chemin.get(i).geto1() ,
-		 * chemin.get(i).geto2() ); }
-		 */
-
-		// #########################
 		// Obstacle(densite, "Mine");
 		// Obstacle(densite, "Sable");
 		// porte(densite);
-		lave();
-		/*
-		 * this.pickable(densite, "Pomme"); this.pickable(densite, "Potion");
-		 * this.pickable(densite, "Pioche"); this.pickable(densite, "Bombe");
-		 */
 		System.out.println("\n\nLabyrinthe Avec obstacles :\n\n");
 	}
 
 	public Field(int lig, int col, int densite_field, int densite_pickable, int mine, int pomme, int potion, int pioche,
-			int bombe, int nb_porte_sable) {
+			int bombe, int cassable, int invisible, int normal, int nb_porte_sable) {
 		if (col % 2 == 0) {
 			col++;
 		}
@@ -149,9 +133,10 @@ public class Field {
 		printGame();
 		grow_porte();
 		recup_liste_void();
+		recup_liste_mur();
 		// lave();
 		pickable(densite_pickable, mine, pomme, potion, pioche, bombe);
-
+		depot_mur(cassable, invisible, normal);
 		/*
 		 * Obstacle(densite, "Mine"); this.pickable(densite, "Pomme");
 		 * this.pickable(densite, "Potion"); this.pickable(densite, "Pioche");
@@ -384,6 +369,13 @@ public class Field {
 		elem.addLast(e);
 	}
 
+	public void set_element3(int indice_i, int indice_j, Entity e, ArrayList<Object> lab) {
+		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) lab.get(indice_i);
+		LinkedList<Entity> elem = row.get(indice_j);
+		elem.removeLast();
+		elem.addLast(e);
+	}
+
 	public Entity get_element(int indice_i, int indice_j, ArrayList<Object> lab) {
 		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) lab.get(indice_i);
 		LinkedList<Entity> elem = row.get(indice_j);
@@ -400,7 +392,7 @@ public class Field {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
 				if (tmp[i][j] == -1) {
-					set_element(i, j, new Normal(i, j, 1, 1, this), labyrinthe);
+					set_element(i, j, new Normal(i, j), labyrinthe);
 					set_element(i, j, new Void(i, j, 1, 1, this), labyrinthe);
 					set_element(i, j, new Lave(i, j, 1, 1, this), labyrinthe);
 				} else {
@@ -524,8 +516,7 @@ public class Field {
 				Entity e = getElement(i, j).getLast();
 				if (e instanceof Void)
 					System.out.print(" ");
-				if (e instanceof Mur)
-					System.out.print("O");
+
 				if (e instanceof Mine)
 					System.out.print("*");
 				if (e instanceof Sable)
@@ -542,9 +533,14 @@ public class Field {
 					System.out.print("B");
 				if (e instanceof Interrupteur)
 					System.out.print("~");
-				if (e instanceof Porte) {
+				if (e instanceof Porte)
 					System.out.print("H");
-				}
+				if (e instanceof Normal)
+					System.out.print("O");
+				if (e instanceof Cassable)
+					System.out.print("&");
+				if (e instanceof Invisible)
+					System.out.print("#");
 			}
 			System.out.print("\n");
 
@@ -639,7 +635,7 @@ public class Field {
 						ArrayList<LinkedList<Entity>> row3 = (ArrayList<LinkedList<Entity>>) labyrinthe.get(i + 1);
 						LinkedList<Entity> elem3 = row3.get(j);
 						elem3.pollLast();
-						Normal n = new Normal(i + 1, j, 1, 1, this);
+						Normal n = new Normal(i + 1, j);
 						elem3.addLast(n);
 					}
 					if (en.Orientation == 1) {
@@ -652,7 +648,7 @@ public class Field {
 						ArrayList<LinkedList<Entity>> row3 = (ArrayList<LinkedList<Entity>>) labyrinthe.get(i);
 						LinkedList<Entity> elem3 = row3.get(j + 1);
 						elem3.pollLast();
-						Normal n = new Normal(i, j + 1, 1, 1, this);
+						Normal n = new Normal(i, j + 1);
 						elem3.addLast(n);
 					}
 				}
@@ -698,22 +694,6 @@ public class Field {
 	}
 
 	// ##########################################################
-
-	public void lave() {
-		for (int i = 0; i < ligne; i++) {
-			for (int j = 0; j < colonne; j++) {
-				if ((ContainsInstanceof(this.getElement(i, j), (new Void(i, j, 1, 1, this)).getClass()) == 1)
-						|| (((ContainsInstanceof(this.getElement(i, j), (new Teleporteur()).getClass()) == 0)
-								&& (ContainsInstanceof(this.getElement(i, j),
-										(new Normal(0, 0, 0, 0, this)).getClass()) == 0))
-								&& ((ContainsInstanceof(this.getElement(i, j), (new Cassable()).getClass()) == 1)
-										|| (ContainsInstanceof(this.getElement(i, j),
-												(new Invisible()).getClass()) == 1)))) {
-					this.getElement(i, j).add(0, new Lave(i, j, 1, 1, this));
-				}
-			}
-		}
-	}
 
 	/*
 	 * La méthode suivante prend une liste chainé et un objet o en parametre. Elle
@@ -770,21 +750,14 @@ public class Field {
 			return;
 		}
 		int len_void = l_void.size();
-		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_libre_pour_pickable = densitepickable * len_void / 100;
 		int nb_mine = (100 / mine) * nb_libre_pour_pickable / 100;
 		int count = 0;
 		int x, y;
-
 		while (count < nb_mine) {
 			x = r.nextInt(ligne - 1);
 			y = r.nextInt(colonne - 1);
-			while (!(get_element2(x, y, labyrinthe) instanceof Void)
-			/*
-			 * && (get_element2(x, y - 1, labyrinthe) instanceof Porte) && (get_element2(x +
-			 * 1, y, labyrinthe) instanceof Porte) && (get_element2(x - 1, y, labyrinthe)
-			 * instanceof Porte) && (get_element2(x, y + 1, labyrinthe) instanceof Porte)
-			 */) {
+			while (!(get_element2(x, y, labyrinthe) instanceof Void)) {
 				x = r.nextInt(ligne - 1);
 				y = r.nextInt(colonne - 1);
 			}
@@ -850,6 +823,53 @@ public class Field {
 		// ligne*colonne, nb_libre_pour_pickable, nb_mine);
 
 	}
+
+	public void depot_mur(int cassable, int invisible, int normal) {
+		Random r = new Random();
+		int len_mur = mur.size();
+		// int pourcentage_field = (100*len_void)/(ligne*colonne);
+		int nb_pour_cassable = cassable * len_mur / 100;
+		System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
+		int count = 0;
+		int x, y;
+		while (count < nb_pour_cassable) {
+			x = r.nextInt(ligne - 1);
+			y = r.nextInt(colonne - 1);
+			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+				x = r.nextInt(ligne - 1);
+				y = r.nextInt(colonne - 1);
+			}
+			Cassable m = new Cassable(x, y);
+			set_element3(x, y, m, labyrinthe);
+			count++;
+		}
+		count = 0;
+		int nb_pour_invisible = invisible * len_mur / 100;
+		while (count < nb_pour_invisible) {
+			x = r.nextInt(ligne - 1);
+			y = r.nextInt(colonne - 1);
+			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+				x = r.nextInt(ligne - 1);
+				y = r.nextInt(colonne - 1);
+			}
+			Invisible m = new Invisible(x, y);
+			set_element3(x, y, m, labyrinthe);
+			count++;
+		}
+		count = 0;
+		int nb_pour_normal = normal * len_mur / 100;
+		while (count < nb_pour_normal) {
+			x = r.nextInt(ligne - 1);
+			y = r.nextInt(colonne - 1);
+			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+				x = r.nextInt(ligne - 1);
+				y = r.nextInt(colonne - 1);
+			}
+			Normal m = new Normal(x, y);
+			set_element3(x, y, m, labyrinthe);
+			count++;
+		}
+	}
 	// ################################################################
 	// ################################################################
 
@@ -866,6 +886,18 @@ public class Field {
 				if (l.getLast() instanceof Void) {
 					Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
 					l_void.add(p);
+				}
+			}
+		}
+	}
+
+	public void recup_liste_mur() {
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				LinkedList<Entity> l = getElement(i, j);
+				if (l.getLast() instanceof Mur) {
+					Pair<Integer, Integer> m = new Pair<Integer, Integer>(i, j);
+					mur.add(m);
 				}
 			}
 		}

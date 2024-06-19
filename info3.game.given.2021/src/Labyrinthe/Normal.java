@@ -2,7 +2,7 @@ package Labyrinthe;
 
 public class Normal extends Mur {
 
-	public Normal(int x, int y, int team, int category, Field f) {
+	public Normal(int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.category = category;

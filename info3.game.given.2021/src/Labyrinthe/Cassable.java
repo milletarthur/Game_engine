@@ -2,6 +2,11 @@ package Labyrinthe;
 
 public class Cassable extends Mur {
 
+	public Cassable(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	@Override
 	void egg(int x, int y) {
 		// TODO Auto-generated method stub

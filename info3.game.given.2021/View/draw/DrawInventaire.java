@@ -26,6 +26,8 @@ public class DrawInventaire extends JPanel {
 	// TODO - pv_perdu a recuperer / variable ci-dessous temp pour test
 	// il y aura pour les deux joueurs
 	private static final int pv_perdu = 5;
+	
+	private static final int temps = 5 ; // en minutes
 
 	public DrawInventaire(int T_case, int visibility) throws IOException {
 
@@ -63,13 +65,7 @@ public class DrawInventaire extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		long tick = t.getTick();
-		int sec = calculsecondes(tick);
-		int min = calculminutes(tick);
-		if (sec < 10)
-			timer.setText(""+min+" : 0"+sec+"");
-		else 
-			timer.setText(""+min+" : "+sec+"");
+		this.paintTimer();
 		
 		// TODO - donner objet courant à la place de DrawTerrain...
 		invent1.setImage(img_inventaire, DrawTerrain.bombe, 0, 0, 65);
@@ -87,11 +83,41 @@ public class DrawInventaire extends JPanel {
 	public int calculsecondes(long tick) {
 		return (int) tick % 60 ;
 	}
+	
+	public void paintTimer() {
+		long tick = t.getTick();
+		int sec = 60 - calculsecondes(tick);
+		int min = temps - 1 - calculminutes(tick);
+		int init = temps - calculminutes(tick);
+		if (min < 10) {
+			if (init < 10) {
+				if (sec == 60)
+					timer.setText("0"+init+" : 00");
+				else if (sec < 10)
+					timer.setText("0"+min+" : 0"+sec+"");
+				else 
+					timer.setText("0"+min+" : "+sec+"");
+			} else {
+				if (sec == 60)
+					timer.setText(init+" : 00");
+				else if (sec < 10)
+					timer.setText("0"+min+" : 0"+sec+"");
+				else 
+					timer.setText("0"+min+" : "+sec+"");
+			}
+		} else {
+			if (sec == 60)
+				timer.setText(init+" : 00");
+			else if (sec < 10)
+				timer.setText(min+" : 0"+sec+"");
+			else 
+				timer.setText(min+" : "+sec+"");
+		}
+	}
 
 	public void Image() throws IOException {
 		this.INVENTAIRE = new Sprite("resources/graphisme/Structures/final_room.png", 24, 24);
 		this.img_inventaire = INVENTAIRE.getSprite(2, 0);
-
 	}
 
 }

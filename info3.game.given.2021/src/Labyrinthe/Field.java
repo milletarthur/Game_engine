@@ -722,9 +722,9 @@ public class Field {
 		}
 	}
 
-	private boolean ContientSableMur(int x, int y) {
-		for (int i = 0; i < this.getElement(x, y).size(); i++) {
-			Entity elm = this.getElement(x, y).get(i);
+	private boolean ContientSableMur(int i, int j) {
+		for (int k = 0; k < this.getElement(i, j).size(); k++) {
+			Entity elm = this.getElement(i, j).get(k);
 			if (elm instanceof Mur || elm instanceof Sable) {
 				return true;
 			}
@@ -733,8 +733,8 @@ public class Field {
 	}
 	// ##########################################################
 
-	private boolean isValidPosition1(int x, int y) {
-		return x >= 0 && x < ligne && y >= 0 && y < colonne;
+	private boolean isValidPosition1(int i, int j) {
+		return i >= 0 && i < ligne && j >= 0 && j < colonne;
 	}
 
 	public LinkedList<Pair<Integer, Integer>> TrouverChemin_abdel(Pair<Integer, Integer> case_depart,
@@ -861,9 +861,10 @@ public class Field {
 	// ################################################################
 	// ################################################################
 
-	public LinkedList<Entity> getElement(int x, int y) {
-		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(x);
-		LinkedList<Entity> elem = row.get(y);
+	public LinkedList<Entity> getElement(int i, int j) {
+		@SuppressWarnings("unchecked")
+		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(i);
+		LinkedList<Entity> elem = row.get(j);
 		return elem;
 	}
 
@@ -882,40 +883,40 @@ public class Field {
 
 	public int[] next_to(Entity e, int d) {
 		int[] rv = new int[2];
-		rv[0] = e.x();
-		rv[1] = e.y();
+		rv[0] = e.ligne();
+		rv[1] = e.colonne();
 		if (d == Direction.H)
 			return rv;
 		switch (e.direction()) {
 		case Direction.N:
 			switch (d) {
 			case Direction.L:
-				rv[0]--;
+				rv[1]--;
 				break;
 			case Direction.R:
-				rv[0]++;
+				rv[1]++;
 				break;
 			case Direction.B:
-				rv[1]++;
+				rv[0]++;
 				break;
 			case Direction.F:
-				rv[1]--;
+				rv[0]--;
 				break;
 			case Direction.FR:
-				rv[0]++;
-				rv[1]--;
+				rv[1]++;
+				rv[0]--;
 				break;
 			case Direction.FL:
-				rv[0]--;
 				rv[1]--;
+				rv[0]--;
 				break;
 			case Direction.BR:
-				rv[0]++;
 				rv[1]++;
+				rv[0]++;
 				break;
 			case Direction.BL:
-				rv[0]--;
-				rv[1]++;
+				rv[1]--;
+				rv[0]++;
 				break;
 			default:
 				break;
@@ -924,32 +925,32 @@ public class Field {
 		case Direction.S:
 			switch (d) {
 			case Direction.L:
-				rv[0]++;
+				rv[1]++;
 				break;
 			case Direction.R:
-				rv[0]--;
+				rv[1]--;
 				break;
 			case Direction.B:
-				rv[1]--;
+				rv[0]--;
 				break;
 			case Direction.F:
-				rv[1]++;
+				rv[0]++;
 				break;
 			case Direction.FR:
-				rv[0]--;
-				rv[1]++;
+				rv[1]--;
+				rv[0]++;
 				break;
 			case Direction.FL:
-				rv[0]++;
 				rv[1]++;
+				rv[0]++;
 				break;
 			case Direction.BR:
-				rv[0]--;
 				rv[1]--;
+				rv[0]--;
 				break;
 			case Direction.BL:
-				rv[0]++;
-				rv[1]--;
+				rv[1]++;
+				rv[0]--;
 				break;
 			default:
 				break;
@@ -958,32 +959,32 @@ public class Field {
 		case Direction.E:
 			switch (d) {
 			case Direction.L:
-				rv[1]--;
+				rv[0]--;
 				break;
 			case Direction.R:
-				rv[1]++;
+				rv[0]++;
 				break;
 			case Direction.B:
-				rv[0]--;
+				rv[1]--;
 				break;
 			case Direction.F:
-				rv[0]++;
+				rv[1]++;
 				break;
 			case Direction.FR:
-				rv[0]++;
 				rv[1]++;
+				rv[0]++;
 				break;
 			case Direction.FL:
-				rv[0]++;
-				rv[1]--;
+				rv[1]++;
+				rv[0]--;
 				break;
 			case Direction.BR:
-				rv[0]--;
-				rv[1]++;
+				rv[1]--;
+				rv[0]++;
 				break;
 			case Direction.BL:
-				rv[0]--;
 				rv[1]--;
+				rv[0]--;
 				break;
 			default:
 				break;
@@ -992,32 +993,32 @@ public class Field {
 		case Direction.W:
 			switch (d) {
 			case Direction.L:
-				rv[1]++;
+				rv[0]++;
 				break;
 			case Direction.R:
-				rv[1]--;
+				rv[0]--;
 				break;
 			case Direction.B:
-				rv[0]++;
+				rv[1]++;
 				break;
 			case Direction.F:
-				rv[0]--;
+				rv[1]--;
 				break;
 			case Direction.FR:
-				rv[0]--;
 				rv[1]--;
+				rv[0]--;
 				break;
 			case Direction.FL:
-				rv[0]--;
-				rv[1]++;
+				rv[1]--;
+				rv[0]++;
 				break;
 			case Direction.BR:
-				rv[0]++;
-				rv[1]--;
+				rv[1]++;
+				rv[0]--;
 				break;
 			case Direction.BL:
-				rv[0]++;
 				rv[1]++;
+				rv[0]++;
 				break;
 			default:
 				break;
@@ -1031,9 +1032,9 @@ public class Field {
 
 	public boolean cell(Entity e, int dir, int cat) {
 		int[] coo = next_to(e, dir);
-		int x = coo[0];
-		int y = coo[1];
-		LinkedList<Entity> elem = getElement(x, y);
+		int ligne = coo[0];
+		int colonne = coo[1];
+		LinkedList<Entity> elem = getElement(ligne, colonne);
 		int ilastelem = elem.size() - 1;
 		if (elem.getLast() instanceof Selection)
 			ilastelem--;
@@ -1069,8 +1070,8 @@ public class Field {
 		}
 	}
 
-	public void add(Entity e, int x, int y) {
-		LinkedList<Entity> l_entity = getElement(x, y);
+	public void add(Entity e, int ligne, int colonne) {
+		LinkedList<Entity> l_entity = getElement(ligne, colonne);
 		int cpt = 0;
 		Entity elem = l_entity.get(0);
 		while (cpt < l_entity.size() && elem.layer() < e.layer()) {
@@ -1085,17 +1086,17 @@ public class Field {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void setElement(int x, int y, LinkedList<Entity> l_entity) {
-		((ArrayList<Object>) labyrinthe.get(x)).add(y, l_entity);
+	public void setElement(int ligne, int colonne, LinkedList<Entity> l_entity) {
+		((ArrayList<Object>) labyrinthe.get(ligne)).add(colonne, l_entity);
 	}
 
-	public void remove(int x, int y, Entity e) {
-		LinkedList<Entity> l_entity = getElement(x, y);
+	public void remove(int ligne, int colonne, Entity e) {
+		LinkedList<Entity> l_entity = getElement(ligne, colonne);
 		l_entity.remove(e);
 	}
 
-	public Entity getPickable(int x, int y) {
-		LinkedList<Entity> l_entity = getElement(x, y);
+	public Entity getPickable(int ligne, int colonne) {
+		LinkedList<Entity> l_entity = getElement(ligne, colonne);
 		Entity elem;
 		for (int i = 0; i < l_entity.size(); i++) {
 			elem = l_entity.get(i);
@@ -1106,8 +1107,8 @@ public class Field {
 		return null;
 	}
 
-	public Entity getLastnotSelect(int x, int y) {
-		LinkedList<Entity> l_entity = getElement(x, y);
+	public Entity getLastnotSelect(int ligne, int colonne) {
+		LinkedList<Entity> l_entity = getElement(ligne, colonne);
 		Entity elem = l_entity.get(0);
 		int taille = l_entity.size();
 		Entity select = l_entity.getLast();
@@ -1135,8 +1136,8 @@ public class Field {
 		return l_class;
 	}
 
-	public boolean isHerePossible(int x, int y, Entity e) {
-		Entity here = getLastnotSelect(x, y);
+	public boolean isHerePossible(int ligne, int colonne, Entity e) {
+		Entity here = getLastnotSelect(ligne, colonne);
 		if (here.layer() < e.layer())
 			return true;
 		return false;

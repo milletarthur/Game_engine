@@ -22,16 +22,16 @@ private Field terrain;
 			e.throw_();
 			switch(e.direction()) {
 			case Direction.N:
-				terrain.add(picked, e.x(), e.y()-1);
+				terrain.add(picked, e.ligne(), e.colonne()-1);
 				break;
 			case Direction.S:
-				terrain.add(picked, e.x(), e.y()+1);
+				terrain.add(picked, e.ligne(), e.colonne()+1);
 				break;
 			case Direction.E:
-				terrain.add(picked, e.x()+1, e.y());
+				terrain.add(picked, e.ligne()+1, e.colonne());
 				break;
 			case Direction.W:
-				terrain.add(picked, e.x()-1, e.y());
+				terrain.add(picked, e.ligne()-1, e.colonne());
 				break;
 			default:
 				break;

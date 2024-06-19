@@ -8,7 +8,7 @@ public class Interrupteur extends Entity {
 
 	private LinkedList<Entity> liste_elem;
 
-	public Interrupteur(int colonne, int ligne, LinkedList<Entity> elem) {
+	public Interrupteur(int ligne, int colonne, LinkedList<Entity> elem) {
 		this.colonne = colonne;
 		this.ligne = ligne;
 		this.category = Categorie.C;
@@ -30,8 +30,8 @@ public class Interrupteur extends Entity {
 	}
 
 	@Override
-	public Entity egg(int colonne, int ligne) {
-		return new Interrupteur(colonne, ligne, new LinkedList<Entity>());
+	public Entity egg(int ligne, int colonne) {
+		return new Interrupteur(ligne, colonne, new LinkedList<Entity>());
 	}
 
 	@Override

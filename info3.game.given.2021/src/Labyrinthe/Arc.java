@@ -6,20 +6,7 @@ import toolkit.Categorie;
 
 public class Arc extends Entity {
 	
-	private boolean flecheTrans;
-	private LinkedList<Entity> list_fleche;
-	
-	public Arc(int colonne, int ligne, boolean fleche) {
-		this.colonne = colonne;
-		this.ligne = ligne;
-		this.category = Categorie.P;
-		this.team = 3;
-		layer = 2;
-		flecheTrans = fleche;
-//		f = new Fleche(x, y, Orientation, fleche);
-	}
-	
-	public Arc(int colonne, int ligne) {
+	public Arc(int ligne, int colonne) {
 		this.colonne = colonne;
 		this.ligne = ligne;
 		this.category = Categorie.P;
@@ -29,7 +16,7 @@ public class Arc extends Entity {
 	}
 
 	@Override
-	public Entity egg(int colonne, int ligne) {
+	public Entity egg(int ligne, int colonne) {
 		return new Arc(colonne,ligne);
 
 	}

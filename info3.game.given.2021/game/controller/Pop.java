@@ -14,20 +14,20 @@ public class Pop implements IAction {
 	@Override
 	public void exec(Entity e) {
 		if(e instanceof Arc) {
-			terrain.remove(e.x(), e.y(), e);
-			terrain.add(new Epee(e.x(), e.y()), e.x(), e.y());
+			terrain.remove(e.ligne(), e.colonne(), e);
+			terrain.add(new Epee(e.ligne(), e.colonne()), e.ligne(), e.colonne());
 		} else if(e instanceof Epee) {
-			terrain.remove(e.x(), e.y(), e);
-			terrain.add(new Arc(e.x(), e.y()), e.x(), e.y());
+			terrain.remove(e.ligne(), e.colonne(), e);
+			terrain.add(new Arc(e.ligne(), e.colonne()), e.ligne(), e.colonne());
 		} else if(e instanceof Cassable) {
-			terrain.remove(e.x(), e.y(), e);
-			terrain.add(new Invisible(e.x(), e.y()), e.x(), e.y());
+			terrain.remove(e.ligne(), e.colonne(), e);
+			terrain.add(new Invisible(e.ligne(), e.colonne()), e.ligne(), e.colonne());
 		} else if(e instanceof Normal) {
-			terrain.remove(e.x(), e.y(), e);
-			terrain.add(new Cassable(e.x(), e.y()), e.x(), e.y());
+			terrain.remove(e.ligne(), e.colonne(), e);
+			terrain.add(new Cassable(e.ligne(), e.colonne()), e.ligne(), e.colonne());
 		} else if(e instanceof Invisible) {
-			terrain.remove(e.x(), e.y(), e);
-			terrain.add(new Normal(e.x(), e.y()), e.x(), e.y());
+			terrain.remove(e.ligne(), e.colonne(), e);
+			terrain.add(new Normal(e.ligne(), e.colonne()), e.ligne(), e.colonne());
 		}
 		e.pop();
 	}

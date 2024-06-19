@@ -4,7 +4,7 @@ import toolkit.Categorie;
 
 public class Invisible extends Mur {
 	
-	public Invisible(int colonne, int ligne) {
+	public Invisible(int ligne, int colonne) {
 		this.colonne = colonne;
 		this.ligne = ligne;
 		this.category = Categorie.J;
@@ -13,7 +13,7 @@ public class Invisible extends Mur {
 	}
 
 	@Override
-	public Entity egg(int colonne, int ligne) {
+	public Entity egg(int ligne, int colonne) {
 		return new Invisible(colonne,ligne);
 	}
 

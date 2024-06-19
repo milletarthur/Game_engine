@@ -4,7 +4,7 @@ import toolkit.Categorie;
 
 public class Cassable extends Mur {
 	
-	public Cassable(int colonne, int ligne) {
+	public Cassable(int ligne, int colonne) {
 		this.colonne = colonne;
 		this.ligne = ligne;
 		this.category = Categorie.G;
@@ -13,8 +13,8 @@ public class Cassable extends Mur {
 	}
 
 	@Override
-	public Entity egg(int colonne, int ligne) {
-		return new Cassable(colonne,ligne);
+	public Entity egg(int ligne, int colonne) {
+		return new Cassable(ligne,colonne);
 	}
 
 	@Override

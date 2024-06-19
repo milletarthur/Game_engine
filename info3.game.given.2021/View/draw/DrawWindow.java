@@ -39,13 +39,12 @@ public class DrawWindow extends JFrame {
 		this.dt2 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
 		this.inventaire = new DrawInventaire(T_case, visibility);
 
-
 	}
 
 	public void init_Window(Viewport v1, Viewport v2, DrawInventaire inventaire) {
-		
+
 		TicTac t = new TicTac(this);
-		
+
 		inventaire.settimer(t);
 
 		this.add(v1, BorderLayout.WEST);

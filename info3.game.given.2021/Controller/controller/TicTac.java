@@ -21,10 +21,13 @@ public class TicTac {
 	private DrawWindow w ;
 	private TickListener List;
 
-	public TicTac(DrawWindow w) { // initialise le timer
-		this.w = w ;
+	public TicTac(TickListener List) { // initialise le timer
 		this.createTimer();
-//		this.List = List;
+		this.List = List;
+	}
+	
+	public void add_window(DrawWindow w) {
+		this.w = w ;
 	}
 
 	private void createTimer() {
@@ -39,7 +42,7 @@ public class TicTac {
     }
 
     private void tick() {
-//    	List.step();
+    	List.step();
     	last_tick = (System.currentTimeMillis() - init) / TICK_PERIOD ;
         w.repaint();
     }

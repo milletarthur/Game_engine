@@ -32,7 +32,6 @@ import gal.ast.BinaryOp;
 import gal.ast.Category;
 import gal.ast.Condition;
 import gal.ast.Direction;
-import gal.ast.Expression;
 import gal.ast.FunCall;
 import gal.ast.Key;
 import gal.ast.Mode;
@@ -47,8 +46,8 @@ import toolkit.*;
 public class GeneralVisitor implements gal.ast.IVisitor {
 	Field f;
 
-	LinkedList<Automates.Automate> l_aut;
-	LinkedList<Automates.Transition> l_trans;
+	LinkedList<Automate> l_aut;
+	LinkedList<TransitionAutomate> l_trans;
 	LinkedList<IAction> l_act;
 	LinkedList<ICondition> l_cond;
 	ICondition cond;
@@ -391,6 +390,8 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		default:
 			throw new RuntimeException("Unknown action !");
 		}
+		l_cond.add(c);
+		cond = c;
 		return c;
 	}
 
@@ -460,6 +461,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Mode mode) {
+		l_trans = new LinkedList<TransitionAutomate>();
 		current = (Automates.State) visit(mode.state);
 		is_in_mode = true;
 	}
@@ -506,7 +508,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 			return build((UnaryOp) expression, expression);
 		if(expression instanceof BinaryOp)
 			return build((BinaryOp) expression, ((BinaryOp) expression).left_operand, ((BinaryOp) expression).right_operand);
-		return build((FunCall) expression, parameterToObject(((FunCall) expression).parameters));
+		return expression;//build((FunCall) expression, parameterToObject(((FunCall) expression).parameters));
 	}
 
 	@Override
@@ -525,15 +527,15 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public Object build(Actions action, String operator, List<Object> funcalls) {
 		Iterator<Object> i = funcalls.iterator();
 		while(i.hasNext()) {
-			FunCall act = (FunCall) i.next();
-			l_act.add((IAction) build(act, parameterToObject(act.parameters)));
+			//FunCall act = (FunCall) i.next();
+			l_act.add((IAction) i.next());//(IAction) build(act, parameterToObject(act.parameters)));
 		}
 		return l_act;
 	}
 
 	@Override
 	public void enter(Transition transition) {
-		l_trans.add(new Automates.Transition());
+		l_trans.add(new TransitionAutomate());
 		l_act = new LinkedList<IAction>();
 		l_cond = new LinkedList<ICondition>();
 	}
@@ -544,7 +546,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object build(Transition transition, Object condition, Object action, Object target_state) {
-		Automates.Transition t = l_trans.getLast();
+		TransitionAutomate t = l_trans.getLast();
 		Iterator<IAction> i = l_act.iterator();
 		while(i.hasNext())
 			t.add_action(i.next());
@@ -556,7 +558,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Automaton automaton) {
-		l_aut.add(new Automates.Automate());
+		l_aut.add(new Automate());
 	}
 
 	@Override
@@ -566,8 +568,8 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public Object build(Automaton automaton, Object initial_state, List<Object> modes) {
 		Automate a = l_aut.getLast();
-		a.add_init_state((Automates.State) visit((State) initial_state));
-		Iterator<Automates.Transition> i = l_trans.iterator();
+		a.change_current((Automates.State) initial_state);//(Automates.State) visit((State) initial_state));
+		Iterator<TransitionAutomate> i = l_trans.iterator();
 		while(i.hasNext())
 			a.add_transition(i.next());
 		return a;
@@ -575,7 +577,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(AST ast) {
-		l_aut = new LinkedList<Automates.Automate>();
+		l_aut = new LinkedList<Automate>();
 	}
 
 	@Override

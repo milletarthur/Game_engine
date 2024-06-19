@@ -63,7 +63,14 @@ public class DrawInventaire extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		timer.setText("" + t.getTick() + "");
+		long tick = t.getTick();
+		int sec = calculsecondes(tick);
+		int min = calculminutes(tick);
+		if (sec < 10)
+			timer.setText(""+min+" : 0"+sec+"");
+		else 
+			timer.setText(""+min+" : "+sec+"");
+		
 		// TODO - donner objet courant à la place de DrawTerrain...
 		invent1.setImage(img_inventaire, DrawTerrain.bombe, 0, 0, 65);
 		invent2.setImage(img_inventaire, DrawTerrain.arc, 0, 0, 65);
@@ -71,6 +78,14 @@ public class DrawInventaire extends JPanel {
 
 	public void settimer(TicTac t) {
 		this.t = t;
+	}
+	
+	public int calculminutes(long tick) {
+		return (int) tick / 60 ;
+	}
+	
+	public int calculsecondes(long tick) {
+		return (int) tick % 60 ;
 	}
 
 	public void Image() throws IOException {

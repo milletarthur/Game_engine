@@ -9,7 +9,6 @@ import toolkit.Direction;
  * x et y sont les coordonnées de ce joueur dans la matrice
  */
 public class Joueur extends Entity {
-
 	public Joueur(int x, int y, int team) {
 		this.x = x;
 		this.y = y;
@@ -22,11 +21,9 @@ public class Joueur extends Entity {
 		layer = 3;
 
 	}
-
-	@Override
+	
 	public Entity egg(int x, int y) {
-
-		return null;
+		return new Joueur(x,y,team);
 	}
 
 	public Entity picked() {
@@ -62,5 +59,17 @@ public class Joueur extends Entity {
 		default:
 			break;
 		}
+	}
+
+	public void setOrientation(int or) {
+		this.Orientation = or;
+	}
+
+	public int getX() {
+		return this.x;
+	}
+
+	public int getY() {
+		return this.y;
 	}
 }

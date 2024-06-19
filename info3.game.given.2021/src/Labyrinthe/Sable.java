@@ -4,7 +4,6 @@ import toolkit.Categorie;
 
 public class Sable extends Entity {
 	
-	
 	public Sable(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -15,8 +14,7 @@ public class Sable extends Entity {
 
 	@Override
 	public Entity egg(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Sable(x,y);
 	}
 
 	@Override

@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import toolkit.Categorie;
 
 public class Interrupteur extends Entity {
-	
+
 	private LinkedList<Entity> liste_elem;
-	
+
 	public Interrupteur(int x, int y, LinkedList<Entity> elem) {
 		this.x = x;
 		this.y = y;
@@ -20,11 +20,18 @@ public class Interrupteur extends Entity {
 	public LinkedList<Entity> get_entity() {
 		return this.liste_elem;
 	}
-	
+
+	public void add(Entity e) {
+		liste_elem.add(e);
+	}
+
+	public void setListeLien(LinkedList<Entity> l) {
+		liste_elem = l;
+	}
+
 	@Override
 	public Entity egg(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Interrupteur(x, y, new LinkedList<Entity>());
 	}
 
 	@Override
@@ -36,13 +43,15 @@ public class Interrupteur extends Entity {
 	@Override
 	public void wizz() {
 		// TODO Auto-generated method stub
-
 	}
 
+	@Override
+	public void explode() {
+		// TODO Auto-generated method stub
+	}
 
 	@Override
 	public int hit() {
 		return 1;
 	}
-
 }

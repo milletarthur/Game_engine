@@ -1,5 +1,6 @@
 package Model_Snake;
 
+import java.io.PrintStream;
 import java.util.LinkedList;
 
 import toolkit.Categorie;
@@ -22,8 +23,7 @@ public class Field {
 			}
 		}
 	}
-	
-	
+
 	public Entity elementAt(int x, int y) {
 		// throw new RuntimeException("Not implemented Yet !");
 		if(x >= ligne || y >= colonne || x < 0 || y < 0) {

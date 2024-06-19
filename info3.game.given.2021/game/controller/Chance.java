@@ -30,7 +30,7 @@ public class Chance implements IAction {
 		while (iter.hasNext()) {
 			Pair<IAction, Integer> p = iter.next();
 			old_percentage = new_percentage;
-			new_percentage = p.y();
+			new_percentage = p.geto2();
 //			System.out.print(old_percentage);
 //			System.out.print(" <= ");
 //			System.out.print(rnd);
@@ -38,7 +38,7 @@ public class Chance implements IAction {
 //			System.out.println(new_percentage);
 //			((Turn) p.x()).print();
 			if (old_percentage <= rnd && rnd < new_percentage) {
-				p.x().exec(e);
+				p.geto1().exec(e);
 			}
 		}
 	}

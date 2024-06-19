@@ -1,6 +1,11 @@
 package Labyrinthe;
 
 public class Sable extends Entity {
+	
+	public Sable(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
 	@Override
 	void egg(int x, int y) {

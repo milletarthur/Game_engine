@@ -24,10 +24,12 @@ public class Game {
 		Field terrain = new Field(HAUTEUR, LARGEUR, 10);
 
 		// ajout d'un joueur pour tester
-		Joueur j1 = new Joueur(3, 0, 1);
-		Joueur j2 = new Joueur(4, 0, 2);
-		terrain.set_element(3, 0, j1, terrain.get_labyrinthe());
-		terrain.set_element(4, 0, j2, terrain.get_labyrinthe());
+		Joueur j1 = new Joueur(2, 0, 1);
+		Joueur j2 = new Joueur(3, 0, 2);
+		terrain.add(j1, 2, 0);
+		terrain.add(j2, 3, 0);
+//		terrain.set_element2(2, 0, j1, terrain.get_labyrinthe());
+//		terrain.set_element2(3, 0, j2, terrain.get_labyrinthe());
 
 		// initialisation de la fenêtre
 		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case, visibility);
@@ -39,7 +41,7 @@ public class Game {
 		v2.centrerViewport(j2);
 
 		// ajout d'un Keylistener
-		Key_Listener k = new Key_Listener(j1, j2, w.get_dt1(), w.get_dt2(), v1, v2);
+		Key_Listener k = new Key_Listener(j1, j2, w.get_dt1(), w.get_dt2(), v1, v2, terrain);
 		w.addKeyListener(k);
 
 	}

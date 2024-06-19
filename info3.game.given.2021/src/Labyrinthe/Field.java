@@ -1074,13 +1074,13 @@ public class Field {
 		int cpt = 0;
 		Entity elem = l_entity.get(0);
 		while (cpt < l_entity.size() && elem.layer() < e.layer()) {
-			cpt++;
 			elem = l_entity.get(cpt);
+			cpt++;
 		}
 		if (elem.layer() == e.layer()) {
 			return;
 		} else {
-			l_entity.add(cpt - 1, e);
+			l_entity.add(cpt, e);
 		}
 	}
 

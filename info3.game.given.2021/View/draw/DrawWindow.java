@@ -42,7 +42,9 @@ public class DrawWindow extends JFrame {
 	}
 
 	public void init_Window(Viewport v1, Viewport v2, DrawInventaire inventaire) {
-
+		
+		
+		
 		TicTac t = new TicTac(this);
 
 		inventaire.settimer(t);

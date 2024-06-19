@@ -6,7 +6,7 @@ public class Bombe extends Entity {
 	
 	private int time = 4;
 	
-	public Bombe(int colonne, int ligne) {
+	public Bombe(int ligne, int colonne) {
 		this.colonne = colonne;
 		this.ligne = ligne;
 		this.category = Categorie.P;
@@ -15,8 +15,8 @@ public class Bombe extends Entity {
 	}
 	
 	@Override
-	public Entity egg(int colonne, int ligne) {
-		return new Bombe(colonne,ligne);
+	public Entity egg(int ligne, int colonne) {
+		return new Bombe(ligne,colonne);
 	}
 
 	@Override

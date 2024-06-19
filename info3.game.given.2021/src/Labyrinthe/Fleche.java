@@ -6,7 +6,7 @@ public class Fleche extends Entity {
 	
 	private boolean transpercant;
 	
-	public Fleche(int colonne, int ligne, int dir, boolean trans) {
+	public Fleche(int ligne, int colonne, int dir, boolean trans) {
 		this.colonne = colonne;
 		this.ligne = ligne;
 		this.category = Categorie.M;
@@ -16,7 +16,7 @@ public class Fleche extends Entity {
 		transpercant = trans;
 	}
 	
-	public Fleche(int colonne, int ligne, int dir) {
+	public Fleche(int ligne, int colonne, int dir) {
 		this.colonne = colonne;
 		this.ligne = ligne;
 		this.category = Categorie.M;
@@ -27,8 +27,8 @@ public class Fleche extends Entity {
 	}
 	
 	@Override
-	public Entity egg(int colonne, int ligne) {
-		return new Fleche(colonne,ligne,Orientation);
+	public Entity egg(int ligne, int colonne) {
+		return new Fleche(ligne,colonne,Orientation);
 	}
 
 	@Override

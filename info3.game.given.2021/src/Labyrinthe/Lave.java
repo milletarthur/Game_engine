@@ -4,17 +4,17 @@ import toolkit.Categorie;
 
 public class Lave extends Entity {
 	
-	public Lave(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Lave(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.D;
 		this.team = 5;
 		layer = 0;
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Lave(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Lave(ligne,colonne);
 	}
 
 	@Override

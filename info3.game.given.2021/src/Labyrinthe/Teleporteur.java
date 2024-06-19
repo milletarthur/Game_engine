@@ -7,9 +7,9 @@ public class Teleporteur extends Entity {
 	boolean TP_random;
 	
 	
-	public Teleporteur(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Teleporteur(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.G;
 		this.team = 6;
 		this.layer = 0;
@@ -17,8 +17,8 @@ public class Teleporteur extends Entity {
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Teleporteur(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Teleporteur(ligne,colonne);
 	}
 
 	@Override

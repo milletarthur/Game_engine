@@ -4,17 +4,17 @@ import toolkit.Categorie;
 
 public class Squelette extends Entity {
 	
-	public Squelette(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Squelette(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.A;
 		this.team = 0;
 		layer = 3;
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Squelette(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Squelette(ligne,colonne);
 	}
 
 	@Override

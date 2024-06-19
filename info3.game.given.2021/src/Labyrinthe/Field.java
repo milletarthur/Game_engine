@@ -148,6 +148,10 @@ public class Field {
 		printGame();
 		grow_porte();
 		lave();
+		Apple a = new Apple(3,0);
+		set_element2(3, 0, a, labyrinthe);
+		
+		
 
 		/*
 		 * Obstacle(densite, "Mine"); this.pickable(densite, "Pomme");
@@ -834,7 +838,7 @@ public class Field {
 		// ################################################################
 		// MODIF ABDEL
 
-	public void pickable(int densite, String s) {
+/*	public void pickable(int densite, String s) {
 		// LinkedList<Pair<Integer,Integer>> l_void = new
 		// LinkedList<Pair<Integer,Integer>>();
 		if (densite == 0)
@@ -844,7 +848,7 @@ public class Field {
 		// int j_entite = 0 ;
 		switch (s) {
 		case "Pomme":
-			e = new Apple(0, 0, 1, 1, this);
+			//e = new Apple(0, 0, 1, 1, this);
 			break;
 		case "Potion":
 			e = new Potion();
@@ -888,7 +892,7 @@ public class Field {
 					indice++;
 				}
 				if (e instanceof Apple) {
-					e = new Apple(x_lab, y_lab, 1, 1, this);
+					//e = new Apple(x_lab, y_lab, 1, 1, this);
 				}
 				(this.getElement(x_lab, y_lab)).add(indice, e);
 				// Supprimer la case de l_void après l'ajout de l'entité
@@ -896,7 +900,7 @@ public class Field {
 				// i--; // Ajuster l'indice pour compenser la suppression
 			}
 		}
-	}
+	}*/
 	// ################################################################
 	// ################################################################
 

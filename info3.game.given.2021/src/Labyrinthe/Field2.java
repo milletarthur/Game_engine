@@ -68,8 +68,8 @@ public class Field2 {
 
 		recup_liste_void();
 		grow();
-		Obstacle(densite, "Mine");
-		Obstacle(densite, "Sable");
+	//	Obstacle(densite, "Mine");
+		//Obstacle(densite, "Sable");
 		//lave();
 	}
 
@@ -581,14 +581,14 @@ public class Field2 {
 		}
 		return liste;
 	}
-
+/*
 	public void Obstacle(int densite, String s) {
 		if (densite == 0)
 			return;
 		Entity e;
 		switch (s) {
 		case "Sable":
-			e = new Sable();
+			//e = new Sable();
 			break;
 		case "Mine":
 			e = new Mine();
@@ -670,7 +670,7 @@ public class Field2 {
 			}
 		}
 	}
-/*
+
 	public void lave() {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {

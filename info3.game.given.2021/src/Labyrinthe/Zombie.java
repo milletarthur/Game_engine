@@ -4,29 +4,27 @@ import toolkit.Categorie;
 
 public class Zombie extends Entity {
 	
-	public Zombie(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Zombie(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.A;
 		this.team = 0;
 		layer = 3;
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Zombie(x,y);
+	public Entity egg(int lign, int colonne) {
+		return new Zombie(ligne,colonne);
 	}
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		team = 0;
 	}
 
 	@Override

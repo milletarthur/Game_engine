@@ -4,34 +4,44 @@ import toolkit.Categorie;
 
 public class Epee extends Entity {
 	
-	public Epee(int x, int y) {
-		this.x = x;
-		this.y = y;
+	private boolean hitCircle;
+	
+	public Epee(int ligne, int colonne) {
+		this.colonne = colonne;
+		this.ligne = ligne;
 		this.category = Categorie.P;
 		this.team = 3;
 		layer = 2;
+		hitCircle = false;
 	}
 	
 	@Override
-	public Entity egg(int x, int y) {
-		return new Epee(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Epee(ligne, colonne);
 	}
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		explode();
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		hitCircle = true;
 	}
 
 	@Override
 	public int hit() {
+		if(hitCircle)
+			return -6;
 		return 3;
 	}
-
+	
+	public boolean getHitCircle() {
+		return hitCircle;
+	}
+	
+	public void setHitCircle(boolean bool) {
+		hitCircle = bool;
+	}
 }

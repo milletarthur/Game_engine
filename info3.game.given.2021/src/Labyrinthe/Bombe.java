@@ -4,22 +4,25 @@ import toolkit.Categorie;
 
 public class Bombe extends Entity {
 	
-	public Bombe(int x, int y) {
-		this.x = x;
-		this.y = y;
+	private int time = 4;
+	
+	public Bombe(int ligne, int colonne) {
+		this.colonne = colonne;
+		this.ligne = ligne;
 		this.category = Categorie.P;
 		this.team = 3;
 		layer = 2;
 	}
 	
 	@Override
-	public Entity egg(int x, int y) {
-		return new Bombe(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Bombe(ligne,colonne);
 	}
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
+		
+		explode();
 
 	}
 

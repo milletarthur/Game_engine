@@ -4,29 +4,30 @@ import toolkit.Categorie;
 
 public class Porte extends Entity {
 	
-	public Porte(int x, int y) {
-		this.x = x;
-		this.y = y;
+	boolean isOpen;
+	
+	public Porte(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.G;
 		this.team = 6;
 		layer = 2;
+		isOpen = false;
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Porte(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Porte(ligne,colonne);
 	}
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		isOpen = true;
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		isOpen = false;
 	}
 
 	@Override

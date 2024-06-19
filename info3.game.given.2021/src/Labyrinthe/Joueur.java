@@ -6,12 +6,12 @@ import toolkit.Direction;
 /*
  * Classe Joueur
  * 
- * x et y sont les coordonnées de ce joueur dans la matrice
+ * ligne et colonne sont les coordonnées de ce joueur dans la matrice
  */
 public class Joueur extends Entity {
-	public Joueur(int x, int y, int team) {
-		this.x = y;
-		this.y = x;
+	public Joueur(int ligne, int colonne, int team) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		super.vie = 10;
 		if (team == 1)
 			this.category = Categorie.Arobase;
@@ -22,8 +22,8 @@ public class Joueur extends Entity {
 
 	}
 	
-	public Entity egg(int x, int y) {
-		return new Joueur(x,y,team);
+	public Entity egg(int ligne, int colonne) {
+		return new Joueur(ligne,colonne,team);
 	}
 
 	public Entity picked() {
@@ -66,10 +66,10 @@ public class Joueur extends Entity {
 	}
 
 	public int getX() {
-		return this.x;
+		return this.ligne;
 	}
 
 	public int getY() {
-		return this.y;
+		return this.colonne;
 	}
 }

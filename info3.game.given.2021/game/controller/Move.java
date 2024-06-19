@@ -17,9 +17,9 @@ public class Move implements IAction {
 
 	@Override
 	public void exec(Entity e) {
-		terrain.remove(e.y(), e.x(), e);	
+		terrain.remove(e.ligne(), e.colonne(), e);	
 		e.move();
-		terrain.add(e, e.y(), e.x());
+		terrain.add(e, e.ligne(), e.colonne());
 //		System.out.println("Move");
 		return;
 	}

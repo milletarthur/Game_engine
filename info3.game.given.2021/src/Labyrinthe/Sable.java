@@ -4,29 +4,27 @@ import toolkit.Categorie;
 
 public class Sable extends Entity {
 	
-	public Sable(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Sable(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.D;
 		this.team = 5;
 		layer = 3;
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Sable(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Sable(ligne,colonne);
 	}
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		explode();
 	}
 	
 	@Override

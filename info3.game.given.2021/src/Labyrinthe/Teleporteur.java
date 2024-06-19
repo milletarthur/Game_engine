@@ -4,30 +4,31 @@ import toolkit.Categorie;
 
 public class Teleporteur extends Entity {
 	
+	boolean TP_random;
 	
-	public Teleporteur(int x, int y) {
-		this.x = x;
-		this.y = y;
+	
+	public Teleporteur(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.G;
 		this.team = 6;
 		this.layer = 0;
+		TP_random = false;
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Teleporteur(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Teleporteur(ligne,colonne);
 	}
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		TP_random = false;
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		TP_random = true;
 	}
 	
 	@Override

@@ -12,8 +12,8 @@ public abstract class Entity {
 
 	protected Entity picked;
 
-	protected int x;
-	protected int y;
+	protected int ligne;
+	protected int colonne;
 
 	protected int vie = 5;
 
@@ -32,16 +32,16 @@ public abstract class Entity {
 	public void move() {
 		switch (Orientation) {
 		case Direction.N:
-			y--;
+			ligne--;
 			break;
 		case Direction.S:
-			y++;
+			ligne++;
 			break;
 		case Direction.E:
-			x++;
+			colonne++;
 			break;
 		case Direction.W:
-			x--;
+			colonne--;
 			break;
 		default:
 			break;
@@ -59,8 +59,7 @@ public abstract class Entity {
 	}
 
 	public void turn(int dir) {
-		// positions absolues SANS prendre en compte NE NW SE SW
-		if (1 <= dir && dir <= 4) {
+		if (1 <= dir && dir <= 8) {
 			Orientation = dir;
 		} else {
 			// positions relatives
@@ -160,12 +159,12 @@ public abstract class Entity {
 		return this.Valid;
 	}
 
-	public int x() {
-		return x;
+	public int ligne() {
+		return ligne;
 	}
 
-	public int y() {
-		return y;
+	public int colonne() {
+		return colonne;
 	}
 
 	public int direction() {

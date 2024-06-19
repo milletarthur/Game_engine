@@ -4,23 +4,22 @@ import toolkit.Categorie;
 
 public class Normal extends Mur {
 	
-	public Normal(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Normal(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.O;
 		this.team = 4;
 		layer = 2;
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Normal(x,y);
+	public Entity egg(int ligne, int colonne) {
+		return new Normal(ligne,colonne);
 	}
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		explode();
 	}
 
 	@Override

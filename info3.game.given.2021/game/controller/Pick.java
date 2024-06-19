@@ -15,10 +15,10 @@ public class Pick implements IAction {
 
 	@Override
 	public void exec(Entity e) {
-		Entity pick = terrain.getPickable(e.x(), e.y());
+		Entity pick = terrain.getPickable(e.ligne(), e.colonne());
 		boolean success = e.pick(pick);
 		if (pick != null && success)
-			terrain.remove(e.x(), e.y(), pick);
+			terrain.remove(e.ligne(), e.colonne(), pick);
 
 	}
 

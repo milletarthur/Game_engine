@@ -32,9 +32,11 @@ import gal.ast.BinaryOp;
 import gal.ast.Category;
 import gal.ast.Condition;
 import gal.ast.Direction;
+import gal.ast.Expression;
 import gal.ast.FunCall;
 import gal.ast.Key;
 import gal.ast.Mode;
+import gal.ast.Parameter;
 import gal.ast.State;
 import gal.ast.Transition;
 import gal.ast.UnaryOp;
@@ -294,14 +296,10 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void visit(FunCall funcall) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void exit(FunCall funcall) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -389,65 +387,53 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		default:
 			throw new RuntimeException("Unknown action !");
 		}
+		return c;
+	}
+
+	@Override
+	public void enter(BinaryOp binop) {
+	}
+
+	@Override
+	public void visit(BinaryOp binop) {
+	}
+
+	@Override
+	public void exit(BinaryOp binop) {
+	}
+
+	@Override
+	public Object build(BinaryOp binop, Object left, Object right) {
+		ICondition c;
+		switch (binop.operator) {
+		case "&":
+			c = new Disjonction(l_cond.get(l_cond.size() - 2), l_cond.get(l_cond.size() - 1));
+			break;
+		case "|":
+			c = new Conjonction(l_cond.get(l_cond.size() - 2), l_cond.get(l_cond.size() - 1));
+			break;
+		default:
+			throw new RuntimeException("Wrong arguments");
+		}
 		l_cond.add(c);
 		cond = c;
 		return c;
 	}
 
 	@Override
-	public void enter(BinaryOp binop) {
-		l_cond = new LinkedList<ICondition>();
-	}
-
-	@Override
-	public void visit(BinaryOp binop) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void exit(BinaryOp binop) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Object build(BinaryOp binop, Object left, Object right) {
-		if (l_cond.size() != 2)
-			throw new RuntimeException("wrong arguments !");
-		ICondition c;
-		switch (binop.operator) {
-		case "&":
-			c = new Disjonction(l_cond.get(0), l_cond.get(1));
-			break;
-		case "|":
-			c = new Conjonction(l_cond.get(0), l_cond.get(1));
-			break;
-		default:
-			throw new RuntimeException("Wrong arguments");
-		}
-		cond = c;
-		return c;
-	}
-
-	@Override
 	public void enter(UnaryOp unop) {
-		l_cond = new LinkedList<ICondition>();
 	}
 
 	@Override
 	public void exit(UnaryOp unop) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public Object build(UnaryOp unop, Object expression) {
-		if (l_cond.size() != 1)
-			throw new RuntimeException("wrong arguments !");
 		ICondition c;
 		if (unop.operator.equals("!")) {
-			c = new Not(l_cond.get(0));
+			c = new Not(l_cond.get(l_cond.size() - 1));
+			l_cond.add(c);
 			cond = c;
 			return c;
 		}
@@ -476,8 +462,6 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void visit(Mode mode) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -487,56 +471,60 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object build(Mode mode, Object source_state, Object behaviour) {
-		// TODO Auto-generated method stub
-		return null;
+		return l_trans;
 	}
 
 	@Override
 	public Object visit(Behaviour behaviour, List<Object> transitions) {
-		// TODO Auto-generated method stub
-		return null;
+		return l_trans;
 	}
 
 	@Override
 	public void enter(Condition condition) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void exit(Condition condition) {
-		// TODO Auto-generated method stub
-
 	}
 
+	private List<Object> parameterToObject(List<Parameter> l){
+		Iterator<Parameter> i = l.iterator();
+		List<Object> rv = new LinkedList<Object>();
+		while(i.hasNext())
+			rv.add(i.next());
+		return rv;
+	}
+	
+	//Je ne suis pas sure des params des fonctions
 	@Override
 	public Object build(Condition condition, Object expression) {
-		// TODO Auto-generated method stub
-		return null;
+		if(expression instanceof UnaryOp)
+			return build((UnaryOp) expression, expression);
+		if(expression instanceof BinaryOp)
+			return build((BinaryOp) expression, ((BinaryOp) expression).left_operand, ((BinaryOp) expression).right_operand);
+		return build((FunCall) expression, parameterToObject(((FunCall) expression).parameters));
 	}
 
 	@Override
 	public void enter(Actions action) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void visit(Actions action) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void exit(Actions action) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public Object build(Actions action, String operator, List<Object> funcalls) {
-		// TODO Auto-generated method stub
-		return null;
+		Iterator<Object> i = funcalls.iterator();
+		while(i.hasNext()) {
+			FunCall act = (FunCall) i.next();
+			l_act.add((IAction) build(act, parameterToObject(act.parameters)));
+		}
+		return l_act;
 	}
 
 	@Override

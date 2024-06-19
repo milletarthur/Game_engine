@@ -1,8 +1,16 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Mine extends Entity {
 	
-	private int layer = 2;
+	public Mine(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.category = Categorie.D;
+		this.team = 3;
+		layer = 2;
+	}
 
 	@Override
 	public Entity egg(int x, int y) {

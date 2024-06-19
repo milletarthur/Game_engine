@@ -1,8 +1,16 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Invisible extends Mur {
 	
-	private int layer = 4;
+	public Invisible(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.category = Categorie.J;
+		this.team = 3;
+		this.layer = 4;
+	}
 
 	@Override
 	public Entity egg(int x, int y) {

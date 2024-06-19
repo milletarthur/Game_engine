@@ -1,14 +1,16 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Void extends Entity {
 	
-	private int layer = 1;
 
-	public Void(int x, int y, int team, int category) {
+	public Void(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.category = category;
-		this.team = team;
+		this.category = Categorie.V;
+		this.team = 4;
+		this.layer = 1;
 	}
 
 	@Override

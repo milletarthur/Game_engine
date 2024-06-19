@@ -2,15 +2,17 @@ package Labyrinthe;
 
 import java.util.LinkedList;
 
+import toolkit.Categorie;
+
 public class Interrupteur extends Entity {
 	
 	private LinkedList<Entity> liste_elem;
-	private int layer = 2;
 	
-	public Interrupteur(int x, int y, int team, int category, LinkedList<Entity> elem) {
+	public Interrupteur(int x, int y, int team, LinkedList<Entity> elem) {
 		this.x = x;
 		this.y = y;
-		this.category = category;
+		this.category = Categorie.C;
+		this.layer = 2;
 		this.team = team;
 		this.liste_elem = elem;
 	}

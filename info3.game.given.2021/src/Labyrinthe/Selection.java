@@ -1,7 +1,17 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Selection extends Entity {
 
+	public Selection(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.category = Categorie.T;
+		this.team = 3;
+		layer = 5;
+	}
+	
 	@Override
 	public Entity egg(int x, int y) {
 		// TODO Auto-generated method stub

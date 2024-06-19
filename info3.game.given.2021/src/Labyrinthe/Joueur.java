@@ -1,5 +1,6 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
 import toolkit.Direction;
 
 /*
@@ -9,12 +10,17 @@ import toolkit.Direction;
  */
 public class Joueur extends Entity {
 
-	private int layer = 2;
-
-	public Joueur(int x, int y) {
+	public Joueur(int x, int y, int team) {
 		this.x = x;
 		this.y = y;
 		super.vie = 10;
+		if (team == 1)
+			this.category = Categorie.Arobase;
+		else
+			this.category = Categorie.Diese;
+		this.team = team;
+		layer = 2;
+
 	}
 
 	@Override
@@ -43,10 +49,10 @@ public class Joueur extends Entity {
 			return 1;
 		return picked.hit();
 	}
-	
+
 	@Override
 	public void get() {
-		switch(team()) {
+		switch (team()) {
 		case 1:
 			picked = inventory.popJ1();
 			break;

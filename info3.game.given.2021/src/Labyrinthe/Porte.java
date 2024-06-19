@@ -1,14 +1,15 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Porte extends Entity {
 	
-	private int layer = 2;
-
-	public Porte(int x, int y, int team, int category) {
+	public Porte(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.category = category;
-		this.team = team;
+		this.category = Categorie.G;
+		this.team = 3;
+		layer = 2;
 	}
 
 	@Override

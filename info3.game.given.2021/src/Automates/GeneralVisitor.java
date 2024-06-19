@@ -56,6 +56,10 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	LinkedList<Integer> l_param;
 	Automates.State current;
 	boolean is_in_mode = false;
+	
+	public GeneralVisitor(Field field) {
+		f = field;
+	}
 
 	@Override
 	public Object visit(Category cat) {

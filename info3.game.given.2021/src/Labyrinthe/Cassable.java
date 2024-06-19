@@ -14,8 +14,7 @@ public class Cassable extends Mur {
 
 	@Override
 	public Entity egg(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Cassable(x,y);
 	}
 
 	@Override

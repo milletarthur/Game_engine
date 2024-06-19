@@ -924,4 +924,25 @@ public class Field {
 		}
 		return elem;
 	}
+	
+	public LinkedList<Pair<Integer,Integer>> getClassList(int layer) {
+		LinkedList<Pair<Integer,Integer>> l_class = new LinkedList<Pair<Integer,Integer>>();
+		for(int i=0; i<ligne; i++) {
+			for(int j=0; j<colonne; j++) {
+				Entity e = getLastnotSelect(i,j);
+				if(e.layer() < layer) {
+					Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+					l_class.add(p);
+				}
+			}
+		}
+		return l_class;
+	}
+	
+	public boolean isHerePossible(int x, int y, Entity e) {
+		Entity here = getLastnotSelect(x,y);
+		if(here.layer() < e.layer())
+			return true;
+		return false;
+	}
 }

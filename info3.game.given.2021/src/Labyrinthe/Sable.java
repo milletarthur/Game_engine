@@ -15,8 +15,7 @@ public class Sable extends Entity {
 
 	@Override
 	public Entity egg(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Sable(x,y);
 	}
 
 	@Override

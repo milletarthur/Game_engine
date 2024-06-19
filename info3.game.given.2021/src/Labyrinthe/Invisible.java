@@ -14,8 +14,7 @@ public class Invisible extends Mur {
 
 	@Override
 	public Entity egg(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Invisible(x,y);
 	}
 
 	@Override

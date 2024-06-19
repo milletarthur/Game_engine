@@ -25,8 +25,7 @@ public class Joueur extends Entity {
 
 	@Override
 	public Entity egg(int x, int y) {
-
-		return null;
+		return new Joueur(x,y,team);
 	}
 
 	public Entity picked() {

@@ -6,9 +6,9 @@ public class Epee extends Entity {
 	
 	private boolean hitCircle;
 	
-	public Epee(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Epee(int colonne, int ligne) {
+		this.colonne = colonne;
+		this.ligne = ligne;
 		this.category = Categorie.P;
 		this.team = 3;
 		layer = 2;
@@ -16,8 +16,8 @@ public class Epee extends Entity {
 	}
 	
 	@Override
-	public Entity egg(int x, int y) {
-		return new Epee(x,y);
+	public Entity egg(int colonne, int ligne) {
+		return new Epee(colonne,ligne);
 	}
 
 	@Override

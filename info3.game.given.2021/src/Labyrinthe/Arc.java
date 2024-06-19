@@ -9,9 +9,9 @@ public class Arc extends Entity {
 	private boolean flecheTrans;
 	private LinkedList<Entity> list_fleche;
 	
-	public Arc(int x, int y, boolean fleche) {
-		this.x = x;
-		this.y = y;
+	public Arc(int colonne, int ligne, boolean fleche) {
+		this.colonne = colonne;
+		this.ligne = ligne;
 		this.category = Categorie.P;
 		this.team = 3;
 		layer = 2;
@@ -19,9 +19,9 @@ public class Arc extends Entity {
 //		f = new Fleche(x, y, Orientation, fleche);
 	}
 	
-	public Arc(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Arc(int colonne, int ligne) {
+		this.colonne = colonne;
+		this.ligne = ligne;
 		this.category = Categorie.P;
 		this.team = 3;
 		layer = 2;
@@ -29,8 +29,8 @@ public class Arc extends Entity {
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Arc(x,y);
+	public Entity egg(int colonne, int ligne) {
+		return new Arc(colonne,ligne);
 
 	}
 

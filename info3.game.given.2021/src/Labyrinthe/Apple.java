@@ -6,17 +6,17 @@ public class Apple extends Entity {
 	
 	boolean poison;
 
-	public Apple(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Apple(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
 		this.category = Categorie.P;
 		this.team = 3;
 		layer = 2;
 	}
 
 	@Override
-	public Entity egg(int x, int y) {
-		return new Apple(x, y);
+	public Entity egg(int colonne, int ligne) {
+		return new Apple(colonne, ligne);
 	}
 
 	@Override

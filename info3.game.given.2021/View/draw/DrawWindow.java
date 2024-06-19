@@ -20,7 +20,7 @@ public class DrawWindow extends JFrame {
 	private DrawInventaire inventaire;
 	private int visibility;
 
-	public DrawWindow(int LARGEUR, int HAUTEUR, Field terrain, int T_case, int visibility, int pv_perdu, int pv_total) throws IOException {
+	public DrawWindow(int LARGEUR, int HAUTEUR, Field terrain, int T_case, int visibility) throws IOException {
 		this.T_case = T_case;
 		this.visibility = visibility;
 		this.getContentPane().setLayout(new BorderLayout());
@@ -37,7 +37,7 @@ public class DrawWindow extends JFrame {
 		// initialisation du terrain
 		this.dt1 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
 		this.dt2 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
-		this.inventaire = new DrawInventaire(T_case, visibility, pv_perdu, pv_total);
+		this.inventaire = new DrawInventaire(T_case, visibility);
 
 	}
 

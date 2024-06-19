@@ -17,11 +17,6 @@ public class Game {
 	private final static int HAUTEUR = 40;
 	private static final int T_case = 30;
 	private static final int visibility = 5; // nb de cases visible autour des joueurs
-	private static final int pv_total = 20;
-	
-	// TODO - pv_perdu a recuperer / variable ci-dessous temp pour test
-	// il y aura pour les deux joueurs
-	private static final int pv_perdu = 5;
 
 	public static void main(String[] args) throws IOException {
 
@@ -35,7 +30,7 @@ public class Game {
 		terrain.set_element(10, 10, j2, null);
 
 		// initialisation de la fenêtre
-		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case, visibility, pv_perdu, pv_total);
+		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case, visibility);
 
 		Viewport v1 = new Viewport(w.get_dt1(), T_case, visibility);
 		Viewport v2 = new Viewport(w.get_dt2(), T_case, visibility);

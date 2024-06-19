@@ -20,8 +20,14 @@ public class DrawInventaire extends JPanel {
 
 	private Sprite INVENTAIRE;
 	private BufferedImage img_inventaire;
+	
+	private static final int pv_total = 20;
+	
+	// TODO - pv_perdu a recuperer / variable ci-dessous temp pour test
+	// il y aura pour les deux joueurs
+	private static final int pv_perdu = 5;
 
-	public DrawInventaire(int T_case, int visibility, int pv_perdu, int pv_total) throws IOException {
+	public DrawInventaire(int T_case, int visibility) throws IOException {
 
 		// TODO - lui donner l'inventaire de chaque joueur pour avoir l'objet courant
 

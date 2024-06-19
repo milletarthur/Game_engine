@@ -32,52 +32,52 @@ public class Closest implements ICondition {
 	
 	@Override
 	public boolean eval(Entity e) {
-		int i = e.y();
-		int j = e.x();
+		int ligne = e.ligne();
+		int colonne = e.colonne();
 		switch(e.direction()) {
 		case Direction.N:
 			for(int k=0; k<=distance_vision; k++) {
-				for(int j_min=i; j_min<i+2*k; j_min++) {
+				for(int j_min=ligne; j_min<ligne+2*k; j_min++) {
 					if(terrain.cell(e, Direction.H, categorie)) {
 						return true;
 					}
 				}
-				i--;
+				ligne--;
 			}
 			return false;
 		case Direction.S:
 			for(int k=0; k<=distance_vision; k++) {
-				for(int j_min=i; j_min<i+2*k; j_min++) {
+				for(int j_min=ligne; j_min<ligne+2*k; j_min++) {
 					if(terrain.cell(e, Direction.H, categorie)) {
 						return true;
 					}
 				}
-				i++;
+				ligne++;
 			}
 			return false;
 		case Direction.E:
 			for(int k=0; k<=distance_vision; k++) {
-				for(int i_min=j; i_min<j+2*k; i_min++) {
+				for(int i_min=colonne; i_min<colonne+2*k; i_min++) {
 					if(terrain.cell(e, Direction.H, categorie)) {
 						return true;
 					}
 				}
-				j++;
+				colonne++;
 			}
 			return false;
 		case Direction.W:
 			for(int k=0; k<=distance_vision; k++) {
-				for(int i_min=j; i_min<j+2*k; i_min++) {
+				for(int i_min=colonne; i_min<colonne+2*k; i_min++) {
 					if(terrain.cell(e, Direction.H, categorie)) {
 						return true;
 					}
 				}
-				j--;
+				colonne--;
 			}
 			return false;
 		case Direction.NE:
-			for(int m=i; m>=i-distance_vision; m--) {
-				for(int n=j; n<=j+distance_vision; j++) {
+			for(int m=ligne; m>=ligne-distance_vision; m--) {
+				for(int n=colonne; n<=colonne+distance_vision; n++) {
 					if(terrain.cell(e, Direction.H, categorie)) {
 						return true;
 					}
@@ -85,8 +85,8 @@ public class Closest implements ICondition {
 			}
 			return false;
 		case Direction.NW:
-			for(int m=i; m>=i-distance_vision; m--) {
-				for(int n=j; n>=j-distance_vision; j--) {
+			for(int m=ligne; m>=ligne-distance_vision; m--) {
+				for(int n=colonne; n>=colonne-distance_vision; n--) {
 					if(terrain.cell(e, Direction.H, categorie)) {
 						return true;
 					}
@@ -94,8 +94,8 @@ public class Closest implements ICondition {
 			}
 			return false;
 		case Direction.SE:
-			for(int m=i; m<=i+distance_vision; m++) {
-				for(int n=j; n<=j+distance_vision; j++) {
+			for(int m=ligne; m<=ligne+distance_vision; m++) {
+				for(int n=colonne; n<=colonne+distance_vision; n++) {
 					if(terrain.cell(e, Direction.H, categorie)) {
 						return true;
 					}
@@ -103,8 +103,8 @@ public class Closest implements ICondition {
 			}
 			return false;
 		case Direction.SW:
-			for(int m=i; m<=i+distance_vision; m++) {
-				for(int n=j; n>=j-distance_vision; j--) {
+			for(int m=ligne; m<=ligne+distance_vision; m++) {
+				for(int n=colonne; n>=colonne-distance_vision; n--) {
 					if(terrain.cell(e, Direction.H, categorie)) {
 						return true;
 					}

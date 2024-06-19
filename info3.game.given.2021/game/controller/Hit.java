@@ -42,7 +42,7 @@ public class Hit implements IAction {
 			Arc arc = (Arc) e;
 			Fleche f;
 			if(arc.getTrans()) {
-				f = new Fleche(arc.x(), arc.y(), arc.direction(), true);
+				f = new Fleche(arc.ligne(), arc.colonne(), arc.direction(), true);
 			} else {
 				f = new Fleche(x, y, e.direction());
 			}

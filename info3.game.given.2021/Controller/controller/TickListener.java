@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
+import Automates.Automate;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
 import toolkit.Pair;
@@ -27,8 +28,8 @@ public class TickListener {
 		int length = auto_list.size();
 		for (int i = 0; i < length; i++) {
 			Pair<Automate,Entity> p = auto_list.get(i);
-			Automate auto = p.x();
-			Entity e = p.y();
+			Automate auto = p.geto1();
+			Entity e = p.geto2();
 			auto.step(e);
 		}
 		LinkedList<Pair<Integer,Integer>> SnakeList = terrain.getSnakeList();

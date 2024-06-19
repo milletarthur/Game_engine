@@ -4,6 +4,8 @@ import toolkit.Categorie;
 
 public class Teleporteur extends Entity {
 	
+	boolean TP_random;
+	
 	
 	public Teleporteur(int x, int y) {
 		this.x = x;
@@ -11,6 +13,7 @@ public class Teleporteur extends Entity {
 		this.category = Categorie.G;
 		this.team = 6;
 		this.layer = 0;
+		TP_random = false;
 	}
 
 	@Override
@@ -21,14 +24,12 @@ public class Teleporteur extends Entity {
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		TP_random = false;
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		TP_random = true;
 	}
 	
 	@Override

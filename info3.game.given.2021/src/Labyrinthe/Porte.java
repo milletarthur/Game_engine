@@ -4,12 +4,15 @@ import toolkit.Categorie;
 
 public class Porte extends Entity {
 	
+	boolean isOpen;
+	
 	public Porte(int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.category = Categorie.G;
 		this.team = 6;
 		layer = 2;
+		isOpen = false;
 	}
 
 	@Override
@@ -20,14 +23,12 @@ public class Porte extends Entity {
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		isOpen = true;
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		isOpen = false;
 	}
 
 	@Override

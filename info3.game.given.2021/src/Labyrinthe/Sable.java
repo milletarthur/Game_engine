@@ -21,14 +21,12 @@ public class Sable extends Entity {
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		explode();
 	}
 	
 	@Override

@@ -20,14 +20,12 @@ public class Zombie extends Entity {
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		team = 0;
 	}
 
 	@Override

@@ -4,6 +4,8 @@ import toolkit.Categorie;
 
 public class Mine extends Entity {
 	
+	private int time = 4;
+	
 	public Mine(int x, int y) {
 		this.x = x;
 		this.y = y;

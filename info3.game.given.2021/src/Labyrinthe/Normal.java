@@ -20,8 +20,7 @@ public class Normal extends Mur {
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		explode();
 	}
 
 	@Override

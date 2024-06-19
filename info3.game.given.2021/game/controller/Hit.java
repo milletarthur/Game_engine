@@ -3,21 +3,12 @@ package controller;
 import java.util.LinkedList;
 
 import Automates.IAction;
-import Labyrinthe.Apple;
-import Labyrinthe.Cassable;
-import Labyrinthe.Entity;
-import Labyrinthe.Field;
-import Labyrinthe.Fleche;
-import Labyrinthe.Joueur;
-import Labyrinthe.Potion;
-import Labyrinthe.Selection;
-import Labyrinthe.Squelette;
-import Labyrinthe.Zombie;
-import Labyrinthe.Void;
+import Labyrinthe.*;
 import toolkit.Categorie;
+import toolkit.Direction;
 
 public class Hit implements IAction {
-	
+
 	public Field terrain;
 
 	public Hit(Field terrain) {
@@ -26,7 +17,7 @@ public class Hit implements IAction {
 
 	@Override
 	public void exec(Entity e) {
-		int damage = e.hit(); //renvoie les dégats que fait l'entitée a une autre. (positif)
+		int damage = e.hit(); // renvoie les dégats que fait l'entitée a une autre. (positif)
 		int[] spot = terrain.next_to(e, e.direction());
 		int x = spot[0];
 		int y = spot[1];
@@ -36,47 +27,81 @@ public class Hit implements IAction {
 		int taille = list.size();
 		if (list.getLast() instanceof Selection)
 			taille--;
-		while(!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette) && cpt < taille) {
+		while (!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette)
+				&& cpt < taille) {
 			cpt++;
 			tohit = list.get(cpt);
 		}
 		if (damage > 0) {
-	//		terrain.remove(x, y, tohit);
-			if ((tohit instanceof Joueur) || (tohit instanceof Zombie) || (tohit instanceof Squelette))
+			// terrain.remove(x, y, tohit);
+			if ((tohit instanceof Joueur) || (tohit instanceof Zombie) || (tohit instanceof Squelette)) {
 				tohit.power(-damage);
-	//		terrain.add(tohit, x, y);
-		} else if (damage == -1){ // cas arc
-			Fleche f = new Fleche(x,y,e.direction());
+			}
+			// terrain.add(tohit, x, y);
+		} else if (damage == -1) { // cas arc
+			Arc arc = (Arc) e;
+			Fleche f;
+			if(arc.getTrans()) {
+				f = new Fleche(arc.x(), arc.y(), arc.direction(), true);
+			} else {
+				f = new Fleche(x, y, e.direction());
+			}
+			((Arc)e).setFleche(f);
+			f.hit();
 			terrain.add(f, x, y);
 		} else if (damage == -2) { // cas Pioche
 			if (tohit instanceof Labyrinthe.Void) {
 				Wizz wi = new Wizz(terrain);
-				wi.exec(((Joueur)e).picked());
+				wi.exec(((Joueur) e).picked());
 			} else if (tohit instanceof Cassable) {
 				Pop po = new Pop(terrain);
-				po.exec(((Joueur)e).picked());
+				po.exec(((Joueur) e).picked());
 			} else if ((tohit instanceof Joueur) || (tohit instanceof Zombie) || (tohit instanceof Squelette)) {
 				tohit.power(-2);
 			}
 		} else if (damage == -3) { // cas Pomme
-			Apple apple = (Apple) ((Joueur)e).picked();
-			if (apple.poisoned()) { // true == enpoisonée
+			Apple apple = (Apple) ((Joueur) e).picked();
+			if (apple.poisoned()) { // true == empoisonée
 				e.power(-2);
 			} else {
 				e.power(2);
 			}
 		} else if (damage == -4) { // cas Potion
-			Potion potion = (Potion) ((Joueur)e).picked();
-			if (potion.poisoned()) { // true == enpoisonée
+			Potion potion = (Potion) ((Joueur) e).picked();
+			if (potion.poisoned()) { // true == empoisonée
 				e.power(-2);
 			} else {
 				e.power(2);
 			}
 		} else if (damage == -5) { // cas bombe
 			Explode ex = new Explode(terrain);
-			ex.exec(((Joueur)e).picked());
+			ex.exec(((Joueur) e).picked());
+		} else if (damage == -6) { // cas épée avec hitCircle
+			for (int i = 0; i < 8; i++) {
+				spot = terrain.next_to(e, e.direction());
+				x = spot[0];
+				y = spot[1];
+				list = terrain.getElement(x, y);
+				cpt = 0;
+				tohit = list.get(cpt);
+				taille = list.size();
+				if (list.getLast() instanceof Selection)
+					taille--;
+				while (!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette)
+						&& cpt < taille) {
+					cpt++;
+					tohit = list.get(cpt);
+				}
+				if(damage > 0) {
+					if ((tohit instanceof Joueur) || (tohit instanceof Zombie) || (tohit instanceof Squelette)) {
+						tohit.power(-3);
+					}
+				}
+				e.turn(((e.direction() + 1) % 8) + 1);
+			}
+			((Epee)e).setHitCircle(false);
 		}
-		
+
 	}
 
 }

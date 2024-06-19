@@ -10,8 +10,8 @@ import toolkit.Direction;
  */
 public class Joueur extends Entity {
 	public Joueur(int x, int y, int team) {
-		this.x = x;
-		this.y = y;
+		this.x = y;
+		this.y = x;
 		super.vie = 10;
 		if (team == 1)
 			this.category = Categorie.Arobase;

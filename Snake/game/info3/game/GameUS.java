@@ -21,8 +21,8 @@ import toolkit.Pair;
 
 public class GameUS {
 	/* TODO - HAUTEUR et LARGEUR seront les dimensions de la matrice */
-	private final static int LARGEUR = 20;
-	private final static int HAUTEUR = 20;
+	private final static int LARGEUR = 11;
+	private final static int HAUTEUR = 11;
 	
 	
 

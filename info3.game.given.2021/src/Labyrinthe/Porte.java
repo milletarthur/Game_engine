@@ -1,55 +1,38 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Porte extends Entity {
-
-	public Porte(int x, int y, int team, int category, Field f) {
-		this.x = x;
-		this.y = y;
-		this.category = category;
-		this.team = team;
-		this.f = f;
+	
+	boolean isOpen;
+	
+	public Porte(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
+		this.category = Categorie.G;
+		this.team = 6;
+		layer = 2;
+		isOpen = false;
 	}
 
 	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
+	public Entity egg(int ligne, int colonne) {
+		return new Porte(ligne,colonne);
 	}
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		isOpen = true;
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		isOpen = false;
 	}
 
 	@Override
-	public void explode() {
+	public int hit() {
 		// TODO Auto-generated method stub
-
+		return 0;
 	}
-
 }

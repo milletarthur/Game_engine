@@ -1,43 +1,24 @@
 package Labyrinthe;
 
-public class Normal extends Mur {
+import toolkit.Categorie;
 
-	public Normal(int x, int y) {
-		this.x = x;
-		this.y = y;
-		this.category = category;
-		this.team = team;
-		this.f = f;
+public class Normal extends Mur {	
+	public Normal(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
+		this.category = Categorie.O;
+		this.team = 4;
+		layer = 2;
 	}
 
 	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
+	public Entity egg(int ligne, int colonne) {
+		return new Normal(ligne,colonne);
 	}
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		explode();
 	}
 
 	@Override
@@ -47,9 +28,9 @@ public class Normal extends Mur {
 	}
 
 	@Override
-	public void explode() {
+	public int hit() {
 		// TODO Auto-generated method stub
-
+		return 0;
 	}
 
 }

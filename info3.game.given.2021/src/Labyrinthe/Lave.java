@@ -1,37 +1,20 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Lave extends Entity {
-
-	public Lave(int x, int y, int team, int category, Field f) {
-		this.x = x;
-		this.y = y;
-		this.category = category;
-		this.team = team;
-		this.f = f;
+	
+	public Lave(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
+		this.category = Categorie.D;
+		this.team = 5;
+		layer = 0;
 	}
 
 	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
+	public Entity egg(int ligne, int colonne) {
+		return new Lave(ligne,colonne);
 	}
 
 	@Override
@@ -47,9 +30,8 @@ public class Lave extends Entity {
 	}
 
 	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
+	public int hit() {
+		return 20;
 	}
 
 }

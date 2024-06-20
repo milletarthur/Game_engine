@@ -2,3 +2,5 @@
 /.settings/
 /.recommenders/
 /.metadata/
+*.aut.dot
+*.ast.dot

@@ -1,55 +1,33 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
 import toolkit.Direction;
 
 /*
  * Classe Joueur
  * 
- * x et y sont les coordonnées de ce joueur dans la matrice
+ * ligne et colonne sont les coordonnées de ce joueur dans la matrice
  */
 public class Joueur extends Entity {
-
-	public Joueur(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void move() {
-		switch (Orientation) {
-		case Direction.N:
-			this.y -= 1;
-			break;
-		case Direction.S:
-			this.y += 1;
-			break;
-		case Direction.E:
-			this.x += 1;
-			break;
-		case Direction.W:
-			this.x -= 1;
-			break;
-		default:
-			break;
-		}
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
+	public Joueur(int ligne, int colonne, int team) {
+		this.ligne = ligne;
+		this.colonne = colonne;
+		super.vie = 10;
+		if (team == 1)
+			this.category = Categorie.Arobase;
+		else
+			this.category = Categorie.Diese;
+		this.team = team;
+		layer = 3;
 
 	}
+	
+	public Entity egg(int ligne, int colonne) {
+		return new Joueur(ligne,colonne,team);
+	}
 
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
+	public Entity picked() {
+		return picked;
 	}
 
 	@Override
@@ -60,14 +38,38 @@ public class Joueur extends Entity {
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
+		super.turn(Direction.B);
+	}
 
+	public int hit() {
+		if (picked != null)
+			return 1;
+		return picked.hit();
 	}
 
 	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
-
+	public void get() {
+		switch (team()) {
+		case 1:
+			picked = inventory.popJ1();
+			break;
+		case 2:
+			picked = inventory.popJ2();
+			break;
+		default:
+			break;
+		}
 	}
 
+	public void setOrientation(int or) {
+		this.Orientation = or;
+	}
+
+	public int getX() {
+		return this.ligne;
+	}
+
+	public int getY() {
+		return this.colonne;
+	}
 }

@@ -132,13 +132,19 @@ public class DrawTerrain extends JPanel {
 		x.fillRect(180, 160, 20, 20);
 		x.fillRect(160, 160, 20, 20);
 		x.fillRect(160, 170, 20, 20);
-		x.fillRect(160, 180, 20, 20);
-		x.setColor(Pomme);
-		x.fillOval(40, 20, 20, 20);
-		x.setColor(green);
-		x.fillRect(45,20,10,5);
-		*/
-		
+		x.fillRect(160, 180, 20, 20);*/
+		//dessiner pomme
+		/*x.setColor(Pomme);
+		x.fillOval(i*T_case, j*T_case, T_case, T_case);
+		x.setColor(Color.GREEN);
+		x.fillRect(i*T_case+((T_case*5)/20),j*T_case,T_case/2,T_case/4);*/
+		/*
+		x.setColor(OBSTACLE);
+		x.fillRect(i*T_case+((T_case*4)/20),j*T_case+((T_case*6)/20),T_case/5,(T_case/5)*3);
+		x.fillRect(i*T_case+((T_case*12)/20), j*T_case+((T_case*6)/20), T_case/5, (T_case/5)*3);
+		x.setColor(obstacle);
+		x.fillRect(i*T_case+((T_case*2)/20),j*T_case+((T_case*2)/20),(T_case/5)*4,T_case/5);
+		x.fillRect(i*T_case+((T_case*2)/20),j*T_case+((T_case*10)/20),(T_case/5)*4,T_case/10);*/
 
 		//avec et [i,j] position dans la matrice
 		

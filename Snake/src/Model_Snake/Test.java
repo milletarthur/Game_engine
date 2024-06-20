@@ -7,7 +7,7 @@ public class Test {
 	public static void main(String args[]) throws IOException {
 		System.out.println("Hello!");
 		Field f = new Field(10,10);
-		f.printGame(System.out);
+//		f.printGame(System.out);
 	}
 
 }

@@ -89,7 +89,8 @@ public class WindowInitGame extends JFrame {
 		v2.centrerViewport(j2);
 		
 		//Création du lien entre Entity et Automate
-		tl.add(l_aut.getLast(), j1);
+		tl.add(l_aut.get(0), j1);
+		tl.add(l_aut.get(1), j2);
 
 		// ajout d'un Keylistener
 		Key_Listener k = new Key_Listener(terrain, kp);

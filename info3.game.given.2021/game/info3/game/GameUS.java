@@ -51,7 +51,7 @@ public class GameUS {
 		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/test_cond.gal");
 
 		//Initialisation de la fenêtre
-		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case, visibility);
+		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case, visibility, j1,j2);
 		
 		Viewport v1 = new Viewport(w.get_dt1(), T_case, visibility);
 		Viewport v2 = new Viewport(w.get_dt2(), T_case, visibility);

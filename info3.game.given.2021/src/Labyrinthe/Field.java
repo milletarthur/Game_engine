@@ -19,32 +19,6 @@ public class Field {
 	LinkedList<Pair<Integer, Integer>> mur = new LinkedList<Pair<Integer, Integer>>();
 	LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<Pair<Integer, Integer>>();
 
-	public Field(int lig, int col) {
-		if (col % 2 == 0) {
-			col++;
-		}
-		if (lig % 2 == 0) {
-			lig++;
-		}
-		tmp = new int[lig][col];
-		tmp2 = new int[lig][col];
-		this.colonne = col;
-		this.ligne = lig;
-		labyrinthe = new ArrayList<Object>(new ArrayList<Object>(new LinkedList<Entity>()));
-
-		for (int i = 0; i < lig; i++) {
-			ArrayList<LinkedList<Entity>> row = new ArrayList<>();
-			for (int j = 0; j < col; j++) {
-				row.add(new LinkedList<Entity>());
-			}
-			labyrinthe.add(row);
-		}
-
-		grille(lig, col);
-		grille2(lig, col);
-		labyrinthe();
-	}
-
 	public Field(int lig, int col, int densite) {
 		if (col % 2 == 0) {
 			col++;
@@ -134,9 +108,9 @@ public class Field {
 		grow_porte();
 		recup_liste_void();
 		recup_liste_mur();
-		// lave();
-		pickable(densite_pickable, mine, pomme, potion, pioche, bombe);
 		depot_mur(cassable, invisible, normal);
+		//pickable(densite_pickable, mine, pomme, potion, pioche, bombe);
+		
 		/*
 		 * Obstacle(densite, "Mine"); this.pickable(densite, "Pomme");
 		 * this.pickable(densite, "Potion"); this.pickable(densite, "Pioche");
@@ -794,7 +768,6 @@ public class Field {
 		}
 		int len_void = l_void.size();
 		int nb_libre_pour_pickable = densitepickable * len_void / 100;
-		//int nb_mine = (100 / mine) * nb_libre_pour_pickable / 100;
 		int nb_mine = ( nb_libre_pour_pickable * mine ) / densitepickable ;
 		int count = 0;
 		int x, y;
@@ -810,7 +783,6 @@ public class Field {
 			count++;
 		}
 		count = 0;
-		//int nb_pomme = (100 / pomme) * nb_libre_pour_pickable / 100;
 		int nb_pomme = ( nb_libre_pour_pickable * pomme ) / densitepickable ;
 		while (count < nb_pomme) {
 			x = r.nextInt(ligne - 1);
@@ -824,7 +796,6 @@ public class Field {
 			count++;
 		}
 		count = 0;
-		//int nb_potion = (100 / potion) * nb_libre_pour_pickable / 100;
 		int nb_potion = ( nb_libre_pour_pickable * potion ) / densitepickable ;
 		while (count < nb_potion) {
 			x = r.nextInt(ligne - 1);
@@ -838,7 +809,6 @@ public class Field {
 			count++;
 		}
 		count = 0;
-		//int nb_pioche = (100 / pioche) * nb_libre_pour_pickable / 100;
 		int nb_pioche = ( nb_libre_pour_pickable * pioche ) / densitepickable ;
 		while (count < nb_pioche) {
 			x = r.nextInt(ligne - 1);
@@ -852,7 +822,6 @@ public class Field {
 			count++;
 		}
 		count = 0;
-		//int nb_bombe = (100 / bombe) * nb_libre_pour_pickable / 100;
 		int nb_bombe = ( nb_libre_pour_pickable * bombe ) / densitepickable ;
 		while (count < nb_bombe) {
 			x = r.nextInt(ligne - 1);
@@ -932,6 +901,14 @@ public class Field {
 			for (int j = 0; j < colonne; j++) {
 				LinkedList<Entity> l = getElement(i, j);
 				if (l.getLast() instanceof Void) {
+					Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+					l_void.add(p);
+				}
+				else if (l.getLast() instanceof Cassable) {
+					Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+					l_void.add(p);
+				}
+				else if (l.getLast() instanceof Invisible) {
 					Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
 					l_void.add(p);
 				}

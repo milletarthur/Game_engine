@@ -869,6 +869,15 @@ public class Field {
 
 		return false;
 	}
+	
+	private Boolean ContientMineInterr( int l , int c ) {
+		Entity elm = this.getElement(l, c).getLast();
+		if (elm instanceof Mine || elm instanceof Interrupteur ) {
+			return true;
+		}
+
+		return false;
+	}
 
 	public Boolean ContientObs(int l, int c) {
 		/*
@@ -882,20 +891,38 @@ public class Field {
 
 			// Vérification ligne actuelle
 			for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
-				if (k_j != c && !(this.ContientVoidMur(k_i, k_j))) {
+				if (k_j != c && ( !(this.ContientVoidMur(k_i, k_j) ) || ( this.ContientMineInterr(k_i, k_j)) )) {
 					return false;
 				}
 			}
 
-			if (l > 0 && !(this.ContientVoidMur(l - 1, c))) {
+			if (l > 0 && ( !(this.ContientVoidMur(l - 1, c) ) || ( this.ContientMineInterr(l-1, c)) ) ) {
 				return false;
 			}
 			if (l < this.ligne - 1) {
-				if (!(this.ContientVoidMur(l + 1, c))) {
+				if (!(this.ContientVoidMur(l + 1, c)) || ( this.ContientMineInterr(l+ 1, c)) ) {
+
+					return false;
+				}
+				if ( c > 0 &&  ( this.ContientMineInterr(l+ 1, c - 1 )) ) {
+					return false;
+				}
+				if ( c < this.colonne-1 &&  ( this.ContientMineInterr(l+ 1, c + 1 )) ) {
+					return false;
+				} 
+			}
+			
+			if (l > 0) {
+				if ( c > 0 && ( this.ContientMineInterr(l-1, c-1) || this.ContientMineInterr(l, c-1)) ) {
+
+					return false;
+				}
+				if ( c < this.colonne - 1  && ( this.ContientMineInterr(l-1, c+1) || ( this.ContientMineInterr(l, c+1) )) ) {
 
 					return false;
 				}
 			}
+			
 		}
 		return true;
 		/*

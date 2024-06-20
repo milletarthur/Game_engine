@@ -54,4 +54,13 @@ public class Cell implements ICondition {
 		return dir;
 	}
 
+	public String toString() {
+		String s = "Cell(";
+		s += Integer.toString(dir);
+		s += ";";
+		s += Integer.toString(cat);
+		s += ")\n";
+		return s;
+		}
+	
 }

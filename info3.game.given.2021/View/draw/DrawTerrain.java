@@ -241,5 +241,22 @@ public class DrawTerrain extends JPanel {
 		}
 		return rand_mine_y[x][y];
 	}
+	
+	public static Image drawPickable(Entity e) {
+		if (e instanceof Apple) {
+			return pomme;
+		} else if (e instanceof Arc) {
+			return arc;
+		} else if (e instanceof Bombe) {
+			return bombe;
+		} else if (e instanceof Epee) {
+			return epee;
+		} else if (e instanceof Pioche) {
+			return pioche;
+		} else if (e instanceof Potion) {
+			return potion;
+		}
+		return null;
+	}
 
 }

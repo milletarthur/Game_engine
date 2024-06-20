@@ -20,19 +20,15 @@ public class DrawInventaire extends JPanel {
 
 	private Sprite INVENTAIRE;
 	private BufferedImage img_inventaire;
-
-	private static final int pv_total = JSONWindow.pv;
-
-	// TODO - pv_perdu a recuperer / variable ci-dessous temp pour test
-	// il y aura pour les deux joueurs
-	private int pv_perdu ; // pv_total - pv_act
-
+	
 	private static final int temps = JSONWindow.time; // en secondes
 	private int temps_actuel, cpt;
+	Joueur j1, j2;
 	
-	public DrawInventaire(int T_case, int visibility, Joueur j1, Joueur j2) throws IOException {
+	public DrawInventaire(Joueur j1, Joueur j2) throws IOException {
 		
-		this.pv_perdu = pv_total ;
+		this.j1 = j1;
+		this.j2 = j2;
 
 		// TODO - lui donner l'inventaire de chaque joueur pour avoir l'objet courant
 
@@ -89,8 +85,8 @@ public class DrawInventaire extends JPanel {
 			this.paintTimer();
 
 		// TODO - donner objet courant à la place de DrawTerrain...
-		invent1.setImage(img_inventaire, DrawTerrain.bombe, 0, 0, 65);
-		invent2.setImage(img_inventaire, DrawTerrain.arc, 0, 0, 65);
+		invent1.setImage(img_inventaire, DrawTerrain.drawPickable(j1.picked()), 0, 0, 65);
+		invent2.setImage(img_inventaire, DrawTerrain.drawPickable(j2.picked()), 0, 0, 65);
 	}
 
 	public void settimer(TicTac t) {

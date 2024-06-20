@@ -1,42 +1,41 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Apple extends Entity {
+	
+	boolean poison;
 
-	public Apple(int x, int y, int team, int category, Field f) {
-		this.x = x;
-		this.y = y;
-		this.category = category;
-		this.team = team;
-		this.f = f;
+	public Apple(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
+		this.category = Categorie.P;
+		this.team = 3;
+		layer = 2;
 	}
 
 	@Override
-	void egg(int x, int y) {
-		new Apple(x, y, this.team, this.category, this.f);
-	}
-
-	@Override
-	public void move() {
-	}
-
-	@Override
-	public void pick() {
-	}
-
-	@Override
-	public void turn(int dir) {
+	public Entity egg(int colonne, int ligne) {
+		return new Apple(colonne, ligne);
 	}
 
 	@Override
 	public void pop() {
+		poison = false;
 	}
 
 	@Override
 	public void wizz() {
+		poison = true;
 	}
 
 	@Override
-	public void explode() {
+	public int hit() {
+		return -3;
+	}
+	
+	public boolean poisoned() {
+		return poison;
 	}
 
 }

@@ -1,5 +1,8 @@
+package ViewWindow;
 import java.awt.*;
 import javax.swing.*;
+
+import controller.TicTac;
 
 public class DrawTicTac extends JPanel {
 	

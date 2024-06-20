@@ -1,37 +1,21 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Void extends Entity {
+	
 
-	public Void(int x, int y, int team, int category, Field f) {
-		this.x = x;
-		this.y = y;
-		this.category = category;
-		this.team = team;
-		this.f = f;
+	public Void(int ligne, int colonne) {
+		this.ligne = ligne;
+		this.colonne = colonne;
+		this.category = Categorie.V;
+		this.team = 6;
+		this.layer = 1;
 	}
 
 	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
+	public Entity egg(int ligne, int colonne) {
+		return new Void(ligne,colonne);
 	}
 
 	@Override
@@ -45,11 +29,11 @@ public class Void extends Entity {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	@Override
-	public void explode() {
+	public int hit() {
 		// TODO Auto-generated method stub
-
+		return 0;
 	}
 
 }

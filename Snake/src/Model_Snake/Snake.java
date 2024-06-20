@@ -3,6 +3,7 @@ package Model_Snake;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import toolkit.Categorie;
 import toolkit.Direction;
 
 public class Snake extends Entity {
@@ -18,22 +19,25 @@ public class Snake extends Entity {
 	}
 
 	public void grow() {
-		Queue last = queue.getLast();
-		if(last == null)
-			last = new Queue(this.x, this.y, this.team, this.category, this.f);
-		Queue q = new Queue(last.x(), last.y(), this.team, this.category, this.f);
+		Queue last;
+		if (queue.isEmpty()) {
+			last = new Queue(this.x, this.y, this.team, Categorie.T, this.f);
+		} else {
+			last = queue.getLast();
+		}
+		Queue q = new Queue(last.x(), last.y(), this.team, Categorie.T, this.f);
 		switch(this.Orientation) {
 		case Direction.N:
-			q = new Queue(last.x(), last.y()+1, this.team, this.category, this.f);
+			q = new Queue(last.x(), last.y(), this.team, Categorie.T, this.f);
 			break;
 		case Direction.S:
-			q = new Queue(last.x(), last.y()-1, this.team, this.category, this.f);
+			q = new Queue(last.x(), last.y(), this.team, Categorie.T, this.f);
 			break;
 		case Direction.W:
-			q = new Queue(last.x()+1, last.y(), this.team, this.category, this.f);
+			q = new Queue(last.x(), last.y(), this.team, Categorie.T, this.f);
 			break;
 		case Direction.E:
-			q = new Queue(last.x()-1, last.y(), this.team, this.category, this.f);
+			q = new Queue(last.x(), last.y(), this.team, Categorie.T, this.f);
 			break;
 		}
 		queue.addLast(q);
@@ -44,17 +48,24 @@ public class Snake extends Entity {
 		int a = this.x;
 		int o = this.y;
 		int a1, o1;
+		int new_x = this.x;
+		int new_y = this.y;
+		int new_Orientation = Orientation;
 		switch (Orientation) {
 		case Direction.N:
+			new_y--;
 			this.y -= 1;
 			break;
 		case Direction.S:
+			new_y++;
 			this.y += 1;
 			break;
 		case Direction.E:
+			new_x++;
 			this.x += 1;
 			break;
 		case Direction.W:
+			new_x--;
 			this.x -= 1;
 			break;
 		default:
@@ -66,11 +77,12 @@ public class Snake extends Entity {
 			q = i.next();
 			a1 = q.x();
 			o1 = q.y();
-			q.move(a, o);
+			int Old_Orientation = q.direction();
+			q.move(a, o, new_Orientation);
 
 			a = a1;
 			o = o1;
-
+			new_Orientation = Old_Orientation;
 		}
 	}
 
@@ -92,6 +104,7 @@ public class Snake extends Entity {
 				rv = this.Orientation;
 				break;
 			}
+			break;
 		case Direction.S:
 			switch (dir) {
 			case Direction.L:
@@ -107,6 +120,7 @@ public class Snake extends Entity {
 				rv = this.Orientation;
 				break;
 			}
+			break;
 		case Direction.E:
 			switch (dir) {
 			case Direction.L:
@@ -122,6 +136,7 @@ public class Snake extends Entity {
 				rv = this.Orientation;
 				break;
 			}
+			break;
 		case Direction.W:
 			switch (dir) {
 			case Direction.L:
@@ -137,6 +152,7 @@ public class Snake extends Entity {
 				rv = this.Orientation;
 				break;
 			}
+			break;
 		default:
 			rv = this.Orientation;
 			break;
@@ -144,27 +160,33 @@ public class Snake extends Entity {
 		this.Orientation = rv;
 	}
 
+	public LinkedList<Queue> getQueue(){
+		return queue;
+	}
+	
 	public int length() {
 		return length;
 	}
 
 	public void pick() {
-		int alea = (int) Math.random();
-		if (alea % 2 == 0) {
-			grow();
-		} else {
-			int x2 = (int) Math.random() % this.f.get_ligne();
-			int y2 = (int) Math.random() % this.f.get_colonne();
-			while (!(this.f.elementAt(x2, y2) instanceof Void)) {
-				x2 = (int) Math.random() % this.f.get_ligne();
-				y2 = (int) Math.random() % this.f.get_colonne();
-			}
-			egg(x2, y2);
-		}
+		grow();
 	}
 
 	@Override
 	public void egg(int x, int y) {
-		new Snake(x, y, this.team, this.category, this.f);
+		Snake s = new Snake(x, y, this.team, this.category, this.f);
+	}
+	
+	@Override
+	public void kill() {
+		super.kill();
+		x = -1;
+		y = -1;
+		length = 1;
+		Iterator<Queue> iter = queue.iterator();
+		while(iter.hasNext()) {
+			Queue q = iter.next();
+			q.kill();
+		}
 	}
 }

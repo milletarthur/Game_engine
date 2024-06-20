@@ -1,6 +1,10 @@
+package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
+
+import ViewWindow.Window;
+import info3.game.Game;
 
 /*
  * Copyright (C) 2020  Pr. Olivier Gruber
@@ -12,13 +16,15 @@ public class TicTac {
 	long last_tick ;
 	long init = System.currentTimeMillis();
 	
-	private static final int TICK_PERIOD = 1000; // en milliseconde
+	private static final int TICK_PERIOD = 500; // en milliseconde
 	
-	Window w ;
+	private Window w ;
+	private TickListener List;
 
-	public TicTac(Window w) { // initialise le timer
+	public TicTac(Window w, TickListener List) { // initialise le timer
 		this.w = w ;
 		this.createTimer();
+		this.List = List;
 	}
 
 	private void createTimer() {
@@ -33,7 +39,8 @@ public class TicTac {
     }
 
     private void tick() {
-    	last_tick = (System.currentTimeMillis() - init) / 1000 ;
+    	List.step();
+    	last_tick = (System.currentTimeMillis() - init) / 500 ;
         w.repaint();
         //System.out.println("Tick at: " + last_tick);
     }

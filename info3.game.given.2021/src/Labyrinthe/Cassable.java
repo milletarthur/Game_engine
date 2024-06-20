@@ -1,35 +1,24 @@
 package Labyrinthe;
 
+import toolkit.Categorie;
+
 public class Cassable extends Mur {
-
-	@Override
-	void egg(int x, int y) {
-		// TODO Auto-generated method stub
-
+	public Cassable(int ligne, int colonne) {
+		this.colonne = colonne;
+		this.ligne = ligne;
+		this.category = Categorie.G;
+		this.team = 4;
+		layer = 3;
 	}
 
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void turn(int dir) {
-		// TODO Auto-generated method stub
-
+	public Entity egg(int ligne, int colonne) {
+		return new Cassable(ligne,colonne);
 	}
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		explode();
 	}
 
 	@Override
@@ -39,9 +28,9 @@ public class Cassable extends Mur {
 	}
 
 	@Override
-	public void explode() {
+	public int hit() {
 		// TODO Auto-generated method stub
-
+		return 0;
 	}
 
 }

@@ -29,7 +29,7 @@ public class Viewport extends JViewport {
 			x = 0;
 		if (y < 0)
 			y = 0;
-		this.setViewPosition(new Point(x, y));		
+		this.setViewPosition(new Point(y, x));		
 
 	}
 

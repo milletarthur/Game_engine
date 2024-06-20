@@ -15,56 +15,20 @@ public class Field {
 	private int[][] tmp2;
 	private int[][] tmp3;
 	ArrayList<Object> labyrinthe;
+	Random rand;
 	LinkedList<Pair<Integer, Integer>> l_void = new LinkedList<Pair<Integer, Integer>>();
 	LinkedList<Pair<Integer, Integer>> mur = new LinkedList<Pair<Integer, Integer>>();
 	LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<Pair<Integer, Integer>>();
 
-	public Field(int lig, int col, int densite) {
-		if (col % 2 == 0) {
-			col++;
-		}
-		if (lig % 2 == 0) {
-			lig++;
-		}
-		tmp = new int[lig][col];
-
-		tmp2 = new int[lig][col];
-		tmp3 = new int[lig][col];
-		this.colonne = col;
-		this.ligne = lig;
-		labyrinthe = new ArrayList<Object>(new ArrayList<Object>(new LinkedList<Entity>()));
-
-		for (int i = 0; i < lig; i++) {
-			ArrayList<LinkedList<Entity>> row = new ArrayList<>();
-			for (int j = 0; j < col; j++) {
-				row.add(new LinkedList<Entity>());
-			}
-			labyrinthe.add(row);
-		}
-		grille(lig, col);
-		grille2(lig, col);
-		for (int i = 0; i < ligne; i++) {
-			for (int j = 0; j < colonne; j++) {
-				tmp2[i][j] = tmp[i][j];
-			}
-		}
-
-		labyrinthe();
-		recup_liste_void_cassable_invisible();
-		grow();
-		System.out.println("Labyrinthe initial sans obstacles :\n\n");
-		printGame();
-		System.out.println("\n\nLabyrinthe Avec obstacles :\n\n");
-	}
-
 	public Field(int lig, int col, int densite_field, int densite_pickable, int mine, int pomme, int potion, int pioche,
-			int bombe, int cassable, int invisible, int normal, int nb_porte_sable, int nb_ennemis) {
+			int bombe, int cassable, int invisible, int normal, int nb_porte_sable, int nb_ennemis, Random r) {
 		if (col % 2 == 0) {
 			col++;
 		}
 		if (lig % 2 == 0) {
 			lig++;
 		}
+		this.rand = r;
 		tmp = new int[lig][col];
 
 		tmp2 = new int[lig][col];
@@ -114,15 +78,14 @@ public class Field {
 	}
 
 	void depot_ennemis(int nb) {
-		Random r = new Random();
 		int count = 0;
 		while (count < nb) {
 			int i, j;
-			i = r.nextInt(ligne);
-			j = r.nextInt(colonne - 11) + 10;
+			i = rand.nextInt(ligne);
+			j = rand.nextInt(colonne - 11) + 10;
 			while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
-				i = r.nextInt(ligne - 1);
-				j = r.nextInt(colonne - 11) + 10;
+				i = rand.nextInt(ligne - 1);
+				j = rand.nextInt(colonne - 11) + 10;
 			}
 			Squelette s = new Squelette(i, j);
 			set_element2(i, j, s, labyrinthe);
@@ -131,11 +94,11 @@ public class Field {
 		count = 0;
 		while (count < nb) {
 			int i, j;
-			i = r.nextInt(ligne);
-			j = r.nextInt(colonne - 11) + 10;
+			i = rand.nextInt(ligne);
+			j = rand.nextInt(colonne - 11) + 10;
 			while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
-				i = r.nextInt(ligne - 1);
-				j = r.nextInt(colonne - 11) + 10;
+				i = rand.nextInt(ligne - 1);
+				j = rand.nextInt(colonne - 11) + 10;
 			}
 			Zombie z = new Zombie(i, j);
 			set_element2(i, j, z, labyrinthe);
@@ -244,7 +207,6 @@ public class Field {
 		if (nb_porte == 0) {
 			return;
 		}
-		Random r = new Random();
 		int count = 0;
 		LinkedList<Pair<Integer, Integer>> chemin2 = new LinkedList<Pair<Integer, Integer>>();
 		for (int i = 1; i < chemin.size(); i++) {
@@ -315,14 +277,14 @@ public class Field {
 			int y;
 			if (condition == 0) {
 
-				int levier = r.nextInt(chemin3.size() - 2);
+				int levier = rand.nextInt(chemin3.size() - 2);
 				while (!(get_element2(chemin3.get(levier).geto1(), chemin3.get(levier).geto2(),
 						labyrinthe) instanceof Void)
 						&& (get_element2(chemin3.get(levier).geto1(), chemin3.get(levier).geto2(),
 								labyrinthe) instanceof Porte)
 						&& (get_element2(chemin3.get(levier).geto1(), chemin3.get(levier).geto2(),
 								labyrinthe) instanceof Sable)) {
-					levier = r.nextInt(chemin3.size() - 2);
+					levier = rand.nextInt(chemin3.size() - 2);
 				}
 
 				x = chemin3.get(levier).geto1();
@@ -400,22 +362,21 @@ public class Field {
 	}
 
 	public void depot_teleporteur() {
-		Random r = new Random();
 		int i, j;
-		i = r.nextInt(ligne);
-		j = r.nextInt(colonne - 2) + 1;
+		i = rand.nextInt(ligne);
+		j = rand.nextInt(colonne - 2) + 1;
 		while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
-			i = r.nextInt(ligne - 1);
-			j = r.nextInt(colonne - 2) + 1;
+			i = rand.nextInt(ligne - 1);
+			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t = new Teleporteur(i, j);
 		set_element3(i, j, t, labyrinthe);
 		Entity en = get_element2(i, j, labyrinthe);
-		i = r.nextInt(ligne);
-		j = r.nextInt(colonne - 2) + 1;
+		i = rand.nextInt(ligne);
+		j = rand.nextInt(colonne - 2) + 1;
 		while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
-			i = r.nextInt(ligne - 1);
-			j = r.nextInt(colonne - 2) + 1;
+			i = rand.nextInt(ligne - 1);
+			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t1 = new Teleporteur(i, j);
 		set_element3(i, j, t1, labyrinthe);
@@ -423,20 +384,20 @@ public class Field {
 		((Teleporteur) en).set_voisin(en1);
 		((Teleporteur) en1).set_voisin(en);
 
-		i = r.nextInt(ligne);
-		j = r.nextInt(colonne - 2) + 1;
+		i = rand.nextInt(ligne);
+		j = rand.nextInt(colonne - 2) + 1;
 		while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
-			i = r.nextInt(ligne - 1);
-			j = r.nextInt(colonne - 2) + 1;
+			i = rand.nextInt(ligne - 1);
+			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t2 = new Teleporteur(i, j);
 		set_element3(i, j, t2, labyrinthe);
 		Entity en2 = get_element2(i, j, labyrinthe);
-		i = r.nextInt(ligne);
-		j = r.nextInt(colonne - 2) + 1;
+		i = rand.nextInt(ligne);
+		j = rand.nextInt(colonne - 2) + 1;
 		while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
-			i = r.nextInt(ligne - 1);
-			j = r.nextInt(colonne - 2) + 1;
+			i = rand.nextInt(ligne - 1);
+			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t3 = new Teleporteur(i, j);
 		set_element3(i, j, t3, labyrinthe);
@@ -463,7 +424,6 @@ public class Field {
 	}
 
 	public void depot_mur(int cassable, int invisible, int normal) {
-		Random r = new Random();
 		int len_mur = mur.size();
 		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
@@ -471,11 +431,11 @@ public class Field {
 		int count = 0;
 		int x, y;
 		while (count < nb_pour_cassable) {
-			x = r.nextInt(ligne - 1);
-			y = r.nextInt(colonne - 1);
+			x = rand.nextInt(ligne - 1);
+			y = rand.nextInt(colonne - 1);
 			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
-				x = r.nextInt(ligne - 1);
-				y = r.nextInt(colonne - 1);
+				x = rand.nextInt(ligne - 1);
+				y = rand.nextInt(colonne - 1);
 			}
 			Cassable m = new Cassable(x, y);
 			set_element3(x, y, m, labyrinthe);
@@ -484,11 +444,11 @@ public class Field {
 		count = 0;
 		int nb_pour_invisible = invisible * len_mur / 100;
 		while (count < nb_pour_invisible) {
-			x = r.nextInt(ligne - 1);
-			y = r.nextInt(colonne - 1);
+			x = rand.nextInt(ligne - 1);
+			y = rand.nextInt(colonne - 1);
 			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
-				x = r.nextInt(ligne - 1);
-				y = r.nextInt(colonne - 1);
+				x = rand.nextInt(ligne - 1);
+				y = rand.nextInt(colonne - 1);
 			}
 			Invisible m = new Invisible(x, y);
 			set_element3(x, y, m, labyrinthe);
@@ -497,11 +457,11 @@ public class Field {
 		count = 0;
 		int nb_pour_normal = normal * len_mur / 100;
 		while (count < nb_pour_normal) {
-			x = r.nextInt(ligne - 1);
-			y = r.nextInt(colonne - 1);
+			x = rand.nextInt(ligne - 1);
+			y = rand.nextInt(colonne - 1);
 			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
-				x = r.nextInt(ligne - 1);
-				y = r.nextInt(colonne - 1);
+				x = rand.nextInt(ligne - 1);
+				y = rand.nextInt(colonne - 1);
 			}
 			Normal m = new Normal(x, y);
 			set_element3(x, y, m, labyrinthe);
@@ -528,8 +488,6 @@ public class Field {
 
 	////////// algorithme d'accessibilité
 	public void grille2(int l, int c) {
-
-		Random rand = new Random();
 		int c1 = tmp[1][0];
 		int c2;
 		int count = 0;
@@ -661,8 +619,6 @@ public class Field {
 	public void grow() {
 		int nb_ligne = ligne;
 		int nb_colonne = 2 * colonne;
-//		Random rdm = new Random();
-//		Entity e;
 		LinkedList<Entity> l;
 		ArrayList<Object> new_labyrinthe = new ArrayList<Object>();
 		for (int i = 0; i < ligne; i++) {
@@ -842,7 +798,6 @@ public class Field {
 	}
 
 	void detruire_mur(int densite) {
-		Random rand = new Random();
 		int nb_mur_totale = calcul_nombre_mur();
 		int new_nb_mur = nb_mur_totale;
 		int d = new_nb_mur * 100 / nb_mur_totale;
@@ -972,7 +927,6 @@ public class Field {
 	}
 
 	public void depot_mine(int densitepickable, int mine) {
-		Random r = new Random();
 		if (densitepickable == 0) {
 			return;
 		}
@@ -982,11 +936,11 @@ public class Field {
 		int count = 0;
 		int x, y;
 		while (count < nb_mine) {
-			x = r.nextInt(ligne - 3) + 1;
-			y = r.nextInt(colonne - 3) + 1;// - 1);\
+			x = rand.nextInt(ligne - 3) + 1;
+			y = rand.nextInt(colonne - 3) + 1;// - 1);\
 			while ((this.verification(x, y)) == false) {
-				x = r.nextInt(ligne - 3) + 1;
-				y = r.nextInt(colonne - 3) + 1;
+				x = rand.nextInt(ligne - 3) + 1;
+				y = rand.nextInt(colonne - 3) + 1;
 			}
 			Mine m = new Mine(x, y);
 			set_element2(x, y, m, labyrinthe);
@@ -995,7 +949,6 @@ public class Field {
 	}
 
 	public void pickable(int densitepickable, int pomme, int potion, int pioche, int bombe) {
-		Random r = new Random();
 		if (densitepickable == 0) {
 			return;
 		}
@@ -1005,13 +958,13 @@ public class Field {
 		int x, y;
 		int nb_pomme = (nb_libre_pour_pickable * pomme) / densitepickable;
 		while (count < nb_pomme) {
-			x = r.nextInt(ligne - 1);
-			y = r.nextInt(colonne - 2) + 1;
+			x = rand.nextInt(ligne - 1);
+			y = rand.nextInt(colonne - 2) + 1;
 			while (!(get_element2(x, y, labyrinthe) instanceof Void)
 					&& !(get_element2(x, y, labyrinthe) instanceof Cassable)
 					&& !(get_element2(x, y, labyrinthe) instanceof Invisible)) {
-				x = r.nextInt(ligne - 1);
-				y = r.nextInt(colonne - 2) + 1;
+				x = rand.nextInt(ligne - 1);
+				y = rand.nextInt(colonne - 2) + 1;
 			}
 			Apple a = new Apple(x, y);
 			if (get_element2(x, y, labyrinthe) instanceof Cassable) {
@@ -1026,13 +979,13 @@ public class Field {
 		count = 0;
 		int nb_potion = (nb_libre_pour_pickable * potion) / densitepickable;
 		while (count < nb_potion) {
-			x = r.nextInt(ligne - 1);
-			y = r.nextInt(colonne - 2) + 1;
+			x = rand.nextInt(ligne - 1);
+			y = rand.nextInt(colonne - 2) + 1;
 			while (!(get_element2(x, y, labyrinthe) instanceof Void)
 					&& !(get_element2(x, y, labyrinthe) instanceof Cassable)
 					&& !(get_element2(x, y, labyrinthe) instanceof Invisible)) {
-				x = r.nextInt(ligne - 1);
-				y = r.nextInt(colonne - 2) + 1;
+				x = rand.nextInt(ligne - 1);
+				y = rand.nextInt(colonne - 2) + 1;
 			}
 			Potion pot = new Potion(x, y);
 			if (get_element2(x, y, labyrinthe) instanceof Cassable) {
@@ -1047,13 +1000,13 @@ public class Field {
 		count = 0;
 		int nb_pioche = (nb_libre_pour_pickable * pioche) / densitepickable;
 		while (count < nb_pioche) {
-			x = r.nextInt(ligne - 1);
-			y = r.nextInt(colonne - 2) + 1;
+			x = rand.nextInt(ligne - 1);
+			y = rand.nextInt(colonne - 2) + 1;
 			while (!(get_element2(x, y, labyrinthe) instanceof Void)
 					&& !(get_element2(x, y, labyrinthe) instanceof Cassable)
 					&& !(get_element2(x, y, labyrinthe) instanceof Invisible)) {
-				x = r.nextInt(ligne - 1);
-				y = r.nextInt(colonne - 2) + 1;
+				x = rand.nextInt(ligne - 1);
+				y = rand.nextInt(colonne - 2) + 1;
 			}
 			Pioche pio = new Pioche(x, y);
 			if (get_element2(x, y, labyrinthe) instanceof Cassable) {
@@ -1068,13 +1021,13 @@ public class Field {
 		count = 0;
 		int nb_bombe = (nb_libre_pour_pickable * bombe) / densitepickable;
 		while (count < nb_bombe) {
-			x = r.nextInt(ligne - 1);
-			y = r.nextInt(colonne - 2) + 1;
+			x = rand.nextInt(ligne - 1);
+			y = rand.nextInt(colonne - 2) + 1;
 			while (!(get_element2(x, y, labyrinthe) instanceof Void)
 					&& !(get_element2(x, y, labyrinthe) instanceof Cassable)
 					&& !(get_element2(x, y, labyrinthe) instanceof Invisible)) {
-				x = r.nextInt(ligne - 1);
-				y = r.nextInt(colonne - 2) + 1;
+				x = rand.nextInt(ligne - 1);
+				y = rand.nextInt(colonne - 2) + 1;
 			}
 			Bombe b = new Bombe(x, y);
 			if (get_element2(x, y, labyrinthe) instanceof Cassable) {

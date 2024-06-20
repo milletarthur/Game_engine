@@ -58,7 +58,7 @@ public class Field {
 	}
 
 	public Field(int lig, int col, int densite_field, int densite_pickable, int mine, int pomme, int potion, int pioche,
-			int bombe, int cassable, int invisible, int normal, int nb_porte_sable) {
+			int bombe, int cassable, int invisible, int normal, int nb_porte_sable, int nb_ennemis) {
 		if (col % 2 == 0) {
 			col++;
 		}
@@ -107,8 +107,40 @@ public class Field {
 		grow_porte();
 		depot_teleporteur();
 		recup_liste_void_cassable_invisible();
-		pickable(densite_pickable, mine, pomme, potion, pioche, bombe);
+		depot_mine(densite_pickable, mine);
+		pickable(densite_pickable, pomme, potion, pioche, bombe);
+		depot_ennemis(nb_ennemis);
 
+	}
+
+	void depot_ennemis(int nb) {
+		Random r = new Random();
+		int count = 0;
+		while (count < nb) {
+			int i, j;
+			i = r.nextInt(ligne);
+			j = r.nextInt(colonne - 11) + 10;
+			while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
+				i = r.nextInt(ligne - 1);
+				j = r.nextInt(colonne - 11) + 10;
+			}
+			Squelette s = new Squelette(i, j);
+			set_element2(i, j, s, labyrinthe);
+			count++;
+		}
+		count = 0;
+		while (count < nb) {
+			int i, j;
+			i = r.nextInt(ligne);
+			j = r.nextInt(colonne - 11) + 10;
+			while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
+				i = r.nextInt(ligne - 1);
+				j = r.nextInt(colonne - 11) + 10;
+			}
+			Zombie z = new Zombie(i, j);
+			set_element2(i, j, z, labyrinthe);
+			count++;
+		}
 	}
 
 	void trouver_chemin_1() {
@@ -590,7 +622,6 @@ public class Field {
 				Entity e = getElement(i, j).getLast();
 				if (e instanceof Void)
 					System.out.print(" ");
-
 				if (e instanceof Mine)
 					System.out.print("*");
 				if (e instanceof Sable)
@@ -617,6 +648,10 @@ public class Field {
 					System.out.print("#");
 				if (e instanceof Teleporteur)
 					System.out.print("+");
+				if (e instanceof Squelette)
+					System.out.print("§");
+				if (e instanceof Zombie)
+					System.out.print("%");
 			}
 			System.out.print("\n");
 
@@ -896,7 +931,47 @@ public class Field {
 		 */
 	}
 
-	public void pickable(int densitepickable, int mine, int pomme, int potion, int pioche, int bombe) {
+	boolean verification(int i, int j) {
+		boolean bool = true;
+		if (!(get_element2(i, j, labyrinthe) instanceof Void)) {
+			bool = false;
+		}
+		if (!(get_element2(i - 1, j - 1, labyrinthe) instanceof Void)
+				&& !(get_element2(i - 1, j - 1, labyrinthe) instanceof Mur)) {
+			bool = false;
+		}
+		if (!(get_element2(i, j - 1, labyrinthe) instanceof Void)
+				&& !(get_element2(i, j - 1, labyrinthe) instanceof Mur)) {
+			bool = false;
+		}
+		if (!(get_element2(i + 1, j - 1, labyrinthe) instanceof Void)
+				&& !(get_element2(i + 1, j - 1, labyrinthe) instanceof Mur)) {
+			bool = false;
+		}
+		if (!(get_element2(i - 1, j, labyrinthe) instanceof Void)
+				&& !(get_element2(i - 1, j, labyrinthe) instanceof Mur)) {
+			bool = false;
+		}
+		if (!(get_element2(i + 1, j, labyrinthe) instanceof Void)
+				&& !(get_element2(i + 1, j, labyrinthe) instanceof Mur)) {
+			bool = false;
+		}
+		if (!(get_element2(i - 1, j + 1, labyrinthe) instanceof Void)
+				&& !(get_element2(i - 1, j + 1, labyrinthe) instanceof Mur)) {
+			bool = false;
+		}
+		if (!(get_element2(i, j + 1, labyrinthe) instanceof Void)
+				&& !(get_element2(i, j + 1, labyrinthe) instanceof Mur)) {
+			bool = false;
+		}
+		if (!(get_element2(i + 1, j + 1, labyrinthe) instanceof Void)
+				&& !(get_element2(i + 1, j + 1, labyrinthe) instanceof Mur)) {
+			bool = false;
+		}
+		return bool;
+	}
+
+	public void depot_mine(int densitepickable, int mine) {
 		Random r = new Random();
 		if (densitepickable == 0) {
 			return;
@@ -907,17 +982,27 @@ public class Field {
 		int count = 0;
 		int x, y;
 		while (count < nb_mine) {
-			x = r.nextInt(ligne);// - 1);
-			y = r.nextInt(colonne);// - 1);
-			while ((this.ContientObs(x, y)) ) {
-				x = r.nextInt(ligne);
-				y = r.nextInt(colonne);
+			x = r.nextInt(ligne - 3) + 1;
+			y = r.nextInt(colonne - 3) + 1;// - 1);\
+			while ((this.verification(x, y)) == false) {
+				x = r.nextInt(ligne - 3) + 1;
+				y = r.nextInt(colonne - 3) + 1;
 			}
 			Mine m = new Mine(x, y);
 			set_element2(x, y, m, labyrinthe);
 			count++;
 		}
-		count = 0;
+	}
+
+	public void pickable(int densitepickable, int pomme, int potion, int pioche, int bombe) {
+		Random r = new Random();
+		if (densitepickable == 0) {
+			return;
+		}
+		int len_void = l_void.size();
+		int nb_libre_pour_pickable = densitepickable * len_void / 100;
+		int count = 0;
+		int x, y;
 		int nb_pomme = (nb_libre_pour_pickable * pomme) / densitepickable;
 		while (count < nb_pomme) {
 			x = r.nextInt(ligne - 1);
@@ -1001,11 +1086,6 @@ public class Field {
 			}
 			count++;
 		}
-
-		// System.out.printf("nb_void = \t%d, pourcentage_field = \t%d, field = \t%d,
-		// librepickable = \t%d, nb_mine = \t%d \n", len_void, pourcentage_field,
-		// ligne*colonne, nb_libre_pour_pickable, nb_mine);
-
 	}
 
 	public LinkedList<Entity> getElement(int i, int j) {

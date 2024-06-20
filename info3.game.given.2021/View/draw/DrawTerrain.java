@@ -169,6 +169,7 @@ public class DrawTerrain extends JPanel {
 		// joueurs
 		this.PLAYER = new Sprite("resources/graphisme/Personnages/sprites_weaponless.png", 26, 26);
 		this.player1 = PLAYER.getSprite(0, 20);
+//		this.player1 = (BufferedImage) drawEntity("resources/graphisme/mur.png");
 		this.player2 = PLAYER.getSprite(0, 0);
 
 		// sol
@@ -188,7 +189,7 @@ public class DrawTerrain extends JPanel {
 		this.epee = ITEM.getSprite(9, 11);
 
 		// déplacements
-		this.DEPLAC = new Sprite("resources/graphisme/actives.png", 14, 14);
+		this.DEPLAC = new Sprite("resources/graphisme/actives.png", 26, 26);
 		this.porte_fermee = DEPLAC.getSprite(0, 9);
 		this.porte_ouverte = DEPLAC.getSprite(0, 10);
 		this.teleporte = DEPLAC.getSprite(0, 13);

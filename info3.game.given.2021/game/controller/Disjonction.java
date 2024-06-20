@@ -42,4 +42,12 @@ public class Disjonction implements ICondition {
 		// TODO Auto-generated method stub
 		return -5;
 	}
+	
+	@Override
+	public String toString() {
+		String s = c1.toString();
+		s += " || ";
+		s += c2.toString();
+		return s;
+		}
 }

@@ -73,4 +73,12 @@ public class Got implements ICondition {
 	public int getvalue() {
 		return value;
 	}
+	
+	@Override
+	public String toString() {
+		String s = "Got(";
+		s += Integer.toString(value);
+		s += ")";
+		return s;
+		}
 }

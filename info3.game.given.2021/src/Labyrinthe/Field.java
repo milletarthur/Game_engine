@@ -980,6 +980,41 @@ public class Field {
 		int[] rv = new int[2];
 		rv[0] = e.ligne();
 		rv[1] = e.colonne();
+		if (d > 0) {
+			switch (d) {
+			case Direction.N:
+				rv[0]--;
+				break;
+			case Direction.S:
+				rv[0]++;
+				break;
+			case Direction.E:
+				rv[1]++;
+				break;
+			case Direction.W:
+				rv[1]--;
+				break;
+			case Direction.NE:
+				rv[0]--;
+				rv[1]++;
+				break;
+			case Direction.SE:
+				rv[0]--;
+				rv[1]++;
+				break;
+			case Direction.NW:
+				rv[0]++;
+				rv[1]--;
+				break;
+			case Direction.SW:
+				rv[0]++;
+				rv[1]--;
+				break;	
+			default :
+				break;
+			}
+			return rv;
+		}
 		if (d == Direction.H)
 			return rv;
 		switch (e.direction()) {
@@ -1129,6 +1164,8 @@ public class Field {
 		int[] coo = next_to(e, dir);
 		int ligne = coo[0];
 		int colonne = coo[1];
+		if (! isValidPosition1(coo[0], coo[1]))
+			return false;
 		LinkedList<Entity> elem = getElement(ligne, colonne);
 		int ilastelem = elem.size() - 1;
 		if (elem.getLast() instanceof Selection)
@@ -1242,5 +1279,18 @@ public class Field {
 	
 	public ArrayList<Object> get_labyrinthe(){
 		return this.labyrinthe;
+	}
+	
+	public LinkedList<LinkedList<Entity>> getAround(int ligne, int colonne){
+		LinkedList<LinkedList<Entity>> l_around = new LinkedList<LinkedList<Entity>>();
+		l_around.addLast(getElement(ligne-1, colonne));
+		l_around.addLast(getElement(ligne-1, colonne+1));
+		l_around.addLast(getElement(ligne, colonne+1));
+		l_around.addLast(getElement(ligne+1, colonne+1));
+		l_around.addLast(getElement(ligne+1, colonne));
+		l_around.addLast(getElement(ligne+1, colonne-1));
+		l_around.addLast(getElement(ligne, colonne-1));
+		l_around.addLast(getElement(ligne-1, colonne-1));
+		return l_around;
 	}
 }

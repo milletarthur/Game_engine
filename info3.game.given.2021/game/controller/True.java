@@ -36,4 +36,10 @@ public class True implements ICondition{
 		return -5;
 	}
 	
+	@Override
+	public String toString() {
+		String s = "True";
+		return s;
+		}
+	
 }

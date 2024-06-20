@@ -18,7 +18,6 @@ public class Sable extends Entity {
 
 	@Override
 	public void pop() {
-		
 	}
 
 	@Override

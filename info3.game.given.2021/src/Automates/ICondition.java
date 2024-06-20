@@ -15,4 +15,6 @@ public interface ICondition {
 	public int getCategorie();
 	
 	public int getDirection();
+	
+	public String toString();
 }

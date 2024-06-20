@@ -28,13 +28,25 @@ public class WindowInitGame extends JFrame {
 	JTextField name1, name2;
 	JRadioButton labyrinthe, arene;
 	JSlider s_HAUTEUR, s_LARGEUR, s_VISIBILITY;
+	Image init;
 
 	public WindowInitGame() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Bienvenue dans ce moteur de Jeux");
 		this.setSize(450, 400);
 		
-		JPanel choice = new JPanel();
+		this.init = DrawTerrain.drawEntity("resources/graphisme/init.png");
+		
+		JPanel choice = new JPanel() {
+			private static final long serialVersionUID = 1L;
+			@Override
+		    protected void paintComponent(Graphics g) {
+		        super.paintComponent(g);
+		            g.drawImage(init, 0, 0, this.getWidth(), this.getHeight(), this);
+		    }
+			
+		};
+		choice.setLayout(null);
 		choice.setBackground(Color.BLACK);
 		JLabel jeu = new JLabel("Sélection du jeu : ");
 		labyrinthe = new JRadioButton("Labyrinthe");
@@ -43,12 +55,22 @@ public class WindowInitGame extends JFrame {
 		group.add(labyrinthe);
 		group.add(arene);
 		
+		jeu.setForeground(Color.WHITE);
+		jeu.setBounds(165, 155, 200, 20);
+		labyrinthe.setBounds(171,180,110,30);
+		arene.setBounds(171,215,110,30);
+		labyrinthe.setForeground(Color.WHITE);
+		labyrinthe.setOpaque(false);
+		arene.setForeground(Color.WHITE);
+		arene.setOpaque(false);
+		
 		choice.add(jeu);
 		choice.add(labyrinthe);
 		choice.add(arene);
 		
 		JButton jouer = new JButton("Jouer");
 		jouer.addActionListener(new JSONWindow(this));
+		jouer.setBounds(171,250,110,30);
 		choice.add(jouer);
 		
 		this.add(choice, BorderLayout.CENTER);

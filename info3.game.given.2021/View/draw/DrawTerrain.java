@@ -67,7 +67,7 @@ public class DrawTerrain extends JPanel {
 		this.drawElements(g);
 	}
 
-	public Image loadImage(InputStream is) {
+	public static Image loadImage(InputStream is) {
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(is);
@@ -78,7 +78,7 @@ public class DrawTerrain extends JPanel {
 		return null;
 	}
 
-	public Image drawEntity(String filepath) {
+	public static Image drawEntity(String filepath) {
 		File f = new File(filepath);
 		FileInputStream is = null;
 		try {

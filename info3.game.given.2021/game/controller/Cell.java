@@ -23,7 +23,15 @@ public class Cell implements ICondition {
 
 	@Override
 	public boolean eval(Entity e) {
-		return f.cell(e,dir,cat);
+//		System.out.print("Cell");
+//		System.out.print("(");
+//		System.out.print(dir);
+//		System.out.print("/");
+//		System.out.print(cat);
+//		System.out.println(")");
+		Boolean t = f.cell(e,dir,cat);
+//		System.out.print(t);
+		return t;
 	}
 
 	@Override

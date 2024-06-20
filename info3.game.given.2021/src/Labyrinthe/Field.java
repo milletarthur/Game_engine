@@ -1134,6 +1134,8 @@ public class Field {
 		if (elem.getLast() instanceof Selection)
 			ilastelem--;
 		Entity lastelem = elem.get(ilastelem);
+		if (lastelem.equals(e))
+			lastelem = elem.get(ilastelem-1);
 		int catlast = lastelem.category();
 		switch (cat) {
 		case Categorie.A:

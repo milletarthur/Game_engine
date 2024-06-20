@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import Automates.Automate;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Joueur;
 import toolkit.Pair;
 
 

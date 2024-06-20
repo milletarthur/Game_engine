@@ -47,7 +47,8 @@ public class GameUS {
 		
 		//ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp);
-		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/apple.gal");
+//		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/apple.gal");
+		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/test_cond.gal");
 
 		//Initialisation de la fenêtre
 		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case, visibility);

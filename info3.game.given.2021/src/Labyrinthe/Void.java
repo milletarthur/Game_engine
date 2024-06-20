@@ -36,4 +36,10 @@ public class Void extends Entity {
 		return 0;
 	}
 
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

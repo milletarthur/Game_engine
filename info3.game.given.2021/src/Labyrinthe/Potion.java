@@ -38,4 +38,10 @@ public class Potion extends Entity {
 		return -4;
 	}
 
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

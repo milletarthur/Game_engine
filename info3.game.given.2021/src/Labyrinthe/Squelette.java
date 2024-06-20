@@ -39,4 +39,10 @@ public class Squelette extends Entity {
 		otherTeam = team;
 	}
 
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

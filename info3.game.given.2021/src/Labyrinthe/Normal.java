@@ -33,4 +33,10 @@ public class Normal extends Mur {
 		return 0;
 	}
 
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

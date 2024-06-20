@@ -34,4 +34,10 @@ public class Mine extends Entity {
 		return 5;
 	}
 
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -38,4 +38,9 @@ public class Apple extends Entity {
 		return poison;
 	}
 
+	@Override
+	public void jump() {
+		
+	}
+
 }

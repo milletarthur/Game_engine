@@ -27,7 +27,65 @@ public class Wizz implements IAction{
 			terrain.add(new Cassable(e.ligne(), e.colonne()), e.ligne(), e.colonne());
 		} else if (e instanceof Sable) {
 			terrain.remove(e.ligne(), e.colonne(), e);
-			// suppr les autres sables à côté ???
+			// suppr les autres sables à côté 
+			Entity elem;
+			LinkedList<Entity> l_entity;
+			l_entity = terrain.getElement(e.ligne()-1, e.colonne()-1);
+			for(int i=0; i<l_entity.size(); i++) {
+				elem = l_entity.get(i);
+				if(elem instanceof Sable) {
+					terrain.remove(e.ligne()-1, e.colonne()-1, elem);
+				}
+			}
+			l_entity = terrain.getElement(e.ligne(), e.colonne()-1);
+			for(int i=0; i<l_entity.size(); i++) {
+				elem = l_entity.get(i);
+				if(elem instanceof Sable) {
+					terrain.remove(e.ligne(), e.colonne()-1, elem);
+				}
+			}
+			l_entity = terrain.getElement(e.ligne()+1, e.colonne()-1);
+			for(int i=0; i<l_entity.size(); i++) {
+				elem = l_entity.get(i);
+				if(elem instanceof Sable) {
+					terrain.remove(e.ligne()+1, e.colonne()-1, elem);
+				}
+			}
+			l_entity = terrain.getElement(e.ligne()-1, e.colonne()+1);
+			for(int i=0; i<l_entity.size(); i++) {
+				elem = l_entity.get(i);
+				if(elem instanceof Sable) {
+					terrain.remove(e.ligne()-1, e.colonne()+1, elem);
+				}
+			}
+			l_entity = terrain.getElement(e.ligne(), e.colonne()+1);
+			for(int i=0; i<l_entity.size(); i++) {
+				elem = l_entity.get(i);
+				if(elem instanceof Sable) {
+					terrain.remove(e.ligne(), e.colonne()+1, elem);
+				}
+			}
+			l_entity = terrain.getElement(e.ligne()+1, e.colonne()+1);
+			for(int i=0; i<l_entity.size(); i++) {
+				elem = l_entity.get(i);
+				if(elem instanceof Sable) {
+					terrain.remove(e.ligne()+1, e.colonne()+1, elem);
+				}
+			}
+			l_entity = terrain.getElement(e.ligne()+1, e.colonne());
+			for(int i=0; i<l_entity.size(); i++) {
+				elem = l_entity.get(i);
+				if(elem instanceof Sable) {
+					terrain.remove(e.ligne()+1, e.colonne(), elem);
+				}
+			}
+			l_entity = terrain.getElement(e.ligne()-1, e.colonne());
+			for(int i=0; i<l_entity.size(); i++) {
+				elem = l_entity.get(i);
+				if(elem instanceof Sable) {
+					terrain.remove(e.ligne()-1, e.colonne(), elem);
+				}
+			}
 		} else if(e instanceof Pioche) {
 			Entity elem;
 			switch(e.direction()) {

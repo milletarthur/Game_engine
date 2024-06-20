@@ -96,6 +96,8 @@ public class Field {
 		}
 		detruire_mur(densite_field);
 		labyrinthe();
+		recup_liste_mur();
+		depot_mur(cassable, invisible, normal);
 		printLabyrinthe_tmp();
 		trouver_chemin_1();
 		chemin = trouver_chemin_2();
@@ -111,8 +113,7 @@ public class Field {
 		printGame();
 		grow_porte();
 		recup_liste_void();
-		recup_liste_mur();
-		depot_mur(cassable, invisible, normal);
+		
 		//pickable(densite_pickable, mine, pomme, potion, pioche, bombe);
 		
 		/*

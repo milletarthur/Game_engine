@@ -23,7 +23,7 @@ public class GameUS {
 	/* TODO - HAUTEUR et LARGEUR seront les dimensions de la matrice */
 	private final static int LARGEUR = 30;
 	private final static int HAUTEUR = 40;
-	private final static int DENSITE = 100;
+	private final static int DENSITE = 40;
 	private static final int T_case = 40;
 	private static final int visibility = 5; // nb de cases visible autour des joueurs
 
@@ -43,6 +43,7 @@ public class GameUS {
 		Joueur j2 = new Joueur(3, 0, 2);
 		terrain.add(j1, 2, 0);
 		terrain.add(j2, 3, 0);
+		terrain.printGame();
 		
 		//ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp);

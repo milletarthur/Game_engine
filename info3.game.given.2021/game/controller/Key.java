@@ -60,4 +60,12 @@ public class Key implements ICondition {
 	public int getDirection() {
 		return 0;
 	}
+	
+	@Override
+	public String toString() {
+		String s = "Key(";
+		s += Integer.toString(key);
+		s += ")";
+		return s;
+		}
 }

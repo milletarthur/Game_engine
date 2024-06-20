@@ -6,3 +6,12 @@ Test_Cond(Init){
 | Key(FD) & ! Cell(S,O) ? Turn(S) / Move :(Init)
 | Key(FL) & ! Cell(W,O) ? Turn(W) / Move :(Init)
 }
+
+Test_Cond(Init){
+
+* (Init):
+| Key(z) & ! Cell(N,O) ? Turn(N) / Move :(Init)
+| Key(d) & ! Cell(E,O) ? Turn(E) / Move :(Init)
+| Key(s) & ! Cell(S,O) ? Turn(S) / Move :(Init)
+| Key(q) & ! Cell(W,O) ? Turn(W) / Move :(Init)
+}

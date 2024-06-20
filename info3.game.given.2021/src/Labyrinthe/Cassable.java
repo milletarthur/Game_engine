@@ -6,7 +6,7 @@ public class Cassable extends Mur {
 	public Cassable(int ligne, int colonne) {
 		this.colonne = colonne;
 		this.ligne = ligne;
-		this.category = Categorie.G;
+		this.category = Categorie.O;
 		this.team = 4;
 		layer = 3;
 	}

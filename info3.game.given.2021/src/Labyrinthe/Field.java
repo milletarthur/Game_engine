@@ -1164,6 +1164,8 @@ public class Field {
 		int[] coo = next_to(e, dir);
 		int ligne = coo[0];
 		int colonne = coo[1];
+		if (! isValidPosition1(coo[0], coo[1]))
+			return false;
 		LinkedList<Entity> elem = getElement(ligne, colonne);
 		int ilastelem = elem.size() - 1;
 		if (elem.getLast() instanceof Selection)

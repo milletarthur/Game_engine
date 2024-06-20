@@ -141,5 +141,15 @@ public class Closest implements ICondition {
 	public void setDistanceVision(int value) {
 		distance_vision = value;
 	}
+	
+	@Override
+	public String toString() {
+		String s = "Closest(";
+		s += Integer.toString(direction);
+		s += ";";
+		s += Integer.toString(categorie);
+		s += ")";
+		return s;
+	}
 
 }

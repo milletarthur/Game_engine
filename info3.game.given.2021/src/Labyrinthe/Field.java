@@ -54,7 +54,6 @@ public class Field {
 		detruire_mur(densite_field);
 		labyrinthe();
 		recup_liste_mur();
-		depot_mur(cassable, invisible, normal);
 		printLabyrinthe_tmp();
 		trouver_chemin_1();
 		chemin = trouver_chemin_2();
@@ -63,7 +62,10 @@ public class Field {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
 		if (densite_field == 100) {
+			depot_mur1(cassable, invisible, normal);
 			deposer_Porte(nb_porte_sable);
+		} else {
+			depot_mur2(cassable, invisible, normal);
 		}
 
 		grow();
@@ -423,7 +425,7 @@ public class Field {
 		// set_element(3,0,new Joueur(3,0),labyrinthe);
 	}
 
-	public void depot_mur(int cassable, int invisible, int normal) {
+	public void depot_mur1(int cassable, int invisible, int normal) {
 		int len_mur = mur.size();
 		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
@@ -431,11 +433,11 @@ public class Field {
 		int count = 0;
 		int x, y;
 		while (count < nb_pour_cassable) {
-			x = rand.nextInt(ligne - 1);
-			y = rand.nextInt(colonne - 1);
+			x = rand.nextInt(ligne - 2 ) + 1;
+			y = rand.nextInt(colonne - 2) + 1;
 			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
-				x = rand.nextInt(ligne - 1);
-				y = rand.nextInt(colonne - 1);
+				x = rand.nextInt(ligne - 2) + 1;
+				y = rand.nextInt(colonne - 2) + 1;
 			}
 			Cassable m = new Cassable(x, y);
 			set_element3(x, y, m, labyrinthe);
@@ -444,11 +446,11 @@ public class Field {
 		count = 0;
 		int nb_pour_invisible = invisible * len_mur / 100;
 		while (count < nb_pour_invisible) {
-			x = rand.nextInt(ligne - 1);
-			y = rand.nextInt(colonne - 1);
+			x = rand.nextInt(ligne - 2) + 1;
+			y = rand.nextInt(colonne - 2) + 1;
 			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
-				x = rand.nextInt(ligne - 1);
-				y = rand.nextInt(colonne - 1);
+				x = rand.nextInt(ligne - 2) + 1;
+				y = rand.nextInt(colonne - 2) + 1;
 			}
 			Invisible m = new Invisible(x, y);
 			set_element3(x, y, m, labyrinthe);
@@ -457,16 +459,64 @@ public class Field {
 		count = 0;
 		int nb_pour_normal = normal * len_mur / 100;
 		while (count < nb_pour_normal) {
-			x = rand.nextInt(ligne - 1);
-			y = rand.nextInt(colonne - 1);
+			x = rand.nextInt(ligne - 2) + 1;
+			y = rand.nextInt(colonne - 2) + 1;
 			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
-				x = rand.nextInt(ligne - 1);
-				y = rand.nextInt(colonne - 1);
+				x = rand.nextInt(ligne - 2) + 1;
+				y = rand.nextInt(colonne - 2) + 1;
 			}
 			Normal m = new Normal(x, y);
 			set_element3(x, y, m, labyrinthe);
 			count++;
 		}
+		
+	}
+	
+	public void depot_mur2(int cassable, int invisible, int normal) {
+		int len_mur = mur.size();
+		// int pourcentage_field = (100*len_void)/(ligne*colonne);
+		int nb_pour_cassable = cassable * len_mur / 100;
+		System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
+		int count = 0;
+		int x, y;
+		while (count < nb_pour_cassable) {
+			x = rand.nextInt(ligne);
+			y = rand.nextInt(colonne);
+			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+				x = rand.nextInt(ligne);
+				y = rand.nextInt(colonne);
+			}
+			Cassable m = new Cassable(x, y);
+			set_element3(x, y, m, labyrinthe);
+			count++;
+		}
+		count = 0;
+		int nb_pour_invisible = invisible * len_mur / 100;
+		while (count < nb_pour_invisible) {
+			x = rand.nextInt(ligne);
+			y = rand.nextInt(colonne);
+			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+				x = rand.nextInt(ligne);
+				y = rand.nextInt(colonne);
+			}
+			Invisible m = new Invisible(x, y);
+			set_element3(x, y, m, labyrinthe);
+			count++;
+		}
+		count = 0;
+		int nb_pour_normal = normal * len_mur / 100;
+		while (count < nb_pour_normal) {
+			x = rand.nextInt(ligne);
+			y = rand.nextInt(colonne);
+			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+				x = rand.nextInt(ligne);
+				y = rand.nextInt(colonne);
+			}
+			Normal m = new Normal(x, y);
+			set_element3(x, y, m, labyrinthe);
+			count++;
+		}
+		
 	}
 
 	public void grille(int l, int c) {

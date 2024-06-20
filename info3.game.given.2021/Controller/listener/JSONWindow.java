@@ -12,10 +12,17 @@ import org.json.*;
 
 import draw.WindowInitGame;
 
+/*
+ * Classe activer lorsque le bouton Jouer en cliquer
+ * elle contient les informations du fichier de configuration
+ */
 public class JSONWindow implements ActionListener {
 
 	private WindowInitGame f;
 	private String filePath;
+	
+	public static String name1 ;
+	public static String name2 ;
 
 	public JSONWindow(WindowInitGame f) {
 		this.f = f;
@@ -26,10 +33,12 @@ public class JSONWindow implements ActionListener {
 		try {
 			if (f.getjeu() == "labyrinthe") {
 				filePath = "resources/config/config_labyrinthe.json";
+				recup_info(filePath);
 				f.initGame();
 				f.dispose();
 			} else if (f.getjeu() == "arene") {
 				filePath = "resources/config/config_labyrinthe.json";
+				recup_info(filePath);
 				f.initGame();
 				f.dispose();
 			}
@@ -40,7 +49,7 @@ public class JSONWindow implements ActionListener {
 	
 	private void WriteJSON() throws IOException {
 		
-		// TODO - les informations ne s'écrivent pas dans l'autre dans le fichier JSON (je pense pas que ce soit un pb)
+		// TODO - les informations ne s'écrivent pas dans l'ordre dans le fichier JSON (je pense pas que ce soit un pb)
 		
 		// objet JSON principal
 		JSONObject param = new JSONObject();
@@ -80,36 +89,6 @@ public class JSONWindow implements ActionListener {
         player2.put("sprite", "wizard.png");
         player2.put("pickable", false);
         entities.put(player2);
-
-        // Ajouter WALL
-        JSONObject wall = new JSONObject();
-        wall.put("name", "WALL");
-        wall.put("%density", 23);
-        wall.put("behaviour", "");
-        wall.put("features", "Wall.class");
-        wall.put("sprite", "wall.png");
-        wall.put("pickable", false);
-        entities.put(wall);
-
-        // Ajouter ROCK
-        JSONObject rock = new JSONObject();
-        rock.put("name", "ROCK");
-        rock.put("%density", 5);
-        rock.put("behaviour", "rock.gal");
-        rock.put("features", "Rock.class");
-        rock.put("sprite", "rock.png");
-        rock.put("pickable", true);
-        entities.put(rock);
-
-        // Ajouter FROG
-        JSONObject frog = new JSONObject();
-        frog.put("name", "FROG");
-        frog.put("%density", 10);
-        frog.put("behaviour", "frog.gal");
-        frog.put("features", "Frog.class");
-        frog.put("sprite", "frog.png");
-        frog.put("pickable", true);
-        entities.put(frog);
 
         // Ajouter le tableau d'entités à l'objet JSON principal
         jsonObject.put("entities", entities);*/
@@ -191,5 +170,20 @@ public class JSONWindow implements ActionListener {
             System.out.println("Sprite: " + sprite);
             System.out.println("Pickable: " + pickable);
         }*/
+	}
+	
+	public void recup_info(String filePath) {
+		
+        String param = "";
+        try {
+            param = new String(Files.readAllBytes(Paths.get(filePath)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject jsonObject = new JSONObject(param);
+        
+        name1 = jsonObject.getString("name1");
+        name2 = jsonObject.getString("name2");
 	}
 }

@@ -7,8 +7,8 @@
     "largeur" : 30,
     "visibility" : 5,
     "%density" : 100,
-    "name1" : "Joueur 1",
-    "name2" : "Joueur 2",
+    "name1" : "Joueur laby1",
+    "name2" : "Joueur laby2",
     "entities": [
       { "name" : "Apple",
         "behaviour": "apple.gal",

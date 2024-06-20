@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.swing.*;
 
 import controller.TicTac;
+import listener.JSONWindow;
 
 public class DrawInventaire extends JPanel {
 
@@ -28,7 +29,7 @@ public class DrawInventaire extends JPanel {
 	// TODO - temps à récupérer dans le fichier de config
 	private static final int temps = 300; // en secondes
 	private int temps_actuel, cpt;
-
+	
 	public DrawInventaire(int T_case, int visibility) throws IOException {
 
 		// TODO - lui donner l'inventaire de chaque joueur pour avoir l'objet courant
@@ -43,7 +44,7 @@ public class DrawInventaire extends JPanel {
 		this.add(invent1);
 
 		// points de vie 1
-		this.pdv1 = new PVJPanel(T_case, visibility, pv_perdu, pv_total, "Gruber");
+		this.pdv1 = new PVJPanel(T_case, visibility, pv_perdu, pv_total, JSONWindow.name1);
 		this.add(pdv1);
 
 		// timer
@@ -54,7 +55,7 @@ public class DrawInventaire extends JPanel {
 		this.add(timer);
 
 		// points de vie 2
-		this.pdv2 = new PVJPanel(T_case, visibility, pv_perdu, pv_total, "Périn");
+		this.pdv2 = new PVJPanel(T_case, visibility, pv_perdu, pv_total, JSONWindow.name2);
 		this.add(pdv2);
 
 		// inventaire 2

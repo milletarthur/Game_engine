@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import Labyrinthe.Joueur;
-import draw.DrawTerrain;
 import draw.DrawWindow;
 import draw.Viewport;
 

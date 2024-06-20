@@ -15,6 +15,7 @@ import controller.False;
 import controller.Get;
 import controller.Got;
 import controller.Hit;
+import controller.KeyPressed;
 import controller.Move;
 import controller.Not;
 import controller.Pick;
@@ -32,7 +33,6 @@ import gal.ast.BinaryOp;
 import gal.ast.Category;
 import gal.ast.Condition;
 import gal.ast.Direction;
-import gal.ast.Expression;
 import gal.ast.FunCall;
 import gal.ast.Key;
 import gal.ast.Mode;
@@ -47,8 +47,8 @@ import toolkit.*;
 public class GeneralVisitor implements gal.ast.IVisitor {
 	Field f;
 
-	LinkedList<Automates.Automate> l_aut;
-	LinkedList<Automates.Transition> l_trans;
+	LinkedList<Automate> l_aut;
+	LinkedList<TransitionAutomate> l_trans;
 	LinkedList<IAction> l_act;
 	LinkedList<ICondition> l_cond;
 	ICondition cond;
@@ -56,9 +56,11 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	LinkedList<Integer> l_param;
 	Automates.State current;
 	boolean is_in_mode = false;
+	KeyPressed kp;
 	
-	public GeneralVisitor(Field field) {
+	public GeneralVisitor(Field field, KeyPressed kp) {
 		f = field;
+		this.kp = kp;
 	}
 
 	@Override
@@ -164,114 +166,127 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public Object visit(Key key) {
 		int keyboard;
-		switch (key.toString()) {
-		case "VK_0":
+		String s = key.toString();
+		switch (s) {
+		case "0":
 			keyboard = toolkit.KeyBoard.VK_0;
 			break;
-		case "VK_1":
+		case "1":
 			keyboard = toolkit.KeyBoard.VK_1;
 			break;
-		case "VK_2":
+		case "2":
 			keyboard = toolkit.KeyBoard.VK_2;
 			break;
-		case "VK_3":
+		case "3":
 			keyboard = toolkit.KeyBoard.VK_3;
 			break;
-		case "VK_4":
+		case "4":
 			keyboard = toolkit.KeyBoard.VK_4;
 			break;
-		case "VK_5":
+		case "5":
 			keyboard = toolkit.KeyBoard.VK_5;
 			break;
-		case "VK_6":
+		case "6":
 			keyboard = toolkit.KeyBoard.VK_6;
 			break;
-		case "VK_7":
+		case "7":
 			keyboard = toolkit.KeyBoard.VK_7;
 			break;
-		case "VK_8":
+		case "8":
 			keyboard = toolkit.KeyBoard.VK_8;
 			break;
-		case "VK_9":
+		case "9":
 			keyboard = toolkit.KeyBoard.VK_9;
 			break;
-		case "VK_A":
+		case "a":
 			keyboard = toolkit.KeyBoard.VK_A;
 			break;
-		case "VK_B":
+		case "b":
 			keyboard = toolkit.KeyBoard.VK_B;
 			break;
-		case "VK_C":
+		case "c":
 			keyboard = toolkit.KeyBoard.VK_C;
 			break;
-		case "VK_D":
+		case "d":
 			keyboard = toolkit.KeyBoard.VK_D;
 			break;
-		case "VK_E":
+		case "e":
 			keyboard = toolkit.KeyBoard.VK_E;
 			break;
-		case "VK_F":
+		case "f":
 			keyboard = toolkit.KeyBoard.VK_F;
 			break;
-		case "VK_G":
+		case "g":
 			keyboard = toolkit.KeyBoard.VK_G;
 			break;
-		case "VK_H":
+		case "h":
 			keyboard = toolkit.KeyBoard.VK_H;
 			break;
-		case "VK_I":
+		case "i":
 			keyboard = toolkit.KeyBoard.VK_I;
 			break;
-		case "VK_J":
+		case "j":
 			keyboard = toolkit.KeyBoard.VK_J;
 			break;
-		case "VK_K":
+		case "k":
 			keyboard = toolkit.KeyBoard.VK_K;
 			break;
-		case "VK_L":
+		case "l":
 			keyboard = toolkit.KeyBoard.VK_L;
 			break;
-		case "VK_M":
+		case "m":
 			keyboard = toolkit.KeyBoard.VK_M;
 			break;
-		case "VK_N":
+		case "n":
 			keyboard = toolkit.KeyBoard.VK_N;
 			break;
-		case "VK_O":
+		case "o":
 			keyboard = toolkit.KeyBoard.VK_O;
 			break;
-		case "VK_P":
+		case "p":
 			keyboard = toolkit.KeyBoard.VK_P;
 			break;
-		case "VK_Q":
+		case "q":
 			keyboard = toolkit.KeyBoard.VK_Q;
 			break;
-		case "VK_R":
+		case "r":
 			keyboard = toolkit.KeyBoard.VK_R;
 			break;
-		case "VK_S":
+		case "s":
 			keyboard = toolkit.KeyBoard.VK_S;
 			break;
-		case "VK_T":
+		case "t":
 			keyboard = toolkit.KeyBoard.VK_T;
 			break;
-		case "VK_U":
+		case "u":
 			keyboard = toolkit.KeyBoard.VK_U;
 			break;
-		case "VK_V":
+		case "v":
 			keyboard = toolkit.KeyBoard.VK_V;
 			break;
-		case "VK_W":
+		case "w":
 			keyboard = toolkit.KeyBoard.VK_W;
 			break;
-		case "VK_X":
+		case "x":
 			keyboard = toolkit.KeyBoard.VK_X;
 			break;
-		case "VK_Y":
+		case "y":
 			keyboard = toolkit.KeyBoard.VK_Y;
 			break;
-		case "VK_Z":
+		case "z":
 			keyboard = toolkit.KeyBoard.VK_Z;
+			break;
+		case "FU":
+			keyboard = toolkit.KeyBoard.VK_UP;
+			break;
+		case "FR":
+			keyboard = toolkit.KeyBoard.VK_RIGHT;
+			break;
+		case "FD":
+			keyboard = toolkit.KeyBoard.VK_DOWN;
+			break;
+		case "FL":
+			keyboard = toolkit.KeyBoard.VK_LEFT;
 			break;
 		default:
 			return null;
@@ -381,7 +396,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		case "Key":
 			if (l_param.size() != 1)
 				throw new RuntimeException("Wrong arguments");
-			c = new controller.Key(f, l_param.get(0));
+			c = new controller.Key(f, l_param.get(0), kp);
 			break;
 		case "Got":
 			if (l_param.size() != 1)
@@ -391,6 +406,8 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		default:
 			throw new RuntimeException("Unknown action !");
 		}
+		l_cond.add(c);
+		cond = c;
 		return c;
 	}
 
@@ -460,6 +477,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Mode mode) {
+		l_trans = new LinkedList<TransitionAutomate>();
 		current = (Automates.State) visit(mode.state);
 		is_in_mode = true;
 	}
@@ -506,7 +524,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 			return build((UnaryOp) expression, expression);
 		if(expression instanceof BinaryOp)
 			return build((BinaryOp) expression, ((BinaryOp) expression).left_operand, ((BinaryOp) expression).right_operand);
-		return build((FunCall) expression, parameterToObject(((FunCall) expression).parameters));
+		return expression;//build((FunCall) expression, parameterToObject(((FunCall) expression).parameters));
 	}
 
 	@Override
@@ -525,15 +543,15 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public Object build(Actions action, String operator, List<Object> funcalls) {
 		Iterator<Object> i = funcalls.iterator();
 		while(i.hasNext()) {
-			FunCall act = (FunCall) i.next();
-			l_act.add((IAction) build(act, parameterToObject(act.parameters)));
+			//FunCall act = (FunCall) i.next();
+			l_act.add((IAction) i.next());//(IAction) build(act, parameterToObject(act.parameters)));
 		}
 		return l_act;
 	}
 
 	@Override
 	public void enter(Transition transition) {
-		l_trans.add(new Automates.Transition());
+		l_trans.add(new TransitionAutomate());
 		l_act = new LinkedList<IAction>();
 		l_cond = new LinkedList<ICondition>();
 	}
@@ -544,7 +562,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public Object build(Transition transition, Object condition, Object action, Object target_state) {
-		Automates.Transition t = l_trans.getLast();
+		TransitionAutomate t = l_trans.getLast();
 		Iterator<IAction> i = l_act.iterator();
 		while(i.hasNext())
 			t.add_action(i.next());
@@ -556,7 +574,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Automaton automaton) {
-		l_aut.add(new Automates.Automate());
+		l_aut.add(new Automate());
 	}
 
 	@Override
@@ -566,8 +584,8 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public Object build(Automaton automaton, Object initial_state, List<Object> modes) {
 		Automate a = l_aut.getLast();
-		a.add_init_state((Automates.State) visit((State) initial_state));
-		Iterator<Automates.Transition> i = l_trans.iterator();
+		a.change_current((Automates.State) initial_state);//(Automates.State) visit((State) initial_state));
+		Iterator<TransitionAutomate> i = l_trans.iterator();
 		while(i.hasNext())
 			a.add_transition(i.next());
 		return a;
@@ -575,7 +593,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(AST ast) {
-		l_aut = new LinkedList<Automates.Automate>();
+		l_aut = new LinkedList<Automate>();
 	}
 
 	@Override

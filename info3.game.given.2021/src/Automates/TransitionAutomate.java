@@ -6,13 +6,13 @@ import java.util.LinkedList;
 
 import Labyrinthe.Entity;
 
-public class Transition {
+public class TransitionAutomate {
 	private State Source;
 	private State Cible;
 	private ICondition c;
 	private LinkedList<IAction> Actions;
 	
-	public Transition() {
+	public TransitionAutomate() {
 		Actions = new LinkedList<IAction>();
 	}
 	
@@ -32,7 +32,7 @@ public class Transition {
 		c = cond;
 	}
 	
-	public Transition(State Source, State Cible, ICondition c, LinkedList<IAction> Actions){
+	public TransitionAutomate(State Source, State Cible, ICondition c, LinkedList<IAction> Actions){
 		this.Source = Source;
 		this.Cible = Cible;
 		this.c = c;

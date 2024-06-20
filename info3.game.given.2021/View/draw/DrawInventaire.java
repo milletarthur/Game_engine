@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import Labyrinthe.Joueur;
 import controller.TicTac;
 import listener.JSONWindow;
 
@@ -20,17 +21,18 @@ public class DrawInventaire extends JPanel {
 	private Sprite INVENTAIRE;
 	private BufferedImage img_inventaire;
 
-	private static final int pv_total = 20;
+	private static final int pv_total = JSONWindow.pv;
 
 	// TODO - pv_perdu a recuperer / variable ci-dessous temp pour test
 	// il y aura pour les deux joueurs
-	private static final int pv_perdu = 5;
+	private int pv_perdu ; // pv_total - pv_act
 
-	// TODO - temps à récupérer dans le fichier de config
-	private static final int temps = 300; // en secondes
+	private static final int temps = JSONWindow.time; // en secondes
 	private int temps_actuel, cpt;
 	
-	public DrawInventaire(int T_case, int visibility) throws IOException {
+	public DrawInventaire(int T_case, int visibility, Joueur j1, Joueur j2) throws IOException {
+		
+		this.pv_perdu = pv_total ;
 
 		// TODO - lui donner l'inventaire de chaque joueur pour avoir l'objet courant
 
@@ -44,18 +46,30 @@ public class DrawInventaire extends JPanel {
 		this.add(invent1);
 
 		// points de vie 1
-		this.pdv1 = new PVJPanel(T_case, visibility, pv_perdu, pv_total, JSONWindow.name1);
+		this.pdv1 = new PVJPanel(JSONWindow.name1, j1);
 		this.add(pdv1);
 
 		// timer
-		this.timer = new JLabel("05 : 00");
+		int min_act = temps / 60 ;
+		int sec_act = temps % 60 ;
+		if (min_act < 10) {
+			if (sec_act < 10)
+				this.timer = new JLabel("0" + min_act + " : 0" + sec_act);
+			else
+				this.timer = new JLabel("0" + min_act + " : " + sec_act);
+		} else {
+			if (sec_act < 10)
+				this.timer = new JLabel(min_act + " : 0" + sec_act);
+			else
+				this.timer = new JLabel(min_act + " : " + sec_act);
+		}
 		timer.setPreferredSize(new Dimension(100, 65));
 		timer.setHorizontalAlignment(SwingConstants.CENTER);
 		timer.setVerticalAlignment(SwingConstants.CENTER);
 		this.add(timer);
 
 		// points de vie 2
-		this.pdv2 = new PVJPanel(T_case, visibility, pv_perdu, pv_total, JSONWindow.name2);
+		this.pdv2 = new PVJPanel(JSONWindow.name2, j2);
 		this.add(pdv2);
 
 		// inventaire 2
@@ -64,6 +78,7 @@ public class DrawInventaire extends JPanel {
 
 		this.temps_actuel = temps;
 		this.cpt = 0;
+		
 	}
 
 	@Override
@@ -88,14 +103,14 @@ public class DrawInventaire extends JPanel {
 		int sec = temps_actuel % 60;
 		if (min < 10) {
 			if (sec < 10)
-				timer.setText("0" + min + " : 0" + sec + "");
+				timer.setText("0" + min + " : 0" + sec);
 			else
-				timer.setText("0" + min + " : " + sec + "");
+				timer.setText("0" + min + " : " + sec);
 		} else {
 			if (sec < 10)
-				timer.setText(min + " : 0" + sec + "");
+				timer.setText(min + " : 0" + sec);
 			else
-				timer.setText(min + " : " + sec + "");
+				timer.setText(min + " : " + sec);
 		}
 	}
 

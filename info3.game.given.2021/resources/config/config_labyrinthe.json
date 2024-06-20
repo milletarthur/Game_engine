@@ -1,7 +1,7 @@
 { 
     "jeu" : "labyrinthe",
     "cooperative" : true, 
-    "duration" : 300, 
+    "duration" : 900, 
     "germe" : 732, 
     "hauteur" : 30,
     "largeur" : 30,
@@ -9,6 +9,7 @@
     "%density" : 100,
     "name1" : "Joueur laby1",
     "name2" : "Joueur laby2",
+    "pv" : 20,
     "entities": [
       { "name" : "Apple",
         "behaviour": "apple.gal",

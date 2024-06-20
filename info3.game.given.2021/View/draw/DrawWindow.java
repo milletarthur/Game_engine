@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.io.IOException;
 import Labyrinthe.Field;
-
+import Labyrinthe.Joueur;
 import controller.TicTac;
 
 /*
@@ -19,7 +19,7 @@ public class DrawWindow extends JFrame {
 	private DrawInventaire inventaire;
 	private int visibility;
 
-	public DrawWindow(int LARGEUR, int HAUTEUR, Field terrain, int T_case, int visibility) throws IOException {
+	public DrawWindow(int LARGEUR, int HAUTEUR, Field terrain, int T_case, int visibility, Joueur j1, Joueur j2) throws IOException {
 		this.T_case = T_case;
 		this.visibility = visibility;
 		this.getContentPane().setLayout(new BorderLayout());
@@ -36,7 +36,7 @@ public class DrawWindow extends JFrame {
 		// initialisation du terrain
 		this.dt1 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
 		this.dt2 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
-		this.inventaire = new DrawInventaire(T_case, visibility);
+		this.inventaire = new DrawInventaire(T_case, visibility, j1, j2);
 
 	}
 

@@ -11,7 +11,6 @@ import controller.TicTac;
 import controller.TickListener;
 import listener.JSONWindow;
 import listener.Key_Listener;
-import listener.SliderListener;
 
 import java.awt.*;
 import java.io.IOException;
@@ -22,11 +21,7 @@ import java.util.LinkedList;
  */
 public class WindowInitGame extends JFrame {
 
-	private final static int LARGEUR = 30;
-	private final static int HAUTEUR = 40;
-	private static final int T_case = 30;
-	private final static int DENSITE = 100;
-	private static final int visibility = 5; // nb de cases visible autour des joueurs
+	public static int T_case = 30;
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,6 +30,7 @@ public class WindowInitGame extends JFrame {
 	JSlider s_HAUTEUR, s_LARGEUR, s_VISIBILITY;
 
 	public WindowInitGame() {
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Bienvenue dans ce moteur de Jeux");
 		this.setSize(450, 400);
 		
@@ -57,72 +53,13 @@ public class WindowInitGame extends JFrame {
 		
 		this.add(choice, BorderLayout.CENTER);
 		
-/*
-		// JPanel de la fenetre
-		JPanel G = new JPanel();
-		G.setBackground(Color.GREEN);
-		G.setLayout(new FlowLayout());
-
-		// choix du jeu
-		JLabel jeu = new JLabel("Sélection du jeu : ");
-		labyrinthe = new JRadioButton("Labyrinthe");
-		arene = new JRadioButton("Arène");
-		ButtonGroup group = new ButtonGroup();
-		group.add(labyrinthe);
-		group.add(arene);
-
-		G.add(jeu);
-		G.add(labyrinthe);
-		G.add(arene);
-
-		// nom des joueurs
-		JLabel inst_name1 = new JLabel("Entrer le nom du joueur 1 : ");
-		JLabel inst_name2 = new JLabel("Entrer le nom du joueur 2 : ");
-
-		name1 = new JTextField();
-		name1.setPreferredSize(new Dimension(150, 20));
-		name2 = new JTextField();
-		name2.setPreferredSize(new Dimension(150, 20));
-
-		G.add(inst_name1);
-		G.add(name1);
-		G.add(inst_name2);
-		G.add(name2);
-
-		// Sélection taille du terrain
-		s_HAUTEUR = new JSlider(20, 100, 40);
-		JLabel haut = new JLabel("HAUTEUR du terrain : " + s_HAUTEUR.getValue());
-		s_HAUTEUR.addChangeListener(new SliderListener(haut, s_HAUTEUR, 1, this));
-		G.add(haut);
-		G.add(s_HAUTEUR);
-
-		s_LARGEUR = new JSlider(20, 100, 30);
-		JLabel larg = new JLabel("LARGEUR du terrain : " + s_LARGEUR.getValue());
-		s_LARGEUR.addChangeListener(new SliderListener(larg, s_LARGEUR, 2, this));
-		G.add(larg);
-		G.add(s_LARGEUR);
-
-		s_VISIBILITY = new JSlider(3, 9, 5);
-		JLabel visi = new JLabel("Visibilité autour du joueur : " + s_VISIBILITY.getValue());
-		s_VISIBILITY.addChangeListener(new SliderListener(visi, s_VISIBILITY, 3, this));
-		G.add(visi);
-		G.add(s_VISIBILITY);
-
-		// lancement du jeu
-		JButton jouer = new JButton("Jouer");
-		jouer.addActionListener(new JSONWindow(this));
-		G.add(jouer);
-		
-		this.add(G, BorderLayout.CENTER);
-		*/
-		
 		this.setVisible(true);
 	}
 
 	public void initGame() throws IOException {
 
 		// initialisation de la grille
-		Field terrain = new Field(HAUTEUR, LARGEUR, DENSITE, 30, 26, 1, 1, 1, 1, 25, 25, 50, 10);
+		Field terrain = new Field(JSONWindow.hauteur, JSONWindow.largeur, JSONWindow.densite, 30, 26, 1, 1, 1, 1, 25, 25, 50, 10);
 		
 		KeyPressed kp = new KeyPressed();
 
@@ -135,13 +72,13 @@ public class WindowInitGame extends JFrame {
 		
 		//ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp);
-		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/apple.gal");
+		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/test_cond.gal");
 
 		//Initialisation de la fenêtre
-		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case, visibility);
+		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case, JSONWindow.visibility, j1, j2);
 		
-		Viewport v1 = new Viewport(w.get_dt1(), T_case, visibility);
-		Viewport v2 = new Viewport(w.get_dt2(), T_case, visibility);
+		Viewport v1 = new Viewport(w.get_dt1(), T_case, JSONWindow.visibility);
+		Viewport v2 = new Viewport(w.get_dt2(), T_case, JSONWindow.visibility);
 		
 		TickListener tl = new TickListener(terrain);
 		TicTac tt = new TicTac(tl, j1, j2, v1, v2);
@@ -161,35 +98,32 @@ public class WindowInitGame extends JFrame {
 	}
 
 	public String getname(int num_joueur) throws IOException {
-		if (num_joueur == 1) {
+		if (num_joueur == 1)
 			return name1.getText();
-		} else if (num_joueur == 2) {
+		else if (num_joueur == 2)
 			return name2.getText();
-		} else {
+		else
 			throw new IOException("pas de nom");
-		}
 	}
 
 	public String getjeu() throws IOException {
-		if (labyrinthe.isSelected()) {
+		if (labyrinthe.isSelected())
 			return "labyrinthe";
-		} else if (arene.isSelected()) {
+		else if (arene.isSelected())
 			return "arene";
-		} else {
+		else
 			return null ;
-		}
-
 	}
 
 	public int getSlider(String champs) {
-		if (champs == "HAUTEUR") {
+		if (champs == "HAUTEUR")
 			return s_HAUTEUR.getValue();
-		} else if (champs == "LARGEUR") {
+		else if (champs == "LARGEUR")
 			return s_LARGEUR.getValue();
-		} else if (champs == "VISIBILITY") {
+		else if (champs == "VISIBILITY")
 			return s_VISIBILITY.getValue();
-		}
-		return -1;
+		else
+			return -1;
 	}
 
 }

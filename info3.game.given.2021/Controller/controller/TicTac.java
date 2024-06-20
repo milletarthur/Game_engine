@@ -11,7 +11,6 @@ import draw.Viewport;
 /*
  * Copyright (C) 2020  Pr. Olivier Gruber
  */
-
 public class TicTac {
 
 	Timer timer;

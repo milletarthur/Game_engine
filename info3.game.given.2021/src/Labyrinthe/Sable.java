@@ -8,7 +8,7 @@ public class Sable extends Entity {
 		this.colonne = colonne;
 		this.category = Categorie.D;
 		this.team = 5;
-		layer = 3;
+		layer = 2;
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import toolkit.Categorie;
 
 public class Porte extends Entity {
 	
-	boolean isOpen;
+	private boolean isOpen;
 	
 	public Porte(int ligne, int colonne) {
 		this.ligne = ligne;
@@ -34,5 +34,9 @@ public class Porte extends Entity {
 	public int hit() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public boolean isOpen() {
+		return isOpen;
 	}
 }

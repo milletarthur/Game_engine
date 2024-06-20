@@ -980,6 +980,41 @@ public class Field {
 		int[] rv = new int[2];
 		rv[0] = e.ligne();
 		rv[1] = e.colonne();
+		if (d > 0) {
+			switch (d) {
+			case Direction.N:
+				rv[0]--;
+				break;
+			case Direction.S:
+				rv[0]++;
+				break;
+			case Direction.E:
+				rv[1]++;
+				break;
+			case Direction.W:
+				rv[1]--;
+				break;
+			case Direction.NE:
+				rv[0]--;
+				rv[1]++;
+				break;
+			case Direction.SE:
+				rv[0]--;
+				rv[1]++;
+				break;
+			case Direction.NW:
+				rv[0]++;
+				rv[1]--;
+				break;
+			case Direction.SW:
+				rv[0]++;
+				rv[1]--;
+				break;	
+			default :
+				break;
+			}
+			return rv;
+		}
 		if (d == Direction.H)
 			return rv;
 		switch (e.direction()) {

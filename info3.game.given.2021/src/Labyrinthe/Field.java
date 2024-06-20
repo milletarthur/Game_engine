@@ -790,7 +790,7 @@ public class Field {
 		int x, y;
 		while (count < nb_mine) {
 			x = r.nextInt(ligne);// - 1);
-			y = r.nextInt(colonne);// - 1);\
+			y = r.nextInt(colonne);// - 1);
 			while ((this.ContientObs(x, y)) ) {
 				x = r.nextInt(ligne);
 				y = r.nextInt(colonne);

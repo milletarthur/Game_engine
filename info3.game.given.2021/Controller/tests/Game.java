@@ -1,7 +1,7 @@
 package tests;
 
-import java.io.IOException;
 import draw.DrawWindow;
+import draw.WindowInitGame;
 import draw.Viewport;
 import listener.Key_Listener;
 import Labyrinthe.Field;
@@ -18,8 +18,10 @@ public class Game {
 	private static final int T_case = 30;
 	private static final int visibility = 5; // nb de cases visible autour des joueurs
 
-	public static void main(String[] args) throws IOException {
-
+	public static void main(String[] args) {
+		
+		WindowInitGame game = new WindowInitGame();
+/*
 		// initialisation de la grille
 		Field terrain = new Field(HAUTEUR, LARGEUR, 10);
 
@@ -41,6 +43,7 @@ public class Game {
 		// ajout d'un Keylistener
 		Key_Listener k = new Key_Listener(j1, j2, w.get_dt1(), w.get_dt2(), v1, v2);
 		w.addKeyListener(k);
+*/
 
 	}
 

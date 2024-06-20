@@ -188,7 +188,7 @@ public class DrawTerrain extends JPanel {
 		this.epee = ITEM.getSprite(9, 11);
 
 		// déplacements
-		this.DEPLAC = new Sprite("resources/graphisme/actives.png", 14, 14);
+		this.DEPLAC = new Sprite("resources/graphisme/actives.png", 26, 26);
 		this.porte_fermee = DEPLAC.getSprite(0, 9);
 		this.porte_ouverte = DEPLAC.getSprite(0, 10);
 		this.teleporte = DEPLAC.getSprite(0, 13);

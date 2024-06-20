@@ -15,8 +15,7 @@ public class DrawWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private int T_case;
-	private DrawTerrain dt1;
-	private DrawTerrain dt2;
+	private DrawTerrain dt1, dt2;
 	private DrawInventaire inventaire;
 	private int visibility;
 

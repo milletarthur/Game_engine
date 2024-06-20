@@ -6,12 +6,10 @@ import javax.swing.*;
 public class PVJPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static int T_case, visibility, pv, perdu;
+	private static int pv, perdu;
 	private String name ;
 
 	public PVJPanel(int T_case, int visibility, int pv_perdu, int pv_total, String name) {
-		this.T_case = T_case;
-		this.visibility = visibility;
 		this.setPreferredSize(new Dimension((T_case * visibility * 2 + T_case) - 110, 65));
 		this.setBackground(Color.black);
 		

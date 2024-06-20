@@ -12,11 +12,9 @@ public class DrawInventaire extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	TicTac t;
-	private ImageJPanel invent1;
-	private PVJPanel pdv1;
+	private ImageJPanel invent1, invent2;
+	private PVJPanel pdv1, pdv2;
 	private JLabel timer;
-	private PVJPanel pdv2;
-	private ImageJPanel invent2;
 
 	private Sprite INVENTAIRE;
 	private BufferedImage img_inventaire;
@@ -29,8 +27,7 @@ public class DrawInventaire extends JPanel {
 
 	// TODO - temps à récupérer dans le fichier de config
 	private static final int temps = 300; // en secondes
-	private int temps_actuel;
-	int cpt;
+	private int temps_actuel, cpt;
 
 	public DrawInventaire(int T_case, int visibility) throws IOException {
 

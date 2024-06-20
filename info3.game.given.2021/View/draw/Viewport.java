@@ -9,8 +9,7 @@ public class Viewport extends JViewport {
 
 	private static final long serialVersionUID = 1L;
 	private DrawTerrain dt;
-	private int T_case;
-	private int visibility ;
+	private int T_case, visibility ;
 
 	public Viewport(DrawTerrain dt, int T_case, int visibility) {
 		this.dt = dt;

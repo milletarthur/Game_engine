@@ -5,7 +5,7 @@ import toolkit.Categorie;
 public class Teleporteur extends Entity {
 	
 	boolean TP_random;
-	
+	Entity voisin;
 	
 	public Teleporteur(int ligne, int colonne) {
 		this.ligne = ligne;
@@ -14,6 +14,10 @@ public class Teleporteur extends Entity {
 		this.team = 6;
 		this.layer = 0;
 		TP_random = false;
+	}
+	
+	public void set_voisin(Entity en1) {
+		this.voisin = en1;
 	}
 
 	@Override

@@ -19,14 +19,12 @@ public class Pioche extends Entity {
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		explode();
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		explode();
 	}
 	
 	@Override

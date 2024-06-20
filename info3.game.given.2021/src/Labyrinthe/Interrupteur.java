@@ -36,18 +36,22 @@ public class Interrupteur extends Entity {
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		Entity elem;
+		for(int i=0; i<liste_elem.size(); i++) {
+			elem = liste_elem.get(i);
+			elem.pop();
+		}
+		liste_elem = null;
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void explode() {
-		// TODO Auto-generated method stub
+		Entity elem;
+		for(int i=0; i<liste_elem.size(); i++) {
+			elem = liste_elem.get(i);
+			elem.wizz();
+		}
+		liste_elem = null;
 	}
 
 	@Override

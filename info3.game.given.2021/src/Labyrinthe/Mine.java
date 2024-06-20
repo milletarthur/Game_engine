@@ -4,7 +4,7 @@ import toolkit.Categorie;
 
 public class Mine extends Entity {
 	
-	private int time = 4;
+	private int ticktime = 40;
 	
 	public Mine(int ligne, int colonne) {
 		this.ligne = ligne;

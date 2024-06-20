@@ -198,4 +198,8 @@ public abstract class Entity {
 	public int getTime() {
 		return time;
 	}
+	
+	public void setTeam(int team) {
+		this.team = team;
+	}
 }

@@ -1,23 +1,23 @@
 package Labyrinthe;
 
-import java.util.LinkedList;
-
 import toolkit.Categorie;
 
 public class Arc extends Entity {
 	
+	boolean FlecheTrans;
+
 	public Arc(int ligne, int colonne) {
 		this.colonne = colonne;
 		this.ligne = ligne;
 		this.category = Categorie.P;
 		this.team = 3;
 		layer = 2;
-		flecheTrans = false;
+		FlecheTrans = false;
 	}
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Arc(colonne,ligne);
+		return new Arc(colonne, ligne);
 
 	}
 
@@ -28,28 +28,16 @@ public class Arc extends Entity {
 
 	@Override
 	public void wizz() {
-		flecheTrans = true;
+		FlecheTrans = true;
 	}
 
 	@Override
 	public int hit() {
+		if(FlecheTrans) {
+			FlecheTrans = false;
+			return -7;
+		}
 		return -1;
 	}
-	
-	public void setListFleche(LinkedList<Entity> l) {
-		list_fleche = l;
-	}
-	
-	public LinkedList<Entity> getListFleche() {
-		return list_fleche;
-	}
-	
-	public void setTrans(boolean value) {
-		flecheTrans = value;
-	}
-	
-	public boolean getTrans() {
-		return flecheTrans;
-	}
-	
+
 }

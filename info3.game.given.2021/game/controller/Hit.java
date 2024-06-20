@@ -38,16 +38,11 @@ public class Hit implements IAction {
 				tohit.power(-damage);
 			}
 			// terrain.add(tohit, ligne, colonne);
-		} else if (damage == -1) { // cas arc
-			Arc arc = (Arc) e;
-			Fleche f;
-			if(arc.getTrans()) {
-				f = new Fleche(arc.ligne(), arc.colonne(), arc.direction(), true);
-			} else {
-				f = new Fleche(ligne, colonne, e.direction());
-			}
-			((Arc)e).setFleche(f);
-			f.hit();
+		} else if (damage == -1) { // cas arc et flèche classique
+			Fleche f = new Fleche(ligne, colonne, e.direction());
+			terrain.add(f, ligne, colonne);
+		} else if (damage == -7) { // cas arc et flèche transpercante
+			Fleche f = new Fleche(ligne, colonne, e.direction(), true);
 			terrain.add(f, ligne, colonne);
 		} else if (damage == -2) { // cas Pioche
 			if (tohit instanceof Labyrinthe.Void) {

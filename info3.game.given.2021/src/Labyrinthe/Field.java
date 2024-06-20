@@ -1278,4 +1278,17 @@ public class Field {
 	public ArrayList<Object> get_labyrinthe(){
 		return this.labyrinthe;
 	}
+	
+	public LinkedList<LinkedList<Entity>> getAround(int ligne, int colonne){
+		LinkedList<LinkedList<Entity>> l_around = new LinkedList<LinkedList<Entity>>();
+		l_around.addLast(getElement(ligne-1, colonne));
+		l_around.addLast(getElement(ligne-1, colonne+1));
+		l_around.addLast(getElement(ligne, colonne+1));
+		l_around.addLast(getElement(ligne+1, colonne+1));
+		l_around.addLast(getElement(ligne+1, colonne));
+		l_around.addLast(getElement(ligne+1, colonne-1));
+		l_around.addLast(getElement(ligne, colonne-1));
+		l_around.addLast(getElement(ligne-1, colonne-1));
+		return l_around;
+	}
 }

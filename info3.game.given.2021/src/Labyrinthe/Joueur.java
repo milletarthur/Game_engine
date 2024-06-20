@@ -22,6 +22,7 @@ public class Joueur extends Entity {
 			this.category = Categorie.Diese;
 		this.team = team;
 		layer = 3;
+		inventory = new Inventory();
 	}
 	
 	public Entity egg(int ligne, int colonne) {

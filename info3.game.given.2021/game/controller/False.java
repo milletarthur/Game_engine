@@ -35,5 +35,11 @@ public class False implements ICondition{
 		// TODO Auto-generated method stub
 		return -5;
 	}
+	
+	@Override
+	public String toString() {
+		String s = "False";
+		return s;
+		}
 
 }

@@ -7,6 +7,7 @@ import toolkit.Categorie;
 public class Interrupteur extends Entity {
 
 	private LinkedList<Entity> liste_elem;
+	private int state = 0; // -1 := pop ; 1 := wizz
 
 	public Interrupteur(int ligne, int colonne, LinkedList<Entity> elem) {
 		this.colonne = colonne;
@@ -52,6 +53,13 @@ public class Interrupteur extends Entity {
 			elem.wizz();
 		}
 		liste_elem = null;
+	}
+	
+	/*
+	 * returns the state -1 := pop; 0 := normal; 1 := wizz
+	 */
+	public int State() {
+		return state;
 	}
 
 	@Override

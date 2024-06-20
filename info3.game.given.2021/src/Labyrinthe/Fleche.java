@@ -55,5 +55,11 @@ public class Fleche extends Entity {
 	public boolean getTrans() {
 		return transpercant;
 	}
+
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

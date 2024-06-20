@@ -31,4 +31,10 @@ public class Pioche extends Entity {
 		return -2;
 	}
 
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -44,4 +44,10 @@ public class Epee extends Entity {
 	public void setHitCircle(boolean bool) {
 		hitCircle = bool;
 	}
+
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
 }

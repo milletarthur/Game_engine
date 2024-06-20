@@ -40,4 +40,10 @@ public class Arc extends Entity {
 		return -1;
 	}
 
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

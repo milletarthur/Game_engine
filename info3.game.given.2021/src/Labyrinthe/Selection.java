@@ -34,4 +34,10 @@ public class Selection extends Entity {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
 }

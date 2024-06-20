@@ -26,6 +26,8 @@ public abstract class Entity {
 	protected int category;
 
 	protected int layer;
+	
+	protected boolean selected = false;
 
 	public abstract Entity egg(int x, int y);
 
@@ -150,6 +152,8 @@ public abstract class Entity {
 	public void wait_(int value) {
 		time += value;
 	}
+	
+	public abstract void jump();
 
 	public void kill() {
 		this.Valid = false;

@@ -34,4 +34,10 @@ public class Lave extends Entity {
 		return 20;
 	}
 
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

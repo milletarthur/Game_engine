@@ -67,4 +67,8 @@ public class Inventory {
 		inventory.remove(e);
 		return e;
 	}
+	
+	public int size() {
+		return inventory.size();
+	}
 }

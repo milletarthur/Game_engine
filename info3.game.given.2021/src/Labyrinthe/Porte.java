@@ -39,4 +39,10 @@ public class Porte extends Entity {
 	public boolean isOpen() {
 		return isOpen;
 	}
+
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
 }

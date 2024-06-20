@@ -1,15 +1,15 @@
 Test_Cond(Init){
 * (Init):
-| Key(z) & ! Cell(N,O) ? Turn(N) / Move :(Init)
-| Key(d) & ! Cell(E,O) ? Turn(E) / Move :(Init)
-| Key(s) & ! Cell(S,O) ? Turn(S) / Move :(Init)
-| Key(q) & ! Cell(W,O) ? Turn(W) / Move :(Init)
+| Key(z) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
+| Key(d) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
+| Key(s) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
+| Key(q) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
 }
 
 Test_Cond(Init){
 * (Init):
-| Key(FU) & ! Cell(N,O) ? Turn(N) / Move :(Init)
-| Key(FR) & ! Cell(E,O) ? Turn(E) / Move :(Init)
-| Key(FD) & ! Cell(S,O) ? Turn(S) / Move :(Init)
-| Key(FL) & ! Cell(W,O) ? Turn(W) / Move :(Init)
+| Key(FU) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
+| Key(FR) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
+| Key(FD) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
+| Key(FL) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
 }

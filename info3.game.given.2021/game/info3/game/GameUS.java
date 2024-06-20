@@ -23,7 +23,7 @@ public class GameUS {
 	/* TODO - HAUTEUR et LARGEUR seront les dimensions de la matrice */
 	private final static int LARGEUR = 30;
 	private final static int HAUTEUR = 40;
-	private final static int DENSITE = 10;
+	private final static int DENSITE = 100;
 	private static final int T_case = 30;
 	private static final int visibility = 5; // nb de cases visible autour des joueurs
 
@@ -34,7 +34,7 @@ public class GameUS {
 		lire_fichier_config(f);
 
 		// initialisation de la grille
-		Field terrain = new Field(HAUTEUR, LARGEUR, DENSITE);
+		Field terrain = new Field(HAUTEUR, LARGEUR, DENSITE, 30, 26, 1, 1, 1, 1, 25, 25, 50, 10);
 		
 		KeyPressed kp = new KeyPressed();
 

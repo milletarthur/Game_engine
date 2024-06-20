@@ -3,7 +3,6 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Pioche extends Entity {
-	
 	public Pioche(int ligne, int colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;

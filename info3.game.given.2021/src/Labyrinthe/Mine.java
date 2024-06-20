@@ -3,7 +3,6 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Mine extends Entity {
-	
 	private int ticktime = 40;
 	
 	public Mine(int ligne, int colonne) {

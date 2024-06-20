@@ -3,7 +3,6 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Invisible extends Mur {
-	
 	public Invisible(int ligne, int colonne) {
 		this.colonne = colonne;
 		this.ligne = ligne;

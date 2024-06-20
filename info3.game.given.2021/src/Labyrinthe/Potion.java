@@ -3,7 +3,6 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Potion extends Entity {
-	
 	boolean poison;
 	
 	public Potion(int ligne, int colonne) {

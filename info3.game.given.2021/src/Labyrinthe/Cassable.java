@@ -3,7 +3,6 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Cassable extends Mur {
-	
 	public Cassable(int ligne, int colonne) {
 		this.colonne = colonne;
 		this.ligne = ligne;

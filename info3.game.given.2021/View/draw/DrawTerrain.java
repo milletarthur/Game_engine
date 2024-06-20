@@ -169,6 +169,7 @@ public class DrawTerrain extends JPanel {
 		// joueurs
 		this.PLAYER = new Sprite("resources/graphisme/Personnages/sprites_weaponless.png", 26, 26);
 		this.player1 = PLAYER.getSprite(0, 20);
+//		this.player1 = (BufferedImage) drawEntity("resources/graphisme/mur.png");
 		this.player2 = PLAYER.getSprite(0, 0);
 
 		// sol

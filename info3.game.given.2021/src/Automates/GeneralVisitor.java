@@ -379,24 +379,16 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		ICondition c;
 		switch (funcall.name) {
 		case "Cell":
-			if (l_param.size() != 2)
-				throw new RuntimeException("Wrong arguments");
-			c = new Cell(f, l_param.get(0), l_param.get(1));
+				c = new Cell(f, (int) parameters.get(0),(int) parameters.get(1));
 			break;
 		case "True":
-			if (l_param.size() != 0)
-				throw new RuntimeException("Wrong arguments");
 			c = new True();
 			break;
 		case "False":
-			if (l_param.size() != 0)
-				throw new RuntimeException("Wrong arguments");
 			c = new False();
 			break;
 		case "Key":
-			if (l_param.size() != 1)
-				throw new RuntimeException("Wrong arguments");
-			c = new controller.Key(f, l_param.get(0), kp);
+			c = new controller.Key(f, (int) parameters.get(0), kp);  //l_param.get(0), kp);
 			break;
 		case "Got":
 			if (l_param.size() != 1)
@@ -406,7 +398,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		default:
 			throw new RuntimeException("Unknown action !");
 		}
-		l_cond.add(c);
+		//l_cond.add(c);
 		cond = c;
 		return c;
 	}
@@ -428,15 +420,15 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		ICondition c;
 		switch (binop.operator) {
 		case "&":
-			c = new Disjonction(l_cond.get(l_cond.size() - 2), l_cond.get(l_cond.size() - 1));
+			c = new Disjonction((ICondition) left, (ICondition) right);  //l_cond.get(l_cond.size() - 2), l_cond.get(l_cond.size() - 1));
 			break;
-		case "|":
-			c = new Conjonction(l_cond.get(l_cond.size() - 2), l_cond.get(l_cond.size() - 1));
+		case "/":
+			c = new Conjonction((ICondition) left, (ICondition) right); //l_cond.get(l_cond.size() - 2), l_cond.get(l_cond.size() - 1));
 			break;
 		default:
 			throw new RuntimeException("Wrong arguments");
 		}
-		l_cond.add(c);
+		//l_cond.add(c);
 		cond = c;
 		return c;
 	}
@@ -453,8 +445,8 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public Object build(UnaryOp unop, Object expression) {
 		ICondition c;
 		if (unop.operator.equals("!")) {
-			c = new Not(l_cond.get(l_cond.size() - 1));
-			l_cond.add(c);
+			c = new Not((ICondition) expression); //l_cond.get(l_cond.size() - 1));
+			//l_cond.add(c);
 			cond = c;
 			return c;
 		}

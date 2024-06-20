@@ -43,10 +43,12 @@ public class GameUS {
 		Joueur j2 = new Joueur(3, 0, 2);
 		terrain.add(j1, 2, 0);
 		terrain.add(j2, 3, 0);
+		terrain.printGame();
 		
 		//ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp);
-		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/apple.gal");
+//		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/apple.gal");
+		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/test_cond.gal");
 
 		//Initialisation de la fenêtre
 		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case, visibility);

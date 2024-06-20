@@ -415,12 +415,12 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		ICondition c;
 		switch (binop.operator) {
 		case "&":
-			c = new Disjonction((ICondition) left, (ICondition) right);  //l_cond.get(l_cond.size() - 2), l_cond.get(l_cond.size() - 1));
+			c = new Conjonction((ICondition) left, (ICondition) right);  //l_cond.get(l_cond.size() - 2), l_cond.get(l_cond.size() - 1));
 			if (left instanceof Cell)
 				((Cell) left).toString();
 			break;
 		case "/":
-			c = new Conjonction((ICondition) left, (ICondition) right); //l_cond.get(l_cond.size() - 2), l_cond.get(l_cond.size() - 1));
+			c = new Disjonction((ICondition) left, (ICondition) right); //l_cond.get(l_cond.size() - 2), l_cond.get(l_cond.size() - 1));
 			break;
 		default:
 			throw new RuntimeException("Wrong arguments");

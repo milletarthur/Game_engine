@@ -1,9 +1,8 @@
 Test_Cond(Init){
 
 * (Init):
-| Cell(H,V) ? Turn(E) / Move :(Init)
-| Key(FU) ? Turn(N) / Move :(Init)
-| Key(FR) ? Turn(E) / Move :(Init)
-| Key(FD) ? Turn(S) / Move :(Init)
-| Key(FL) ? Turn(W) / Move :(Init)
+| Key(FU) & ! Cell(N,O) ? Turn(N) / Move :(Init)
+| Key(FR) & ! Cell(E,O) ? Turn(E) / Move :(Init)
+| Key(FD) & ! Cell(S,O) ? Turn(S) / Move :(Init)
+| Key(FL) & ! Cell(W,O) ? Turn(W) / Move :(Init)
 }

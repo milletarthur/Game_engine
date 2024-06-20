@@ -15,21 +15,27 @@ import draw.WindowInitGame;
 public class JSONWindow implements ActionListener {
 
 	private WindowInitGame f;
+	private String filePath;
 
 	public JSONWindow(WindowInitGame f) {
 		this.f = f;
 	}
 
+	// lorsque l'on exécute le bouton JOUER
 	public void actionPerformed(ActionEvent evenement) {
-
 		try {
-			this.WriteJSON();
-			this.ReadJSON("resources/config/config_manuelle.json");
-			f.initGame();
+			if (f.getjeu() == "labyrinthe") {
+				filePath = "resources/config/config_labyrinthe.json";
+				f.initGame();
+				f.dispose();
+			} else if (f.getjeu() == "arene") {
+				filePath = "resources/config/config_labyrinthe.json";
+				f.initGame();
+				f.dispose();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		f.dispose();
 	}
 	
 	private void WriteJSON() throws IOException {
@@ -39,8 +45,8 @@ public class JSONWindow implements ActionListener {
 		// objet JSON principal
 		JSONObject param = new JSONObject();
 		param.put("jeu", f.getjeu());
-		param.put("namej1", f.getname(1));
-		param.put("namej2", f.getname(2));
+		param.put("name1", f.getname(1));
+		param.put("name2", f.getname(2));
 		param.put("hauteur", f.getSlider("HAUTEUR"));
 		param.put("largeur", f.getSlider("LARGEUR"));
 		param.put("visibility", f.getSlider("VISIBILITY"));
@@ -133,9 +139,9 @@ public class JSONWindow implements ActionListener {
         
         String jeu = jsonObject.getString("jeu");
         System.out.println("Jeu: " + jeu);
-        String name1 = jsonObject.getString("namej1");
+        String name1 = jsonObject.getString("name1");
         System.out.println("Joueur 1: " + name1);
-        String name2 = jsonObject.getString("namej2");
+        String name2 = jsonObject.getString("name2");
         System.out.println("Joueur 2: " + name2);
         int hauteur = jsonObject.getInt("hauteur");
         System.out.println("hauteur : " + hauteur);

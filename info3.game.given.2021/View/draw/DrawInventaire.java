@@ -20,14 +20,17 @@ public class DrawInventaire extends JPanel {
 
 	private Sprite INVENTAIRE;
 	private BufferedImage img_inventaire;
-	
+
 	private static final int pv_total = 20;
-	
+
 	// TODO - pv_perdu a recuperer / variable ci-dessous temp pour test
 	// il y aura pour les deux joueurs
 	private static final int pv_perdu = 5;
-	
-	private static final int temps = 5 ; // en minutes
+
+	// TODO - temps à récupérer dans le fichier de config
+	private static final int temps = 300; // en secondes
+	private int temps_actuel;
+	int cpt;
 
 	public DrawInventaire(int T_case, int visibility) throws IOException {
 
@@ -47,7 +50,7 @@ public class DrawInventaire extends JPanel {
 		this.add(pdv1);
 
 		// timer
-		this.timer = new JLabel("" + 0 + "");
+		this.timer = new JLabel("05 : 00");
 		timer.setPreferredSize(new Dimension(100, 65));
 		timer.setHorizontalAlignment(SwingConstants.CENTER);
 		timer.setVerticalAlignment(SwingConstants.CENTER);
@@ -60,13 +63,18 @@ public class DrawInventaire extends JPanel {
 		// inventaire 2
 		this.invent2 = new ImageJPanel();
 		this.add(invent2);
+
+		this.temps_actuel = temps;
+		this.cpt = 0;
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		this.paintTimer();
-		
+		this.gestionTime();
+		if (cpt == 10)
+			this.paintTimer();
+
 		// TODO - donner objet courant à la place de DrawTerrain...
 		invent1.setImage(img_inventaire, DrawTerrain.bombe, 0, 0, 65);
 		invent2.setImage(img_inventaire, DrawTerrain.arc, 0, 0, 65);
@@ -75,49 +83,33 @@ public class DrawInventaire extends JPanel {
 	public void settimer(TicTac t) {
 		this.t = t;
 	}
-	
-	public int calculminutes(long tick) {
-		return (int) tick / 60 ;
-	}
-	
-	public int calculsecondes(long tick) {
-		return (int) tick % 60 ;
-	}
-	
+
 	public void paintTimer() {
-		long tick = t.getTick();
-		int sec = 60 - calculsecondes(tick);
-		int min = temps - 1 - calculminutes(tick);
-		int init = temps - calculminutes(tick);
+		temps_actuel -= 1;
+		int min = temps_actuel / 60;
+		int sec = temps_actuel % 60;
 		if (min < 10) {
-			if (init < 10) {
-				if (sec == 60)
-					timer.setText("0"+init+" : 00");
-				else if (sec < 10)
-					timer.setText("0"+min+" : 0"+sec+"");
-				else 
-					timer.setText("0"+min+" : "+sec+"");
-			} else {
-				if (sec == 60)
-					timer.setText(init+" : 00");
-				else if (sec < 10)
-					timer.setText("0"+min+" : 0"+sec+"");
-				else 
-					timer.setText("0"+min+" : "+sec+"");
-			}
+			if (sec < 10)
+				timer.setText("0" + min + " : 0" + sec + "");
+			else
+				timer.setText("0" + min + " : " + sec + "");
 		} else {
-			if (sec == 60)
-				timer.setText(init+" : 00");
-			else if (sec < 10)
-				timer.setText(min+" : 0"+sec+"");
-			else 
-				timer.setText(min+" : "+sec+"");
+			if (sec < 10)
+				timer.setText(min + " : 0" + sec + "");
+			else
+				timer.setText(min + " : " + sec + "");
 		}
 	}
 
 	public void Image() throws IOException {
 		this.INVENTAIRE = new Sprite("resources/graphisme/Structures/final_room.png", 24, 24);
 		this.img_inventaire = INVENTAIRE.getSprite(2, 0);
+	}
+
+	public void gestionTime() {
+		cpt++;
+		if (cpt == 11)
+			cpt = 0;
 	}
 
 }

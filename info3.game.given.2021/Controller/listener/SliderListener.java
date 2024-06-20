@@ -36,9 +36,6 @@ public class SliderListener implements ChangeListener {
 		case 3 : //slider visibilité
 			texte.setText("Visibilité autour du joueur : " + slider.getValue());
 			break;
-		/*case 4 :
-			texte.setText("Nb de joueur : " + slider.getValue());
-			break;*/
 		default:
 			break;
 		}

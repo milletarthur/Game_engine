@@ -23,7 +23,7 @@ public class GameUS {
 	/* TODO - HAUTEUR et LARGEUR seront les dimensions de la matrice */
 	private final static int LARGEUR = 30;
 	private final static int HAUTEUR = 40;
-	private final static int DENSITE = 40;
+	private final static int DENSITE = 100;
 	private static final int T_case = 40;
 	private static final int visibility = 5; // nb de cases visible autour des joueurs
 

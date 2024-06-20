@@ -117,7 +117,6 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Joueur) {
 						// TODO - gérer les cas ou le joueur a une arme et quel joueur c'est (avec les teams / positions)
 						g.drawImage(player1, j * T_case, i * T_case, T_case, T_case, null);
-						
 					} else if (e instanceof Lave) {
 						g.drawImage(lave, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Mine) {
@@ -129,7 +128,7 @@ public class DrawTerrain extends JPanel {
 						g.drawImage(pioche, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Porte) {
 						// TODO - savoir et rajouter quand la porte est ouverte ou fermée
-						g.drawImage(porte_fermee, j * T_case, i * T_case, T_case, T_case, null);
+						g.drawImage(porte_ouverte, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Potion) {
 						g.drawImage(potion, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Sable) {
@@ -169,7 +168,6 @@ public class DrawTerrain extends JPanel {
 		// joueurs
 		this.PLAYER = new Sprite("resources/graphisme/Personnages/sprites_weaponless.png", 26, 26);
 		this.player1 = PLAYER.getSprite(0, 20);
-//		this.player1 = (BufferedImage) drawEntity("resources/graphisme/mur.png");
 		this.player2 = PLAYER.getSprite(0, 0);
 
 		// sol

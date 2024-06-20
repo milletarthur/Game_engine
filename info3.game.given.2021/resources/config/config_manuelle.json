@@ -1,8 +1,8 @@
 {
-    "visibility": 6,
-    "largeur": 96,
-    "jeu": "labyrinthe",
-    "namej2": "oui",
-    "namej1": "hey",
-    "hauteur": 28
+    "visibility": 8,
+    "largeur": 80,
+    "jeu": "arene",
+    "namej2": "faez",
+    "namej1": "ezhfl",
+    "hauteur": 80
 }

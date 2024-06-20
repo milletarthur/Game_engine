@@ -1,46 +1,98 @@
 { 
+    "jeu" : "labyrinthe",
     "cooperative" : true, 
-    "duration" : 3600, 
-    "germe" : 732,
-    "difficulty" : 2,  
+    "duration" : 300, 
+    "germe" : 732, 
     "hauteur" : 30,
     "largeur" : 30,
     "visibility" : 5,
+    "%density" : 100,
+    "name1" : "Joueur 1",
+    "name2" : "Joueur 2",
     "entities": [
-      { "name" : "PLAYER 1",
-        "view" : 1,   
-        "behaviour": "player1.gal",
-        "features" : "Warrior.class",
-        "sprite" : "warrior.png",
-        "pickable": false  
+      { "name" : "Apple",
+        "behaviour": "apple.gal",
+        "pickable": true 
       },
-      { "name" : "PLAYER 2",
-        "view" : 2,   
-        "behaviour": "player2.gal",
-        "features" : "Wizard.class",
-        "sprite" : "wizard.png",
-        "pickable": false  
+      { "name" : "Arc", 
+        "behaviour": "arc.gal",
+        "pickable": true 
       },
-      { "name" : "WALL", 
-        "%density" : 23, 
-        "behaviour" : "",
-        "features" : "Wall.class",
-        "sprite" : "wall.png",
-        "pickable" : false
+      { "name" : "Bombe", 
+        "behaviour": "bombe.gal",
+        "pickable": true 
       },
-      { "name" : "ROCK", 
-        "%density" : 5, 
-        "behaviour" : "rock.gal",
-        "features" : "Rock.class",
-        "sprite" : "rock.png",
-        "pickable" : true
+      { "name" : "Cassable", 
+        "behaviour": "cassable.gal",
+        "pickable": false 
       },
-      { "name" : "FROG", 
-        "%density" : 10, 
-        "behaviour" : "frog.gal",
-        "features" : "Frog.class",
-        "sprite" : "frog.png",
-        "pickable" : true
+      { "name" : "Epee", 
+        "behaviour": "epee.gal",
+        "pickable": true 
+      },
+      { "name" : "Fleche", 
+        "behaviour": "fleche.gal",
+        "pickable": false 
+      },
+      { "name" : "Interrupteur", 
+        "behaviour": "interrupteur.gal",
+        "pickable": false 
+      },
+      { "name" : "Invisible", 
+        "behaviour": "invisible.gal",
+        "pickable": false 
+      },
+      { "name" : "Joueur", 
+        "behaviour": "joueur.gal",
+        "pickable": false 
+      },
+      { "name" : "Lave", 
+        "behaviour": "lave.gal",
+        "pickable": false 
+      },
+      { "name" : "Mine", 
+        "behaviour": "mine.gal",
+        "pickable": false 
+      },
+      { "name" : "Normal", 
+        "behaviour": "normal.gal",
+        "pickable": false 
+      },
+      { "name" : "Pioche", 
+        "behaviour": "pioche.gal",
+        "pickable": true 
+      },
+      { "name" : "Porte", 
+        "behaviour": "porte.gal",
+        "pickable": false 
+      },
+      { "name" : "Potion", 
+        "behaviour": "potion.gal",
+        "pickable": true 
+      },
+      { "name" : "Sable", 
+        "behaviour": "sable.gal",
+        "pickable": false 
+      },
+      { "name" : "Selection", 
+        "behaviour": "selection.gal",
+        "pickable": false 
+      },
+      { "name" : "Squelette", 
+        "behaviour": "squelette.gal",
+        "pickable": false 
+      },
+      { "name" : "Teleporteur", 
+        "behaviour": "teleporteur.gal",
+        "pickable": false 
+      },
+      { "name" : "Void", 
+        "behaviour": "void.gal",
+        "pickable": false 
+      },
+      { "name" : "Zombie", 
+        "behaviour": "zombie.gal",
+        "pickable": false 
       }
     ]
   }

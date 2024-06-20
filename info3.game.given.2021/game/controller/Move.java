@@ -34,7 +34,7 @@ public class Move implements IAction {
 		if (go_to_ligne < 0 || go_to_ligne > terrain.get_ligne()-1 || go_to_colonne < 0 || go_to_colonne > terrain.get_colonne()-1)
 			return;
 //		Entity e_go_to = terrain.getLastnotSelect(go_to_ligne, go_to_colonne);
-//		if (e_go_to.category() == Categorie.O || e_go_to.category() == Categorie.G)
+//		if (e_go_to.category() == Categorie.O || e_go_to.category() == Categorie.G || e_go_to.category() == Categorie.C)
 //			return;
 		terrain.remove(ligne, colonne, e);	
 		e.move();

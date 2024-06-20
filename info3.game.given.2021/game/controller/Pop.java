@@ -101,6 +101,9 @@ public class Pop implements IAction {
 				}
 				break;
 			}
+		} else if (e instanceof Bombe || e instanceof Mine) {
+			Explode ex = new Explode(terrain);
+			ex.exec(e);
 		}
 		e.pop();
 	}

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.Random;
 
 // bibliothèque org.json pour lire et écrire les fichiers JSON
 import org.json.*;
@@ -16,14 +17,17 @@ import draw.WindowInitGame;
  */
 public class JSONWindow implements ActionListener {
 
-	private WindowInitGame f;
-	private String filePath;
-
-	public static String name1, name2;
+	public static String name1, name2, jeu;
 	public static String aut_j1, aut_j2, aut_apple, aut_arc, aut_bombe, aut_cassable, aut_epee, aut_fleche,
 			aut_interrupteur, aut_invisible, aut_lave, aut_mine, aut_normal, aut_pioche, aut_porte, aut_potion,
 			aut_sable, aut_selection, aut_squelette, aut_teleporteur, aut_void, aut_zombie;
 	public static int time, pv, hauteur, largeur, visibility, densite;
+	public static Random seed;
+	
+	private WindowInitGame f;
+	private String filePath;
+	private int germe ;
+	private boolean use_seed;
 
 	public JSONWindow(WindowInitGame f) {
 		this.f = f;
@@ -58,6 +62,7 @@ public class JSONWindow implements ActionListener {
 
 		JSONObject param = new JSONObject(contenu);
 		
+		jeu = param.getString("jeu");
 		name1 = f.getname(1);
 		name2 = f.getname(2);
 		time = param.getInt("duration");
@@ -66,6 +71,13 @@ public class JSONWindow implements ActionListener {
 		largeur = param.getInt("largeur");
 		visibility = param.getInt("visibility");
 		densite = param.getInt("%density");
+		germe = param.getInt("seed");
+		use_seed = param.getBoolean("use_seed");
+		
+		if (use_seed)
+			seed = new Random(germe);
+		else
+			seed = new Random();
 
 		// récupération des automates du fichier de config
 		JSONArray entities = param.getJSONArray("entities");

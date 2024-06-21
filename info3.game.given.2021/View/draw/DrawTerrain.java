@@ -119,13 +119,17 @@ public class DrawTerrain extends JPanel {
 							g.drawImage(int_neutre, j * T_case, i * T_case, T_case, T_case, null);
 						}
 					} else if (e instanceof Invisible) { // mur magique
-						if (temp.get(2) instanceof Joueur) {
-							if (temp.get(2).team() == this.int_team) {
+						int h = 0 ;
+						boolean inv = false ;
+						while (h < temp.size()) {
+							if (temp.get(h).team() == this.int_team) {
 								g.drawImage(invisible, j * T_case, i * T_case, T_case, T_case, null);
-							} else {
-								g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
-							}
-						} else {
+								inv = true ;
+								break;
+							} 
+							h++;
+						} 
+						if (!inv) {
 							g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 						}
 					} else if (e instanceof Joueur) {

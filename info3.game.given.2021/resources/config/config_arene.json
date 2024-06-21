@@ -1,13 +1,14 @@
 { 
-    "jeu" : "arene",
+    "jeu" : "Arène",
     "cooperative" : false, 
     "duration" : 300, 
-    "germe" : 732, 
     "hauteur" : 20,
     "largeur" : 20,
     "visibility" : 3,
     "%density" : 35,
     "pv" : 20,
+    "seed" : 732,
+    "use_seed" : false,
     "entities": [
       { "name" : "Apple",
         "automate": "Apple",

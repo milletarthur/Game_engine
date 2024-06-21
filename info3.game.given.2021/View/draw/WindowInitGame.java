@@ -92,11 +92,9 @@ public class WindowInitGame extends JFrame {
 	}
 
 	public void initGame() throws IOException {
-		
-		Random rand = new Random();
 
 		// initialisation de la grille
-		Field terrain = new Field(JSONWindow.hauteur, JSONWindow.largeur, JSONWindow.densite, 10, 2, 2, 2, 2, 2, 25, 25, 50, 10, 2, new Random(0));
+		Field terrain = new Field(JSONWindow.hauteur, JSONWindow.largeur, JSONWindow.densite, 10, 2, 2, 2, 2, 2, 25, 25, 50, 10, 2, JSONWindow.seed);
 		
 		KeyPressed kp = new KeyPressed();
 
@@ -105,7 +103,7 @@ public class WindowInitGame extends JFrame {
 		Joueur j2 = new Joueur(3, 0, 2);
 		terrain.add(j1, 2, 0);
 		terrain.add(j2, 3, 0);
-		terrain.printGame();
+		// terrain.printGame();
 
 		// ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp);

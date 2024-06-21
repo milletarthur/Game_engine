@@ -35,6 +35,8 @@ public class Field {
 	private LinkedList<Entity> ListeBombes = new LinkedList<Entity>();
 	private LinkedList<Entity> ListeTeleporteur = new LinkedList<Entity>();
 
+	private LinkedList<Entity> ListeMine = new LinkedList<Entity>();
+
 	public Field(int lig, int col, int densite_field, int densite_pickable, int mine, int pomme, int potion, int pioche,
 			int bombe, int cassable, int invisible, int normal, int nb_porte_sable, int nb_ennemis, Random r) {
 		if (col % 2 == 0) {
@@ -125,24 +127,28 @@ public class Field {
 		return liste_zombie;
 	}
 
-	public LinkedList<Entity> getListePommes() {
+	public LinkedList<Entity> get_ListePommes() {
 		return this.ListePommes;
 	}
 
-	public LinkedList<Entity> getListePotions() {
+	public LinkedList<Entity> get_ListePotions() {
 		return this.ListePotions;
 	}
 
-	public LinkedList<Entity> getListePioche() {
+	public LinkedList<Entity> get_ListePioche() {
 		return this.ListePioches;
 	}
 
-	public LinkedList<Entity> getListeBombes() {
+	public LinkedList<Entity> get_ListeBombes() {
 		return this.ListeBombes;
 	}
 
-	public LinkedList<Entity> getListeTeleporteur() {
+	public LinkedList<Entity> get_ListeTeleporteur() {
 		return this.ListeTeleporteur;
+	}
+
+	public LinkedList<Entity> get_ListeMine() {
+		return this.ListeMine;
 	}
 
 	void depot_ennemis(int nb) {
@@ -1136,6 +1142,7 @@ public class Field {
 			}
 			Mine m = new Mine(x, y);
 			set_element2(x, y, m, labyrinthe);
+			ListeMine.add(m);
 			count++;
 		}
 	}

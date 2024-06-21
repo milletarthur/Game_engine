@@ -1159,18 +1159,209 @@ public class Field {
 		}
 		return rv;
 	}
+	
+	
+	public boolean presence_Bot_Joueur(LinkedList<Entity> liste) {
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof Joueur || liste.get(i) instanceof Squelette || liste.get(i) instanceof Zombie) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean presence_clue(LinkedList<Entity> liste) {
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof Interrupteur) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean presence_danger(LinkedList<Entity> liste) {
+		boolean v = false;
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof Fleche || liste.get(i) instanceof Mine || liste.get(i) instanceof Sable) {
+				return true;
+			}
+		}
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof Void) {
+				v = true;
+			}
+		}
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof Lave && v == false) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean presence_gate(LinkedList<Entity> liste) {
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof Teleporteur || liste.get(i) instanceof Invisible) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean presence_wizz(LinkedList<Entity> liste) {
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof WizzEntity) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean presence_pop(LinkedList<Entity> liste) {
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof PopEntity) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean presence_obstacle(LinkedList<Entity> liste) {
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof Cassable || liste.get(i) instanceof Normal || (liste.get(i) instanceof Porte && liste.get(i).category == Categorie.O)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean presence_pickable(LinkedList<Entity> liste) {
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof Apple || liste.get(i) instanceof Arc || liste.get(i) instanceof Bombe || liste.get(i) instanceof Epee || liste.get(i) instanceof Pioche || liste.get(i) instanceof Potion) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean presence_void(LinkedList<Entity> liste) {
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof Void) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean presence_Arobase(Entity en, LinkedList<Entity> liste) {
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof Joueur && en.team == liste.get(i).team) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean presence_Diese(Entity en, LinkedList<Entity> liste) {
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof Joueur && en.team != liste.get(i).team) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean presence_Tiret(LinkedList<Entity> liste) {
+		if(liste.getLast() instanceof Selection) {
+			if(liste.get(liste.size()-2) instanceof Void) {
+				return true;
+			}
+		}
+		else if (liste.getLast() instanceof Void){
+			return true;
+		}
+		return false;
+	}
+	
+	
 
 	public boolean cell(Entity e, int dir, int cat) {
 		int[] coo = next_to(e, dir);
 		int ligne = coo[0];
 		int colonne = coo[1];
-		if (! isValidPosition1(coo[0], coo[1]))
+		if (!(isValidPosition1(coo[0], coo[1])))
 			return false;
 		LinkedList<Entity> elem = getElement(ligne, colonne);
-		int ilastelem = elem.size() - 1;
+		int taille = elem.size();
 		if (elem.getLast() instanceof Selection)
-			ilastelem--;
-		Entity lastelem = elem.get(ilastelem);
+			taille--;
+		switch (cat) {
+		case Categorie.A :
+			if(presence_Bot_Joueur(elem)) {
+				return true;
+			}
+			return false;
+		case Categorie.C :
+			if(presence_clue(elem)) {
+				return true;
+			}
+			return false;
+		case Categorie.D :
+			if(presence_danger(elem)) {
+				return true;
+			}
+			return false;
+		case Categorie.G :
+			if(presence_gate(elem)) {
+				return true;
+			}
+			return false;
+		case Categorie.J :
+			if(presence_wizz(elem)) {
+				return true;
+			}
+			return false;
+		case Categorie.M :
+			if(presence_pop(elem)) {
+				return true;
+			}
+			return false;
+		case Categorie.O :
+			if(presence_obstacle(elem)) {
+				return true;
+			}
+			return false;
+		case Categorie.P :
+			if(presence_pickable(elem)) {
+				return true;
+			}
+			return false;
+		case Categorie.V :
+			if(presence_void(elem)) {
+				return true;
+			}
+			return false;
+		case Categorie.Arobase :
+			if(presence_Arobase(e, elem)) {
+				return true;
+			}
+			return false;
+		case Categorie.Diese :
+			if(presence_Diese(e, elem)) {
+				return true;
+			}
+			return false;
+		case Categorie.Tiret :
+			if(presence_Tiret(elem)) {
+				return false;
+			}
+			return true;
+		default:
+			return false;
+		}
+		
+		
+		/*Entity lastelem = elem.get(ilastelem);
 		if (lastelem.equals(e))
 			lastelem = elem.get(ilastelem-1);
 		int catlast = lastelem.category();
@@ -1201,7 +1392,7 @@ public class Field {
 			if (lastelem.category() == cat)
 				return true;
 			return false;
-		}
+		}*/
 	}
 
 	public void add(Entity e, int ligne, int colonne) {

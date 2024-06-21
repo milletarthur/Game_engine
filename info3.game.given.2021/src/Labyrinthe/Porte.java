@@ -9,7 +9,7 @@ public class Porte extends Entity {
 	public Porte(int ligne, int colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;
-		this.category = Categorie.G;
+		this.category = Categorie.O;
 		this.team = 6;
 		layer = 2;
 		isOpen = false;
@@ -23,11 +23,13 @@ public class Porte extends Entity {
 	@Override
 	public void pop() {
 		isOpen = true;
+		this.category = Categorie.O;
 	}
 
 	@Override
 	public void wizz() {
 		isOpen = false;
+		this.category = Categorie.V;
 	}
 
 	@Override

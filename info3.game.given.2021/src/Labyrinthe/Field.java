@@ -54,10 +54,10 @@ public class Field {
 		detruire_mur(densite_field);
 		labyrinthe();
 		recup_liste_mur();
-		//printLabyrinthe_tmp();
+		// printLabyrinthe_tmp();
 		trouver_chemin_1();
 		chemin = trouver_chemin_2();
-		//affiche_chemin(chemin);
+		// affiche_chemin(chemin);
 		for (int i = 0; i < chemin.size(); i++) {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
@@ -217,7 +217,7 @@ public class Field {
 		int i = chemin.size() / nb_porte - 2;
 		LinkedList<Pair<Integer, Integer>> chemin3 = new LinkedList<Pair<Integer, Integer>>();
 		int len = chemin2.size() / nb_porte;
-		//System.out.printf("len = \t%d\n", len);
+		// System.out.printf("len = \t%d\n", len);
 		while (len < 6) {
 			// System.out.println("je suis dedans
 			// #####################################################");
@@ -229,7 +229,7 @@ public class Field {
 			chemin2.remove(ind);
 		}
 
-		//System.out.printf("len = \t%d\n", len);
+		// System.out.printf("len = \t%d\n", len);
 		Entity elem = null;
 		int condition = 1;
 		Entity p = null;
@@ -307,7 +307,7 @@ public class Field {
 			}
 
 			condition = 1;
-			//printGame();
+			// printGame();
 			i = chemin.size() / nb_porte - 2;
 			count = 0;
 		}
@@ -429,7 +429,8 @@ public class Field {
 		int len_mur = mur.size();
 		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
-		//System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
+		// System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable,
+		// len_mur);
 		int count = 0;
 		int x, y;
 		while (count < nb_pour_cassable) {
@@ -476,7 +477,8 @@ public class Field {
 		int len_mur = mur.size();
 		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
-		//System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
+		// System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable,
+		// len_mur);
 		int count = 0;
 		int x, y;
 		while (count < nb_pour_cassable) {
@@ -1164,8 +1166,8 @@ public class Field {
 				case Direction.SW:
 					rv[0]++;
 					rv[1]--;
-					break;	
-				default :
+					break;
+				default:
 					break;
 				}
 			}
@@ -1312,141 +1314,140 @@ public class Field {
 				}
 			}
 		}
-		if(rv[0] < 0)
+		if (rv[0] < 0)
 			rv[0] = 0;
-		if(rv[0] >= ligne)
-			rv[0] = ligne-1;
-		if(rv[1] < 0)
+		if (rv[0] >= ligne)
+			rv[0] = ligne - 1;
+		if (rv[1] < 0)
 			rv[1] = 0;
-		if(rv[1] >= colonne)
-			rv[1] = colonne-1;
+		if (rv[1] >= colonne)
+			rv[1] = colonne - 1;
 		return rv;
 	}
-	
-	
+
 	public boolean presence_Bot_Joueur(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Joueur || liste.get(i) instanceof Squelette || liste.get(i) instanceof Zombie) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Joueur || liste.get(i) instanceof Squelette || liste.get(i) instanceof Zombie) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_clue(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Interrupteur) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Interrupteur) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_danger(LinkedList<Entity> liste) {
 		boolean v = false;
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Fleche || liste.get(i) instanceof Mine || liste.get(i) instanceof Sable) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Fleche || liste.get(i) instanceof Mine || liste.get(i) instanceof Sable) {
 				return true;
 			}
 		}
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Void) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Void) {
 				v = true;
 			}
 		}
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Lave && v == false) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Lave && v == false) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_gate(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Teleporteur || liste.get(i) instanceof Invisible) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Teleporteur || liste.get(i) instanceof Invisible) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_wizz(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof WizzEntity) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof WizzEntity) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_pop(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof PopEntity) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof PopEntity) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_obstacle(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Cassable || liste.get(i) instanceof Normal || (liste.get(i) instanceof Porte && liste.get(i).category == Categorie.O)) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Cassable || liste.get(i) instanceof Normal
+					|| (liste.get(i) instanceof Porte && liste.get(i).category == Categorie.O)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_pickable(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Apple || liste.get(i) instanceof Arc || liste.get(i) instanceof Bombe || liste.get(i) instanceof Epee || liste.get(i) instanceof Pioche || liste.get(i) instanceof Potion) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Apple || liste.get(i) instanceof Arc || liste.get(i) instanceof Bombe
+					|| liste.get(i) instanceof Epee || liste.get(i) instanceof Pioche
+					|| liste.get(i) instanceof Potion) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_void(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Void) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Void) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_Arobase(Entity en, LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Joueur && en.team == liste.get(i).team) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Joueur && en.team == liste.get(i).team) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_Diese(Entity en, LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Joueur && en.team != liste.get(i).team) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Joueur && en.team != liste.get(i).team) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_Tiret(LinkedList<Entity> liste) {
-		if(liste.getLast() instanceof Selection) {
-			if(liste.get(liste.size()-2) instanceof Void) {
+		if (liste.getLast() instanceof Selection) {
+			if (liste.get(liste.size() - 2) instanceof Void) {
 				return true;
 			}
-		}
-		else if (liste.getLast() instanceof Void){
+		} else if (liste.getLast() instanceof Void) {
 			return true;
 		}
 		return false;
 	}
-	
-	
 
 	public int[] next_to_outside(Entity e, int d) {
 		int[] rv = new int[2];
@@ -1482,8 +1483,8 @@ public class Field {
 				case Direction.SW:
 					rv[0]++;
 					rv[1]--;
-					break;	
-				default :
+					break;
+				default:
 					break;
 				}
 			}
@@ -1632,7 +1633,7 @@ public class Field {
 		}
 		return rv;
 	}
-	
+
 	public boolean cell(Entity e, int dir, int cat) {
 		int[] coo = next_to(e, dir);
 		int ligne = coo[0];
@@ -1644,103 +1645,84 @@ public class Field {
 		if (elem.getLast() instanceof Selection)
 			taille--;
 		switch (cat) {
-		case Categorie.A :
-			if(presence_Bot_Joueur(elem)) {
+		case Categorie.A:
+			if (presence_Bot_Joueur(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.C :
-			if(presence_clue(elem)) {
+		case Categorie.C:
+			if (presence_clue(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.D :
-			if(presence_danger(elem)) {
+		case Categorie.D:
+			if (presence_danger(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.G :
-			if(presence_gate(elem)) {
+		case Categorie.G:
+			if (presence_gate(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.J :
-			if(presence_wizz(elem)) {
+		case Categorie.J:
+			if (presence_wizz(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.M :
-			if(presence_pop(elem)) {
+		case Categorie.M:
+			if (presence_pop(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.O :
-			if(presence_obstacle(elem)) {
+		case Categorie.O:
+			if (presence_obstacle(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.P :
-			if(presence_pickable(elem)) {
+		case Categorie.P:
+			if (presence_pickable(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.V :
-			if(presence_void(elem)) {
+		case Categorie.V:
+			if (presence_void(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.Arobase :
-			if(presence_Arobase(e, elem)) {
+		case Categorie.Arobase:
+			if (presence_Arobase(e, elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.Diese :
-			if(presence_Diese(e, elem)) {
+		case Categorie.Diese:
+			if (presence_Diese(e, elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.Tiret :
-			if(presence_Tiret(elem)) {
+		case Categorie.Tiret:
+			if (presence_Tiret(elem)) {
 				return false;
 			}
 			return true;
 		default:
 			return false;
 		}
-		
-		
-		/*Entity lastelem = elem.get(ilastelem);
-		if (lastelem.equals(e))
-			lastelem = elem.get(ilastelem-1);
-		int catlast = lastelem.category();
-		switch (cat) {
-		case Categorie.A:
-			if (e.team() != lastelem.team())
-				return true;
-			return false;
-		case Categorie.T:
-			if (lastelem.team() == e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
-				return false;
-			if (lastelem.team() == e.team())
-				return true;
-			return false;
-		case Categorie.Tiret:
-			if (lastelem.category() == Categorie.V)
-				return false;
-			return true;
-		case Categorie.Arobase:
-			if (lastelem.team() == e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
-				return true;
-			return false;
-		case Categorie.Diese:
-			if (lastelem.team() != e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
-				return true;
-			return false;
-		default:
-			if (lastelem.category() == cat)
-				return true;
-			return false;
-		}*/
+
+		/*
+		 * Entity lastelem = elem.get(ilastelem); if (lastelem.equals(e)) lastelem =
+		 * elem.get(ilastelem-1); int catlast = lastelem.category(); switch (cat) { case
+		 * Categorie.A: if (e.team() != lastelem.team()) return true; return false; case
+		 * Categorie.T: if (lastelem.team() == e.team() && (catlast == Categorie.Arobase
+		 * || catlast == Categorie.Diese)) return false; if (lastelem.team() ==
+		 * e.team()) return true; return false; case Categorie.Tiret: if
+		 * (lastelem.category() == Categorie.V) return false; return true; case
+		 * Categorie.Arobase: if (lastelem.team() == e.team() && (catlast ==
+		 * Categorie.Arobase || catlast == Categorie.Diese)) return true; return false;
+		 * case Categorie.Diese: if (lastelem.team() != e.team() && (catlast ==
+		 * Categorie.Arobase || catlast == Categorie.Diese)) return true; return false;
+		 * default: if (lastelem.category() == cat) return true; return false; }
+		 */
 	}
 
 	public void add(Entity e, int ligne, int colonne) {
@@ -1755,7 +1737,7 @@ public class Field {
 			return;
 		} else {
 			if (elem.layer() > e.layer())
-				l_entity.add(cpt-1, e);
+				l_entity.add(cpt - 1, e);
 			else
 				l_entity.add(cpt, e);
 		}
@@ -1811,13 +1793,13 @@ public class Field {
 		}
 		return l_class;
 	}
-	
+
 	public boolean hasSameLayer(int ligne, int colonne, int layer) {
 		LinkedList<Entity> l_entity = getElement(ligne, colonne);
 		Entity elem;
-		for(int i=0; i<l_entity.size(); i++) {
+		for (int i = 0; i < l_entity.size(); i++) {
 			elem = l_entity.get(i);
-			if(elem.layer() == layer) {
+			if (elem.layer() == layer) {
 				return true;
 			}
 		}
@@ -1827,21 +1809,21 @@ public class Field {
 	public boolean isHerePossible(int ligne, int colonne, Entity e) {
 		Entity here = getLastnotSelect(ligne, colonne);
 		String classnamelong = e.getClass().getName();
-		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
-		switch(classname) {
+		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".") + 1, classnamelong.length());
+		switch (classname) {
 		case "Joueur":
 		case "Zombie":
 		case "Squelette":
 			if (here instanceof Void) {
 				return true;
-			} else if(here instanceof Invisible) {
+			} else if (here instanceof Invisible) {
 				return !hasSameLayer(ligne, colonne, e.layer());
 			}
 			return false;
 		case "Sable":
-			if(here instanceof Void) {
+			if (here instanceof Void) {
 				return true;
-			} else if(here.category() == Categorie.P || here instanceof Mine) {
+			} else if (here.category() == Categorie.P || here instanceof Mine) {
 				remove(ligne, colonne, here);
 				return true;
 			}
@@ -1853,7 +1835,7 @@ public class Field {
 		case "Bombe":
 		case "Epee":
 		case "Arc":
-			if(here instanceof Void) {
+			if (here instanceof Void) {
 				return true;
 			} else if (here instanceof Cassable || here instanceof Invisible) {
 				return !hasSameLayer(ligne, colonne, e.layer());
@@ -1861,150 +1843,268 @@ public class Field {
 			return false;
 		case "Porte":
 		case "Interrupteur":
-			
+
 		case "Normal":
-			if(here instanceof Void) {
+			if (here instanceof Void) {
 				// /!\ si on est en dehors du terrain
-				LinkedList<Entity> l_entityN = getElement(ligne-1, colonne);
-				LinkedList<Entity> l_entityE = getElement(ligne, colonne+1);
-				LinkedList<Entity> l_entityS = getElement(ligne+1, colonne);
-				LinkedList<Entity> l_entityW = getElement(ligne, colonne-1);
+				LinkedList<Entity> l_entityN = getElement(ligne - 1, colonne);
+				LinkedList<Entity> l_entityE = getElement(ligne, colonne + 1);
+				LinkedList<Entity> l_entityS = getElement(ligne + 1, colonne);
+				LinkedList<Entity> l_entityW = getElement(ligne, colonne - 1);
+				LinkedList<Entity> l_entityNW = getElement(ligne - 1, colonne - 1);
+				LinkedList<Entity> l_entityNE = getElement(ligne - 1, colonne + 1);
+				LinkedList<Entity> l_entitySE = getElement(ligne + 1, colonne + 1);
+				LinkedList<Entity> l_entitySW = getElement(ligne + 1, colonne - 1);
 				Entity elem;
 				boolean MurN = false;
 				boolean MurE = false;
 				boolean MurS = false;
 				boolean MurW = false;
-				for(int i=0; i<l_entityN.size(); i++) {
+				boolean MurNE = false;
+				boolean MurSE = false;
+				boolean MurSW = false;
+				boolean MurNW = false;
+				for (int i = 0; i < l_entityN.size(); i++) {
 					elem = l_entityN.get(i);
-					if(elem instanceof Normal || elem instanceof Cassable) {
+					if (elem instanceof Normal || elem instanceof Cassable) {
 						MurN = true;
 					}
 				}
-				for(int i=0; i<l_entityS.size(); i++) {
+				for (int i = 0; i < l_entityS.size(); i++) {
 					elem = l_entityS.get(i);
-					if(elem instanceof Normal || elem instanceof Cassable) {
+					if (elem instanceof Normal || elem instanceof Cassable) {
 						MurS = true;
 					}
 				}
-				if(MurN && MurS) {
+				if (MurN && MurS) {
 					return true;
 				}
-				for(int i=0; i<l_entityE.size(); i++) {
+				for (int i = 0; i < l_entityE.size(); i++) {
 					elem = l_entityE.get(i);
-					if(elem instanceof Normal || elem instanceof Cassable) {
+					if (elem instanceof Normal || elem instanceof Cassable) {
 						MurE = true;
 					}
 				}
-				for(int i=0; i<l_entityW.size(); i++) {
+				for (int i = 0; i < l_entityW.size(); i++) {
 					elem = l_entityW.get(i);
-					if(elem instanceof Normal || elem instanceof Cassable) {
+					if (elem instanceof Normal || elem instanceof Cassable) {
 						MurW = true;
 					}
 				}
-				if(MurE && MurW) {
+				if (MurE && MurW) {
 					return true;
 				}
-				return false;
+				for (int i = 0; i < l_entityNE.size(); i++) {
+					elem = l_entityNE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurNE = true;
+					}
+				}
+				for (int i = 0; i < l_entityNW.size(); i++) {
+					elem = l_entityNW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurNW = true;
+					}
+				}
+				if (MurNE && MurNW) {
+					return true;
+				}
+				for (int i = 0; i < l_entitySE.size(); i++) {
+					elem = l_entitySE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurSE = true;
+					}
+				}
+				if (MurNE && MurSE) {
+					return true;
+				}
+				for (int i = 0; i < l_entitySW.size(); i++) {
+					elem = l_entitySW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurSW = true;
+					}
+				}
+				if (MurSW && MurSE || MurNW && MurSW) {
+					return true;
+				}
 			}
 			return false;
 		case "Cassable":
-			if(here instanceof Void) {
+			if (here instanceof Void) {
 				// /!\ si on est en dehors du terrain
-				LinkedList<Entity> l_entityN = getElement(ligne-1, colonne);
-				LinkedList<Entity> l_entityE = getElement(ligne, colonne+1);
-				LinkedList<Entity> l_entityS = getElement(ligne+1, colonne);
-				LinkedList<Entity> l_entityW = getElement(ligne, colonne-1);
+				LinkedList<Entity> l_entityN = getElement(ligne - 1, colonne);
+				LinkedList<Entity> l_entityE = getElement(ligne, colonne + 1);
+				LinkedList<Entity> l_entityS = getElement(ligne + 1, colonne);
+				LinkedList<Entity> l_entityW = getElement(ligne, colonne - 1);
+				LinkedList<Entity> l_entityNW = getElement(ligne - 1, colonne - 1);
+				LinkedList<Entity> l_entityNE = getElement(ligne - 1, colonne + 1);
+				LinkedList<Entity> l_entitySE = getElement(ligne + 1, colonne + 1);
+				LinkedList<Entity> l_entitySW = getElement(ligne + 1, colonne - 1);
 				Entity elem;
 				boolean MurN = false;
 				boolean MurE = false;
 				boolean MurS = false;
 				boolean MurW = false;
-				for(int i=0; i<l_entityN.size(); i++) {
+				boolean MurNE = false;
+				boolean MurSE = false;
+				boolean MurSW = false;
+				boolean MurNW = false;
+				for (int i = 0; i < l_entityN.size(); i++) {
 					elem = l_entityN.get(i);
-					if(elem instanceof Normal || elem instanceof Cassable) {
+					if (elem instanceof Normal || elem instanceof Cassable) {
 						MurN = true;
 					}
 				}
-				for(int i=0; i<l_entityS.size(); i++) {
+				for (int i = 0; i < l_entityS.size(); i++) {
 					elem = l_entityS.get(i);
-					if(elem instanceof Normal || elem instanceof Cassable) {
+					if (elem instanceof Normal || elem instanceof Cassable) {
 						MurS = true;
 					}
 				}
-				if(MurN && MurS) {
+				if (MurN && MurS) {
 					return true;
 				}
-				for(int i=0; i<l_entityE.size(); i++) {
+				for (int i = 0; i < l_entityE.size(); i++) {
 					elem = l_entityE.get(i);
-					if(elem instanceof Normal || elem instanceof Cassable) {
+					if (elem instanceof Normal || elem instanceof Cassable) {
 						MurE = true;
 					}
 				}
-				for(int i=0; i<l_entityW.size(); i++) {
+				for (int i = 0; i < l_entityW.size(); i++) {
 					elem = l_entityW.get(i);
-					if(elem instanceof Normal || elem instanceof Cassable) {
+					if (elem instanceof Normal || elem instanceof Cassable) {
 						MurW = true;
 					}
 				}
-				if(MurE && MurW) {
+				if (MurE && MurW) {
 					return true;
 				}
-				return false;
-			} else if(here instanceof Mine || here.category() == Categorie.P) {
-				if(here instanceof Void) {
-					// /!\ si on est en dehors du terrain
-					LinkedList<Entity> l_entityN = getElement(ligne-1, colonne);
-					LinkedList<Entity> l_entityE = getElement(ligne, colonne+1);
-					LinkedList<Entity> l_entityS = getElement(ligne+1, colonne);
-					LinkedList<Entity> l_entityW = getElement(ligne, colonne-1);
-					Entity elem;
-					boolean MurN = false;
-					boolean MurE = false;
-					boolean MurS = false;
-					boolean MurW = false;
-					for(int i=0; i<l_entityN.size(); i++) {
-						elem = l_entityN.get(i);
-						if(elem instanceof Normal || elem instanceof Cassable) {
-							MurN = true;
-						}
+				for (int i = 0; i < l_entityNE.size(); i++) {
+					elem = l_entityNE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurNE = true;
 					}
-					for(int i=0; i<l_entityS.size(); i++) {
-						elem = l_entityS.get(i);
-						if(elem instanceof Normal || elem instanceof Cassable) {
-							MurS = true;
-						}
+				}
+				for (int i = 0; i < l_entityNW.size(); i++) {
+					elem = l_entityNW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurNW = true;
 					}
-					if(MurN && MurS) {
-						return !hasSameLayer(ligne, colonne, e.layer());
+				}
+				if (MurNE && MurNW) {
+					return true;
+				}
+				for (int i = 0; i < l_entitySE.size(); i++) {
+					elem = l_entitySE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurSE = true;
 					}
-					for(int i=0; i<l_entityE.size(); i++) {
-						elem = l_entityE.get(i);
-						if(elem instanceof Normal || elem instanceof Cassable) {
-							MurE = true;
-						}
+				}
+				if (MurNE && MurSE) {
+					return true;
+				}
+				for (int i = 0; i < l_entitySW.size(); i++) {
+					elem = l_entitySW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurSW = true;
 					}
-					for(int i=0; i<l_entityW.size(); i++) {
-						elem = l_entityW.get(i);
-						if(elem instanceof Normal || elem instanceof Cassable) {
-							MurW = true;
-						}
+				}
+				if (MurSW && MurSE || MurNW && MurSW) {
+					return true;
+				}
+			} else if (here instanceof Mine || here.category() == Categorie.P) {
+				// /!\ si on est en dehors du terrain
+				LinkedList<Entity> l_entityN = getElement(ligne - 1, colonne);
+				LinkedList<Entity> l_entityE = getElement(ligne, colonne + 1);
+				LinkedList<Entity> l_entityS = getElement(ligne + 1, colonne);
+				LinkedList<Entity> l_entityW = getElement(ligne, colonne - 1);
+				LinkedList<Entity> l_entityNW = getElement(ligne - 1, colonne - 1);
+				LinkedList<Entity> l_entityNE = getElement(ligne - 1, colonne + 1);
+				LinkedList<Entity> l_entitySE = getElement(ligne + 1, colonne + 1);
+				LinkedList<Entity> l_entitySW = getElement(ligne + 1, colonne - 1);
+				Entity elem;
+				boolean MurN = false;
+				boolean MurE = false;
+				boolean MurS = false;
+				boolean MurW = false;
+				boolean MurNE = false;
+				boolean MurSE = false;
+				boolean MurSW = false;
+				boolean MurNW = false;
+				for (int i = 0; i < l_entityN.size(); i++) {
+					elem = l_entityN.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurN = true;
 					}
-					if(MurE && MurW) {
-						return !hasSameLayer(ligne, colonne, e.layer());
+				}
+				for (int i = 0; i < l_entityS.size(); i++) {
+					elem = l_entityS.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurS = true;
 					}
-					return false;
+				}
+				if (MurN && MurS) {
+					return !hasSameLayer(ligne, colonne, e.layer());
+				}
+				for (int i = 0; i < l_entityE.size(); i++) {
+					elem = l_entityE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurE = true;
+					}
+				}
+				for (int i = 0; i < l_entityW.size(); i++) {
+					elem = l_entityW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurW = true;
+					}
+				}
+				if (MurE && MurW) {
+					return !hasSameLayer(ligne, colonne, e.layer());
+				}
+				for(int i=0; i<l_entityNE.size(); i++) {
+					elem = l_entityNE.get(i);
+					if(elem instanceof Normal || elem instanceof Cassable) {
+						MurNE = true;
+					}
+				}
+				for(int i=0; i<l_entityNW.size(); i++) {
+					elem = l_entityNW.get(i);
+					if(elem instanceof Normal || elem instanceof Cassable) {
+						MurNW = true;
+					}
+				}
+				if(MurNE && MurNW) {
+					return !hasSameLayer(ligne, colonne, e.layer());
+				}
+				for(int i=0; i<l_entitySE.size(); i++) {
+					elem = l_entitySE.get(i);
+					if(elem instanceof Normal || elem instanceof Cassable) {
+						MurSE = true;
+					}
+				}
+				if(MurNE && MurSE) {
+					return !hasSameLayer(ligne, colonne, e.layer());
+				}
+				for(int i=0; i<l_entitySW.size(); i++) {
+					elem = l_entitySW.get(i);
+					if(elem instanceof Normal || elem instanceof Cassable) {
+						MurSW = true;
+					}
+				}
+				if(MurSW && MurSE || MurNW && MurSW) {
+					return !hasSameLayer(ligne, colonne, e.layer());
 				}
 			}
 			return false;
 		case "Fleche":
-			if(here instanceof Void || here instanceof Sable || here instanceof Mine 
-					|| here.category() == Categorie.P || here.layer() == 0) {
+			if (here instanceof Void || here instanceof Sable || here instanceof Mine || here.category() == Categorie.P
+					|| here.layer() == 0) {
 				return true;
 			}
 			return false;
 		case "Lave":
 		case "Teleporteur":
-			if(here instanceof Void) {
+			if (here instanceof Void) {
 				remove(ligne, colonne, here);
 				return true;
 			}
@@ -2016,30 +2116,30 @@ public class Field {
 	public ArrayList<Object> get_labyrinthe() {
 		return this.labyrinthe;
 	}
-	
-	public LinkedList<LinkedList<Entity>> getAround(int ligne, int colonne){
+
+	public LinkedList<LinkedList<Entity>> getAround(int ligne, int colonne) {
 		LinkedList<LinkedList<Entity>> l_around = new LinkedList<LinkedList<Entity>>();
-		l_around.addLast(getElement(ligne-1, colonne));
-		l_around.addLast(getElement(ligne-1, colonne+1));
-		l_around.addLast(getElement(ligne, colonne+1));
-		l_around.addLast(getElement(ligne+1, colonne+1));
-		l_around.addLast(getElement(ligne+1, colonne));
-		l_around.addLast(getElement(ligne+1, colonne-1));
-		l_around.addLast(getElement(ligne, colonne-1));
-		l_around.addLast(getElement(ligne-1, colonne-1));
+		l_around.addLast(getElement(ligne - 1, colonne));
+		l_around.addLast(getElement(ligne - 1, colonne + 1));
+		l_around.addLast(getElement(ligne, colonne + 1));
+		l_around.addLast(getElement(ligne + 1, colonne + 1));
+		l_around.addLast(getElement(ligne + 1, colonne));
+		l_around.addLast(getElement(ligne + 1, colonne - 1));
+		l_around.addLast(getElement(ligne, colonne - 1));
+		l_around.addLast(getElement(ligne - 1, colonne - 1));
 		return l_around;
 	}
-	
-	public LinkedList<Entity> ListEntity(Class<?> c){
+
+	public LinkedList<Entity> ListEntity(Class<?> c) {
 		LinkedList<Entity> l_entity = new LinkedList<Entity>();
 		LinkedList<Entity> elem;
 		Entity entity;
-		for(int i=0; i<ligne; i++) {
-			for(int j=0; j<colonne; j++) {
-				elem = getElement(i,j);
-				for(int k=0; k<elem.size(); k++) {
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				elem = getElement(i, j);
+				for (int k = 0; k < elem.size(); k++) {
 					entity = elem.get(i);
-					if(c.isInstance(entity)) {
+					if (c.isInstance(entity)) {
 						l_entity.add(entity);
 					}
 				}

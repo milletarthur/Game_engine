@@ -42,4 +42,10 @@ public class Chance implements IAction {
 			}
 		}
 	}
+	
+	@Override
+	public String toString() {
+		String s = "Chance";
+		return s;
+	}
 }

@@ -22,4 +22,10 @@ public class Pick implements IAction {
 
 	}
 
+	@Override
+	public String toString() {
+		String s = "Pick";
+		return s;
+	}
+
 }

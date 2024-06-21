@@ -5,9 +5,9 @@ import Labyrinthe.Entity;
 import Labyrinthe.Field;
 
 public class Store implements IAction {
-	
+
 	private Field terrain;
-	
+
 	public Store(Field f) {
 		terrain = f;
 	}
@@ -15,6 +15,12 @@ public class Store implements IAction {
 	@Override
 	public void exec(Entity e) {
 		e.store();
+	}
+
+	@Override
+	public String toString() {
+		String s = "Store";
+		return s;
 	}
 
 }

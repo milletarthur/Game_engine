@@ -1,5 +1,6 @@
 package Labyrinthe;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Inventory {
@@ -44,16 +45,24 @@ public class Inventory {
 
 	public void NextCurrentJ1() {
 		int len = inventory.size();
-		int i = inventory.indexOf(current_j1);
-		i = (i + 1) % len;
-		current_j1 = inventory.get(i);
+		if (current_j1 == null) {
+			current_j1 = inventory.get(0);
+		} else {
+			int i = inventory.indexOf(current_j1);
+			i = (i + 1) % len;
+			current_j1 = inventory.get(i);
+		}
 	}
 
 	public void NextCurrentJ2() {
 		int len = inventory.size();
-		int i = inventory.indexOf(current_j2);
-		i = (i + 1) % len;
-		current_j2 = inventory.get(i);
+		if (current_j2 == null) { 
+			current_j2 = inventory.get(0);
+		} else {
+			int i = inventory.indexOf(current_j2);
+			i = (i + 1) % len;
+			current_j2 = inventory.get(i);
+		}
 	}
 
 	public Entity popJ1() {
@@ -70,5 +79,31 @@ public class Inventory {
 	
 	public int size() {
 		return inventory.size();
+	}
+	
+	public String toString() {
+		String s = "Inventory : ";
+		Iterator<Entity> iter = inventory.iterator();
+		String classnamelong;
+		String classname;
+		while(iter.hasNext()) {
+			classnamelong = iter.next().getClass().getName();
+			classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
+			s += classname + " ";
+		}
+		s += "\n";
+		if (current_j1 != null) {
+			classnamelong = current_j1.getClass().getName();
+			classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
+			s += "Current J1 : " + classname + "\n";
+		} else 
+			s += "Current J1 : none\n";
+		if (current_j1 != null) {
+			classnamelong = current_j1.getClass().getName();
+			classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
+			s += "Current J2 : " + classname + "\n";
+		} else 
+			s += "Current J2 : none\n";
+		return s;
 	}
 }

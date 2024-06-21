@@ -16,6 +16,7 @@ public class Get implements IAction {
 	@Override
 	public void exec(Entity e) {
 		if(e.picked() == null && e instanceof Joueur){
+			System.out.print(e.getInventory().toString());
 			e.get();
 		}
 	}

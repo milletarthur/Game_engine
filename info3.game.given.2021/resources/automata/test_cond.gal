@@ -1,7 +1,7 @@
 Player1(Init){
 * (Init):
-| Key(a) ? Hit : (Init)
-| Cell(H,P) & (! Got(Stuff))? Pick :(Init)
+| Key(a) ? Hit :(Init)
+| Cell(H,P) & (! Got(Stuff))? Pick / Store :(Init)
 | Key(z) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
 | Key(d) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
 | Key(s) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
@@ -10,14 +10,18 @@ Player1(Init){
 | Key(d) ? Turn(E) :(Init)
 | Key(s) ? Turn(S) :(Init)
 | Key(q) ? Turn(W) :(Init)
-| Key(m) ? Egg :(Init)
+| Key(k) ? Egg :(Init)
 | !Got(Power) ? Explode :()
 }
 
 Player2(Init){
 * (Init):
-| Key(l) ? Hit : (Init)
-| Cell(H,P) & (! Got(Stuff))? Pick :(Init)
+| Key(l) ? Hit :(Init)
+| Key(m) ? Throw :(Init)
+| Key(i) ? Store :(Init)
+| Key(o) ? Get :(Init)
+| Key(p) ? Jump :(Init)
+| Cell(H,P) ? Pick :(Init)
 | Key(FU) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
 | Key(FR) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
 | Key(FD) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
@@ -26,7 +30,7 @@ Player2(Init){
 | Key(FR) ? Turn(E) :(Init)
 | Key(FD) ? Turn(S) :(Init)
 | Key(FL) ? Turn(W) :(Init)
-| Key(m) ? Egg :(Init)
+| Key(k) ? Egg :(Init)
 }
 
 Mine(Init){

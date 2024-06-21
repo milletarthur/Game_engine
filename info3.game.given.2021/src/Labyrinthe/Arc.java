@@ -3,7 +3,7 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Arc extends Entity {
-	
+
 	boolean FlecheTrans;
 
 	public Arc(int ligne, int colonne) {
@@ -33,7 +33,7 @@ public class Arc extends Entity {
 
 	@Override
 	public int hit() {
-		if(FlecheTrans) {
+		if (FlecheTrans) {
 			FlecheTrans = false;
 			return -7;
 		}
@@ -43,7 +43,6 @@ public class Arc extends Entity {
 	@Override
 	public void jump() {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 }

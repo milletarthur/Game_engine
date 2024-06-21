@@ -16,10 +16,11 @@ public abstract class Entity {
 	protected int ligne;
 	protected int colonne;
 	
-	void set_ligne( int l ) {
+	public void set_ligne( int l ) {
 		this.ligne = l ;
 	}
-	void set_colonne( int c ) {
+	
+	public void set_colonne( int c ) {
 		this.colonne = c ; 
 	}
 
@@ -76,6 +77,10 @@ public abstract class Entity {
 			return true;
 		}
 		return false;
+	}
+	
+	public void resetpick() {
+		picked = null;
 	}
 
 	public void turn(int dir) {

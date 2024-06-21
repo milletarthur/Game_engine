@@ -907,14 +907,19 @@ public class Field {
 //				int val = rdm.nextInt(2);
 //				set_element(i, cpt, e, new_labyrinthe);
 				for (int k = 0; k < l.size(); k++) {
-					set_element(i, cpt, l.get(k), new_labyrinthe);
+					Entity elem = l.get(k);
+					set_element(i, cpt, elem, new_labyrinthe);
+					elem.set_ligne(i);
+					elem.set_colonne(cpt);
+					
 				}
 				cpt++;
 //				e = get_element(i, j, labyrinthe);
 				l = getElement(i, j);
 //				set_element(i, cpt, e, new_labyrinthe);
 				for (int k = 0; k < l.size(); k++) {
-					set_element(i, cpt, l.get(k), new_labyrinthe);
+					Entity elem = l.get(k);
+					set_element(i, cpt, newInstanceOf(elem,i,cpt), new_labyrinthe);
 				}
 				cpt++;
 			}
@@ -938,7 +943,10 @@ public class Field {
 				l = getElement(i, j);
 //				set_element(cpt, j, e, new_labyrinthe2);
 				for (int k = 0; k < l.size(); k++) {
-					set_element(cpt, j, l.get(k), new_labyrinthe2);
+					Entity elem = l.get(k);
+					set_element(cpt, j, elem, new_labyrinthe2);
+					elem.set_ligne(cpt);
+					elem.set_colonne(j);
 				}
 			}
 			cpt++;
@@ -948,7 +956,8 @@ public class Field {
 				l = getElement(i, j);
 //				set_element(cpt, j, e, new_labyrinthe2);
 				for (int k = 0; k < l.size(); k++) {
-					set_element(cpt, j, l.get(k), new_labyrinthe2);
+					Entity elem = l.get(k);
+					set_element(cpt, j, newInstanceOf(elem,cpt,j), new_labyrinthe2);
 				}
 			}
 			cpt++;
@@ -2252,5 +2261,56 @@ public class Field {
 			}
 		}
 		return l_entity;
+	}
+	
+	public Entity newInstanceOf(Entity e, int ligne, int colonne) {
+		String classnamelong = e.getClass().getName();
+		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
+		switch(classname) {
+		case "Joueur":
+			return new Joueur(ligne,colonne,e.team());
+		case "Zombie":
+			return new Zombie(ligne,colonne);
+		case "Squelette":
+			return new Squelette(ligne,colonne);
+		case "Sable":
+			return new Sable(ligne,colonne);
+		case "Mine":
+			return new Mine(ligne,colonne);
+		case "Pioche":
+			return new Pioche(ligne,colonne);
+		case "Apple":
+			return new Apple(ligne,colonne);
+		case "Potion":
+			return new Potion(ligne,colonne);
+		case "Bombe":
+			return new Bombe(ligne,colonne);
+		case "Epee":
+			return new Epee(ligne,colonne);
+		case "Arc":
+			return new Arc(ligne,colonne);
+		case "Porte":
+			return new Porte(ligne,colonne);
+		case "Interrupteur":
+			return new Interrupteur(ligne,colonne,((Interrupteur) e).get_entity());
+		case "Normal":
+			return new Normal(ligne,colonne);
+		case "Cassable":
+			return new Cassable(ligne,colonne);
+		case "Fleche":
+			return new Fleche(ligne,colonne,e.direction());
+		case "Lave":
+			return new Lave(ligne,colonne);
+		case "Teleporteur":
+			return new Teleporteur(ligne,colonne);
+		case "Invisible" :
+			return new Invisible(ligne,colonne);
+		case "Selection" :
+			return new Selection(ligne,colonne);
+		case "Void" :
+			return new Void(ligne,colonne);
+		default :
+			return null;
+		}
 	}
 }

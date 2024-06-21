@@ -36,9 +36,13 @@ public class Move implements IAction {
 //		Entity e_go_to = terrain.getLastnotSelect(go_to_ligne, go_to_colonne);
 //		if (e_go_to.category() == Categorie.O || e_go_to.category() == Categorie.G || e_go_to.category() == Categorie.C)
 //			return;
-		terrain.remove(ligne, colonne, e);	
+		terrain.remove(ligne, colonne, e);
 		e.move();
 		terrain.add(e, e.ligne(), e.colonne());
+		if (e.picked() != null) {
+			e.picked().set_ligne(e.ligne());
+			e.picked().set_colonne(e.colonne());
+		}
 //		System.out.println("Move"); 
 		return;
 	}

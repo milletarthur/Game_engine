@@ -4,7 +4,7 @@ import toolkit.Categorie;
 
 public class Potion extends Entity {
 	boolean poison;
-	
+
 	public Potion(int ligne, int colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;
@@ -15,7 +15,7 @@ public class Potion extends Entity {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Potion(ligne,colonne);
+		return new Potion(ligne, colonne);
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class Potion extends Entity {
 	public void wizz() {
 		poison = true;
 	}
-	
+
 	public boolean poisoned() {
 		return poison;
 	}
@@ -36,6 +36,12 @@ public class Potion extends Entity {
 	public int hit() {
 		// TODO Auto-generated method stub
 		return -4;
+	}
+
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

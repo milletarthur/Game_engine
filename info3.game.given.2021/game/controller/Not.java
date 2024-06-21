@@ -14,8 +14,7 @@ public class Not implements ICondition {
 
 	@Override
 	public boolean eval(Entity e) {
-		// TODO Auto-generated method stub
-		return false;
+		return (! c.eval(e));
 	}
 
 	@Override
@@ -42,5 +41,11 @@ public class Not implements ICondition {
 		return -5;
 	}
 	
+	@Override
+	public String toString() {
+		String s = "!";
+		s += c.toString();
+		return s;
+		}
 
 }

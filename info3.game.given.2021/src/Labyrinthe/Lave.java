@@ -3,7 +3,7 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Lave extends Entity {
-	
+
 	public Lave(int ligne, int colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;
@@ -14,7 +14,7 @@ public class Lave extends Entity {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Lave(ligne,colonne);
+		return new Lave(ligne, colonne);
 	}
 
 	@Override
@@ -32,6 +32,12 @@ public class Lave extends Entity {
 	@Override
 	public int hit() {
 		return 20;
+	}
+
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

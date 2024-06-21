@@ -51,7 +51,7 @@ public class GameUS {
 		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/test_cond.gal");
 
 		//Initialisation de la fenêtre
-		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case, visibility);
+		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case, visibility, j1,j2);
 		
 		Viewport v1 = new Viewport(w.get_dt1(), T_case, visibility);
 		Viewport v2 = new Viewport(w.get_dt2(), T_case, visibility);
@@ -65,7 +65,8 @@ public class GameUS {
 		v2.centrerViewport(j2);
 		
 		//Création du lien entre Entity et Automate
-		tl.add(l_aut.getLast(), j1);
+		tl.add(l_aut.get(0), j1);
+		tl.add(l_aut.get(1), j2);
 
 		// ajout d'un Keylistener
 		Key_Listener k = new Key_Listener(terrain, kp);

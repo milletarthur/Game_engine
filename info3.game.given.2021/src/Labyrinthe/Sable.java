@@ -2,7 +2,7 @@ package Labyrinthe;
 
 import toolkit.Categorie;
 
-public class Sable extends Entity {	
+public class Sable extends Entity {
 	public Sable(int ligne, int colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;
@@ -13,23 +13,28 @@ public class Sable extends Entity {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Sable(ligne,colonne);
+		return new Sable(ligne, colonne);
 	}
 
 	@Override
 	public void pop() {
-		
 	}
 
 	@Override
 	public void wizz() {
 		explode();
 	}
-	
+
 	@Override
 	public int hit() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -11,10 +11,10 @@ public class Selection extends Entity {
 		this.team = 8;
 		layer = 5;
 	}
-	
+
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Selection(ligne,colonne);
+		return new Selection(ligne, colonne);
 	}
 
 	@Override
@@ -33,5 +33,11 @@ public class Selection extends Entity {
 	public void wizz() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
 	}
 }

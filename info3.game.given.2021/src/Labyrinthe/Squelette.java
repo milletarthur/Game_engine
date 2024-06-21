@@ -4,6 +4,8 @@ import toolkit.Categorie;
 
 public class Squelette extends Entity {
 	
+	private int otherTeam = 0;
+	
 	public Squelette(int ligne, int colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;
@@ -14,12 +16,12 @@ public class Squelette extends Entity {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Squelette(ligne,colonne);
+		return new Squelette(ligne, colonne);
 	}
 
 	@Override
 	public void pop() {
-		
+		setTeam(otherTeam);
 	}
 
 	@Override
@@ -32,5 +34,19 @@ public class Squelette extends Entity {
 		// TODO Auto-generated method stub
 		return 2;
 	}
+	
+	public void setOtherTeam(int team) {
+		otherTeam = team;
+	}
+	
+	public int getOtherTeam() {
+		return otherTeam;
+	}
+
+	@Override
+	public void jump() {
+		
+	}
+	
 
 }

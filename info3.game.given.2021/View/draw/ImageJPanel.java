@@ -28,8 +28,6 @@ public class ImageJPanel extends JPanel {
 		g.drawImage(image, this.x, this.y, this.taille, this.taille, this);
 		if (item != null) {
 			g.drawImage(item, this.x, this.y, this.taille, this.taille, this);
-		} else {
-			System.out.println("Echec");
 		}
 	}
 }

@@ -5,23 +5,19 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import Labyrinthe.Joueur;
-import draw.DrawTerrain;
 import draw.DrawWindow;
 import draw.Viewport;
 
 /*
  * Copyright (C) 2020  Pr. Olivier Gruber
  */
-
 public class TicTac {
 
 	Timer timer;
 	long last_tick ;
 	long init = System.currentTimeMillis();
-	Joueur j1;
-	Joueur j2;
-	Viewport v1;
-	Viewport v2;
+	Joueur j1, j2;
+	Viewport v1, v2;
 	
 	private static final int TICK_PERIOD = 100; // en milliseconde
 	
@@ -63,5 +59,6 @@ public class TicTac {
 	public long getTick() {
 		return last_tick;
 	}
+
 
 }

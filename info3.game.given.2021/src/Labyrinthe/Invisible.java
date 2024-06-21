@@ -6,14 +6,14 @@ public class Invisible extends Mur {
 	public Invisible(int ligne, int colonne) {
 		this.colonne = colonne;
 		this.ligne = ligne;
-		this.category = Categorie.J;
+		this.category = Categorie.G;
 		this.team = 4;
 		this.layer = 4;
 	}
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Invisible(colonne,ligne);
+		return new Invisible(colonne, ligne);
 	}
 
 	@Override
@@ -30,6 +30,12 @@ public class Invisible extends Mur {
 	@Override
 	public int hit() {
 		return 0;
+	}
+
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

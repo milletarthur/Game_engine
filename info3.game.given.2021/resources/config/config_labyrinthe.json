@@ -1,0 +1,101 @@
+{ 
+    "jeu" : "labyrinthe",
+    "cooperative" : true, 
+    "duration" : 900, 
+    "germe" : 732, 
+    "hauteur" : 30,
+    "largeur" : 30,
+    "visibility" : 5,
+    "%density" : 100,
+    "pv" : 20,
+    "entities": [
+      { "name" : "Apple",
+        "automate": "Apple",
+        "pickable": false 
+      },
+      { "name" : "Arc", 
+        "automate": "Arc",
+        "pickable": false 
+      },
+      { "name" : "Bombe", 
+        "automate": "Bombe",
+        "pickable": false 
+      },
+      { "name" : "Cassable", 
+        "automate": "Cassable",
+        "pickable": false 
+      },
+      { "name" : "Epee", 
+        "automate": "Epee",
+        "pickable": false 
+      },
+      { "name" : "Fleche", 
+        "automate": "Fleche",
+        "pickable": false 
+      },
+      { "name" : "Interrupteur", 
+        "automate": "Interrupteur",
+        "pickable": true 
+      },
+      { "name" : "Invisible", 
+        "automate": "Invisible",
+        "pickable": false 
+      },
+      { "name" : "Joueur1", 
+        "automate": "Player1",
+        "pickable": false 
+      },
+      { "name" : "Joueur2", 
+        "automate": "Player2",
+        "pickable": false 
+      },
+      { "name" : "Lave", 
+        "automate": "Lave",
+        "pickable": false 
+      },
+      { "name" : "Mine", 
+        "automate": "Mine",
+        "pickable": false 
+      },
+      { "name" : "Normal", 
+        "automate": "Normal",
+        "pickable": false 
+      },
+      { "name" : "Pioche", 
+        "automate": "Pioche",
+        "pickable": false 
+      },
+      { "name" : "Porte", 
+        "automate": "Porte",
+        "pickable": false 
+      },
+      { "name" : "Potion", 
+        "automate": "Potion",
+        "pickable": false 
+      },
+      { "name" : "Sable", 
+        "automate": "Sable",
+        "pickable": false 
+      },
+      { "name" : "Selection", 
+        "automate": "Selection",
+        "pickable": false 
+      },
+      { "name" : "Squelette", 
+        "automate": "Squelette",
+        "pickable": false 
+      },
+      { "name" : "Teleporteur", 
+        "automate": "Teleporteur",
+        "pickable": false 
+      },
+      { "name" : "Void", 
+        "automate": "Void",
+        "pickable": false 
+      },
+      { "name" : "Zombie", 
+        "automate": "Zombie",
+        "pickable": false 
+      }
+    ]
+  }

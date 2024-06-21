@@ -13,7 +13,7 @@ public class Pioche extends Entity {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Pioche(ligne,colonne);
+		return new Pioche(ligne, colonne);
 	}
 
 	@Override
@@ -25,10 +25,16 @@ public class Pioche extends Entity {
 	public void wizz() {
 		explode();
 	}
-	
+
 	@Override
 	public int hit() {
 		return -2;
+	}
+
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

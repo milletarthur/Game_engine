@@ -66,4 +66,10 @@ public class Interrupteur extends Entity {
 	public int hit() {
 		return 1;
 	}
+
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+
+	}
 }

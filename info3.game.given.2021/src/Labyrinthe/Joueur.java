@@ -9,6 +9,9 @@ import toolkit.Direction;
  * ligne et colonne sont les coordonnées de ce joueur dans la matrice
  */
 public class Joueur extends Entity {
+	
+	boolean modeSelection = false;
+	
 	public Joueur(int ligne, int colonne, int team) {
 		this.ligne = ligne;
 		this.colonne = colonne;
@@ -19,10 +22,11 @@ public class Joueur extends Entity {
 			this.category = Categorie.Diese;
 		this.team = team;
 		layer = 3;
+		inventory = new Inventory();
 	}
-	
+
 	public Entity egg(int ligne, int colonne) {
-		return new Joueur(ligne,colonne,team);
+		return new Joueur(ligne, colonne, team);
 	}
 
 	public Entity picked() {
@@ -31,8 +35,7 @@ public class Joueur extends Entity {
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		modeSelection = !modeSelection;
 	}
 
 	@Override
@@ -41,7 +44,7 @@ public class Joueur extends Entity {
 	}
 
 	public int hit() {
-		if (picked != null)
+		if (picked == null)
 			return 1;
 		return picked.hit();
 	}
@@ -70,5 +73,16 @@ public class Joueur extends Entity {
 
 	public int getY() {
 		return this.colonne;
+	}
+
+	@Override
+	public void jump() {
+		if(inventory != null && inventory.size() <= 0) {
+			if(team() == 1) {
+				inventory.NextCurrentJ1();
+			} else if (team() == 2) {
+				inventory.NextCurrentJ2();
+			}
+		}
 	}
 }

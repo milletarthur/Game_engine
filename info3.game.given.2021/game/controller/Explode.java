@@ -36,9 +36,10 @@ public class Explode implements IAction {
 				if (cell[0] < 0 || cell[1] < 0 || cell[0] > terrain.get_colonne() || cell[1] > terrain.get_ligne())
 					continue;
 				LinkedList<Entity> l = terrain.getElement(x, y);
-				Iterator<Entity> iter = l.iterator();
-				while (iter.hasNext()) {
-					Entity elem = iter.next();
+				int taille = l.size();
+				for (int j = 0; j < taille; j++) {
+					Entity elem = l.get(j);
+					taille = l.size();
 					if (elem instanceof Mine && ((Mine) elem).exploded())
 						continue;						
 					if (elem instanceof Bombe && ((Bombe) elem).exploded())
@@ -52,6 +53,10 @@ public class Explode implements IAction {
 				}
 			}
 		}
+		System.out.print("Explode ");
+		String classnamelong = e.getClass().getName();
+		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
+		System.out.println(classname);
 		e.explode();
 		terrain.remove(e.ligne(), e.colonne(), e);
 	}

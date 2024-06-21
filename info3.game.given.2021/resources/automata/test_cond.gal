@@ -5,6 +5,8 @@ Player1(Init){
 | Key(s) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
 | Key(q) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
 | Key(m) ? Egg : (Init)
+| Cell(H,P) ? Pick :(Init)
+| Key(a) ? Hit : (Init)
 }
 
 Player2(Init){
@@ -14,6 +16,8 @@ Player2(Init){
 | Key(FD) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
 | Key(FL) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
 | Key(m) ? Egg : (Init)
+| Cell(H,P) ? Pick :(Init)
+| Key(l) ? Hit : (Init)
 }
 
 Mine(Init){

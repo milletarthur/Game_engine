@@ -1,5 +1,6 @@
 package Labyrinthe;
 
+import Automates.State;
 import toolkit.Direction;
 
 public abstract class Entity {
@@ -14,6 +15,14 @@ public abstract class Entity {
 
 	protected int ligne;
 	protected int colonne;
+	
+	public void set_ligne( int l ) {
+		this.ligne = l ;
+	}
+	
+	public void set_colonne( int c ) {
+		this.colonne = c ; 
+	}
 
 	protected int vie = 5;
 
@@ -28,6 +37,16 @@ public abstract class Entity {
 	protected int layer;
 	
 	protected boolean selected = false;
+	
+	protected State current;
+	
+	public void setCurrent(State current) {
+		this.current = current;
+	}
+	
+	public State getCurrent() {
+		return this.current;
+	}
 
 	public abstract Entity egg(int x, int y);
 
@@ -58,6 +77,10 @@ public abstract class Entity {
 			return true;
 		}
 		return false;
+	}
+	
+	public void resetpick() {
+		picked = null;
 	}
 
 	public void turn(int dir) {

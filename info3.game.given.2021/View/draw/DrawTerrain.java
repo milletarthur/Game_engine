@@ -1,6 +1,8 @@
 package draw;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+
 import javax.swing.*;
 
 import java.awt.image.BufferedImage;
@@ -20,20 +22,20 @@ import java.util.Random;
 /*
  * Classe qui gère le dessin du terrain
  */
-
 public class DrawTerrain extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private int T_case;
+	private int T_case, int_team;
 	private Field terrain;
 
-	private Sprite CHEMIN, PLAYER, OBJET, ITEM, DEPLAC, ZOMBIE, SQUELETTE;
+	private Sprite CHEMIN, PERSO, OBJET, ITEM, DEPLAC;
 
 	private BufferedImage[] chemin = new BufferedImage[6];
-	private BufferedImage player1, player2, porte_fermee, porte_ouverte, teleporte, zombie, squelette;
+	private BufferedImage player1, player1_flip, player2, player2_flip, porte_fermee, porte_ouverte, teleporte, zombie,
+			zombie_flip, squelette, squelette_flip, invisible;
 
 	private Image lave, sand, mur, fragile, int_pop, int_wizz, int_neutre, selection;
-	
+
 	// partager avec DrawInventaire
 	public static BufferedImage pioche, pomme, arc, potion, epee, bombe;
 
@@ -41,20 +43,21 @@ public class DrawTerrain extends JPanel {
 
 	private int[][] rand_chemin, rand_mine_x, rand_mine_y;
 
-	public DrawTerrain(int HAUTEUR, int LARGEUR, Field terrain, int T_case) throws IOException {
+	public DrawTerrain(int HAUTEUR, int LARGEUR, Field terrain, int T_case, int int_team) throws IOException {
 		this.terrain = terrain;
 		this.T_case = T_case;
+		this.int_team = int_team ; // team du joueur
 		this.chargement_Image();
-		this.random = new Random(); // TODO - seed a ajouté
+		this.random = new Random(0); // TODO - seed a ajouté
 		this.rand_chemin = new int[HAUTEUR][LARGEUR];
 		this.rand_mine_x = new int[HAUTEUR][LARGEUR];
 		this.rand_mine_y = new int[HAUTEUR][LARGEUR];
 
 		for (int i = 0; i < HAUTEUR; i++) {
 			for (int j = 0; j < LARGEUR; j++) {
-				rand_chemin[i][j] = -1;
-				rand_mine_x[i][j] = -1;
-				rand_mine_y[i][j] = -1;
+				rand_chemin[i][j] = random.nextInt(6);
+				rand_mine_x[i][j] = random.nextInt((17 - 3) + 1) + 3;
+				rand_mine_y[i][j] = random.nextInt((17 - 3) + 1) + 3;
 			}
 		}
 
@@ -107,7 +110,7 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Epee) {
 						g.drawImage(epee, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Interrupteur) {
-						Interrupteur inter = (Interrupteur) e ;
+						Interrupteur inter = (Interrupteur) e;
 						if (inter.State() == -1) {
 							g.drawImage(int_pop, j * T_case, i * T_case, T_case, T_case, null);
 						} else if (inter.State() == 1) {
@@ -116,26 +119,40 @@ public class DrawTerrain extends JPanel {
 							g.drawImage(int_neutre, j * T_case, i * T_case, T_case, T_case, null);
 						}
 					} else if (e instanceof Invisible) { // mur magique
-						// TODO - rendre opaque si joueur dessus
-						g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
+						if (temp.get(2) instanceof Joueur) {
+							if (temp.get(2).team() == this.int_team) {
+								g.drawImage(invisible, j * T_case, i * T_case, T_case, T_case, null);
+							} else {
+								g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
+							}
+						} else {
+							g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
+						}
 					} else if (e instanceof Joueur) {
 						// TODO - gérer les cas ou le joueur a une arme
 						if (e.team() == 1) {
-							g.drawImage(player1, j * T_case, i * T_case, T_case, T_case, null);
+							if (e.direction() == 1 || e.direction() == 3)
+								g.drawImage(player1, j * T_case, i * T_case, T_case, T_case, null);
+							else
+								g.drawImage(player1_flip, j * T_case, i * T_case, T_case, T_case, null);
 						} else if (e.team() == 2) {
-							g.drawImage(player2, j * T_case, i * T_case, T_case, T_case, null);
+							if (e.direction() == 1 || e.direction() == 3)
+								g.drawImage(player2, j * T_case, i * T_case, T_case, T_case, null);
+							else
+								g.drawImage(player2_flip, j * T_case, i * T_case, T_case, T_case, null);
 						}
 					} else if (e instanceof Lave) {
 						g.drawImage(lave, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Mine) {
-						g.setColor(new Color(90, 90, 90));
-						g.fillRect(j * T_case + x_mine(i, j), i * T_case + y_mine(i, j), 2, 2);
+//						g.setColor(new Color(90, 90, 90));
+//						g.fillRect(j * T_case + rand_mine_x[i][j], i * T_case + rand_mine_y[i][j], 2, 2);
+						g.drawImage(lave, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Normal) { // mur normal
 						g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Pioche) {
 						g.drawImage(pioche, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Porte) {
-						Porte p = (Porte) e ;
+						Porte p = (Porte) e;
 						if (p.isOpen()) {
 							g.drawImage(porte_ouverte, j * T_case, i * T_case, T_case, T_case, null);
 						} else {
@@ -148,17 +165,20 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Selection) {
 						g.drawImage(selection, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Squelette) {
-						// TODO - gérer quand le squelette attaque / meurt / fixe
-						g.drawImage(squelette, j * T_case, i * T_case, T_case, T_case, null);
+						if (e.direction() == 1 || e.direction() == 3)
+							g.drawImage(squelette, j * T_case, i * T_case, T_case, T_case, null);
+						else
+							g.drawImage(squelette_flip, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Teleporteur) {
 						g.drawImage(teleporte, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Void) { // chemin
-						g.drawImage(chemin[this.donnees_chemin(i, j)], j * T_case, i * T_case, T_case, T_case, null);
+						g.drawImage(chemin[rand_chemin[i][j]], j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Zombie) {
-						// TODO - gérer quand le zombie attaque / meurt / fixe
-						g.drawImage(zombie, j * T_case, i * T_case, T_case, T_case, null);
+						if (e.direction() == 1 || e.direction() == 3)
+							g.drawImage(zombie, j * T_case, i * T_case, T_case, T_case, null);
+						else
+							g.drawImage(zombie_flip, j * T_case, i * T_case, T_case, T_case, null);
 					}
-					// TODO - rajouter la sélection
 				}
 			}
 		}
@@ -180,9 +200,9 @@ public class DrawTerrain extends JPanel {
 		this.fragile = drawEntity("resources/graphisme/fragile.png");
 
 		// joueurs
-		this.PLAYER = new Sprite("resources/graphisme/Personnages/sprites_weaponless.png", 26, 26);
-		this.player1 = PLAYER.getSprite(0, 20);
-		this.player2 = PLAYER.getSprite(0, 3);
+		this.PERSO = new Sprite("resources/graphisme/Personnages/sprites_weaponless.png", 26, 26);
+		this.player1 = PERSO.getSprite(0, 20);
+		this.player2 = PERSO.getSprite(0, 3);
 
 		// sol
 		this.lave = drawEntity("resources/graphisme/lave.png");
@@ -212,36 +232,19 @@ public class DrawTerrain extends JPanel {
 		this.int_wizz = drawEntity("resources/graphisme/levier3.png");
 
 		// monstres
-		this.ZOMBIE = new Sprite("resources/graphisme/Personnages/Zombie_idle.png", 32, 32);
-		this.zombie = ZOMBIE.getSprite(0, 0);
-		this.SQUELETTE = new Sprite("resources/graphisme/Personnages/Skeleton_enemy.png", 64, 64);
-		this.squelette = SQUELETTE.getSprite(0, 0);
-		
+		this.zombie = PERSO.getSprite(16, 20);
+		this.squelette = PERSO.getSprite(16, 18);
+
 		this.selection = drawEntity("resources/graphisme/targeting.png");
 
+		this.player1_flip = flip(player1);
+		this.player2_flip = flip(player2);
+		this.squelette_flip = flip(squelette);
+		this.zombie_flip = flip(zombie);
+		this.invisible = transparent(mur);
+
 	}
 
-	private int donnees_chemin(int x, int y) {
-		if (rand_chemin[x][y] == -1) {
-			rand_chemin[x][y] = random.nextInt(6);
-		}
-		return rand_chemin[x][y];
-	}
-
-	private int x_mine(int x, int y) {
-		if (rand_mine_x[x][y] == -1) {
-			rand_mine_x[x][y] = random.nextInt((17 - 3) + 1) + 3;
-		}
-		return rand_mine_x[x][y];
-	}
-
-	private int y_mine(int x, int y) {
-		if (rand_mine_y[x][y] == -1) {
-			rand_mine_y[x][y] = random.nextInt((17 - 3) + 1) + 3;
-		}
-		return rand_mine_y[x][y];
-	}
-	
 	public static Image drawPickable(Entity e) {
 		if (e instanceof Apple) {
 			return pomme;
@@ -257,6 +260,32 @@ public class DrawTerrain extends JPanel {
 			return potion;
 		}
 		return null;
+	}
+
+	// fonction qui sert à retourner une image par rapport à un axe vertical
+	private BufferedImage flip(BufferedImage image) {
+		BufferedImage flipped = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = flipped.createGraphics();
+		g.setComposite(AlphaComposite.Src);
+		AffineTransform transform = AffineTransform.getScaleInstance(-1, 1);
+		transform.translate(-image.getWidth(), 0);
+		g.drawImage(image, transform, null);
+		g.dispose();
+		return flipped;
+	}
+
+	// fonction qui diminue l'opacité d'une image
+	public static BufferedImage transparent(Image img) {
+
+		// créer une BufferedImage avec une transparence supportée
+		BufferedImage bf = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D tr = bf.createGraphics();
+		AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
+		tr.setComposite(alphaComposite);
+		tr.drawImage(img, 0, 0, null);
+		tr.dispose();
+
+		return bf;
 	}
 
 }

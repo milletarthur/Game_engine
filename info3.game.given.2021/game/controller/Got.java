@@ -24,7 +24,7 @@ public class Got implements ICondition {
 		switch (value) {
 		case 0:
 			Inventory inv = e.getInventory();
-			return inv.isEmpty();
+			return !inv.isEmpty();
 		case 1:
 			int time = e.getTime();
 			if (time <= 0) {

@@ -15,6 +15,7 @@ import controller.False;
 import controller.Get;
 import controller.Got;
 import controller.Hit;
+import controller.Jump;
 import controller.KeyPressed;
 import controller.Move;
 import controller.Not;
@@ -380,6 +381,10 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Wizz(f);
+		case "Jump":
+			if (l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Jump(f);
 		default:
 			break;
 		}

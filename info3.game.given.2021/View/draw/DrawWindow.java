@@ -6,6 +6,7 @@ import java.io.IOException;
 import Labyrinthe.Field;
 import Labyrinthe.Joueur;
 import controller.TicTac;
+import listener.JSONWindow;
 
 /*
  * Classe qui gère la fenêtre
@@ -24,8 +25,7 @@ public class DrawWindow extends JFrame {
 		this.visibility = visibility;
 		this.getContentPane().setLayout(new BorderLayout());
 		// nom de la fenêtre
-		this.setTitle("Labyrinth"); // TODO - mettre le nom dans le fichier de config pour le nom du jeu (Labyrinth
-									// / Arène)
+		this.setTitle(JSONWindow.jeu);
 
 		// empêcher le redimensionnement de la fenêtre
 		this.setResizable(false);

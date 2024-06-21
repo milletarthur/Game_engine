@@ -95,5 +95,11 @@ public class Wizz implements IAction{
 		}
 		e.wizz();
 	}
+	
+	@Override
+	public String toString() {
+		String s = "Wizz";
+		return s;
+	}
 
 }

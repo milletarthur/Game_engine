@@ -15,9 +15,15 @@ public class Get implements IAction {
 
 	@Override
 	public void exec(Entity e) {
-		if(e.picked() == null && e instanceof Joueur){
+		if (e.picked() == null && e instanceof Joueur) {
 			e.get();
 		}
+	}
+
+	@Override
+	public String toString() {
+		String s = "Get";
+		return s;
 	}
 
 }

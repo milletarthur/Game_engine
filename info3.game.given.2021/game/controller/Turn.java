@@ -8,20 +8,20 @@ public class Turn implements IAction {
 
 	private int Direction;
 	private Field terrain;
-	
+
 	public Turn(Field f) {
 		terrain = f;
 	}
-	
+
 	public Turn(Field terrain, int Direction) {
 		this.Direction = Direction;
 		this.terrain = terrain;
 	}
-	
+
 	public void print() {
 		if (Direction == -3)
 			System.out.println("L");
-		else 
+		else
 			System.out.println("R");
 	}
 
@@ -31,12 +31,18 @@ public class Turn implements IAction {
 //		System.out.println("Turn");
 		return;
 	}
-	
+
 	public int getDirection() {
 		return Direction;
 	}
-	
+
 	public void setDirection(int dir) {
 		Direction = dir;
+	}
+
+	@Override
+	public String toString() {
+		String s = "Turn";
+		return s;
 	}
 }

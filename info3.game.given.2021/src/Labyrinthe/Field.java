@@ -1502,6 +1502,15 @@ public class Field {
 		return false;
 	}
 	
+	public boolean presence_Selection(LinkedList<Entity> liste) {
+		for(int i = 0; i<liste.size(); i++) {
+			if(liste.get(i) instanceof Selection) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 
 	public int[] next_to_outside(Entity e, int d) {
@@ -1760,43 +1769,14 @@ public class Field {
 				return false;
 			}
 			return true;
+		case Categorie.T :
+			if(presence_Selection(elem)) {
+				return true;
+			}
+			return false;
 		default:
 			return false;
 		}
-		
-		
-		/*Entity lastelem = elem.get(ilastelem);
-		if (lastelem.equals(e))
-			lastelem = elem.get(ilastelem-1);
-		int catlast = lastelem.category();
-		switch (cat) {
-		case Categorie.A:
-			if (e.team() != lastelem.team())
-				return true;
-			return false;
-		case Categorie.T:
-			if (lastelem.team() == e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
-				return false;
-			if (lastelem.team() == e.team())
-				return true;
-			return false;
-		case Categorie.Tiret:
-			if (lastelem.category() == Categorie.V)
-				return false;
-			return true;
-		case Categorie.Arobase:
-			if (lastelem.team() == e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
-				return true;
-			return false;
-		case Categorie.Diese:
-			if (lastelem.team() != e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
-				return true;
-			return false;
-		default:
-			if (lastelem.category() == cat)
-				return true;
-			return false;
-		}*/
 	}
 
 	public void add(Entity e, int ligne, int colonne) {

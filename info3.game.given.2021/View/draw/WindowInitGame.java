@@ -15,6 +15,7 @@ import listener.Key_Listener;
 import java.awt.*;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Random;
 
 /*
  * première fenêtre du jeu pour remplir le fichier de config
@@ -79,9 +80,11 @@ public class WindowInitGame extends JFrame {
 	}
 
 	public void initGame() throws IOException {
+		
+		Random rand = new Random();
 
 		// initialisation de la grille
-		Field terrain = new Field(JSONWindow.hauteur, JSONWindow.largeur, JSONWindow.densite, 30, 26, 1, 1, 1, 1, 25, 25, 50, 10);
+		Field terrain = new Field(JSONWindow.hauteur, JSONWindow.largeur, JSONWindow.densite, 10, 2, 2, 2, 2, 2, 25, 25, 50, 10, 2, new Random(0));
 		
 		KeyPressed kp = new KeyPressed();
 

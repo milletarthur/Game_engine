@@ -77,9 +77,7 @@ public class Field {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
 		if (densite_field == 100) {
-			System.out.printf("LG AVANT : %d \n", this.mur_invisible.size() ) ; 
 			depot_mur1(cassable, invisible, normal);
-			System.out.printf("LG APRÈS : %d \n", this.mur_invisible.size() ) ; 
 			deposer_Porte(nb_porte_sable);
 		} else {
 			depot_mur2(cassable, invisible, normal);

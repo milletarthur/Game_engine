@@ -34,8 +34,8 @@ public class DrawWindow extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// initialisation du terrain
-		this.dt1 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
-		this.dt2 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case);
+		this.dt1 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case, 1);
+		this.dt2 = new DrawTerrain(HAUTEUR, LARGEUR, terrain, T_case, 2);
 		this.inventaire = new DrawInventaire(j1, j2);
 
 	}

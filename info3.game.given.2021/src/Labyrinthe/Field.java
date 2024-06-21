@@ -68,6 +68,8 @@ public class Field {
 		}
 
 		grow();
+		//printGame();
+
 		grow_porte();
 		depot_teleporteur();
 		recup_liste_void_cassable_invisible();

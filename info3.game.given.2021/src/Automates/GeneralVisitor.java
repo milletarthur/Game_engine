@@ -50,7 +50,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	Field f;
 
 	LinkedList<Automate> l_aut;
-	LinkedList<TransitionAutomate> l_trans;
+	LinkedList<TransitionAutomate> l_trans = new LinkedList<TransitionAutomate>();
 	LinkedList<IAction> l_act;
 	//LinkedList<ICondition> l_cond;
 	ICondition cond;
@@ -482,7 +482,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Mode mode) {
-		l_trans = new LinkedList<TransitionAutomate>();
+//		l_trans = new LinkedList<TransitionAutomate>();
 		current = (Automates.State) visit(mode.state);
 		is_in_mode = true;
 	}

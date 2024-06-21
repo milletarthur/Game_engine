@@ -1406,7 +1406,10 @@ public class Field {
 		if (elem.layer() == e.layer()) {
 			return;
 		} else {
-			l_entity.add(cpt, e);
+			if (elem.layer() > e.layer())
+				l_entity.add(cpt-1, e);
+			else
+				l_entity.add(cpt, e);
 		}
 	}
 

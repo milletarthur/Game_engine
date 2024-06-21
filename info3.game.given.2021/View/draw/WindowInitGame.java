@@ -102,6 +102,7 @@ public class WindowInitGame extends JFrame {
 		Joueur j2 = new Joueur(3, 0, 2);
 		terrain.add(j1, 2, 0);
 		terrain.add(j2, 3, 0);
+		terrain.printGame();
 
 		// ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp);
@@ -142,13 +143,15 @@ public class WindowInitGame extends JFrame {
 	public String getname(int num_joueur) {
 		String name = null ;
 		if (num_joueur == 1) {
-			name = name1.getText();
-			if (name == null)
+			if (name1.getText().length() == 0)
 				name = "Joueur 1";
+			else 
+				name = name1.getText();
 		} else if (num_joueur == 2) {
-			name = name2.getText();
-			if (name == null)
+			if (name2.getText().length() == 0)
 				name = "Joueur 2";
+			else 
+				name = name2.getText();
 		}
 		return name ;
 	}

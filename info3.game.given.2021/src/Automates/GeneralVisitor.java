@@ -466,6 +466,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		String ast_state_name = state.toString();
 		while (i.hasNext()) {
 			Automates.State s = i.next();
+//			System.out.println(s.getName());
 			if (ast_state_name.equals(s.getName()))
 				return s;
 		}

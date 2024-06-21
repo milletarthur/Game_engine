@@ -1,9 +1,13 @@
-Test_act(Init){
+Player1(Init){
 
 * (Init):
-| True ? Store / Turn(E) / Move :(Init)
 | Key(FU) ? Turn(N) / Move :(Init)
 | Key(FR) ? Turn(E) / Move :(Init)
 | Key(FD) ? Turn(S) / Move :(Init)
 | Key(FL) ? Turn(W) / Move :(Init)
+| Key(a) ? :(State2)
+|True ?:(Init)
+
+* (State2):
+| True ? Turn(E) / Move :(Init)
 }

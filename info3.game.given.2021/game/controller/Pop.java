@@ -71,33 +71,38 @@ public class Pop implements IAction {
 				}
 			}
 		} else if (e instanceof Pioche) {
-			Entity elem;
-			switch (e.direction()) {
-			case Direction.N:
-				elem = terrain.getLastnotSelect(e.ligne() - 1, e.colonne());
-				if (elem instanceof Cassable) {
-					terrain.remove(e.ligne() - 1, e.colonne(), elem);
-				}
-				break;
-			case Direction.S:
-				elem = terrain.getLastnotSelect(e.ligne() + 1, e.colonne());
-				if (elem instanceof Cassable) {
-					terrain.remove(e.ligne() + 1, e.colonne(), elem);
-				}
-				break;
-			case Direction.E:
-				elem = terrain.getLastnotSelect(e.ligne(), e.colonne() + 1);
-				if (elem instanceof Cassable) {
-					terrain.remove(e.ligne(), e.colonne() + 1, elem);
-				}
-				break;
-			case Direction.W:
-				elem = terrain.getLastnotSelect(e.ligne(), e.colonne() - 1);
-				if (elem instanceof Cassable) {
-					terrain.remove(e.ligne(), e.colonne() - 1, elem);
-				}
-				break;
-			}
+			int coo[] = terrain.next_to_outside(e, e.direction());
+			if (coo[0] < 0 || coo[0] > terrain.get_ligne()-1 || coo[1] < 0 || coo[1] > terrain.get_colonne()-1)
+				return;
+			Entity elem = terrain.getLastnotSelect(coo[0], coo[1]);
+			terrain.remove(coo[0], coo[1], elem);
+//			Entity elem;
+//			switch (e.direction()) {
+//			case Direction.N:
+//				elem = terrain.getLastnotSelect(e.ligne() - 1, e.colonne());
+//				if (elem instanceof Cassable) {
+//					terrain.remove(e.ligne() - 1, e.colonne(), elem);
+//				}
+//				break;
+//			case Direction.S:
+//				elem = terrain.getLastnotSelect(e.ligne() + 1, e.colonne());
+//				if (elem instanceof Cassable) {
+//					terrain.remove(e.ligne() + 1, e.colonne(), elem);
+//				}
+//				break;
+//			case Direction.E:
+//				elem = terrain.getLastnotSelect(e.ligne(), e.colonne() + 1);
+//				if (elem instanceof Cassable) {
+//					terrain.remove(e.ligne(), e.colonne() + 1, elem);
+//				}
+//				break;
+//			case Direction.W:
+//				elem = terrain.getLastnotSelect(e.ligne(), e.colonne() - 1);
+//				if (elem instanceof Cassable) {
+//					terrain.remove(e.ligne(), e.colonne() - 1, elem);
+//				}
+//				break;
+//			}
 		} else if (e instanceof Bombe || e instanceof Mine) {
 			Explode ex = new Explode(terrain);
 			ex.exec(e);

@@ -7,92 +7,94 @@
     "largeur" : 20,
     "visibility" : 3,
     "%density" : 35,
-    "name1" : "J1 arene",
-    "name2" : "J2 arene",
     "pv" : 20,
     "entities": [
       { "name" : "Apple",
-        "behaviour": "apple.gal",
+        "automate": "Apple",
         "pickable": false 
       },
       { "name" : "Arc", 
-        "behaviour": "arc.gal",
+        "automate": "Arc",
         "pickable": false 
       },
       { "name" : "Bombe", 
-        "behaviour": "bombe.gal",
+        "automate": "Bombe",
         "pickable": false 
       },
       { "name" : "Cassable", 
-        "behaviour": "cassable.gal",
+        "automate": "Cassable",
         "pickable": false 
       },
       { "name" : "Epee", 
-        "behaviour": "epee.gal",
+        "automate": "Epee",
         "pickable": false 
       },
       { "name" : "Fleche", 
-        "behaviour": "fleche.gal",
+        "automate": "Fleche",
         "pickable": false 
       },
       { "name" : "Interrupteur", 
-        "behaviour": "interrupteur.gal",
+        "automate": "Interrupteur",
         "pickable": true 
       },
       { "name" : "Invisible", 
-        "behaviour": "invisible.gal",
+        "automate": "Invisible",
         "pickable": false 
       },
-      { "name" : "Joueur", 
-        "behaviour": "joueur.gal",
+      { "name" : "Joueur1", 
+        "automate": "Player1",
+        "pickable": false 
+      },
+      { "name" : "Joueur2", 
+        "automate": "Player2",
         "pickable": false 
       },
       { "name" : "Lave", 
-        "behaviour": "lave.gal",
+        "automate": "Lave",
         "pickable": false 
       },
       { "name" : "Mine", 
-        "behaviour": "mine.gal",
+        "automate": "Mine",
         "pickable": false 
       },
       { "name" : "Normal", 
-        "behaviour": "normal.gal",
+        "automate": "Normal",
         "pickable": false 
       },
       { "name" : "Pioche", 
-        "behaviour": "pioche.gal",
+        "automate": "Pioche",
         "pickable": false 
       },
       { "name" : "Porte", 
-        "behaviour": "porte.gal",
+        "automate": "Porte",
         "pickable": false 
       },
       { "name" : "Potion", 
-        "behaviour": "potion.gal",
+        "automate": "Potion",
         "pickable": false 
       },
       { "name" : "Sable", 
-        "behaviour": "sable.gal",
+        "automate": "Sable",
         "pickable": false 
       },
       { "name" : "Selection", 
-        "behaviour": "selection.gal",
+        "automate": "Selection",
         "pickable": false 
       },
       { "name" : "Squelette", 
-        "behaviour": "squelette.gal",
+        "automate": "Squelette",
         "pickable": false 
       },
       { "name" : "Teleporteur", 
-        "behaviour": "teleporteur.gal",
+        "automate": "Teleporteur",
         "pickable": false 
       },
       { "name" : "Void", 
-        "behaviour": "void.gal",
+        "automate": "Void",
         "pickable": false 
       },
       { "name" : "Zombie", 
-        "behaviour": "zombie.gal",
+        "automate": "Zombie",
         "pickable": false 
       }
     ]

@@ -7,6 +7,7 @@ import Labyrinthe.Entity;
 
 
 public class Automate {
+	protected String name;
 	protected LinkedList<TransitionAutomate> Transitions;
 	//protected LinkedList<State> States;
 	//protected State Init;
@@ -25,12 +26,16 @@ public class Automate {
 		Transitions.add(t);
 	}
 	
-//	public void add_init_state(State s) {
-//		Init = s;
-//	}
+	public void set_name(String n) {
+		name = n;
+	}
 	
 	public void change_current(State s) {
 		Current = s;
+	}
+	
+	public String get_name() {
+		return name;
 	}
 	
 	public void step(Entity e) {

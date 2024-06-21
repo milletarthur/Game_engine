@@ -32,13 +32,10 @@ public class Pop implements IAction {
 		} else if (e instanceof Invisible) {
 			terrain.remove(e.ligne(), e.colonne(), e);
 			terrain.add(new Normal(e.ligne(), e.colonne()), e.ligne(), e.colonne());
-		} else if (e instanceof Zombie || e instanceof Squelette) {
-			LinkedList<Entity> l_entity = terrain.getElement(e.ligne(), e.colonne());
-			Entity entity = l_entity.getLast();
-			if(entity instanceof Selection) {
-				int team = entity.team();
-				e.setTeam(team);
-			}
+		} else if (e instanceof Zombie) {
+			e.setTeam(((Zombie)e).getOtherTeam());
+		} else if(e instanceof Squelette) {
+			e.setTeam(((Squelette)e).getOtherTeam());
 		} else if (e instanceof Sable) {
 			LinkedList<Entity> l_entity;
 			LinkedList<LinkedList<Entity>> l_around = terrain.getAround(e.ligne(), e.colonne());

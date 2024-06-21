@@ -38,6 +38,10 @@ public class Zombie extends Entity {
 	public void setOtherTeam(int team) {
 		otherTeam = team;
 	}
+	
+	public int getOtherTeam() {
+		return otherTeam;
+	}
 
 	@Override
 	public void jump() {

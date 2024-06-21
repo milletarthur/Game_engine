@@ -70,6 +70,6 @@ public class Interrupteur extends Entity {
 	@Override
 	public void jump() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

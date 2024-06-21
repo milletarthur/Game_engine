@@ -16,7 +16,7 @@ public class Squelette extends Entity {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Squelette(ligne,colonne);
+		return new Squelette(ligne, colonne);
 	}
 
 	@Override

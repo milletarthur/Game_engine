@@ -47,6 +47,7 @@ public class WindowInitGame extends JFrame {
 			}
 
 		};
+		
 		choice.setLayout(null);
 		choice.setBackground(Color.BLACK);
 		JLabel jeu = new JLabel("Sélection du jeu : ");
@@ -93,7 +94,7 @@ public class WindowInitGame extends JFrame {
 
 		// initialisation de la grille
 		Field terrain = new Field(JSONWindow.hauteur, JSONWindow.largeur, JSONWindow.densite, 30, 26, 1, 1, 1, 1, 25,
-				10, 65, 10);
+				75, 0, 10);
 
 		KeyPressed kp = new KeyPressed();
 

@@ -1,6 +1,8 @@
 package draw;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+
 import javax.swing.*;
 
 import java.awt.image.BufferedImage;
@@ -20,7 +22,6 @@ import java.util.Random;
 /*
  * Classe qui gère le dessin du terrain
  */
-
 public class DrawTerrain extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -30,10 +31,11 @@ public class DrawTerrain extends JPanel {
 	private Sprite CHEMIN, PLAYER, OBJET, ITEM, DEPLAC, ZOMBIE, SQUELETTE;
 
 	private BufferedImage[] chemin = new BufferedImage[6];
-	private BufferedImage player1, player2, porte_fermee, porte_ouverte, teleporte, zombie, squelette;
+	private BufferedImage player1, player1_flip, player2, player2_flip, porte_fermee, porte_ouverte, teleporte, zombie,
+			squelette, invisible;
 
 	private Image lave, sand, mur, fragile, int_pop, int_wizz, int_neutre, selection;
-	
+
 	// partager avec DrawInventaire
 	public static BufferedImage pioche, pomme, arc, potion, epee, bombe;
 
@@ -107,7 +109,7 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Epee) {
 						g.drawImage(epee, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Interrupteur) {
-						Interrupteur inter = (Interrupteur) e ;
+						Interrupteur inter = (Interrupteur) e;
 						if (inter.State() == -1) {
 							g.drawImage(int_pop, j * T_case, i * T_case, T_case, T_case, null);
 						} else if (inter.State() == 1) {
@@ -116,14 +118,22 @@ public class DrawTerrain extends JPanel {
 							g.drawImage(int_neutre, j * T_case, i * T_case, T_case, T_case, null);
 						}
 					} else if (e instanceof Invisible) { // mur magique
-						// TODO - rendre opaque si joueur dessus
-						g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
+						if (temp.get(2) instanceof Joueur)
+							g.drawImage(invisible, j * T_case, i * T_case, T_case, T_case, null);
+						else 
+							g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Joueur) {
 						// TODO - gérer les cas ou le joueur a une arme
 						if (e.team() == 1) {
-							g.drawImage(player1, j * T_case, i * T_case, T_case, T_case, null);
+							if (e.direction() == 1 || e.direction() == 3)
+								g.drawImage(player1, j * T_case, i * T_case, T_case, T_case, null);
+							else
+								g.drawImage(player1_flip, j * T_case, i * T_case, T_case, T_case, null);
 						} else if (e.team() == 2) {
-							g.drawImage(player2, j * T_case, i * T_case, T_case, T_case, null);
+							if (e.direction() == 1 || e.direction() == 3)
+								g.drawImage(player2, j * T_case, i * T_case, T_case, T_case, null);
+							else
+								g.drawImage(player2_flip, j * T_case, i * T_case, T_case, T_case, null);
 						}
 					} else if (e instanceof Lave) {
 						g.drawImage(lave, j * T_case, i * T_case, T_case, T_case, null);
@@ -135,7 +145,7 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Pioche) {
 						g.drawImage(pioche, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Porte) {
-						Porte p = (Porte) e ;
+						Porte p = (Porte) e;
 						if (p.isOpen()) {
 							g.drawImage(porte_ouverte, j * T_case, i * T_case, T_case, T_case, null);
 						} else {
@@ -148,17 +158,14 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Selection) {
 						g.drawImage(selection, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Squelette) {
-						// TODO - gérer quand le squelette attaque / meurt / fixe
 						g.drawImage(squelette, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Teleporteur) {
 						g.drawImage(teleporte, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Void) { // chemin
 						g.drawImage(chemin[this.donnees_chemin(i, j)], j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Zombie) {
-						// TODO - gérer quand le zombie attaque / meurt / fixe
 						g.drawImage(zombie, j * T_case, i * T_case, T_case, T_case, null);
 					}
-					// TODO - rajouter la sélection
 				}
 			}
 		}
@@ -216,8 +223,12 @@ public class DrawTerrain extends JPanel {
 		this.zombie = ZOMBIE.getSprite(0, 0);
 		this.SQUELETTE = new Sprite("resources/graphisme/Personnages/Skeleton_enemy.png", 64, 64);
 		this.squelette = SQUELETTE.getSprite(0, 0);
-		
+
 		this.selection = drawEntity("resources/graphisme/targeting.png");
+
+		this.player1_flip = flip(player1);
+		this.player2_flip = flip(player2);
+		this.invisible = transparent(mur);
 
 	}
 
@@ -241,7 +252,7 @@ public class DrawTerrain extends JPanel {
 		}
 		return rand_mine_y[x][y];
 	}
-	
+
 	public static Image drawPickable(Entity e) {
 		if (e instanceof Apple) {
 			return pomme;
@@ -257,6 +268,32 @@ public class DrawTerrain extends JPanel {
 			return potion;
 		}
 		return null;
+	}
+
+	// fonction qui sert à retourner une image par rapport à un axe vertical
+	private BufferedImage flip(BufferedImage image) {
+		BufferedImage flipped = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = flipped.createGraphics();
+		g.setComposite(AlphaComposite.Src);
+		AffineTransform transform = AffineTransform.getScaleInstance(-1, 1);
+		transform.translate(-image.getWidth(), 0);
+		g.drawImage(image, transform, null);
+		g.dispose();
+		return flipped;
+	}
+
+	// fonction qui diminue l'opacité d'une image
+	public static BufferedImage transparent(Image img) {
+
+		// créer une BufferedImage avec une transparence supportée
+		BufferedImage bf = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D tr = bf.createGraphics();
+		AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
+		tr.setComposite(alphaComposite);
+		tr.drawImage(img, 0, 0, null);
+		tr.dispose();
+
+		return bf;
 	}
 
 }

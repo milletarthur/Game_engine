@@ -42,6 +42,7 @@ public class Move implements IAction {
 		if (e.picked() != null) {
 			e.picked().set_ligne(e.ligne());
 			e.picked().set_colonne(e.colonne());
+			e.picked().turn(e.direction());
 		}
 //		System.out.println("Move"); 
 		return;

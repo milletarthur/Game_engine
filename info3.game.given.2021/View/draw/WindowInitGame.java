@@ -129,7 +129,7 @@ public class WindowInitGame extends JFrame {
 		v1.centrerViewport(j1);
 		v2.centrerViewport(j2);
 		
-		LinkedList<Entity> l = terrain.get_ListeMine();
+		LinkedList<Entity> l = terrain.get_mine();
 
 		// création du lien entre Entity et Automate
 		for (int i = 0; i < l_aut.size(); i++) {

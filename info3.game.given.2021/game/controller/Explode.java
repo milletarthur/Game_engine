@@ -39,7 +39,6 @@ public class Explode implements IAction {
 				int taille = l.size();
 				for (int j = 0; j < taille; j++) {
 					Entity elem = l.get(j);
-					taille = l.size();
 					if (elem instanceof Mine && ((Mine) elem).exploded())
 						continue;						
 					if (elem instanceof Bombe && ((Bombe) elem).exploded())
@@ -47,6 +46,7 @@ public class Explode implements IAction {
 					if (elem instanceof Mine || elem instanceof Bombe || elem instanceof Cassable) {
 						Explode ex = new Explode(terrain);
 						ex.exec(elem);
+						taille --;
 					} else if (elem instanceof Joueur || elem instanceof Zombie || elem instanceof Squelette){
 						elem.power(-5);
 					}

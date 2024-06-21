@@ -18,9 +18,11 @@ public class Hit implements IAction {
 	@Override
 	public void exec(Entity e) {
 		int damage = e.hit(); // renvoie les dégats que fait l'entitée a une autre. (positif)
-		int[] spot = terrain.next_to(e, e.direction());
-		int ligne = spot[0];
-		int colonne = spot[1];
+		int[] coo = terrain.next_to_outside(e, e.direction());
+		if (coo[0] < 0 || coo[0] > terrain.get_ligne()-1 || coo[1] < 0 || coo[1] > terrain.get_colonne()-1)
+			return;
+		int ligne = coo[0];
+		int colonne = coo[1];
 		LinkedList<Entity> list = terrain.getElement(ligne, colonne);
 		int cpt = 0;
 		Entity tohit = list.get(cpt);
@@ -78,9 +80,11 @@ public class Hit implements IAction {
 			e.resetpick();
 		} else if (damage == -6) { // cas épée avec hitCircle
 			for (int i = 0; i < 8; i++) {
-				spot = terrain.next_to(e, e.direction());
-				ligne = spot[0];
-				colonne = spot[1];
+				coo = terrain.next_to_outside(e, e.direction());
+				if (coo[0] < 0 || coo[0] > terrain.get_ligne()-1 || coo[1] < 0 || coo[1] > terrain.get_colonne()-1)
+					continue;
+				ligne = coo[0];
+				colonne = coo[1];
 				list = terrain.getElement(ligne, colonne);
 				cpt = 0;
 				tohit = list.get(cpt);

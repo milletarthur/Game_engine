@@ -30,7 +30,6 @@ public class Field {
 		}
 		this.rand = r;
 		tmp = new int[lig][col];
-
 		tmp2 = new int[lig][col];
 		tmp3 = new int[lig][col];
 		this.colonne = col;
@@ -54,10 +53,10 @@ public class Field {
 		detruire_mur(densite_field);
 		labyrinthe();
 		recup_liste_mur();
-		//printLabyrinthe_tmp();
+		// printLabyrinthe_tmp();
 		trouver_chemin_1();
 		chemin = trouver_chemin_2();
-		//affiche_chemin(chemin);
+		// affiche_chemin(chemin);
 		for (int i = 0; i < chemin.size(); i++) {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
@@ -217,7 +216,7 @@ public class Field {
 		int i = chemin.size() / nb_porte - 2;
 		LinkedList<Pair<Integer, Integer>> chemin3 = new LinkedList<Pair<Integer, Integer>>();
 		int len = chemin2.size() / nb_porte;
-		//System.out.printf("len = \t%d\n", len);
+		// System.out.printf("len = \t%d\n", len);
 		while (len < 6) {
 			// System.out.println("je suis dedans
 			// #####################################################");
@@ -229,7 +228,7 @@ public class Field {
 			chemin2.remove(ind);
 		}
 
-		//System.out.printf("len = \t%d\n", len);
+		// System.out.printf("len = \t%d\n", len);
 		Entity elem = null;
 		int condition = 1;
 		Entity p = null;
@@ -307,7 +306,7 @@ public class Field {
 			}
 
 			condition = 1;
-			//printGame();
+			// printGame();
 			i = chemin.size() / nb_porte - 2;
 			count = 0;
 		}
@@ -345,6 +344,15 @@ public class Field {
 		elem.add(elem.size() - 2, e);
 	}
 
+	public void set_element5(int indice_i, int indice_j, Entity e, ArrayList<Object> lab) {
+		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) lab.get(indice_i);
+		LinkedList<Entity> elem = row.get(indice_j);
+		for (int s = 0; s < elem.size(); s++) {
+			elem.remove(s);
+		}
+		elem.add(e);
+	}
+
 	public void update_element(int indice_i, int indice_j, LinkedList<Entity> l, ArrayList<Object> lab) {
 		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(indice_i);
 		row.set(indice_j, l);
@@ -372,7 +380,7 @@ public class Field {
 			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t = new Teleporteur(i, j);
-		set_element3(i, j, t, labyrinthe);
+		set_element5(i, j, t, labyrinthe);
 		Entity en = get_element2(i, j, labyrinthe);
 		i = rand.nextInt(ligne);
 		j = rand.nextInt(colonne - 2) + 1;
@@ -381,7 +389,7 @@ public class Field {
 			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t1 = new Teleporteur(i, j);
-		set_element3(i, j, t1, labyrinthe);
+		set_element5(i, j, t1, labyrinthe);
 		Entity en1 = get_element2(i, j, labyrinthe);
 		((Teleporteur) en).set_voisin(en1);
 		((Teleporteur) en1).set_voisin(en);
@@ -393,7 +401,7 @@ public class Field {
 			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t2 = new Teleporteur(i, j);
-		set_element3(i, j, t2, labyrinthe);
+		set_element5(i, j, t2, labyrinthe);
 		Entity en2 = get_element2(i, j, labyrinthe);
 		i = rand.nextInt(ligne);
 		j = rand.nextInt(colonne - 2) + 1;
@@ -402,7 +410,7 @@ public class Field {
 			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t3 = new Teleporteur(i, j);
-		set_element3(i, j, t3, labyrinthe);
+		set_element5(i, j, t3, labyrinthe);
 		Entity en3 = get_element2(i, j, labyrinthe);
 		((Teleporteur) en2).set_voisin(en3);
 		((Teleporteur) en3).set_voisin(en2);
@@ -429,32 +437,55 @@ public class Field {
 		int len_mur = mur.size();
 		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
-		//System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
+		// System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable,
+		// len_mur);
 		int count = 0;
 		int x, y;
-		while (count < nb_pour_cassable) {
-			x = rand.nextInt(ligne - 2) + 1;
-			y = rand.nextInt(colonne - 2) + 1;
-			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+		if (cassable == 100) {
+			for (int a = 1; a < ligne - 1; a++) {
+				for (int b = 1; b < colonne - 1; b++) {
+					if (get_element2(a, b, labyrinthe) instanceof Mur) {
+						Cassable m = new Cassable(a, b);
+						set_element3(a, b, m, labyrinthe);
+					}
+				}
+			}
+		} else {
+			while (count < nb_pour_cassable) {
 				x = rand.nextInt(ligne - 2) + 1;
 				y = rand.nextInt(colonne - 2) + 1;
+				while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+					x = rand.nextInt(ligne - 2) + 1;
+					y = rand.nextInt(colonne - 2) + 1;
+				}
+				Cassable m = new Cassable(x, y);
+				set_element3(x, y, m, labyrinthe);
+				count++;
 			}
-			Cassable m = new Cassable(x, y);
-			set_element3(x, y, m, labyrinthe);
-			count++;
 		}
 		count = 0;
 		int nb_pour_invisible = invisible * len_mur / 100;
-		while (count < nb_pour_invisible) {
-			x = rand.nextInt(ligne - 2) + 1;
-			y = rand.nextInt(colonne - 2) + 1;
-			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+		if (invisible == 100) {
+			for (int a = 1; a < ligne - 1; a++) {
+				for (int b = 1; b < colonne - 1; b++) {
+					if (get_element2(a, b, labyrinthe) instanceof Mur) {
+						Cassable m = new Cassable(a, b);
+						set_element3(a, b, m, labyrinthe);
+					}
+				}
+			}
+		} else {
+			while (count < nb_pour_invisible) {
 				x = rand.nextInt(ligne - 2) + 1;
 				y = rand.nextInt(colonne - 2) + 1;
+				while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+					x = rand.nextInt(ligne - 2) + 1;
+					y = rand.nextInt(colonne - 2) + 1;
+				}
+				Invisible m = new Invisible(x, y);
+				set_element3(x, y, m, labyrinthe);
+				count++;
 			}
-			Invisible m = new Invisible(x, y);
-			set_element3(x, y, m, labyrinthe);
-			count++;
 		}
 		count = 0;
 		int nb_pour_normal = normal * len_mur / 100;
@@ -476,32 +507,55 @@ public class Field {
 		int len_mur = mur.size();
 		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
-		//System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
+		// System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable,
+		// len_mur);
 		int count = 0;
 		int x, y;
-		while (count < nb_pour_cassable) {
-			x = rand.nextInt(ligne);
-			y = rand.nextInt(colonne);
-			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+		if (cassable == 100) {
+			for (int a = 0; a < ligne; a++) {
+				for (int b = 0; b < colonne; b++) {
+					if (get_element2(a, b, labyrinthe) instanceof Mur) {
+						Cassable m = new Cassable(a, b);
+						set_element3(a, b, m, labyrinthe);
+					}
+				}
+			}
+		} else {
+			while (count < nb_pour_cassable) {
 				x = rand.nextInt(ligne);
 				y = rand.nextInt(colonne);
+				while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+					x = rand.nextInt(ligne);
+					y = rand.nextInt(colonne);
+				}
+				Cassable m = new Cassable(x, y);
+				set_element3(x, y, m, labyrinthe);
+				count++;
 			}
-			Cassable m = new Cassable(x, y);
-			set_element3(x, y, m, labyrinthe);
-			count++;
 		}
 		count = 0;
 		int nb_pour_invisible = invisible * len_mur / 100;
-		while (count < nb_pour_invisible) {
-			x = rand.nextInt(ligne);
-			y = rand.nextInt(colonne);
-			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+		if (invisible == 100) {
+			for (int a = 0; a < ligne; a++) {
+				for (int b = 0; b < colonne; b++) {
+					if (get_element2(a, b, labyrinthe) instanceof Mur) {
+						Cassable m = new Cassable(a, b);
+						set_element3(a, b, m, labyrinthe);
+					}
+				}
+			}
+		} else {
+			while (count < nb_pour_invisible) {
 				x = rand.nextInt(ligne);
 				y = rand.nextInt(colonne);
+				while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+					x = rand.nextInt(ligne);
+					y = rand.nextInt(colonne);
+				}
+				Invisible m = new Invisible(x, y);
+				set_element3(x, y, m, labyrinthe);
+				count++;
 			}
-			Invisible m = new Invisible(x, y);
-			set_element3(x, y, m, labyrinthe);
-			count++;
 		}
 		count = 0;
 		int nb_pour_normal = normal * len_mur / 100;

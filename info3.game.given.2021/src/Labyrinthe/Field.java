@@ -19,6 +19,21 @@ public class Field {
 	LinkedList<Pair<Integer, Integer>> l_void = new LinkedList<Pair<Integer, Integer>>();
 	LinkedList<Pair<Integer, Integer>> mur = new LinkedList<Pair<Integer, Integer>>();
 	LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<Pair<Integer, Integer>>();
+	private LinkedList<Entity> mur_cassable = new LinkedList<Entity>();
+	private LinkedList<Entity> mur_invisible = new LinkedList<Entity>();
+	private LinkedList<Entity> mur_normal = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_interrupteur = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_porte = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_sable = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_squelette = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_zombie = new LinkedList<Entity>();
+
+	// pomme, potion, pioche, bombe
+	private LinkedList<Entity> ListePommes = new LinkedList<Entity>();
+	private LinkedList<Entity> ListePotions = new LinkedList<Entity>();
+	private LinkedList<Entity> ListePioches = new LinkedList<Entity>();
+	private LinkedList<Entity> ListeBombes = new LinkedList<Entity>();
+	private LinkedList<Entity> ListeTeleporteur = new LinkedList<Entity>();
 
 	public Field(int lig, int col, int densite_field, int densite_pickable, int mine, int pomme, int potion, int pioche,
 			int bombe, int cassable, int invisible, int normal, int nb_porte_sable, int nb_ennemis, Random r) {
@@ -80,6 +95,58 @@ public class Field {
 
 	}
 
+	public LinkedList<Entity> get_cassable() {
+		return mur_cassable;
+	}
+
+	public LinkedList<Entity> get_invisible() {
+		return mur_invisible;
+	}
+
+	public LinkedList<Entity> get_normal() {
+		return mur_normal;
+	}
+
+	public LinkedList<Entity> get_interrupteur() {
+		return liste_interrupteur;
+	}
+
+	public LinkedList<Entity> get_porte() {
+		return liste_porte;
+	}
+
+	public LinkedList<Entity> get_sable() {
+		return liste_sable;
+	}
+
+	public LinkedList<Entity> get_squelette() {
+		return liste_squelette;
+	}
+
+	public LinkedList<Entity> get_zombie() {
+		return liste_zombie;
+	}
+
+	public LinkedList<Entity> getListePommes() {
+		return this.ListePommes;
+	}
+
+	public LinkedList<Entity> getListePotions() {
+		return this.ListePotions;
+	}
+
+	public LinkedList<Entity> getListePioche() {
+		return this.ListePioches;
+	}
+
+	public LinkedList<Entity> getListeBombes() {
+		return this.ListeBombes;
+	}
+
+	public LinkedList<Entity> getListeTeleporteur() {
+		return this.ListeTeleporteur;
+	}
+
 	void depot_ennemis(int nb) {
 		int count = 0;
 		while (count < nb) {
@@ -92,6 +159,7 @@ public class Field {
 			}
 			Squelette s = new Squelette(i, j);
 			set_element2(i, j, s, labyrinthe);
+			liste_squelette.add(s);
 			count++;
 		}
 		count = 0;
@@ -105,6 +173,7 @@ public class Field {
 			}
 			Zombie z = new Zombie(i, j);
 			set_element2(i, j, z, labyrinthe);
+			liste_zombie.add(z);
 			count++;
 		}
 	}
@@ -243,6 +312,7 @@ public class Field {
 						p = new Porte(chemin3.get(i).geto1(), chemin3.get(i).geto2());
 						p.Orientation = 3;
 						set_element2(chemin3.get(i).geto1(), chemin3.get(i).geto2(), p, labyrinthe);
+						liste_porte.add(p);
 						chemin3.remove(i);
 						condition = 0;
 					}
@@ -254,6 +324,7 @@ public class Field {
 						p = new Porte(chemin3.get(i).geto1(), chemin3.get(i).geto2());
 						p.Orientation = 1;
 						set_element2(chemin3.get(i).geto1(), chemin3.get(i).geto2(), p, labyrinthe);
+						liste_porte.add(p);
 						chemin3.remove(i);
 						condition = 0;
 					}
@@ -267,6 +338,7 @@ public class Field {
 				while (i > 0 && condition == 1) {
 					p = new Sable(chemin3.get(i).geto1(), chemin3.get(i).geto2());
 					set_element2(chemin3.get(i).geto1(), chemin3.get(i).geto2(), p, labyrinthe);
+					liste_sable.add(p);
 					chemin3.remove(i);
 					condition = 0;
 				}
@@ -296,6 +368,7 @@ public class Field {
 				l.add(p);
 				Interrupteur Int = new Interrupteur(x, y, l);
 				set_element2(x, y, Int, labyrinthe);
+				liste_interrupteur.add(Int);
 			}
 			if (chemin2.size() >= len && condition == 0) {
 				for (int i3 = chemin3.size() - 1; i3 >= 0; i3--) {
@@ -382,6 +455,7 @@ public class Field {
 			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t = new Teleporteur(i, j);
+		this.ListeTeleporteur.add(t);
 		set_element5(i, j, t, labyrinthe);
 		Entity en = get_element2(i, j, labyrinthe);
 		i = rand.nextInt(ligne);
@@ -391,6 +465,7 @@ public class Field {
 			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t1 = new Teleporteur(i, j);
+		this.ListeTeleporteur.add(t1);
 		set_element5(i, j, t1, labyrinthe);
 		Entity en1 = get_element2(i, j, labyrinthe);
 		((Teleporteur) en).set_voisin(en1);
@@ -403,6 +478,7 @@ public class Field {
 			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t2 = new Teleporteur(i, j);
+		this.ListeTeleporteur.add(t2);
 		set_element5(i, j, t2, labyrinthe);
 		Entity en2 = get_element2(i, j, labyrinthe);
 		i = rand.nextInt(ligne);
@@ -412,6 +488,7 @@ public class Field {
 			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t3 = new Teleporteur(i, j);
+		this.ListeTeleporteur.add(t3);
 		set_element5(i, j, t3, labyrinthe);
 		Entity en3 = get_element2(i, j, labyrinthe);
 		((Teleporteur) en2).set_voisin(en3);
@@ -449,6 +526,7 @@ public class Field {
 					if (get_element2(a, b, labyrinthe) instanceof Mur) {
 						Cassable m = new Cassable(a, b);
 						set_element3(a, b, m, labyrinthe);
+						mur_cassable.add(m);
 					}
 				}
 			}
@@ -462,6 +540,7 @@ public class Field {
 				}
 				Cassable m = new Cassable(x, y);
 				set_element3(x, y, m, labyrinthe);
+				mur_cassable.add(m);
 				count++;
 			}
 		}
@@ -471,8 +550,9 @@ public class Field {
 			for (int a = 1; a < ligne - 1; a++) {
 				for (int b = 1; b < colonne - 1; b++) {
 					if (get_element2(a, b, labyrinthe) instanceof Mur) {
-						Cassable m = new Cassable(a, b);
+						Invisible m = new Invisible(a, b);
 						set_element3(a, b, m, labyrinthe);
+						mur_invisible.add(m);
 					}
 				}
 			}
@@ -486,6 +566,7 @@ public class Field {
 				}
 				Invisible m = new Invisible(x, y);
 				set_element3(x, y, m, labyrinthe);
+				mur_invisible.add(m);
 				count++;
 			}
 		}
@@ -500,6 +581,7 @@ public class Field {
 			}
 			Normal m = new Normal(x, y);
 			set_element3(x, y, m, labyrinthe);
+			mur_normal.add(m);
 			count++;
 		}
 
@@ -519,6 +601,7 @@ public class Field {
 					if (get_element2(a, b, labyrinthe) instanceof Mur) {
 						Cassable m = new Cassable(a, b);
 						set_element3(a, b, m, labyrinthe);
+						mur_cassable.add(m);
 					}
 				}
 			}
@@ -532,6 +615,7 @@ public class Field {
 				}
 				Cassable m = new Cassable(x, y);
 				set_element3(x, y, m, labyrinthe);
+				mur_cassable.add(m);
 				count++;
 			}
 		}
@@ -541,8 +625,9 @@ public class Field {
 			for (int a = 0; a < ligne; a++) {
 				for (int b = 0; b < colonne; b++) {
 					if (get_element2(a, b, labyrinthe) instanceof Mur) {
-						Cassable m = new Cassable(a, b);
+						Invisible m = new Invisible(a, b);
 						set_element3(a, b, m, labyrinthe);
+						mur_invisible.add(m);
 					}
 				}
 			}
@@ -556,6 +641,7 @@ public class Field {
 				}
 				Invisible m = new Invisible(x, y);
 				set_element3(x, y, m, labyrinthe);
+				mur_invisible.add(m);
 				count++;
 			}
 		}
@@ -570,6 +656,7 @@ public class Field {
 			}
 			Normal m = new Normal(x, y);
 			set_element3(x, y, m, labyrinthe);
+			mur_normal.add(m);
 			count++;
 		}
 
@@ -1074,6 +1161,7 @@ public class Field {
 				y = rand.nextInt(colonne - 2) + 1;
 			}
 			Apple a = new Apple(x, y);
+			this.ListePommes.add(a); // Mise à jour
 			if (get_element2(x, y, labyrinthe) instanceof Cassable) {
 				set_element4(x, y, a, labyrinthe);
 			} else if (get_element2(x, y, labyrinthe) instanceof Invisible) {
@@ -1095,6 +1183,7 @@ public class Field {
 				y = rand.nextInt(colonne - 2) + 1;
 			}
 			Potion pot = new Potion(x, y);
+			this.ListePotions.add(pot);
 			if (get_element2(x, y, labyrinthe) instanceof Cassable) {
 				set_element4(x, y, pot, labyrinthe);
 			} else if (get_element2(x, y, labyrinthe) instanceof Invisible) {
@@ -1116,6 +1205,7 @@ public class Field {
 				y = rand.nextInt(colonne - 2) + 1;
 			}
 			Pioche pio = new Pioche(x, y);
+			this.ListePioches.add(pio);
 			if (get_element2(x, y, labyrinthe) instanceof Cassable) {
 				set_element4(x, y, pio, labyrinthe);
 			} else if (get_element2(x, y, labyrinthe) instanceof Invisible) {
@@ -1137,6 +1227,7 @@ public class Field {
 				y = rand.nextInt(colonne - 2) + 1;
 			}
 			Bombe b = new Bombe(x, y);
+			this.ListeBombes.add(b);
 			if (get_element2(x, y, labyrinthe) instanceof Cassable) {
 				set_element4(x, y, b, labyrinthe);
 			} else if (get_element2(x, y, labyrinthe) instanceof Invisible) {

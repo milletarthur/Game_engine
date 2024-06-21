@@ -52,8 +52,8 @@ public class Field {
 		labyrinthe();
 		recup_liste_void();
 		grow();
-		System.out.println("Labyrinthe initial sans obstacles :\n\n");
-		printGame();
+		//System.out.println("Labyrinthe initial sans obstacles :\n\n");
+		//printGame();
 		// Obstacle(densite, "Mine");
 		// Obstacle(densite, "Sable");
 		// porte(densite);
@@ -61,7 +61,7 @@ public class Field {
 		 * this.pickable(densite, "Pomme"); this.pickable(densite, "Potion");
 		 * this.pickable(densite, "Pioche"); this.pickable(densite, "Bombe");
 		 */
-		System.out.println("\n\nLabyrinthe Avec obstacles :\n\n");
+		//System.out.println("\n\nLabyrinthe Avec obstacles :\n\n");
 	}
 
 	public Field(int lig, int col, int densite_field, int densite_pickable, int mine, int pomme, int potion, int pioche,
@@ -98,10 +98,10 @@ public class Field {
 		labyrinthe();
 		recup_liste_mur();
 		depot_mur(cassable, invisible, normal);
-		printLabyrinthe_tmp();
+		//printLabyrinthe_tmp();
 		trouver_chemin_1();
 		chemin = trouver_chemin_2();
-		affiche_chemin(chemin);
+		//affiche_chemin(chemin);
 		for (int i = 0; i < chemin.size(); i++) {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
@@ -110,7 +110,7 @@ public class Field {
 		}
 
 		grow();
-		printGame();
+		//printGame();
 		grow_porte();
 		recup_liste_void();
 		
@@ -233,7 +233,7 @@ public class Field {
 		int i = chemin.size() / nb_porte - 2;
 		LinkedList<Pair<Integer, Integer>> chemin3 = new LinkedList<Pair<Integer, Integer>>();
 		int len = chemin2.size() / nb_porte;
-		System.out.printf("len = \t%d\n", len);
+		//System.out.printf("len = \t%d\n", len);
 		while (len < 6) {
 			// System.out.println("je suis dedans
 			// #####################################################");
@@ -245,7 +245,7 @@ public class Field {
 			chemin2.remove(ind);
 		}
 
-		System.out.printf("len = \t%d\n", len);
+		//System.out.printf("len = \t%d\n", len);
 		Entity elem = null;
 		int condition = 1;
 		Entity p = null;
@@ -323,7 +323,7 @@ public class Field {
 			}
 
 			condition = 1;
-			printGame();
+			//printGame();
 			i = chemin.size() / nb_porte - 2;
 			count = 0;
 		}
@@ -864,7 +864,7 @@ public class Field {
 		int len_mur = mur.size();
 		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
-		System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
+		//System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
 		int count = 0;
 		int x, y;
 		while (count < nb_pour_cassable) {

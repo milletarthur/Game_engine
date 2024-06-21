@@ -1,4 +1,4 @@
-Test_Cond(Init){
+Player1(Init){
 * (Init):
 | Key(z) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
 | Key(d) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
@@ -6,22 +6,10 @@ Test_Cond(Init){
 | Key(q) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
 }
 
-Test_Cond(Init){
+Player2(Init){
 * (Init):
 | Key(FU) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
 | Key(FR) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
 | Key(FD) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
 | Key(FL) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
-}
-
-Mine(Init){
-* (Init):
-| Cell(H,@) | Cell(H,#) | Cell(H,A) ? Explode : ()
-| Cell(H,T) & (Key(a) | Key(m)) ? : (Selected)
-* (Selected):
-| Cell(H,M) ? Pop : ()
-| Cell(H,J) ? Wizz : ()
-| Cell(H,@) | Cell(H,#) | Cell(H,A) ? Explode : ()
-| ! Cell(H,T) ? : (Init)
-* ()
 }

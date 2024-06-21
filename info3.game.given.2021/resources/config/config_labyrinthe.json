@@ -6,8 +6,8 @@
     "largeur" : 30,
     "visibility" : 5,
     "%density" : 100,
-    "seed" : 732,
-    "use_seed" : false,
+    "seed" : 0,
+    "use_seed" : true,
     "pv" : 20,
     "entities": [
       { "name" : "Apple",

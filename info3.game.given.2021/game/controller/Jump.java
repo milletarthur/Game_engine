@@ -31,6 +31,7 @@ public class Jump implements IAction {
 			}
 		}
 		e.jump();
+		System.out.print(e.getInventory().toString());
 	}
 
 	@Override

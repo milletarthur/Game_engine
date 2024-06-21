@@ -52,15 +52,15 @@ public class Explode implements IAction {
 				}
 			}
 		}
-		System.out.print("Explode ");
-		String classnamelong = e.getClass().getName();
-		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".") + 1, classnamelong.length());
-		System.out.print(classname);
-		System.out.print(" (");
-		System.out.print(e.ligne());
-		System.out.print(";");
-		System.out.print(e.colonne());
-		System.out.println(")");
+//		System.out.print("Explode ");
+//		String classnamelong = e.getClass().getName();
+//		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
+//		System.out.print(classname);
+//		System.out.print(" (");
+//		System.out.print(e.ligne());
+//		System.out.print(";");
+//		System.out.print(e.colonne());
+//		System.out.println(")");
 		e.explode();
 		terrain.remove(e.ligne(), e.colonne(), e);
 	}

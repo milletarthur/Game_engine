@@ -3,6 +3,7 @@ package controller;
 import Automates.IAction;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Joueur;
 
 public class Store implements IAction {
 
@@ -14,6 +15,8 @@ public class Store implements IAction {
 
 	@Override
 	public void exec(Entity e) {
+		if (e instanceof Joueur && e.picked() == null)
+			return;
 		e.store();
 	}
 

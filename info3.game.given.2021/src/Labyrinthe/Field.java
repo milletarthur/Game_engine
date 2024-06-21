@@ -1845,6 +1845,7 @@ public class Field {
 				remove(ligne, colonne, here);
 				return true;
 			}
+			return false;
 		case "Mine":
 		case "Pioche":
 		case "Apple":
@@ -1857,6 +1858,7 @@ public class Field {
 			} else if (here instanceof Cassable || here instanceof Invisible) {
 				return !hasSameLayer(ligne, colonne, e.layer());
 			}
+			return false;
 		case "Porte":
 		case "Interrupteur":
 			
@@ -1904,6 +1906,7 @@ public class Field {
 				}
 				return false;
 			}
+			return false;
 		case "Cassable":
 			if(here instanceof Void) {
 				// /!\ si on est en dehors du terrain
@@ -1992,6 +1995,7 @@ public class Field {
 					return false;
 				}
 			}
+			return false;
 		case "Fleche":
 			if(here instanceof Void || here instanceof Sable || here instanceof Mine 
 					|| here.category() == Categorie.P || here.layer() == 0) {

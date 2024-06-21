@@ -9,7 +9,7 @@ public class Fleche extends Entity {
 	public Fleche(int ligne, int colonne, int dir, boolean trans) {
 		this.colonne = colonne;
 		this.ligne = ligne;
-		this.category = Categorie.M;
+		this.category = Categorie.D;
 		this.team = 5;
 		this.Orientation = dir;
 		layer = 3;
@@ -19,7 +19,7 @@ public class Fleche extends Entity {
 	public Fleche(int ligne, int colonne, int dir) {
 		this.colonne = colonne;
 		this.ligne = ligne;
-		this.category = Categorie.M;
+		this.category = Categorie.D;
 		this.team = 5;
 		this.Orientation = dir;
 		layer = 3;

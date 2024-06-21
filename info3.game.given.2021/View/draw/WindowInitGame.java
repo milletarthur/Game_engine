@@ -21,7 +21,7 @@ import java.util.LinkedList;
  */
 public class WindowInitGame extends JFrame {
 
-	public static int T_case = 30;
+	public static int T_case = 60;
 
 	private static final long serialVersionUID = 1L;
 

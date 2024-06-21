@@ -6,7 +6,7 @@ public class Invisible extends Mur {
 	public Invisible(int ligne, int colonne) {
 		this.colonne = colonne;
 		this.ligne = ligne;
-		this.category = Categorie.J;
+		this.category = Categorie.G;
 		this.team = 4;
 		this.layer = 4;
 	}

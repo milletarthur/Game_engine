@@ -25,7 +25,7 @@ import java.util.Random;
 public class DrawTerrain extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private int T_case;
+	private int T_case, int_team;
 	private Field terrain;
 
 	private Sprite CHEMIN, PERSO, OBJET, ITEM, DEPLAC;
@@ -43,20 +43,21 @@ public class DrawTerrain extends JPanel {
 
 	private int[][] rand_chemin, rand_mine_x, rand_mine_y;
 
-	public DrawTerrain(int HAUTEUR, int LARGEUR, Field terrain, int T_case) throws IOException {
+	public DrawTerrain(int HAUTEUR, int LARGEUR, Field terrain, int T_case, int int_team) throws IOException {
 		this.terrain = terrain;
 		this.T_case = T_case;
+		this.int_team = int_team ; // team du joueur
 		this.chargement_Image();
-		this.random = new Random(); // TODO - seed a ajouté
+		this.random = new Random(0); // TODO - seed a ajouté
 		this.rand_chemin = new int[HAUTEUR][LARGEUR];
 		this.rand_mine_x = new int[HAUTEUR][LARGEUR];
 		this.rand_mine_y = new int[HAUTEUR][LARGEUR];
 
 		for (int i = 0; i < HAUTEUR; i++) {
 			for (int j = 0; j < LARGEUR; j++) {
-				rand_chemin[i][j] = -1;
-				rand_mine_x[i][j] = -1;
-				rand_mine_y[i][j] = -1;
+				rand_chemin[i][j] = random.nextInt(6);
+				rand_mine_x[i][j] = random.nextInt((17 - 3) + 1) + 3;
+				rand_mine_y[i][j] = random.nextInt((17 - 3) + 1) + 3;
 			}
 		}
 
@@ -118,10 +119,15 @@ public class DrawTerrain extends JPanel {
 							g.drawImage(int_neutre, j * T_case, i * T_case, T_case, T_case, null);
 						}
 					} else if (e instanceof Invisible) { // mur magique
-						if (temp.get(2) instanceof Joueur)
-							g.drawImage(invisible, j * T_case, i * T_case, T_case, T_case, null);
-						else
+						if (temp.get(2) instanceof Joueur) {
+							if (temp.get(2).team() == this.int_team) {
+								g.drawImage(invisible, j * T_case, i * T_case, T_case, T_case, null);
+							} else {
+								g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
+							}
+						} else {
 							g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
+						}
 					} else if (e instanceof Joueur) {
 						// TODO - gérer les cas ou le joueur a une arme
 						if (e.team() == 1) {
@@ -139,7 +145,7 @@ public class DrawTerrain extends JPanel {
 						g.drawImage(lave, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Mine) {
 						g.setColor(new Color(90, 90, 90));
-						g.fillRect(j * T_case + x_mine(i, j), i * T_case + y_mine(i, j), 2, 2);
+						g.fillRect(j * T_case + rand_mine_x[i][j], i * T_case + rand_mine_y[i][j], 2, 2);
 					} else if (e instanceof Normal) { // mur normal
 						g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Pioche) {
@@ -165,7 +171,7 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Teleporteur) {
 						g.drawImage(teleporte, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Void) { // chemin
-						g.drawImage(chemin[this.donnees_chemin(i, j)], j * T_case, i * T_case, T_case, T_case, null);
+						g.drawImage(chemin[rand_chemin[i][j]], j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Zombie) {
 						if (e.direction() == 1 || e.direction() == 3)
 							g.drawImage(zombie, j * T_case, i * T_case, T_case, T_case, null);
@@ -236,27 +242,6 @@ public class DrawTerrain extends JPanel {
 		this.zombie_flip = flip(zombie);
 		this.invisible = transparent(mur);
 
-	}
-
-	private int donnees_chemin(int x, int y) {
-		if (rand_chemin[x][y] == -1) {
-			rand_chemin[x][y] = random.nextInt(6);
-		}
-		return rand_chemin[x][y];
-	}
-
-	private int x_mine(int x, int y) {
-		if (rand_mine_x[x][y] == -1) {
-			rand_mine_x[x][y] = random.nextInt((17 - 3) + 1) + 3;
-		}
-		return rand_mine_x[x][y];
-	}
-
-	private int y_mine(int x, int y) {
-		if (rand_mine_y[x][y] == -1) {
-			rand_mine_y[x][y] = random.nextInt((17 - 3) + 1) + 3;
-		}
-		return rand_mine_y[x][y];
 	}
 
 	public static Image drawPickable(Entity e) {

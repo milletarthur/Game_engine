@@ -19,7 +19,7 @@ public class Hit implements IAction {
 	public void exec(Entity e) {
 		int damage = e.hit(); // renvoie les dégats que fait l'entitée a une autre. (positif)
 		int[] coo = terrain.next_to_outside(e, e.direction());
-		if (coo[0] < 0 || coo[0] > terrain.get_ligne()-1 || coo[1] < 0 || coo[1] > terrain.get_colonne()-1)
+		if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0 || coo[1] > terrain.get_colonne() - 1)
 			return;
 		int ligne = coo[0];
 		int colonne = coo[1];
@@ -81,7 +81,7 @@ public class Hit implements IAction {
 		} else if (damage == -6) { // cas épée avec hitCircle
 			for (int i = 0; i < 8; i++) {
 				coo = terrain.next_to_outside(e, e.direction());
-				if (coo[0] < 0 || coo[0] > terrain.get_ligne()-1 || coo[1] < 0 || coo[1] > terrain.get_colonne()-1)
+				if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0 || coo[1] > terrain.get_colonne() - 1)
 					continue;
 				ligne = coo[0];
 				colonne = coo[1];
@@ -96,16 +96,22 @@ public class Hit implements IAction {
 					cpt++;
 					tohit = list.get(cpt);
 				}
-				if(damage > 0) {
+				if (damage > 0) {
 					if ((tohit instanceof Joueur) || (tohit instanceof Zombie) || (tohit instanceof Squelette)) {
 						tohit.power(-3);
 					}
 				}
 				e.turn(((e.direction() + 1) % 8) + 1);
 			}
-			((Epee)e).setHitCircle(false);
+			((Epee) e).setHitCircle(false);
 		}
 
+	}
+
+	@Override
+	public String toString() {
+		String s = "Hit";
+		return s;
 	}
 
 }

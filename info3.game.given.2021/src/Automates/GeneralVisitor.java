@@ -15,16 +15,19 @@ import controller.False;
 import controller.Get;
 import controller.Got;
 import controller.Hit;
+import controller.Jump;
 import controller.KeyPressed;
 import controller.Move;
 import controller.Not;
 import controller.Pick;
+import controller.Pop;
 import controller.Power;
 import controller.Store;
 import controller.Throw;
 import controller.True;
 import controller.Turn;
 import controller.Wait;
+import controller.Wizz;
 import gal.ast.AST;
 import gal.ast.Actions;
 import gal.ast.Automaton;
@@ -370,6 +373,18 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Move(f);
+		case "Pop":
+			if (l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Pop(f);
+		case "Wizz":
+			if (l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Wizz(f);
+		case "Jump":
+			if (l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Jump(f);
 		default:
 			break;
 		}
@@ -456,6 +471,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		String ast_state_name = state.toString();
 		while (i.hasNext()) {
 			Automates.State s = i.next();
+//			System.out.println(s.getName());
 			if (ast_state_name.equals(s.getName()))
 				return s;
 		}

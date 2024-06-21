@@ -31,4 +31,10 @@ public class Throw implements IAction {
 		terrain.add(picked, coo[0], coo[1]);
 	}
 
+	@Override
+	public String toString() {
+		String s = "Throw";
+		return s;
+	}
+
 }

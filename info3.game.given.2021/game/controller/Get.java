@@ -21,4 +21,10 @@ public class Get implements IAction {
 		}
 	}
 
+	@Override
+	public String toString() {
+		String s = "Get";
+		return s;
+	}
+
 }

@@ -44,7 +44,7 @@ public class Joueur extends Entity {
 	}
 
 	public int hit() {
-		if (picked != null)
+		if (picked == null)
 			return 1;
 		return picked.hit();
 	}

@@ -29,8 +29,8 @@ public class Hit implements IAction {
 			taille--;
 		while (!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette)
 				&& cpt < taille) {
-			cpt++;
 			tohit = list.get(cpt);
+			cpt++;
 		}
 		if (damage > 0) {
 			// terrain.remove(ligne, colonne, tohit);

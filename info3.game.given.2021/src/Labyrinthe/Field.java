@@ -980,186 +980,380 @@ public class Field {
 		int[] rv = new int[2];
 		rv[0] = e.ligne();
 		rv[1] = e.colonne();
-		if (d > 0) {
-			switch (d) {
-			case Direction.N:
-				rv[0]--;
-				break;
-			case Direction.S:
-				rv[0]++;
-				break;
-			case Direction.E:
-				rv[1]++;
-				break;
-			case Direction.W:
-				rv[1]--;
-				break;
-			case Direction.NE:
-				rv[0]--;
-				rv[1]++;
-				break;
-			case Direction.SE:
-				rv[0]--;
-				rv[1]++;
-				break;
-			case Direction.NW:
-				rv[0]++;
-				rv[1]--;
-				break;
-			case Direction.SW:
-				rv[0]++;
-				rv[1]--;
-				break;	
-			default :
-				break;
+		if (d != Direction.H) {
+			if (d > 0) {
+				switch (d) {
+				case Direction.N:
+					rv[0]--;
+					break;
+				case Direction.S:
+					rv[0]++;
+					break;
+				case Direction.E:
+					rv[1]++;
+					break;
+				case Direction.W:
+					rv[1]--;
+					break;
+				case Direction.NE:
+					rv[0]--;
+					rv[1]++;
+					break;
+				case Direction.SE:
+					rv[0]--;
+					rv[1]++;
+					break;
+				case Direction.NW:
+					rv[0]++;
+					rv[1]--;
+					break;
+				case Direction.SW:
+					rv[0]++;
+					rv[1]--;
+					break;	
+				default :
+					break;
+				}
 			}
-			return rv;
+			if (rv[0] == e.ligne() && rv[1] == e.colonne()) {
+				switch (e.direction()) {
+				case Direction.N:
+					switch (d) {
+					case Direction.L:
+						rv[1]--;
+						break;
+					case Direction.R:
+						rv[1]++;
+						break;
+					case Direction.B:
+						rv[0]++;
+						break;
+					case Direction.F:
+						rv[0]--;
+						break;
+					case Direction.FR:
+						rv[1]++;
+						rv[0]--;
+						break;
+					case Direction.FL:
+						rv[1]--;
+						rv[0]--;
+						break;
+					case Direction.BR:
+						rv[1]++;
+						rv[0]++;
+						break;
+					case Direction.BL:
+						rv[1]--;
+						rv[0]++;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Direction.S:
+					switch (d) {
+					case Direction.L:
+						rv[1]++;
+						break;
+					case Direction.R:
+						rv[1]--;
+						break;
+					case Direction.B:
+						rv[0]--;
+						break;
+					case Direction.F:
+						rv[0]++;
+						break;
+					case Direction.FR:
+						rv[1]--;
+						rv[0]++;
+						break;
+					case Direction.FL:
+						rv[1]++;
+						rv[0]++;
+						break;
+					case Direction.BR:
+						rv[1]--;
+						rv[0]--;
+						break;
+					case Direction.BL:
+						rv[1]++;
+						rv[0]--;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Direction.E:
+					switch (d) {
+					case Direction.L:
+						rv[0]--;
+						break;
+					case Direction.R:
+						rv[0]++;
+						break;
+					case Direction.B:
+						rv[1]--;
+						break;
+					case Direction.F:
+						rv[1]++;
+						break;
+					case Direction.FR:
+						rv[1]++;
+						rv[0]++;
+						break;
+					case Direction.FL:
+						rv[1]++;
+						rv[0]--;
+						break;
+					case Direction.BR:
+						rv[1]--;
+						rv[0]++;
+						break;
+					case Direction.BL:
+						rv[1]--;
+						rv[0]--;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Direction.W:
+					switch (d) {
+					case Direction.L:
+						rv[0]++;
+						break;
+					case Direction.R:
+						rv[0]--;
+						break;
+					case Direction.B:
+						rv[1]++;
+						break;
+					case Direction.F:
+						rv[1]--;
+						break;
+					case Direction.FR:
+						rv[1]--;
+						rv[0]--;
+						break;
+					case Direction.FL:
+						rv[1]--;
+						rv[0]++;
+						break;
+					case Direction.BR:
+						rv[1]++;
+						rv[0]--;
+						break;
+					case Direction.BL:
+						rv[1]++;
+						rv[0]++;
+						break;
+					default:
+						break;
+					}
+					break;
+				default:
+					break;
+				}
+			}
 		}
-		if (d == Direction.H)
-			return rv;
-		switch (e.direction()) {
-		case Direction.N:
-			switch (d) {
-			case Direction.L:
-				rv[1]--;
-				break;
-			case Direction.R:
-				rv[1]++;
-				break;
-			case Direction.B:
-				rv[0]++;
-				break;
-			case Direction.F:
-				rv[0]--;
-				break;
-			case Direction.FR:
-				rv[1]++;
-				rv[0]--;
-				break;
-			case Direction.FL:
-				rv[1]--;
-				rv[0]--;
-				break;
-			case Direction.BR:
-				rv[1]++;
-				rv[0]++;
-				break;
-			case Direction.BL:
-				rv[1]--;
-				rv[0]++;
-				break;
-			default:
-				break;
-			}
-			break;
-		case Direction.S:
-			switch (d) {
-			case Direction.L:
-				rv[1]++;
-				break;
-			case Direction.R:
-				rv[1]--;
-				break;
-			case Direction.B:
-				rv[0]--;
-				break;
-			case Direction.F:
-				rv[0]++;
-				break;
-			case Direction.FR:
-				rv[1]--;
-				rv[0]++;
-				break;
-			case Direction.FL:
-				rv[1]++;
-				rv[0]++;
-				break;
-			case Direction.BR:
-				rv[1]--;
-				rv[0]--;
-				break;
-			case Direction.BL:
-				rv[1]++;
-				rv[0]--;
-				break;
-			default:
-				break;
-			}
-			break;
-		case Direction.E:
-			switch (d) {
-			case Direction.L:
-				rv[0]--;
-				break;
-			case Direction.R:
-				rv[0]++;
-				break;
-			case Direction.B:
-				rv[1]--;
-				break;
-			case Direction.F:
-				rv[1]++;
-				break;
-			case Direction.FR:
-				rv[1]++;
-				rv[0]++;
-				break;
-			case Direction.FL:
-				rv[1]++;
-				rv[0]--;
-				break;
-			case Direction.BR:
-				rv[1]--;
-				rv[0]++;
-				break;
-			case Direction.BL:
-				rv[1]--;
-				rv[0]--;
-				break;
-			default:
-				break;
-			}
-			break;
-		case Direction.W:
-			switch (d) {
-			case Direction.L:
-				rv[0]++;
-				break;
-			case Direction.R:
-				rv[0]--;
-				break;
-			case Direction.B:
-				rv[1]++;
-				break;
-			case Direction.F:
-				rv[1]--;
-				break;
-			case Direction.FR:
-				rv[1]--;
-				rv[0]--;
-				break;
-			case Direction.FL:
-				rv[1]--;
-				rv[0]++;
-				break;
-			case Direction.BR:
-				rv[1]++;
-				rv[0]--;
-				break;
-			case Direction.BL:
-				rv[1]++;
-				rv[0]++;
-				break;
-			default:
-				break;
-			}
-			break;
-		default:
-			break;
-		}
+		if(rv[0] < 0)
+			rv[0] = 0;
+		if(rv[0] >= ligne)
+			rv[0] = ligne-1;
+		if(rv[1] < 0)
+			rv[1] = 0;
+		if(rv[1] >= colonne)
+			rv[1] = colonne-1;
 		return rv;
 	}
 
+	public int[] next_to_outside(Entity e, int d) {
+		int[] rv = new int[2];
+		rv[0] = e.ligne();
+		rv[1] = e.colonne();
+		if (d != Direction.H) {
+			if (d > 0) {
+				switch (d) {
+				case Direction.N:
+					rv[0]--;
+					break;
+				case Direction.S:
+					rv[0]++;
+					break;
+				case Direction.E:
+					rv[1]++;
+					break;
+				case Direction.W:
+					rv[1]--;
+					break;
+				case Direction.NE:
+					rv[0]--;
+					rv[1]++;
+					break;
+				case Direction.SE:
+					rv[0]--;
+					rv[1]++;
+					break;
+				case Direction.NW:
+					rv[0]++;
+					rv[1]--;
+					break;
+				case Direction.SW:
+					rv[0]++;
+					rv[1]--;
+					break;	
+				default :
+					break;
+				}
+			}
+			if (rv[0] == e.ligne() && rv[1] == e.colonne()) {
+				switch (e.direction()) {
+				case Direction.N:
+					switch (d) {
+					case Direction.L:
+						rv[1]--;
+						break;
+					case Direction.R:
+						rv[1]++;
+						break;
+					case Direction.B:
+						rv[0]++;
+						break;
+					case Direction.F:
+						rv[0]--;
+						break;
+					case Direction.FR:
+						rv[1]++;
+						rv[0]--;
+						break;
+					case Direction.FL:
+						rv[1]--;
+						rv[0]--;
+						break;
+					case Direction.BR:
+						rv[1]++;
+						rv[0]++;
+						break;
+					case Direction.BL:
+						rv[1]--;
+						rv[0]++;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Direction.S:
+					switch (d) {
+					case Direction.L:
+						rv[1]++;
+						break;
+					case Direction.R:
+						rv[1]--;
+						break;
+					case Direction.B:
+						rv[0]--;
+						break;
+					case Direction.F:
+						rv[0]++;
+						break;
+					case Direction.FR:
+						rv[1]--;
+						rv[0]++;
+						break;
+					case Direction.FL:
+						rv[1]++;
+						rv[0]++;
+						break;
+					case Direction.BR:
+						rv[1]--;
+						rv[0]--;
+						break;
+					case Direction.BL:
+						rv[1]++;
+						rv[0]--;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Direction.E:
+					switch (d) {
+					case Direction.L:
+						rv[0]--;
+						break;
+					case Direction.R:
+						rv[0]++;
+						break;
+					case Direction.B:
+						rv[1]--;
+						break;
+					case Direction.F:
+						rv[1]++;
+						break;
+					case Direction.FR:
+						rv[1]++;
+						rv[0]++;
+						break;
+					case Direction.FL:
+						rv[1]++;
+						rv[0]--;
+						break;
+					case Direction.BR:
+						rv[1]--;
+						rv[0]++;
+						break;
+					case Direction.BL:
+						rv[1]--;
+						rv[0]--;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Direction.W:
+					switch (d) {
+					case Direction.L:
+						rv[0]++;
+						break;
+					case Direction.R:
+						rv[0]--;
+						break;
+					case Direction.B:
+						rv[1]++;
+						break;
+					case Direction.F:
+						rv[1]--;
+						break;
+					case Direction.FR:
+						rv[1]--;
+						rv[0]--;
+						break;
+					case Direction.FL:
+						rv[1]--;
+						rv[0]++;
+						break;
+					case Direction.BR:
+						rv[1]++;
+						rv[0]--;
+						break;
+					case Direction.BL:
+						rv[1]++;
+						rv[0]++;
+						break;
+					default:
+						break;
+					}
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		return rv;
+	}
+	
 	public boolean cell(Entity e, int dir, int cat) {
 		int[] coo = next_to(e, dir);
 		int ligne = coo[0];
@@ -1269,11 +1463,201 @@ public class Field {
 		}
 		return l_class;
 	}
+	
+	public boolean hasSameLayer(int ligne, int colonne, int layer) {
+		LinkedList<Entity> l_entity = getElement(ligne, colonne);
+		Entity elem;
+		for(int i=0; i<l_entity.size(); i++) {
+			elem = l_entity.get(i);
+			if(elem.layer() == layer) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public boolean isHerePossible(int ligne, int colonne, Entity e) {
 		Entity here = getLastnotSelect(ligne, colonne);
-		if (here.layer() < e.layer())
-			return true;
+		String classnamelong = e.getClass().getName();
+		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
+		switch(classname) {
+		case "Joueur":
+		case "Zombie":
+		case "Squelette":
+			if (here instanceof Void) {
+				return true;
+			} else if(here instanceof Invisible) {
+				return !hasSameLayer(ligne, colonne, e.layer());
+			}
+			return false;
+		case "Sable":
+			if(here instanceof Void) {
+				return true;
+			} else if(here.category() == Categorie.P || here instanceof Mine) {
+				remove(ligne, colonne, here);
+				return true;
+			}
+		case "Mine":
+		case "Pioche":
+		case "Apple":
+		case "Potion":
+		case "Bombe":
+		case "Epee":
+		case "Arc":
+			if(here instanceof Void) {
+				return true;
+			} else if (here instanceof Cassable || here instanceof Invisible) {
+				return !hasSameLayer(ligne, colonne, e.layer());
+			}
+		case "Porte":
+		case "Interrupteur":
+			
+		case "Normal":
+			if(here instanceof Void) {
+				// /!\ si on est en dehors du terrain
+				LinkedList<Entity> l_entityN = getElement(ligne-1, colonne);
+				LinkedList<Entity> l_entityE = getElement(ligne, colonne+1);
+				LinkedList<Entity> l_entityS = getElement(ligne+1, colonne);
+				LinkedList<Entity> l_entityW = getElement(ligne, colonne-1);
+				Entity elem;
+				boolean MurN = false;
+				boolean MurE = false;
+				boolean MurS = false;
+				boolean MurW = false;
+				for(int i=0; i<l_entityN.size(); i++) {
+					elem = l_entityN.get(i);
+					if(elem instanceof Normal || elem instanceof Cassable) {
+						MurN = true;
+					}
+				}
+				for(int i=0; i<l_entityS.size(); i++) {
+					elem = l_entityS.get(i);
+					if(elem instanceof Normal || elem instanceof Cassable) {
+						MurS = true;
+					}
+				}
+				if(MurN && MurS) {
+					return true;
+				}
+				for(int i=0; i<l_entityE.size(); i++) {
+					elem = l_entityE.get(i);
+					if(elem instanceof Normal || elem instanceof Cassable) {
+						MurE = true;
+					}
+				}
+				for(int i=0; i<l_entityW.size(); i++) {
+					elem = l_entityW.get(i);
+					if(elem instanceof Normal || elem instanceof Cassable) {
+						MurW = true;
+					}
+				}
+				if(MurE && MurW) {
+					return true;
+				}
+				return false;
+			}
+		case "Cassable":
+			if(here instanceof Void) {
+				// /!\ si on est en dehors du terrain
+				LinkedList<Entity> l_entityN = getElement(ligne-1, colonne);
+				LinkedList<Entity> l_entityE = getElement(ligne, colonne+1);
+				LinkedList<Entity> l_entityS = getElement(ligne+1, colonne);
+				LinkedList<Entity> l_entityW = getElement(ligne, colonne-1);
+				Entity elem;
+				boolean MurN = false;
+				boolean MurE = false;
+				boolean MurS = false;
+				boolean MurW = false;
+				for(int i=0; i<l_entityN.size(); i++) {
+					elem = l_entityN.get(i);
+					if(elem instanceof Normal || elem instanceof Cassable) {
+						MurN = true;
+					}
+				}
+				for(int i=0; i<l_entityS.size(); i++) {
+					elem = l_entityS.get(i);
+					if(elem instanceof Normal || elem instanceof Cassable) {
+						MurS = true;
+					}
+				}
+				if(MurN && MurS) {
+					return true;
+				}
+				for(int i=0; i<l_entityE.size(); i++) {
+					elem = l_entityE.get(i);
+					if(elem instanceof Normal || elem instanceof Cassable) {
+						MurE = true;
+					}
+				}
+				for(int i=0; i<l_entityW.size(); i++) {
+					elem = l_entityW.get(i);
+					if(elem instanceof Normal || elem instanceof Cassable) {
+						MurW = true;
+					}
+				}
+				if(MurE && MurW) {
+					return true;
+				}
+				return false;
+			} else if(here instanceof Mine || here.category() == Categorie.P) {
+				if(here instanceof Void) {
+					// /!\ si on est en dehors du terrain
+					LinkedList<Entity> l_entityN = getElement(ligne-1, colonne);
+					LinkedList<Entity> l_entityE = getElement(ligne, colonne+1);
+					LinkedList<Entity> l_entityS = getElement(ligne+1, colonne);
+					LinkedList<Entity> l_entityW = getElement(ligne, colonne-1);
+					Entity elem;
+					boolean MurN = false;
+					boolean MurE = false;
+					boolean MurS = false;
+					boolean MurW = false;
+					for(int i=0; i<l_entityN.size(); i++) {
+						elem = l_entityN.get(i);
+						if(elem instanceof Normal || elem instanceof Cassable) {
+							MurN = true;
+						}
+					}
+					for(int i=0; i<l_entityS.size(); i++) {
+						elem = l_entityS.get(i);
+						if(elem instanceof Normal || elem instanceof Cassable) {
+							MurS = true;
+						}
+					}
+					if(MurN && MurS) {
+						return !hasSameLayer(ligne, colonne, e.layer());
+					}
+					for(int i=0; i<l_entityE.size(); i++) {
+						elem = l_entityE.get(i);
+						if(elem instanceof Normal || elem instanceof Cassable) {
+							MurE = true;
+						}
+					}
+					for(int i=0; i<l_entityW.size(); i++) {
+						elem = l_entityW.get(i);
+						if(elem instanceof Normal || elem instanceof Cassable) {
+							MurW = true;
+						}
+					}
+					if(MurE && MurW) {
+						return !hasSameLayer(ligne, colonne, e.layer());
+					}
+					return false;
+				}
+			}
+		case "Fleche":
+			if(here instanceof Void || here instanceof Sable || here instanceof Mine 
+					|| here.category() == Categorie.P || here.layer() == 0) {
+				return true;
+			}
+			return false;
+		case "Lave":
+		case "Teleporteur":
+			if(here instanceof Void) {
+				remove(ligne, colonne, here);
+				return true;
+			}
+			return false;
+		}
 		return false;
 	}
 	

@@ -504,7 +504,9 @@ public class Field {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
 				if (tmp[i][j] == -1) {
-					set_element(i, j, new Normal(i, j), labyrinthe);
+					Normal n = new Normal(i, j); 
+					set_element(i, j, n, labyrinthe);
+					this.mur_normal.add(n);
 					set_element(i, j, new Void(i, j), labyrinthe);
 					set_element(i, j, new Lave(i, j), labyrinthe);
 				} else {
@@ -531,6 +533,13 @@ public class Field {
 						Cassable m = new Cassable(a, b);
 						set_element3(a, b, m, labyrinthe);
 						mur_cassable.add(m);
+						for ( int i = 0 ; i < this.mur_normal.size() ; i++  ) {
+							int i1 = this.mur_normal.get(i).ligne() ;
+							int j1 = this.mur_normal.get(i).colonne() ;
+							if ( a == i1 && b == j1 ) {
+								this.mur_normal.remove(i);
+							}
+						}
 					}
 				}
 			}
@@ -545,6 +554,13 @@ public class Field {
 				Cassable m = new Cassable(x, y);
 				set_element3(x, y, m, labyrinthe);
 				mur_cassable.add(m);
+				for ( int i = 0 ; i < this.mur_normal.size() ; i++  ) {
+					int i1 = this.mur_normal.get(i).ligne() ;
+					int j1 = this.mur_normal.get(i).colonne() ;
+					if ( x == i1 && y == j1 ) {
+						this.mur_normal.remove(i);
+					}
+				}
 				count++;
 			}
 		}
@@ -557,6 +573,13 @@ public class Field {
 						Invisible m = new Invisible(a, b);
 						set_element3(a, b, m, labyrinthe);
 						mur_invisible.add(m);
+						for ( int i = 0 ; i < this.mur_normal.size() ; i++  ) {
+							int i1 = this.mur_normal.get(i).ligne() ;
+							int j1 = this.mur_normal.get(i).colonne() ;
+							if ( a == i1 && b == j1 ) {
+								this.mur_normal.remove(i);
+							}
+						}
 					}
 				}
 			}
@@ -572,6 +595,13 @@ public class Field {
 				set_element3(x, y, m, labyrinthe);
 				mur_invisible.add(m);
 				count++;
+				for ( int i = 0 ; i < this.mur_normal.size() ; i++  ) {
+					int i1 = this.mur_normal.get(i).ligne() ;
+					int j1 = this.mur_normal.get(i).colonne() ;
+					if ( x == i1 && y == j1 ) {
+						this.mur_normal.remove(i);
+					}
+				}
 			}
 		}
 		count = 0;
@@ -584,6 +614,13 @@ public class Field {
 				y = rand.nextInt(colonne - 2) + 1;
 			}
 			Normal m = new Normal(x, y);
+			for ( int i = 0 ; i < this.mur_normal.size() ; i++  ) {
+				int i1 = this.mur_normal.get(i).ligne() ;
+				int j1 = this.mur_normal.get(i).colonne() ;
+				if ( x == i1 && y == j1 ) {
+					this.mur_normal.remove(i);
+				}
+			}
 			set_element3(x, y, m, labyrinthe);
 			mur_normal.add(m);
 			count++;
@@ -606,6 +643,13 @@ public class Field {
 						Cassable m = new Cassable(a, b);
 						set_element3(a, b, m, labyrinthe);
 						mur_cassable.add(m);
+						for ( int i = 0 ; i < this.mur_normal.size() ; i++  ) {
+							int i1 = this.mur_normal.get(i).ligne() ;
+							int j1 = this.mur_normal.get(i).colonne() ;
+							if ( a == i1 && b == j1 ) {
+								this.mur_normal.remove(i);
+							}
+						}
 					}
 				}
 			}
@@ -620,6 +664,13 @@ public class Field {
 				Cassable m = new Cassable(x, y);
 				set_element3(x, y, m, labyrinthe);
 				mur_cassable.add(m);
+				for ( int i = 0 ; i < this.mur_normal.size() ; i++  ) {
+					int i1 = this.mur_normal.get(i).ligne() ;
+					int j1 = this.mur_normal.get(i).colonne() ;
+					if ( x == i1 && y == j1 ) {
+						this.mur_normal.remove(i);
+					}
+				}
 				count++;
 			}
 		}
@@ -632,6 +683,13 @@ public class Field {
 						Invisible m = new Invisible(a, b);
 						set_element3(a, b, m, labyrinthe);
 						mur_invisible.add(m);
+						for ( int i = 0 ; i < this.mur_normal.size() ; i++  ) {
+							int i1 = this.mur_normal.get(i).ligne() ;
+							int j1 = this.mur_normal.get(i).colonne() ;
+							if ( a == i1 && b == j1 ) {
+								this.mur_normal.remove(i);
+							}
+						}
 					}
 				}
 			}
@@ -647,6 +705,13 @@ public class Field {
 				set_element3(x, y, m, labyrinthe);
 				mur_invisible.add(m);
 				count++;
+				for ( int i = 0 ; i < this.mur_normal.size() ; i++  ) {
+					int i1 = this.mur_normal.get(i).ligne() ;
+					int j1 = this.mur_normal.get(i).colonne() ;
+					if ( x == i1 && y == j1 ) {
+						this.mur_normal.remove(i);
+					}
+				}
 			}
 		}
 		count = 0;
@@ -659,6 +724,13 @@ public class Field {
 				y = rand.nextInt(colonne);
 			}
 			Normal m = new Normal(x, y);
+			for ( int i = 0 ; i < this.mur_normal.size() ; i++  ) {
+				int i1 = this.mur_normal.get(i).ligne() ;
+				int j1 = this.mur_normal.get(i).colonne() ;
+				if ( x == i1 && y == j1 ) {
+					this.mur_normal.remove(i);
+				}
+			}
 			set_element3(x, y, m, labyrinthe);
 			mur_normal.add(m);
 			count++;

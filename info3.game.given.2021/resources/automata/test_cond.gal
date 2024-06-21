@@ -13,3 +13,13 @@ Player2(Init){
 | Key(FD) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
 | Key(FL) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
 }
+
+Mine(Init){
+* (Init):
+| Cell(H,@) / Cell(H,#) / Cell(H,A) ? Explode : ()
+| Cell(H,T) & (Key(a) / Key(m)) ? : (Selected)
+* (Selected):
+| Cell(H,@) / Cell(H,#) / Cell(H,A) ? Explode : ()
+| ! Cell(H,T) ? : (Init)
+* ()
+}

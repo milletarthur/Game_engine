@@ -3,7 +3,6 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Void extends Entity {
-	
 
 	public Void(int ligne, int colonne) {
 		this.ligne = ligne;
@@ -15,7 +14,7 @@ public class Void extends Entity {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Void(ligne,colonne);
+		return new Void(ligne, colonne);
 	}
 
 	@Override
@@ -29,7 +28,7 @@ public class Void extends Entity {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public int hit() {
 		// TODO Auto-generated method stub

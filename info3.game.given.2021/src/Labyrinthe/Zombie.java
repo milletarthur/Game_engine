@@ -16,7 +16,7 @@ public class Zombie extends Entity {
 
 	@Override
 	public Entity egg(int lign, int colonne) {
-		return new Zombie(ligne,colonne);
+		return new Zombie(ligne, colonne);
 	}
 
 	@Override

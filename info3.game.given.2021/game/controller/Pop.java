@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.LinkedList;
+
 import Automates.IAction;
 import Labyrinthe.*;
 import toolkit.Direction;

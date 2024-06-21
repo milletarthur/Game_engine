@@ -25,7 +25,11 @@ public class Explode implements IAction {
 	@Override
 	public void exec(Entity e) {
 		if (e instanceof Mine || e instanceof Bombe) {
-			for (int i = -1; i > -9; i--) {
+			if (e instanceof Mine)
+				((Mine) e).changeState();
+			if (e instanceof Bombe)
+				((Bombe) e).changeState();
+			for (int i = 0; i > -9; i--) {
 				int[] cell = terrain.next_to(e,i);
 				int x = cell[0];
 				int y = cell[1];
@@ -35,6 +39,10 @@ public class Explode implements IAction {
 				Iterator<Entity> iter = l.iterator();
 				while (iter.hasNext()) {
 					Entity elem = iter.next();
+					if (elem instanceof Mine && ((Mine) elem).exploded())
+						continue;						
+					if (elem instanceof Bombe && ((Bombe) elem).exploded())
+						continue;
 					if (elem instanceof Mine || elem instanceof Bombe || elem instanceof Cassable) {
 						Explode ex = new Explode(terrain);
 						ex.exec(elem);

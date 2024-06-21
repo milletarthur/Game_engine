@@ -1293,4 +1293,22 @@ public class Field {
 		l_around.addLast(getElement(ligne-1, colonne-1));
 		return l_around;
 	}
+	
+	public LinkedList<Entity> ListEntity(Class<?> c){
+		LinkedList<Entity> l_entity = new LinkedList<Entity>();
+		LinkedList<Entity> elem;
+		Entity entity;
+		for(int i=0; i<ligne; i++) {
+			for(int j=0; j<colonne; j++) {
+				elem = getElement(i,j);
+				for(int k=0; k<elem.size(); k++) {
+					entity = elem.get(i);
+					if(c.isInstance(entity)) {
+						l_entity.add(entity);
+					}
+				}
+			}
+		}
+		return l_entity;
+	}
 }

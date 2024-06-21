@@ -20,7 +20,7 @@ public class Conjonction implements ICondition {
 		Boolean t1 = c1.eval(e);
 		Boolean t2 = c2.eval(e);
 		Boolean t3 = t1 && t2;
-//		System.out.print(toString());
+//		System.out.println(toString());
 //		System.out.print(t1);
 //		System.out.print(t2);
 //		System.out.println(t3);

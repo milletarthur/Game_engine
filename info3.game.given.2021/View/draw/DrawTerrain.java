@@ -32,16 +32,14 @@ public class DrawTerrain extends JPanel {
 	private BufferedImage[] chemin = new BufferedImage[6];
 	private BufferedImage player1, player2, porte_fermee, porte_ouverte, teleporte, zombie, squelette;
 
-	private Image lave, sand, mur, fragile, int_pop, int_wizz, int_neutre;
+	private Image lave, sand, mur, fragile, int_pop, int_wizz, int_neutre, selection;
 	
 	// partager avec DrawInventaire
 	public static BufferedImage pioche, pomme, arc, potion, epee, bombe;
 
 	Random random;
 
-	private int[][] rand_chemin;
-	private int[][] rand_mine_x;
-	private int[][] rand_mine_y;
+	private int[][] rand_chemin, rand_mine_x, rand_mine_y;
 
 	public DrawTerrain(int HAUTEUR, int LARGEUR, Field terrain, int T_case) throws IOException {
 		this.terrain = terrain;
@@ -69,7 +67,7 @@ public class DrawTerrain extends JPanel {
 		this.drawElements(g);
 	}
 
-	public Image loadImage(InputStream is) {
+	public static Image loadImage(InputStream is) {
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(is);
@@ -80,7 +78,7 @@ public class DrawTerrain extends JPanel {
 		return null;
 	}
 
-	public Image drawEntity(String filepath) {
+	public static Image drawEntity(String filepath) {
 		File f = new File(filepath);
 		FileInputStream is = null;
 		try {
@@ -109,15 +107,24 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Epee) {
 						g.drawImage(epee, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Interrupteur) {
-						// TODO - savoir et rajouter la position de l'interrupteur
-						g.drawImage(int_pop, j * T_case, i * T_case, T_case, T_case, null);
+						Interrupteur inter = (Interrupteur) e ;
+						if (inter.State() == -1) {
+							g.drawImage(int_pop, j * T_case, i * T_case, T_case, T_case, null);
+						} else if (inter.State() == 1) {
+							g.drawImage(int_wizz, j * T_case, i * T_case, T_case, T_case, null);
+						} else {
+							g.drawImage(int_neutre, j * T_case, i * T_case, T_case, T_case, null);
+						}
 					} else if (e instanceof Invisible) { // mur magique
 						// TODO - rendre opaque si joueur dessus
 						g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Joueur) {
-						// TODO - gérer les cas ou le joueur a une arme et quel joueur c'est (avec les teams / positions)
-						g.drawImage(player1, j * T_case, i * T_case, T_case, T_case, null);
-						
+						// TODO - gérer les cas ou le joueur a une arme
+						if (e.team() == 1) {
+							g.drawImage(player1, j * T_case, i * T_case, T_case, T_case, null);
+						} else if (e.team() == 2) {
+							g.drawImage(player2, j * T_case, i * T_case, T_case, T_case, null);
+						}
 					} else if (e instanceof Lave) {
 						g.drawImage(lave, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Mine) {
@@ -128,12 +135,18 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Pioche) {
 						g.drawImage(pioche, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Porte) {
-						// TODO - savoir et rajouter quand la porte est ouverte ou fermée
-						g.drawImage(porte_fermee, j * T_case, i * T_case, T_case, T_case, null);
+						Porte p = (Porte) e ;
+						if (p.isOpen()) {
+							g.drawImage(porte_ouverte, j * T_case, i * T_case, T_case, T_case, null);
+						} else {
+							g.drawImage(porte_fermee, j * T_case, i * T_case, T_case, T_case, null);
+						}
 					} else if (e instanceof Potion) {
 						g.drawImage(potion, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Sable) {
 						g.drawImage(sand, j * T_case, i * T_case, T_case, T_case, null);
+					} else if (e instanceof Selection) {
+						g.drawImage(selection, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Squelette) {
 						// TODO - gérer quand le squelette attaque / meurt / fixe
 						g.drawImage(squelette, j * T_case, i * T_case, T_case, T_case, null);
@@ -169,8 +182,7 @@ public class DrawTerrain extends JPanel {
 		// joueurs
 		this.PLAYER = new Sprite("resources/graphisme/Personnages/sprites_weaponless.png", 26, 26);
 		this.player1 = PLAYER.getSprite(0, 20);
-//		this.player1 = (BufferedImage) drawEntity("resources/graphisme/mur.png");
-		this.player2 = PLAYER.getSprite(0, 0);
+		this.player2 = PLAYER.getSprite(0, 3);
 
 		// sol
 		this.lave = drawEntity("resources/graphisme/lave.png");
@@ -204,6 +216,8 @@ public class DrawTerrain extends JPanel {
 		this.zombie = ZOMBIE.getSprite(0, 0);
 		this.SQUELETTE = new Sprite("resources/graphisme/Personnages/Skeleton_enemy.png", 64, 64);
 		this.squelette = SQUELETTE.getSprite(0, 0);
+		
+		this.selection = drawEntity("resources/graphisme/targeting.png");
 
 	}
 
@@ -226,6 +240,23 @@ public class DrawTerrain extends JPanel {
 			rand_mine_y[x][y] = random.nextInt((17 - 3) + 1) + 3;
 		}
 		return rand_mine_y[x][y];
+	}
+	
+	public static Image drawPickable(Entity e) {
+		if (e instanceof Apple) {
+			return pomme;
+		} else if (e instanceof Arc) {
+			return arc;
+		} else if (e instanceof Bombe) {
+			return bombe;
+		} else if (e instanceof Epee) {
+			return epee;
+		} else if (e instanceof Pioche) {
+			return pioche;
+		} else if (e instanceof Potion) {
+			return potion;
+		}
+		return null;
 	}
 
 }

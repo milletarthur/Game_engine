@@ -96,13 +96,13 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		case "V":
 			category = Categorie.V;
 			break;
-		case "Arobase":
+		case "@":
 			category = Categorie.Arobase;
 			break;
-		case "Diese":
+		case "#":
 			category = Categorie.Diese;
 			break;
-		case "Tiret":
+		case "_":
 			category = Categorie.Tiret;
 			break;
 		case "Power":

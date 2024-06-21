@@ -28,11 +28,11 @@ public class DrawTerrain extends JPanel {
 	private int T_case;
 	private Field terrain;
 
-	private Sprite CHEMIN, PLAYER, OBJET, ITEM, DEPLAC, ZOMBIE, SQUELETTE;
+	private Sprite CHEMIN, PERSO, OBJET, ITEM, DEPLAC;
 
 	private BufferedImage[] chemin = new BufferedImage[6];
 	private BufferedImage player1, player1_flip, player2, player2_flip, porte_fermee, porte_ouverte, teleporte, zombie,
-			squelette, invisible;
+			zombie_flip, squelette, squelette_flip, invisible;
 
 	private Image lave, sand, mur, fragile, int_pop, int_wizz, int_neutre, selection;
 
@@ -120,7 +120,7 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Invisible) { // mur magique
 						if (temp.get(2) instanceof Joueur)
 							g.drawImage(invisible, j * T_case, i * T_case, T_case, T_case, null);
-						else 
+						else
 							g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Joueur) {
 						// TODO - gérer les cas ou le joueur a une arme
@@ -158,13 +158,19 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Selection) {
 						g.drawImage(selection, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Squelette) {
-						g.drawImage(squelette, j * T_case, i * T_case, T_case, T_case, null);
+						if (e.direction() == 1 || e.direction() == 3)
+							g.drawImage(squelette, j * T_case, i * T_case, T_case, T_case, null);
+						else
+							g.drawImage(squelette_flip, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Teleporteur) {
 						g.drawImage(teleporte, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Void) { // chemin
 						g.drawImage(chemin[this.donnees_chemin(i, j)], j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Zombie) {
-						g.drawImage(zombie, j * T_case, i * T_case, T_case, T_case, null);
+						if (e.direction() == 1 || e.direction() == 3)
+							g.drawImage(zombie, j * T_case, i * T_case, T_case, T_case, null);
+						else
+							g.drawImage(zombie_flip, j * T_case, i * T_case, T_case, T_case, null);
 					}
 				}
 			}
@@ -187,9 +193,9 @@ public class DrawTerrain extends JPanel {
 		this.fragile = drawEntity("resources/graphisme/fragile.png");
 
 		// joueurs
-		this.PLAYER = new Sprite("resources/graphisme/Personnages/sprites_weaponless.png", 26, 26);
-		this.player1 = PLAYER.getSprite(0, 20);
-		this.player2 = PLAYER.getSprite(0, 3);
+		this.PERSO = new Sprite("resources/graphisme/Personnages/sprites_weaponless.png", 26, 26);
+		this.player1 = PERSO.getSprite(0, 20);
+		this.player2 = PERSO.getSprite(0, 3);
 
 		// sol
 		this.lave = drawEntity("resources/graphisme/lave.png");
@@ -219,15 +225,15 @@ public class DrawTerrain extends JPanel {
 		this.int_wizz = drawEntity("resources/graphisme/levier3.png");
 
 		// monstres
-		this.ZOMBIE = new Sprite("resources/graphisme/Personnages/Zombie_idle.png", 32, 32);
-		this.zombie = ZOMBIE.getSprite(0, 0);
-		this.SQUELETTE = new Sprite("resources/graphisme/Personnages/Skeleton_enemy.png", 64, 64);
-		this.squelette = SQUELETTE.getSprite(0, 0);
+		this.zombie = PERSO.getSprite(16, 20);
+		this.squelette = PERSO.getSprite(16, 18);
 
 		this.selection = drawEntity("resources/graphisme/targeting.png");
 
 		this.player1_flip = flip(player1);
 		this.player2_flip = flip(player2);
+		this.squelette_flip = flip(squelette);
+		this.zombie_flip = flip(zombie);
 		this.invisible = transparent(mur);
 
 	}

@@ -13,7 +13,7 @@ public class Invisible extends Mur {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Invisible(colonne,ligne);
+		return new Invisible(colonne, ligne);
 	}
 
 	@Override

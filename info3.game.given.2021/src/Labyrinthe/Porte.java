@@ -3,9 +3,9 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Porte extends Entity {
-	
+
 	boolean isOpen;
-	
+
 	public Porte(int ligne, int colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;
@@ -17,7 +17,7 @@ public class Porte extends Entity {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Porte(ligne,colonne);
+		return new Porte(ligne, colonne);
 	}
 
 	@Override

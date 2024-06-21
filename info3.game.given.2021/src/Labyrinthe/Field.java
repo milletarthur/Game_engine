@@ -54,10 +54,10 @@ public class Field {
 		detruire_mur(densite_field);
 		labyrinthe();
 		recup_liste_mur();
-		printLabyrinthe_tmp();
+		//printLabyrinthe_tmp();
 		trouver_chemin_1();
 		chemin = trouver_chemin_2();
-		affiche_chemin(chemin);
+		//affiche_chemin(chemin);
 		for (int i = 0; i < chemin.size(); i++) {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
@@ -69,13 +69,13 @@ public class Field {
 		}
 
 		grow();
-		printGame();
 		grow_porte();
 		depot_teleporteur();
 		recup_liste_void_cassable_invisible();
 		depot_mine(densite_pickable, mine);
 		pickable(densite_pickable, pomme, potion, pioche, bombe);
 		depot_ennemis(nb_ennemis);
+		printGame();
 
 	}
 
@@ -217,7 +217,7 @@ public class Field {
 		int i = chemin.size() / nb_porte - 2;
 		LinkedList<Pair<Integer, Integer>> chemin3 = new LinkedList<Pair<Integer, Integer>>();
 		int len = chemin2.size() / nb_porte;
-		System.out.printf("len = \t%d\n", len);
+		//System.out.printf("len = \t%d\n", len);
 		while (len < 6) {
 			// System.out.println("je suis dedans
 			// #####################################################");
@@ -229,7 +229,7 @@ public class Field {
 			chemin2.remove(ind);
 		}
 
-		System.out.printf("len = \t%d\n", len);
+		//System.out.printf("len = \t%d\n", len);
 		Entity elem = null;
 		int condition = 1;
 		Entity p = null;
@@ -307,7 +307,7 @@ public class Field {
 			}
 
 			condition = 1;
-			printGame();
+			//printGame();
 			i = chemin.size() / nb_porte - 2;
 			count = 0;
 		}
@@ -429,11 +429,11 @@ public class Field {
 		int len_mur = mur.size();
 		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
-		System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
+		//System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
 		int count = 0;
 		int x, y;
 		while (count < nb_pour_cassable) {
-			x = rand.nextInt(ligne - 2 ) + 1;
+			x = rand.nextInt(ligne - 2) + 1;
 			y = rand.nextInt(colonne - 2) + 1;
 			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
 				x = rand.nextInt(ligne - 2) + 1;
@@ -469,14 +469,14 @@ public class Field {
 			set_element3(x, y, m, labyrinthe);
 			count++;
 		}
-		
+
 	}
-	
+
 	public void depot_mur2(int cassable, int invisible, int normal) {
 		int len_mur = mur.size();
 		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
-		System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
+		//System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
 		int count = 0;
 		int x, y;
 		while (count < nb_pour_cassable) {
@@ -516,7 +516,7 @@ public class Field {
 			set_element3(x, y, m, labyrinthe);
 			count++;
 		}
-		
+
 	}
 
 	public void grille(int l, int c) {
@@ -874,10 +874,10 @@ public class Field {
 
 		return false;
 	}
-	
-	private Boolean ContientMineInterr( int l , int c ) {
+
+	private Boolean ContientMineInterr(int l, int c) {
 		Entity elm = this.getElement(l, c).getLast();
-		if (elm instanceof Mine || elm instanceof Interrupteur ) {
+		if (elm instanceof Mine || elm instanceof Interrupteur) {
 			return true;
 		}
 
@@ -896,38 +896,39 @@ public class Field {
 
 			// Vérification ligne actuelle
 			for (int k_j = k_j_min; k_j <= k_j_max; k_j++) {
-				if (k_j != c && ( !(this.ContientVoidMur(k_i, k_j) ) || ( this.ContientMineInterr(k_i, k_j)) )) {
+				if (k_j != c && (!(this.ContientVoidMur(k_i, k_j)) || (this.ContientMineInterr(k_i, k_j)))) {
 					return false;
 				}
 			}
 
-			if (l > 0 && ( !(this.ContientVoidMur(l - 1, c) ) || ( this.ContientMineInterr(l-1, c)) ) ) {
+			if (l > 0 && (!(this.ContientVoidMur(l - 1, c)) || (this.ContientMineInterr(l - 1, c)))) {
 				return false;
 			}
 			if (l < this.ligne - 1) {
-				if (!(this.ContientVoidMur(l + 1, c)) || ( this.ContientMineInterr(l+ 1, c)) ) {
+				if (!(this.ContientVoidMur(l + 1, c)) || (this.ContientMineInterr(l + 1, c))) {
 
 					return false;
 				}
-				if ( c > 0 &&  ( this.ContientMineInterr(l+ 1, c - 1 )) ) {
+				if (c > 0 && (this.ContientMineInterr(l + 1, c - 1))) {
 					return false;
 				}
-				if ( c < this.colonne-1 &&  ( this.ContientMineInterr(l+ 1, c + 1 )) ) {
+				if (c < this.colonne - 1 && (this.ContientMineInterr(l + 1, c + 1))) {
 					return false;
-				} 
+				}
 			}
-			
+
 			if (l > 0) {
-				if ( c > 0 && ( this.ContientMineInterr(l-1, c-1) || this.ContientMineInterr(l, c-1)) ) {
+				if (c > 0 && (this.ContientMineInterr(l - 1, c - 1) || this.ContientMineInterr(l, c - 1))) {
 
 					return false;
 				}
-				if ( c < this.colonne - 1  && ( this.ContientMineInterr(l-1, c+1) || ( this.ContientMineInterr(l, c+1) )) ) {
+				if (c < this.colonne - 1
+						&& (this.ContientMineInterr(l - 1, c + 1) || (this.ContientMineInterr(l, c + 1)))) {
 
 					return false;
 				}
 			}
-			
+
 		}
 		return true;
 		/*

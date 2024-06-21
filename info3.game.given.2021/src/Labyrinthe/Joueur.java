@@ -21,9 +21,9 @@ public class Joueur extends Entity {
 		layer = 3;
 
 	}
-	
+
 	public Entity egg(int ligne, int colonne) {
-		return new Joueur(ligne,colonne,team);
+		return new Joueur(ligne, colonne, team);
 	}
 
 	public Entity picked() {

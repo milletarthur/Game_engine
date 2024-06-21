@@ -4,7 +4,7 @@ import toolkit.Categorie;
 
 public class Bombe extends Entity {
 	private int time = 4;
-	
+
 	public Bombe(int ligne, int colonne) {
 		this.colonne = colonne;
 		this.ligne = ligne;
@@ -12,15 +12,15 @@ public class Bombe extends Entity {
 		this.team = 3;
 		layer = 2;
 	}
-	
+
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Bombe(ligne,colonne);
+		return new Bombe(ligne, colonne);
 	}
 
 	@Override
 	public void pop() {
-		
+
 		explode();
 
 	}

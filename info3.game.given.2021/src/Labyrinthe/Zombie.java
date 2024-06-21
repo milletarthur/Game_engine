@@ -3,7 +3,7 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Zombie extends Entity {
-	
+
 	public Zombie(int ligne, int colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;
@@ -14,7 +14,7 @@ public class Zombie extends Entity {
 
 	@Override
 	public Entity egg(int lign, int colonne) {
-		return new Zombie(ligne,colonne);
+		return new Zombie(ligne, colonne);
 	}
 
 	@Override

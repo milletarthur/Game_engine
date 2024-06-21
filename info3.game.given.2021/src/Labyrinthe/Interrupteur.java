@@ -51,6 +51,6 @@ public class Interrupteur extends Entity {
 	@Override
 	public void pop() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

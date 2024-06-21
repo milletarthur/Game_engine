@@ -13,7 +13,7 @@ public class Cassable extends Mur {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Cassable(ligne,colonne);
+		return new Cassable(ligne, colonne);
 	}
 
 	@Override

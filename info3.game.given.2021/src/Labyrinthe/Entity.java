@@ -14,6 +14,13 @@ public abstract class Entity {
 
 	protected int ligne;
 	protected int colonne;
+	
+	void set_ligne( int l ) {
+		this.ligne = l ;
+	}
+	void set_colonne( int c ) {
+		this.colonne = c ; 
+	}
 
 	protected int vie = 5;
 

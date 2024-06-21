@@ -538,7 +538,8 @@ public class Field {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
 				if (tmp[i][j] == -1) {
-					set_element(i, j, new Normal(i, j), labyrinthe);
+					Normal n = new Normal(i, j);
+					set_element(i, j, n, labyrinthe);
 					set_element(i, j, new Void(i, j), labyrinthe);
 					set_element(i, j, new Lave(i, j), labyrinthe);
 				} else {
@@ -564,7 +565,6 @@ public class Field {
 					if (get_element2(a, b, labyrinthe) instanceof Mur) {
 						Cassable m = new Cassable(a, b);
 						set_element3(a, b, m, labyrinthe);
-
 					}
 				}
 			}
@@ -578,7 +578,6 @@ public class Field {
 				}
 				Cassable m = new Cassable(x, y);
 				set_element3(x, y, m, labyrinthe);
-
 				count++;
 			}
 		}
@@ -590,7 +589,6 @@ public class Field {
 					if (get_element2(a, b, labyrinthe) instanceof Mur) {
 						Invisible m = new Invisible(a, b);
 						set_element3(a, b, m, labyrinthe);
-
 					}
 				}
 			}
@@ -639,7 +637,6 @@ public class Field {
 					if (get_element2(a, b, labyrinthe) instanceof Mur) {
 						Cassable m = new Cassable(a, b);
 						set_element3(a, b, m, labyrinthe);
-
 					}
 				}
 			}
@@ -665,7 +662,6 @@ public class Field {
 					if (get_element2(a, b, labyrinthe) instanceof Mur) {
 						Invisible m = new Invisible(a, b);
 						set_element3(a, b, m, labyrinthe);
-
 					}
 				}
 			}

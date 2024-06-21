@@ -25,7 +25,7 @@ public class Explode implements IAction {
 	@Override
 	public void exec(Entity e) {
 		if (e instanceof Mine || e instanceof Bombe) {
-			for (int i = 0; i > -9; i--) {
+			for (int i = -1; i > -9; i--) {
 				int[] cell = terrain.next_to(e,i);
 				int x = cell[0];
 				int y = cell[1];
@@ -45,5 +45,6 @@ public class Explode implements IAction {
 			}
 		}
 		e.explode();
+		terrain.remove(e.ligne(), e.colonne(), e);
 	}
 }

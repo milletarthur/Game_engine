@@ -57,7 +57,7 @@ public class JSONWindow implements ActionListener {
 		}
 
 		JSONObject param = new JSONObject(contenu);
-		
+
 		name1 = f.getname(1);
 		name2 = f.getname(2);
 		time = param.getInt("duration");

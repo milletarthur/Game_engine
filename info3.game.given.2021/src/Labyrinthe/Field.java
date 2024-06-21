@@ -2074,7 +2074,7 @@ public class Field {
 			for(int j=0; j<colonne; j++) {
 				elem = getElement(i,j);
 				for(int k=0; k<elem.size(); k++) {
-					entity = elem.get(i);
+					entity = elem.get(k);
 					if(c.isInstance(entity)) {
 						l_entity.add(entity);
 					}

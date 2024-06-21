@@ -3,6 +3,7 @@ package controller;
 import Automates.ICondition;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Mine;
 import toolkit.Categorie;
 import toolkit.Direction;
 
@@ -10,7 +11,7 @@ public class Cell implements ICondition {
 	private Field f;
 	private int dir;
 	private int cat;
-	
+
 	public Cell(Field f) {
 		this.f = f;
 	}
@@ -29,9 +30,9 @@ public class Cell implements ICondition {
 //		System.out.print(dir);
 //		System.out.print(";");
 //		System.out.print(cat);
-//		System.out.println(")");
-		Boolean t = f.cell(e,dir,cat);
-//		System.out.print(t);
+//		System.out.print(")");
+		Boolean t = f.cell(e, dir, cat);
+//		System.out.println(t);
 		return t;
 	}
 
@@ -63,6 +64,6 @@ public class Cell implements ICondition {
 		s += Integer.toString(cat);
 		s += ")";
 		return s;
-		}
-	
+	}
+
 }

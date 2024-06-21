@@ -2,7 +2,7 @@ package Labyrinthe;
 
 import toolkit.Categorie;
 
-public class Normal extends Mur {	
+public class Normal extends Mur {
 	public Normal(int ligne, int colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;
@@ -13,7 +13,7 @@ public class Normal extends Mur {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Normal(ligne,colonne);
+		return new Normal(ligne, colonne);
 	}
 
 	@Override

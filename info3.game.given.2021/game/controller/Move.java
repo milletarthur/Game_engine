@@ -22,7 +22,7 @@ public class Move implements IAction {
 		int direc = e.direction();
 		int ligne = e.ligne();
 		int colonne = e.colonne();
-		int[] spot = terrain.next_to(e, Direction.F);
+		int[] spot = terrain.next_to_outside(e, Direction.F);
 		int go_to_ligne = spot[0];
 		int go_to_colonne = spot[1];
 //		System.out.print("(");

@@ -24,9 +24,9 @@ public class Joueur extends Entity {
 		layer = 3;
 		inventory = new Inventory();
 	}
-	
+
 	public Entity egg(int ligne, int colonne) {
-		return new Joueur(ligne,colonne,team);
+		return new Joueur(ligne, colonne, team);
 	}
 
 	public Entity picked() {
@@ -44,7 +44,7 @@ public class Joueur extends Entity {
 	}
 
 	public int hit() {
-		if (picked != null)
+		if (picked == null)
 			return 1;
 		return picked.hit();
 	}

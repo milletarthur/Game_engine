@@ -16,6 +16,7 @@ public class Egg implements IAction {
 	
 	public Egg(Field f) {
 		terrain = f;
+		rand = new Random();
 	}
 	
 	public Egg(Field f, Random r) {
@@ -25,21 +26,32 @@ public class Egg implements IAction {
 	
 	@Override
 	public void exec(Entity e) {
-		LinkedList<Pair<Integer,Integer>> cases_possibles;
+		LinkedList<Pair<Integer,Integer>> cases_possibles = new LinkedList<Pair<Integer,Integer>>();
 		if (e instanceof Sable) {
-			cases_possibles = new LinkedList<Pair<Integer,Integer>>();
 			for (int i = -1; i > -9; i--) {
-				int[] cell = terrain.next_to(e,i);
-				if (cell[0] < 0 || cell[1] < 0 || cell[0] > terrain.get_colonne() || cell[1] > terrain.get_ligne())
-					continue;
+				int[] cell = terrain.next_to_outside(e,i);
+				Pair<Integer, Integer> p = new Pair<Integer,Integer>(cell[0],cell[1]);
+				if (cell[0] < 0 || cell[0] > terrain.get_ligne()-1 || cell[1] < 0 || cell[1] > terrain.get_colonne()-1)
+					return;
 				if (! terrain.isHerePossible(cell[0],cell[1],e))
 					continue;
-				cases_possibles.add(new Pair<Integer,Integer>(cell[0],cell[1]));
+				cases_possibles.add(p);
 			}
 		} else {
-			cases_possibles = terrain.getClassList(e.layer());
+			for (int i = 0; i < terrain.get_ligne(); i++) {
+				for (int j = 0; j < terrain.get_colonne(); j++) {
+					if (! terrain.isHerePossible(i, j, e))
+						continue;
+					Pair<Integer, Integer> p = new Pair<Integer, Integer>(i, j);
+					cases_possibles.add(p);
+				}
+			}
 		}
-		Pair<Integer,Integer> p = cases_possibles.get(rand.nextInt(cases_possibles.size()));
+		if (cases_possibles.isEmpty())
+			return;
+		System.out.println("taille " + cases_possibles.size());
+		int random = rand.nextInt(cases_possibles.size());
+		Pair<Integer,Integer> p = cases_possibles.get(random);
 		int x = p.geto1();
 		int y = p.geto2();
 		terrain.add(e.egg(x, y), x, y);

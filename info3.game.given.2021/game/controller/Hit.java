@@ -48,9 +48,11 @@ public class Hit implements IAction {
 			if (tohit instanceof Labyrinthe.Void) {
 				Wizz wi = new Wizz(terrain);
 				wi.exec(((Joueur) e).picked());
+				e.resetpick();
 			} else if (tohit instanceof Cassable) {
 				Pop po = new Pop(terrain);
 				po.exec(((Joueur) e).picked());
+				e.resetpick();
 			} else if ((tohit instanceof Joueur) || (tohit instanceof Zombie) || (tohit instanceof Squelette)) {
 				tohit.power(-2);
 			}
@@ -61,6 +63,7 @@ public class Hit implements IAction {
 			} else {
 				e.power(2);
 			}
+			e.resetpick();
 		} else if (damage == -4) { // cas Potion
 			Potion potion = (Potion) ((Joueur) e).picked();
 			if (potion.poisoned()) { // true == empoisonée
@@ -68,9 +71,11 @@ public class Hit implements IAction {
 			} else {
 				e.power(2);
 			}
+			e.resetpick();
 		} else if (damage == -5) { // cas bombe
 			Explode ex = new Explode(terrain);
 			ex.exec(((Joueur) e).picked());
+			e.resetpick();
 		} else if (damage == -6) { // cas épée avec hitCircle
 			for (int i = 0; i < 8; i++) {
 				spot = terrain.next_to(e, e.direction());

@@ -4,8 +4,10 @@ import javax.swing.*;
 
 import Automates.Automate;
 import Automates.AutomatonLoader;
+import Labyrinthe.Entity;
 import Labyrinthe.Field;
 import Labyrinthe.Joueur;
+import Labyrinthe.Mine;
 import controller.KeyPressed;
 import controller.TicTac;
 import controller.TickListener;
@@ -14,6 +16,7 @@ import listener.Key_Listener;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -22,7 +25,7 @@ import java.util.Random;
  */
 public class WindowInitGame extends JFrame {
 
-	public static int T_case = 30;
+	public static int T_case = 60;
 
 	private static final long serialVersionUID = 1L;
 
@@ -125,6 +128,8 @@ public class WindowInitGame extends JFrame {
 		w.init_Window(v1, v2, w.get_invent(), tt);
 		v1.centrerViewport(j1);
 		v2.centrerViewport(j2);
+		
+		LinkedList<Entity> l = terrain.get_ListeMine();
 
 		// création du lien entre Entity et Automate
 		for (int i = 0; i < l_aut.size(); i++) {
@@ -134,7 +139,12 @@ public class WindowInitGame extends JFrame {
 				tl.add(l_aut.get(i), j1); // automate attribué à j1
 			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_j2)) {
 				tl.add(l_aut.get(i), j2);
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_mine)) {
+				Iterator<Entity> iter = l.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
 			}
+			
 		}
 
 		// ajout d'un Keylistener

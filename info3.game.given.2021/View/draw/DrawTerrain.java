@@ -144,8 +144,9 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Lave) {
 						g.drawImage(lave, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Mine) {
-						g.setColor(new Color(90, 90, 90));
-						g.fillRect(j * T_case + rand_mine_x[i][j], i * T_case + rand_mine_y[i][j], 2, 2);
+//						g.setColor(new Color(90, 90, 90));
+//						g.fillRect(j * T_case + rand_mine_x[i][j], i * T_case + rand_mine_y[i][j], 2, 2);
+						g.drawImage(lave, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Normal) { // mur normal
 						g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Pioche) {

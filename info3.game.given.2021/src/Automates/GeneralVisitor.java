@@ -574,7 +574,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public Object build(Automaton automaton, Object initial_state, List<Object> modes) {
 		Automate a = l_aut.getLast();
 		a.set_name(automaton.name);
-		a.change_current((Automates.State) initial_state);//(Automates.State) visit((State) initial_state));
+		a.change_init((Automates.State) initial_state);//(Automates.State) visit((State) initial_state));
 		Iterator<TransitionAutomate> i = l_trans.iterator();
 		while(i.hasNext())
 			a.add_transition(i.next());

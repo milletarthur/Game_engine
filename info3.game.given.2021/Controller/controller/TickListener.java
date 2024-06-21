@@ -17,6 +17,7 @@ public class TickListener {
 	}
 	
 	public void add(Automate a, Entity e) {
+		e.setCurrent(a.getInit());
 		Pair<Automate,Entity> p = new Pair<Automate,Entity>(a,e);
 		auto_list.add(p);
 	}

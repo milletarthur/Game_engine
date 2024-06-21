@@ -25,7 +25,7 @@ import java.util.Random;
 public class DrawTerrain extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private int T_case, int_team;
+	private int T_case, int_team, l;
 	private Field terrain;
 
 	private Sprite CHEMIN, PERSO, OBJET, ITEM, DEPLAC;
@@ -48,16 +48,17 @@ public class DrawTerrain extends JPanel {
 		this.T_case = T_case;
 		this.int_team = int_team ; // team du joueur
 		this.chargement_Image();
-		this.random = new Random(0); // TODO - seed a ajouté
+		this.random = new Random(0);
 		this.rand_chemin = new int[HAUTEUR][LARGEUR];
 		this.rand_mine_x = new int[HAUTEUR][LARGEUR];
 		this.rand_mine_y = new int[HAUTEUR][LARGEUR];
 
+		this.l = T_case / 4 ;
 		for (int i = 0; i < HAUTEUR; i++) {
 			for (int j = 0; j < LARGEUR; j++) {
 				rand_chemin[i][j] = random.nextInt(6);
-				rand_mine_x[i][j] = random.nextInt((17 - 3) + 1) + 3;
-				rand_mine_y[i][j] = random.nextInt((17 - 3) + 1) + 3;
+				rand_mine_x[i][j] = random.nextInt(T_case - l*2) + 5;
+				rand_mine_y[i][j] = random.nextInt(T_case - l*2) + 5;
 			}
 		}
 
@@ -148,8 +149,14 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Lave) {
 						g.drawImage(lave, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Mine) {
-						g.setColor(new Color(90, 90, 90));
-						g.fillRect(j * T_case + rand_mine_x[i][j], i * T_case + rand_mine_y[i][j], 2, 2);
+						Graphics2D g2d = (Graphics2D) g;
+				        int strokeWidth = 2;
+				        g2d.setStroke(new BasicStroke(strokeWidth));
+				        g2d.setColor(new Color(51, 48, 46));
+						int x = j * T_case + rand_mine_x[i][j];
+						int y = i * T_case + rand_mine_y[i][j];
+						g.drawLine(x,y,x+l,y+l);
+						g.drawLine(x+l, y, x, y+l);
 					} else if (e instanceof Normal) { // mur normal
 						g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Pioche) {

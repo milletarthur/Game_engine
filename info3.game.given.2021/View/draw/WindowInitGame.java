@@ -22,7 +22,7 @@ import java.util.Random;
  */
 public class WindowInitGame extends JFrame {
 
-	public static int T_case = 30;
+	public static int T_case = 40;
 
 	private static final long serialVersionUID = 1L;
 

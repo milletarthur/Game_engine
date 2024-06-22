@@ -29,5 +29,11 @@ public class Wait implements IAction {
 	@Override public void exec(Entity e) {
 		e.wait_(time);
 	}
+	
+	@Override
+	public String toString() {
+		String s = "Wait";
+		return s;
+	}
 
 }

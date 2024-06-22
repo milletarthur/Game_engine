@@ -38,9 +38,9 @@ public class Pop implements IAction {
 			terrain.remove(e.ligne(), e.colonne(), e);
 			terrain.add(new Normal(e.ligne(), e.colonne()), e.ligne(), e.colonne());
 		} else if (e instanceof Zombie) {
-			e.setTeam(((Zombie)e).getOtherTeam());
-		} else if(e instanceof Squelette) {
-			e.setTeam(((Squelette)e).getOtherTeam());
+			e.setTeam(((Zombie) e).getOtherTeam());
+		} else if (e instanceof Squelette) {
+			e.setTeam(((Squelette) e).getOtherTeam());
 		} else if (e instanceof Sable) {
 			LinkedList<Entity> l_entity;
 			LinkedList<LinkedList<Entity>> l_around = terrain.getAround(e.ligne(), e.colonne());
@@ -77,7 +77,7 @@ public class Pop implements IAction {
 			}
 		} else if (e instanceof Pioche) {
 			int coo[] = terrain.next_to_outside(e, e.direction());
-			if (coo[0] < 0 || coo[0] > terrain.get_ligne()-1 || coo[1] < 0 || coo[1] > terrain.get_colonne()-1)
+			if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0 || coo[1] > terrain.get_colonne() - 1)
 				return;
 			Entity elem = terrain.getLastnotSelect(coo[0], coo[1]);
 			terrain.remove(coo[0], coo[1], elem);
@@ -113,6 +113,12 @@ public class Pop implements IAction {
 			ex.exec(e);
 		}
 		e.pop();
+	}
+
+	@Override
+	public String toString() {
+		String s = "Pop";
+		return s;
 	}
 
 }

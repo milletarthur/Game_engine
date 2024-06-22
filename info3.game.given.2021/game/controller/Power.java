@@ -5,7 +5,7 @@ import Labyrinthe.Entity;
 import Labyrinthe.Field;
 
 public class Power implements IAction {
-	
+
 	private Field terrain;
 	private int vie = 0;
 
@@ -13,15 +13,15 @@ public class Power implements IAction {
 		terrain = f;
 		this.vie = vie;
 	}
-	
+
 	public Power(Field f) {
 		terrain = f;
 	}
-	
+
 	public int getVie() {
 		return vie;
 	}
-	
+
 	public void setVie(int vie) {
 		this.vie = vie;
 	}
@@ -29,6 +29,12 @@ public class Power implements IAction {
 	@Override
 	public void exec(Entity e) {
 		e.power(vie);
+	}
+
+	@Override
+	public String toString() {
+		String s = "Power";
+		return s;
 	}
 
 }

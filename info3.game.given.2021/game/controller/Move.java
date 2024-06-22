@@ -12,7 +12,7 @@ import toolkit.Direction;
 public class Move implements IAction {
 
 	public Field terrain;
-	
+
 	public Move(Field terrain) {
 		this.terrain = terrain;
 	}
@@ -31,7 +31,8 @@ public class Move implements IAction {
 //		System.out.print(colonne);
 //		System.out.print(")");
 //		System.out.println(direc);
-		if (go_to_ligne < 0 || go_to_ligne > terrain.get_ligne()-1 || go_to_colonne < 0 || go_to_colonne > terrain.get_colonne()-1)
+		if (go_to_ligne < 0 || go_to_ligne > terrain.get_ligne() - 1 || go_to_colonne < 0
+				|| go_to_colonne > terrain.get_colonne() - 1)
 			return;
 //		Entity e_go_to = terrain.getLastnotSelect(go_to_ligne, go_to_colonne);
 //		if (e_go_to.category() == Categorie.O || e_go_to.category() == Categorie.G || e_go_to.category() == Categorie.C)
@@ -46,6 +47,12 @@ public class Move implements IAction {
 		}
 //		System.out.println("Move"); 
 		return;
+	}
+
+	@Override
+	public String toString() {
+		String s = "Move";
+		return s;
 	}
 
 }

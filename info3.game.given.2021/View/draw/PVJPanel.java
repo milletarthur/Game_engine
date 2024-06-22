@@ -15,10 +15,10 @@ public class PVJPanel extends JPanel {
 	private static int visibility = JSONWindow.visibility;
 	private static int pv_tot = JSONWindow.pv;
 	// pv ci-dessous correspond au dessin de la barre sur le JPanel
-	private static int pv = (T_case * visibility * 2 + T_case) - 130 ;
+	private static int pv = (T_case * visibility * 2 + T_case) - 195 ;
 
 	public PVJPanel(String name, Joueur j) {
-		this.setPreferredSize(new Dimension((T_case * visibility * 2 + T_case) - 110, 65));
+		this.setPreferredSize(new Dimension((T_case * visibility * 2 + T_case) - 175, 65));
 		this.setBackground(Color.black);
 				
 		this.j = j ;

@@ -14,7 +14,7 @@ public class DrawInventaire extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	TicTac t;
-	private ImageJPanel invent1, invent2;
+	private ImageJPanel invent1, invent2, main1, main2;
 	private PVJPanel pdv1, pdv2;
 	private JLabel timer;
 
@@ -37,8 +37,12 @@ public class DrawInventaire extends JPanel {
 		this.setPreferredSize(new Dimension(65, 65));
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
-		// inventaire 1
-		this.invent1 = new ImageJPanel();
+		// objet main 1
+		this.main1 = new ImageJPanel(false);
+		this.add(main1);
+		
+		// objet courant inventaire 1
+		this.invent1 = new ImageJPanel(true);
 		this.add(invent1);
 
 		// points de vie 1
@@ -67,9 +71,13 @@ public class DrawInventaire extends JPanel {
 		// points de vie 2
 		this.pdv2 = new PVJPanel(JSONWindow.name2, j2);
 		this.add(pdv2);
-
+		
+		// objet main 2
+		this.main2 = new ImageJPanel(false);
+		this.add(main2);
+		
 		// inventaire 2
-		this.invent2 = new ImageJPanel();
+		this.invent2 = new ImageJPanel(true);
 		this.add(invent2);
 
 		this.temps_actuel = temps;
@@ -85,6 +93,8 @@ public class DrawInventaire extends JPanel {
 			this.paintTimer();
 
 		// TODO - donner objet courant à la place de DrawTerrain...
+		main1.setImage(img_inventaire, DrawTerrain.drawPickable(j1.picked()), 0, 0, 65);
+		main2.setImage(img_inventaire, DrawTerrain.drawPickable(j2.picked()), 0, 0, 65);
 		invent1.setImage(img_inventaire, DrawTerrain.drawPickable(j1.picked()), 0, 0, 65);
 		invent2.setImage(img_inventaire, DrawTerrain.drawPickable(j2.picked()), 0, 0, 65);
 	}

@@ -40,7 +40,10 @@ public class PVJPanel extends JPanel {
 	}
 	
 	public int pv_duper() {
-		int perdu = pv * j.getVie() / pv_tot;
+		int pv_j = j.getVie();
+		if (pv_j > pv_tot)
+			pv_j = pv_tot;
+		int perdu = pv *pv_j / pv_tot;
 		if (perdu < 0)
 			perdu = 0;
 		return perdu;

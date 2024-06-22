@@ -27,6 +27,7 @@ Player2(Init){
 | Key(FD) ? Turn(S) :(Init)
 | Key(FL) ? Turn(W) :(Init)
 | Key(m) ? Egg :(Init)
+| Key(o) ? Wizz :(Init)
 }
 
 Mine(Init){

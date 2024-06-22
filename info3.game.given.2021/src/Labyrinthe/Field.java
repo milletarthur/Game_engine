@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
+import controller.Explode;
 import toolkit.*;
 
 public class Field {
@@ -84,7 +85,7 @@ public class Field {
 		}
 
 		grow();
-		//printGame();
+		// printGame();
 
 		grow_porte();
 		depot_teleporteur();
@@ -94,7 +95,7 @@ public class Field {
 		depot_ennemis(nb_ennemis);
 		printGame();
 		gerer_liste();
-
+//		endGame();
 	}
 
 	public void gerer_liste() {
@@ -204,6 +205,12 @@ public class Field {
 				j = rand.nextInt(colonne - 11) + 10;
 			}
 			Squelette s = new Squelette(i, j);
+			int value = rand.nextInt(101);
+			if(value < 33) {
+				s.setpicked(new Epee(i,j));
+			} else if (33 <= value && value < 66) {
+				s.setpicked(new Arc(i,j));
+			}
 			set_element2(i, j, s, labyrinthe);
 			count++;
 		}
@@ -217,6 +224,12 @@ public class Field {
 				j = rand.nextInt(colonne - 11) + 10;
 			}
 			Zombie z = new Zombie(i, j);
+			int value = rand.nextInt(101);
+			if(value < 33) {
+				z.setpicked(new Epee(i,j));
+			} else if (33 <= value && value < 66) {
+				z.setpicked(new Arc(i,j));
+			} 
 			set_element2(i, j, z, labyrinthe);
 			count++;
 		}
@@ -869,7 +882,7 @@ public class Field {
 					set_element(i, cpt, elem, new_labyrinthe);
 					elem.set_ligne(i);
 					elem.set_colonne(cpt);
-					
+
 				}
 				cpt++;
 //				e = get_element(i, j, labyrinthe);
@@ -877,7 +890,7 @@ public class Field {
 //				set_element(i, cpt, e, new_labyrinthe);
 				for (int k = 0; k < l.size(); k++) {
 					Entity elem = l.get(k);
-					set_element(i, cpt, newInstanceOf(elem,i,cpt), new_labyrinthe);
+					set_element(i, cpt, newInstanceOf(elem, i, cpt), new_labyrinthe);
 				}
 				cpt++;
 			}
@@ -915,7 +928,7 @@ public class Field {
 //				set_element(cpt, j, e, new_labyrinthe2);
 				for (int k = 0; k < l.size(); k++) {
 					Entity elem = l.get(k);
-					set_element(cpt, j, newInstanceOf(elem,cpt,j), new_labyrinthe2);
+					set_element(cpt, j, newInstanceOf(elem, cpt, j), new_labyrinthe2);
 				}
 			}
 			cpt++;
@@ -1635,10 +1648,10 @@ public class Field {
 		}
 		return false;
 	}
-	
+
 	public boolean presence_Selection(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Selection) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Selection) {
 				return true;
 			}
 		}
@@ -1901,8 +1914,8 @@ public class Field {
 				return false;
 			}
 			return true;
-		case Categorie.T :
-			if(presence_Selection(elem)) {
+		case Categorie.T:
+			if (presence_Selection(elem)) {
 				return true;
 			}
 			return false;
@@ -2044,7 +2057,15 @@ public class Field {
 			return false;
 		case "Porte":
 		case "Interrupteur":
-
+			if (here instanceof Void) {
+				return true;
+			}
+			return false;
+		case "Invisible":
+			if (here instanceof Invisible) {
+				return false;
+			}
+			return true;
 		case "Normal":
 			if (here instanceof Void) {
 				// /!\ si on est en dehors du terrain
@@ -2262,37 +2283,37 @@ public class Field {
 				if (MurE && MurW) {
 					return !hasSameLayer(ligne, colonne, e.layer());
 				}
-				for(int i=0; i<l_entityNE.size(); i++) {
+				for (int i = 0; i < l_entityNE.size(); i++) {
 					elem = l_entityNE.get(i);
-					if(elem instanceof Normal || elem instanceof Cassable) {
+					if (elem instanceof Normal || elem instanceof Cassable) {
 						MurNE = true;
 					}
 				}
-				for(int i=0; i<l_entityNW.size(); i++) {
+				for (int i = 0; i < l_entityNW.size(); i++) {
 					elem = l_entityNW.get(i);
-					if(elem instanceof Normal || elem instanceof Cassable) {
+					if (elem instanceof Normal || elem instanceof Cassable) {
 						MurNW = true;
 					}
 				}
-				if(MurNE && MurNW) {
+				if (MurNE && MurNW) {
 					return !hasSameLayer(ligne, colonne, e.layer());
 				}
-				for(int i=0; i<l_entitySE.size(); i++) {
+				for (int i = 0; i < l_entitySE.size(); i++) {
 					elem = l_entitySE.get(i);
-					if(elem instanceof Normal || elem instanceof Cassable) {
+					if (elem instanceof Normal || elem instanceof Cassable) {
 						MurSE = true;
 					}
 				}
-				if(MurNE && MurSE) {
+				if (MurNE && MurSE) {
 					return !hasSameLayer(ligne, colonne, e.layer());
 				}
-				for(int i=0; i<l_entitySW.size(); i++) {
+				for (int i = 0; i < l_entitySW.size(); i++) {
 					elem = l_entitySW.get(i);
-					if(elem instanceof Normal || elem instanceof Cassable) {
+					if (elem instanceof Normal || elem instanceof Cassable) {
 						MurSW = true;
 					}
 				}
-				if(MurSW && MurSE || MurNW && MurSW) {
+				if (MurSW && MurSE || MurNW && MurSW) {
 					return !hasSameLayer(ligne, colonne, e.layer());
 				}
 			}
@@ -2335,12 +2356,12 @@ public class Field {
 		LinkedList<Entity> l_entity = new LinkedList<Entity>();
 		LinkedList<Entity> elem;
 		Entity entity;
-		for(int i=0; i<ligne; i++) {
-			for(int j=0; j<colonne; j++) {
-				elem = getElement(i,j);
-				for(int k=0; k<elem.size(); k++) {
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				elem = getElement(i, j);
+				for (int k = 0; k < elem.size(); k++) {
 					entity = elem.get(k);
-					if(c.isInstance(entity)) {
+					if (c.isInstance(entity)) {
 						l_entity.add(entity);
 					}
 				}
@@ -2348,55 +2369,138 @@ public class Field {
 		}
 		return l_entity;
 	}
-	
+
 	public Entity newInstanceOf(Entity e, int ligne, int colonne) {
 		String classnamelong = e.getClass().getName();
-		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
-		switch(classname) {
+		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".") + 1, classnamelong.length());
+		switch (classname) {
 		case "Joueur":
-			return new Joueur(ligne,colonne,e.team());
+			return new Joueur(ligne, colonne, e.team());
 		case "Zombie":
-			return new Zombie(ligne,colonne);
+			return new Zombie(ligne, colonne);
 		case "Squelette":
-			return new Squelette(ligne,colonne);
+			return new Squelette(ligne, colonne);
 		case "Sable":
-			return new Sable(ligne,colonne);
+			return new Sable(ligne, colonne);
 		case "Mine":
-			return new Mine(ligne,colonne);
+			return new Mine(ligne, colonne);
 		case "Pioche":
-			return new Pioche(ligne,colonne);
+			return new Pioche(ligne, colonne);
 		case "Apple":
-			return new Apple(ligne,colonne);
+			return new Apple(ligne, colonne);
 		case "Potion":
-			return new Potion(ligne,colonne);
+			return new Potion(ligne, colonne);
 		case "Bombe":
-			return new Bombe(ligne,colonne);
+			return new Bombe(ligne, colonne);
 		case "Epee":
-			return new Epee(ligne,colonne);
+			return new Epee(ligne, colonne);
 		case "Arc":
-			return new Arc(ligne,colonne);
+			return new Arc(ligne, colonne);
 		case "Porte":
-			return new Porte(ligne,colonne);
+			return new Porte(ligne, colonne);
 		case "Interrupteur":
-			return new Interrupteur(ligne,colonne,((Interrupteur) e).get_entity());
+			return new Interrupteur(ligne, colonne, ((Interrupteur) e).get_entity());
 		case "Normal":
-			return new Normal(ligne,colonne);
+			return new Normal(ligne, colonne);
 		case "Cassable":
-			return new Cassable(ligne,colonne);
+			return new Cassable(ligne, colonne);
 		case "Fleche":
-			return new Fleche(ligne,colonne,e.direction());
+			return new Fleche(ligne, colonne, e.direction());
 		case "Lave":
-			return new Lave(ligne,colonne);
+			return new Lave(ligne, colonne);
 		case "Teleporteur":
-			return new Teleporteur(ligne,colonne);
-		case "Invisible" :
-			return new Invisible(ligne,colonne);
-		case "Selection" :
-			return new Selection(ligne,colonne);
-		case "Void" :
-			return new Void(ligne,colonne);
-		default :
+			return new Teleporteur(ligne, colonne);
+		case "Invisible":
+			return new Invisible(ligne, colonne);
+		case "Selection":
+			return new Selection(ligne, colonne);
+		case "Void":
+			return new Void(ligne, colonne);
+		default:
 			return null;
+		}
+	}
+	
+	/* -1 : partie perdue
+	 * 0 : partie pas finie
+	 * 1 : partie gagnée
+	 */ 
+	public int endGame() {
+//		LinkedList<Entity> l_player = new LinkedList<Entity>();
+		LinkedList<Entity> l_entity = new LinkedList<Entity>();
+//		l_player = ListEntity(Joueur.class);
+//		Entity elem_player;
+		Entity elem;
+//		boolean exit1 = false;
+//		boolean exit2 = false;
+//		// si il n'y a plus de joueur sur le terrain
+//		if(l_player == null || l_player.size() == 0) {
+//			return -1;
+//		}
+//		int cpt = 0;
+//		for(int i=0; i<l_player.size(); i++) {
+//			elem_player = l_player.get(i);
+//			if(elem_player.ligne() == ligne -4 && elem_player.colonne() == colonne -1) {
+//				exit1 = true;
+//			} else if(elem_player.ligne() == ligne -3 && elem_player.colonne() == colonne -1) {
+//				exit2 = true;
+//			}
+//			// les joueurs sont sortis
+//			if(exit1 && exit2) {
+//				return 1;
+//			}
+//			l_entity = getElement(elem_player.ligne(), elem_player.colonne());
+//			for(int j=0; j<l_entity.size(); j++) {
+//				elem = l_entity.get(j);
+//				if(elem instanceof Sable) {
+//					cpt++;
+//				}
+//			}
+//		}
+//		// si tous les joueurs sont dans des sables mouvants
+//		if(cpt == l_player.size()) {
+//			return -1;
+//		}
+//		
+		// faire cas avec fin du compte à rebours
+		fillBomb();
+		Entity bombe = null;
+		for(int i=2; i<ligne-1; i++) {
+			for(int j=1; j<colonne-1; j++) {
+				l_entity = getElement(i,j);
+				for(int k=0; k<l_entity.size(); k++) {
+					elem = l_entity.get(k);
+					if(elem instanceof Bombe) {
+						bombe = elem;
+						Explode ex = new Explode(this);
+						ex.exec(bombe);
+						return 999;
+					}
+				}
+			}
+		}
+		return 0;
+	}
+	
+	public void fillBomb() {
+		LinkedList<Entity> l_entity;
+		Entity elem;
+		for(int i=0; i<ligne-1; i++) {
+			for(int j=0; j<colonne-1; j++) {
+				l_entity = getElement(i,j);
+				for(int k=0; k<l_entity.size(); k++) {
+					elem = l_entity.get(k);
+					if(elem instanceof Normal) {
+						break;
+					}
+					if(elem.layer() == 2) {
+						remove(elem.ligne(), elem.colonne(), elem);
+						add(new Bombe(elem.ligne(), elem.colonne()), elem.ligne(), elem.colonne());
+						break;
+					}
+				}
+				add(new Bombe(l_entity.getFirst().ligne(), l_entity.getFirst().colonne()), l_entity.getFirst().ligne(), l_entity.getFirst().colonne());
+			}
 		}
 	}
 }

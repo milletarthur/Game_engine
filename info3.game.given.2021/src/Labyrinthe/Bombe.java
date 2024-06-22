@@ -36,8 +36,7 @@ public class Bombe extends Entity {
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		power(5);
 	}
 
 	@Override

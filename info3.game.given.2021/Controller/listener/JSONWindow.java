@@ -21,12 +21,13 @@ public class JSONWindow implements ActionListener {
 	public static String aut_j1, aut_j2, aut_apple, aut_arc, aut_bombe, aut_cassable, aut_epee, aut_fleche,
 			aut_interrupteur, aut_invisible, aut_lave, aut_mine, aut_normal, aut_pioche, aut_porte, aut_potion,
 			aut_sable, aut_selection, aut_squelette, aut_teleporteur, aut_void, aut_zombie;
-	public static int time, pv, hauteur, largeur, visibility, densite;
+	public static int time, pv, hauteur, largeur, visibility, densite, d_pickable, d_mine, d_pomme, d_potion, d_pioche,
+			d_bombe, d_cassable, d_invisible, d_normal, nb_obstacles, nb_ennemis;
 	public static Random seed;
-	
+
 	private WindowInitGame f;
 	private String filePath;
-	private int germe ;
+	private int germe;
 	private boolean use_seed;
 
 	public JSONWindow(WindowInitGame f) {
@@ -61,7 +62,7 @@ public class JSONWindow implements ActionListener {
 		}
 
 		JSONObject param = new JSONObject(contenu);
-		
+
 		jeu = param.getString("jeu");
 		name1 = f.getname(1);
 		name2 = f.getname(2);
@@ -73,12 +74,17 @@ public class JSONWindow implements ActionListener {
 		densite = param.getInt("%density");
 		germe = param.getInt("seed");
 		use_seed = param.getBoolean("use_seed");
-		
+
 		if (use_seed)
 			seed = new Random(germe);
 		else
 			seed = new Random();
 
+		nb_obstacles = param.getInt("nb_obstacles");
+		nb_ennemis = param.getInt("nb_ennemis") / 2; // divisé par deux car nb ennemis par entité ennemis
+
+		int d_cas = 0, d_inv = 0;
+		int d_pom = 0, d_bom = 0, d_pio = 0, d_min = 0, d_pot = 0 ;
 		// récupération des automates du fichier de config
 		JSONArray entities = param.getJSONArray("entities");
 		for (int i = 0; i < entities.length(); i++) {
@@ -87,15 +93,18 @@ public class JSONWindow implements ActionListener {
 			switch (temp) {
 			case "Apple":
 				aut_apple = entity.getString("automate");
+				d_pom = entity.getInt("%densite");
 				break;
 			case "Arc":
 				aut_arc = entity.getString("automate");
 				break;
 			case "Bombe":
 				aut_bombe = entity.getString("automate");
+				d_bom = entity.getInt("%densite");
 				break;
 			case "Cassable":
 				aut_cassable = entity.getString("automate");
+				d_cas = entity.getInt("%densite");
 				break;
 			case "Epee":
 				aut_epee = entity.getString("automate");
@@ -108,6 +117,7 @@ public class JSONWindow implements ActionListener {
 				break;
 			case "Invisible":
 				aut_invisible = entity.getString("automate");
+				d_inv = entity.getInt("%densite");
 				break;
 			case "Joueur1":
 				aut_j1 = entity.getString("automate");
@@ -120,18 +130,21 @@ public class JSONWindow implements ActionListener {
 				break;
 			case "Mine":
 				aut_mine = entity.getString("automate");
+				d_min = entity.getInt("%densite");
 				break;
 			case "Normal":
 				aut_normal = entity.getString("automate");
 				break;
 			case "Pioche":
 				aut_pioche = entity.getString("automate");
+				d_pio = entity.getInt("%densite");
 				break;
 			case "Porte":
 				aut_porte = entity.getString("automate");
 				break;
 			case "Potion":
 				aut_potion = entity.getString("automate");
+				d_pot = entity.getInt("%densite");
 				break;
 			case "Sable":
 				aut_sable = entity.getString("automate");
@@ -157,5 +170,42 @@ public class JSONWindow implements ActionListener {
 			}
 		}
 
+		verification_densite_mur(d_cas, d_inv);
+		
+		verification_densite_pickable(d_pom, d_bom, d_pio, d_min, d_pot);
+
+	}
+
+	public void verification_densite_mur(int d_cas, int d_inv) {
+		int d_mur = d_inv + d_cas;
+		if (d_mur <= 100) {
+			d_cassable = d_cas;
+			d_invisible = d_inv;
+			d_normal = 100 - d_mur; // gestion du cas où d_mur < 100
+		} else { // d_mur > 100
+			d_cassable = d_cas * 100 / d_mur;
+			d_invisible = d_inv * 100 / d_mur;
+			d_normal = 100 - d_cassable - d_invisible;
+		}
+
+	}
+
+	public void verification_densite_pickable(int d_pom, int d_bom, int d_pio, int d_min, int d_pot) {
+		int d_pick = d_pom + d_bom + d_pio + d_min + d_pot;
+		if (d_pick <= 60) {
+			d_pickable = d_pick;
+			d_pomme = d_pom;
+			d_bombe = d_bom;
+			d_pioche = d_pio;
+			d_mine = d_min;
+			d_potion = d_pot;
+		} else { // d_pick > 60
+			d_pomme = d_pom * 100 / d_pick;
+			d_bombe = d_bom * 100 / d_pick;
+			d_pioche = d_pio * 100 / d_pick;
+			d_mine = d_min * 100 / d_pick;
+			d_potion = d_pio * 100 / d_pick;
+			d_pickable = 60 - d_pomme - d_bombe - d_pioche - d_mine - d_potion;
+		}
 	}
 }

@@ -9,26 +9,31 @@
     "seed" : 732,
     "use_seed" : false,
     "pv" : 20,
+    "nb_obstacles" : 10,
+    "nb_ennemis" : 4,
     "entities": [
       { "name" : "Apple",
         "automate": "Apple",
-        "pickable": false 
+        "pickable": true,
+        "%densite": 2
       },
       { "name" : "Arc", 
         "automate": "Arc",
-        "pickable": false 
+        "pickable": true 
       },
       { "name" : "Bombe", 
         "automate": "Bombe",
-        "pickable": false 
+        "pickable": true,
+        "%densite" : 2
       },
       { "name" : "Cassable", 
         "automate": "Cassable",
-        "pickable": false 
+        "pickable": false,
+        "%densite" : 25
       },
       { "name" : "Epee", 
         "automate": "Epee",
-        "pickable": false 
+        "pickable": true 
       },
       { "name" : "Fleche", 
         "automate": "Fleche",
@@ -36,11 +41,12 @@
       },
       { "name" : "Interrupteur", 
         "automate": "Interrupteur",
-        "pickable": true 
+        "pickable": false 
       },
       { "name" : "Invisible", 
         "automate": "Invisible",
-        "pickable": false 
+        "pickable": false,
+        "%densite" : 25
       },
       { "name" : "Joueur1", 
         "automate": "Player1",
@@ -56,15 +62,17 @@
       },
       { "name" : "Mine", 
         "automate": "Mine",
-        "pickable": false 
+        "pickable": false,
+        "%densite": 2
       },
       { "name" : "Normal", 
         "automate": "Normal",
-        "pickable": false 
+        "pickable": false
       },
       { "name" : "Pioche", 
         "automate": "Pioche",
-        "pickable": false 
+        "pickable": true,
+        "%densite" : 2
       },
       { "name" : "Porte", 
         "automate": "Porte",
@@ -72,7 +80,8 @@
       },
       { "name" : "Potion", 
         "automate": "Potion",
-        "pickable": false 
+        "pickable": true,
+        "%densite" : 2
       },
       { "name" : "Sable", 
         "automate": "Sable",

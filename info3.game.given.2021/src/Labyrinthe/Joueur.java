@@ -1,5 +1,6 @@
 package Labyrinthe;
 
+import listener.JSONWindow;
 import toolkit.Categorie;
 import toolkit.Direction;
 
@@ -15,7 +16,7 @@ public class Joueur extends Entity {
 	public Joueur(int ligne, int colonne, int team) {
 		this.ligne = ligne;
 		this.colonne = colonne;
-		super.vie = 10;
+		super.vie = JSONWindow.pv;
 		if (team == 1)
 			this.category = Categorie.Arobase;
 		else

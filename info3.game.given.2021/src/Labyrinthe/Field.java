@@ -2058,7 +2058,18 @@ public class Field {
 		case "Porte":
 		case "Interrupteur":
 			if (here instanceof Void) {
-				return true;
+				boolean valid = false;
+				Pair<Integer, Integer> p;
+				for(int i=0; i<l_void.size(); i++) {
+					p = l_void.get(i);
+					if(p.geto1() != ligne && p.geto2() != colonne) {
+						if(getLastnotSelect(p.geto1(), p.geto2()) instanceof Void) {
+							valid = true;
+							break;
+						}
+					}
+				}
+				return valid;
 			}
 			return false;
 		case "Invisible":

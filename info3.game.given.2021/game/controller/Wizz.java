@@ -1,10 +1,13 @@
 package controller;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 import Automates.IAction;
 import Labyrinthe.*;
+import Labyrinthe.Void;
 import toolkit.Direction;
+import toolkit.Pair;
 
 public class Wizz implements IAction{
 	

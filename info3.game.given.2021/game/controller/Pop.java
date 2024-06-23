@@ -20,7 +20,6 @@ public class Pop implements IAction {
 		if(e instanceof Joueur) {
 			Entity entity = new Selection(e.ligne(), e.colonne());
 			entity.setTeam(e.team());
-			
 			terrain.add(entity, e.ligne(), e.colonne());
 		} else if (e instanceof Arc) {
 			terrain.remove(e.ligne(), e.colonne(), e);

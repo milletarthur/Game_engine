@@ -4,8 +4,8 @@ import toolkit.Categorie;
 
 public class Teleporteur extends Entity {
 
-	boolean TP_random;
-	Entity voisin;
+	private boolean TP_random;
+	private Entity voisin;
 
 	public Teleporteur(int ligne, int colonne) {
 		this.ligne = ligne;
@@ -43,8 +43,15 @@ public class Teleporteur extends Entity {
 
 	@Override
 	public void jump() {
-		// TODO Auto-generated method stub
 		
+	}
+	
+	public Entity getVoisin() {
+		return voisin;
+	}
+	
+	public boolean IsTpRandom() {
+		return TP_random;
 	}
 
 }

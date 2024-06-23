@@ -30,7 +30,8 @@ public class Explode implements IAction {
 			if (r < 100) {
 				Entity pick = e.picked();
 				e.resetpick();
-				terrain.add(pick, e.ligne(), e.colonne());
+				if(pick != null)
+					terrain.add(pick, e.ligne(), e.colonne());
 			} else {
 				e.resetpick();
 			}

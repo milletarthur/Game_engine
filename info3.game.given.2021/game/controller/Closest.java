@@ -45,14 +45,12 @@ public class Closest implements ICondition {
 					elem.set_ligne(ligne);
 					elem.set_colonne(j_min);
 					if (terrain.cell(elem, Direction.H, categorie)) {
-						System.out.println("true");
 						return true;
 					}
 				}
 				c--;
 				ligne--;
 			}
-			System.out.println("false");
 			return false;
 		case Direction.S:
 			for (int k = 0; k <= distance_vision; k++) {
@@ -60,14 +58,12 @@ public class Closest implements ICondition {
 					elem.set_ligne(ligne);
 					elem.set_colonne(j_min);
 					if (terrain.cell(elem, Direction.H, categorie)) {
-						System.out.println("true");
 						return true;
 					}
 				}
 				c--;
 				ligne++;
 			}
-			System.out.println("false");
 			return false;
 		case Direction.E:
 			for (int k = 0; k <= distance_vision; k++) {
@@ -75,14 +71,12 @@ public class Closest implements ICondition {
 					elem.set_ligne(i_min);
 					elem.set_colonne(colonne);
 					if (terrain.cell(elem, Direction.H, categorie)) {
-						System.out.println("true");
 						return true;
 					}
 				}
 				l--;
 				colonne++;
 			}
-			System.out.println("false");
 			return false;
 		case Direction.W:
 			for (int k = 0; k <= distance_vision; k++) {
@@ -90,14 +84,12 @@ public class Closest implements ICondition {
 					elem.set_ligne(i_min);
 					elem.set_colonne(colonne);
 					if (terrain.cell(elem, Direction.H, categorie)) {
-						System.out.println("true");
 						return true;
 					}
 				}
 				l--;
 				colonne--;
 			}
-			System.out.println("false");
 			return false;
 		case Direction.NE:
 			for (int m = ligne; m >= ligne - distance_vision; m--) {
@@ -105,12 +97,10 @@ public class Closest implements ICondition {
 					elem.set_ligne(m);
 					elem.set_colonne(n);
 					if (terrain.cell(elem, Direction.H, categorie)) {
-						System.out.println("NEtrue");
 						return true;
 					}
 				}
 			}
-			System.out.println("NEfalse");
 			return false;
 		case Direction.NW:
 			for (int m = ligne; m >= ligne - distance_vision; m--) {
@@ -118,12 +108,10 @@ public class Closest implements ICondition {
 					elem.set_ligne(m);
 					elem.set_colonne(n);
 					if (terrain.cell(elem, Direction.H, categorie)) {
-						System.out.println("NWtrue");
 						return true;
 					}
 				}
 			}
-			System.out.println("NWfalse");
 			return false;
 		case Direction.SE:
 			for (int m = ligne; m <= ligne + distance_vision; m++) {
@@ -131,12 +119,10 @@ public class Closest implements ICondition {
 					elem.set_ligne(m);
 					elem.set_colonne(n);
 					if (terrain.cell(elem, Direction.H, categorie)) {
-						System.out.println("SEtrue");
 						return true;
 					}
 				}
 			}
-			System.out.println("SEfalse");
 			return false;
 		case Direction.SW:
 			for (int m = ligne; m <= ligne + distance_vision; m++) {
@@ -144,15 +130,12 @@ public class Closest implements ICondition {
 					elem.set_ligne(m);
 					elem.set_colonne(n);
 					if (terrain.cell(elem, Direction.H, categorie)) {
-						System.out.println("SWtrue");
 						return true;
 					}
 				}
 			}
-			System.out.println("SWfalse");
 			return false;
 		default:
-			System.out.println("false");
 			return false;
 		}
 	}

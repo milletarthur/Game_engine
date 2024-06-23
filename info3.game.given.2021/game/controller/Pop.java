@@ -10,9 +10,11 @@ import toolkit.Direction;
 public class Pop implements IAction {
 
 	private Field terrain;
+	private TickListener tl;
 
-	public Pop(Field f) {
+	public Pop(Field f, TickListener tl) {
 		terrain = f;
+		this.tl = tl;
 	}
 
 	@Override
@@ -104,7 +106,7 @@ public class Pop implements IAction {
 //				break;
 //			}
 		} else if (e instanceof Bombe || e instanceof Mine) {
-			Explode ex = new Explode(terrain);
+			Explode ex = new Explode(terrain, tl);
 			ex.exec(e);
 		}
 		e.pop();

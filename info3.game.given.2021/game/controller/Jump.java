@@ -8,9 +8,11 @@ import Labyrinthe.*;
 public class Jump implements IAction {
 
 	private Field terrain;
+	private TickListener tl;
 
-	public Jump(Field terrain) {
+	public Jump(Field terrain, TickListener tl) {
 		this.terrain = terrain;
+		this.tl = tl;
 	}
 
 	@Override

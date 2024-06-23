@@ -12,9 +12,11 @@ import toolkit.Direction;
 public class Move implements IAction {
 
 	public Field terrain;
+	private TickListener tl;
 
-	public Move(Field terrain) {
+	public Move(Field terrain, TickListener tl) {
 		this.terrain = terrain;
+		this.tl = tl;
 	}
 
 	@Override

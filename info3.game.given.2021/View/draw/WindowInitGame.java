@@ -51,7 +51,7 @@ public class WindowInitGame extends JFrame {
 			}
 
 		};
-		
+
 		choice.setLayout(null);
 		choice.setBackground(Color.BLACK);
 		JLabel jeu = new JLabel("Sélection du jeu : ");
@@ -67,15 +67,15 @@ public class WindowInitGame extends JFrame {
 		jeu.setForeground(Color.WHITE);
 		jeu.setBounds(20, 155, 200, 20);
 		name.setForeground(Color.WHITE);
-		name.setBounds(280,155,200,20);
+		name.setBounds(280, 155, 200, 20);
 		labyrinthe.setBounds(20, 180, 110, 30);
 		arene.setBounds(20, 215, 110, 30);
 		labyrinthe.setForeground(Color.WHITE);
 		labyrinthe.setOpaque(false);
 		arene.setForeground(Color.WHITE);
 		arene.setOpaque(false);
-		name1.setBounds(280,180,135,20);
-		name2.setBounds(280,215,135,20);
+		name1.setBounds(280, 180, 135, 20);
+		name2.setBounds(280, 215, 135, 20);
 
 		choice.add(jeu);
 		choice.add(name);
@@ -97,8 +97,9 @@ public class WindowInitGame extends JFrame {
 	public void initGame() throws IOException {
 
 		// initialisation de la grille
-		Field terrain = new Field(JSONWindow.hauteur, JSONWindow.largeur, JSONWindow.densite, 10, 2, 2, 2, 2, 2, 25, 25, 50, 10, 2, JSONWindow.seed);
-		
+		Field terrain = new Field(JSONWindow.hauteur, JSONWindow.largeur, JSONWindow.densite, 10, 2, 2, 2, 2, 2, 25, 25,
+				50, 10, 2, JSONWindow.seed);
+
 		KeyPressed kp = new KeyPressed();
 
 		// ajout d'un joueur pour tester
@@ -107,10 +108,6 @@ public class WindowInitGame extends JFrame {
 		terrain.add(j1, 2, 0);
 		terrain.add(j2, 3, 0);
 		// terrain.printGame();
-
-		// ajout d'un automate
-		AutomatonLoader al = new AutomatonLoader(terrain, kp);
-		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/test_cond.gal");
 
 		// Initialisation de la fenêtre
 		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case,
@@ -126,14 +123,19 @@ public class WindowInitGame extends JFrame {
 		w.init_Window(v1, v2, w.get_invent(), tt);
 		v1.centrerViewport(j1);
 		v2.centrerViewport(j2);
-		
+
 		LinkedList<Entity> l = terrain.get_mine();
+
+		// ajout d'un automate
+		AutomatonLoader al = new AutomatonLoader(terrain, kp, tl);
+		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/test_cond.gal");
 
 		// création du lien entre Entity et Automate
 		for (int i = 0; i < l_aut.size(); i++) {
-			if (l_aut.get(i).get_name().equals(JSONWindow.aut_j1)) { // si le nom de l'automate à la position i correspond à
-																// l'automate associé au joueur 1 dans le fichier de
-																// config
+			if (l_aut.get(i).get_name().equals(JSONWindow.aut_j1)) { // si le nom de l'automate à la position i
+																		// correspond à
+				// l'automate associé au joueur 1 dans le fichier de
+				// config
 				tl.add(l_aut.get(i), j1); // automate attribué à j1
 			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_j2)) {
 				tl.add(l_aut.get(i), j2);
@@ -142,7 +144,7 @@ public class WindowInitGame extends JFrame {
 				while (iter.hasNext())
 					tl.add(l_aut.get(i), iter.next());
 			}
-			
+
 		}
 
 		// ajout d'un Keylistener
@@ -152,19 +154,19 @@ public class WindowInitGame extends JFrame {
 	}
 
 	public String getname(int num_joueur) {
-		String name = null ;
+		String name = null;
 		if (num_joueur == 1) {
 			if (name1.getText().length() == 0)
 				name = "Joueur 1";
-			else 
+			else
 				name = name1.getText();
 		} else if (num_joueur == 2) {
 			if (name2.getText().length() == 0)
 				name = "Joueur 2";
-			else 
+			else
 				name = name2.getText();
 		}
-		return name ;
+		return name;
 	}
 
 	public String getjeu() throws IOException {

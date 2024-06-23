@@ -8,14 +8,16 @@ public class Power implements IAction {
 
 	private Field terrain;
 	private int vie = 0;
+	private TickListener tl;
 
 	public Power(Field f, int vie) {
 		terrain = f;
 		this.vie = vie;
 	}
 
-	public Power(Field f) {
+	public Power(Field f, TickListener tl) {
 		terrain = f;
+		this.tl = tl;
 	}
 
 	public int getVie() {

@@ -132,6 +132,10 @@ public class WindowInitGame extends JFrame {
 		LinkedList<Entity> l_squelette = terrain.get_squelette();
 		LinkedList<Entity> l_tp = terrain.get_teleporteur();
 		LinkedList<Entity> l_levier = terrain.get_interrupteur();
+		LinkedList<Entity> l_normal = terrain.get_normal();
+		LinkedList<Entity> l_cassable = terrain.get_cassable();
+		LinkedList<Entity> l_invisible = terrain.get_invisible();
+		LinkedList<Entity> l_sable = terrain.get_sable();
 
 		// création du lien entre Entity et Automate
 		for (int i = 0; i < l_aut.size(); i++) {
@@ -159,6 +163,22 @@ public class WindowInitGame extends JFrame {
 					tl.add(l_aut.get(i), iter.next());
 			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_interrupteur)) {
 				Iterator<Entity> iter = l_levier.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_normal)) {
+				Iterator<Entity> iter = l_normal.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_cassable)) {
+				Iterator<Entity> iter = l_cassable.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_invisible)) {
+				Iterator<Entity> iter = l_invisible.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_sable)) {
+				Iterator<Entity> iter = l_sable.iterator();
 				while (iter.hasNext())
 					tl.add(l_aut.get(i), iter.next());
 			}

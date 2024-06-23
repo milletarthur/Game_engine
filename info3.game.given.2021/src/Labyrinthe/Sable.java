@@ -3,6 +3,7 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Sable extends Entity {
+	
 	public Sable(int ligne, int colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;

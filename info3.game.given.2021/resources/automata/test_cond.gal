@@ -6,12 +6,7 @@ Player1(Init){
 | Key(d) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
 | Key(s) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
 | Key(q) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
-| Key(z) ? Turn(N) :(Init)
-| Key(d) ? Turn(E) :(Init)
-| Key(s) ? Turn(S) :(Init)
-| Key(q) ? Turn(W) :(Init)
 | Key(k) ? Egg :(Init)
-| Key(w) ? :(Test)
 | !Got(Power) ? Explode :()
 }
 
@@ -33,6 +28,14 @@ Player2(Init){
 | Key(FL) ? Turn(W) :(Init)
 | Key(o) ? Wizz :(Init)
 | Key(k) ? Egg :(Init)
+| Key(h) ? Turn(NE) :(Init)
+| Key(x) ? Turn(SE) :(Init)
+| Key(c) ? Turn(NW) :(Init)
+| Key(v) ? Turn(SW) :(Init)
+| Key(y) & Closest(NE,P) ? :(Init)
+| Key(y) & Closest(NW,P) ? :(Init)
+| Key(y) & Closest(SE,P) ? :(Init)
+| Key(y) & Closest(SW,P) ? :(Init)
 }
 
 Mine(Init){

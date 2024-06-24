@@ -12,9 +12,11 @@ import toolkit.Pair;
 public class Wizz implements IAction{
 	
 	private Field terrain;
+	private TickListener tl;
 	
-	public Wizz(Field terrain) {
+	public Wizz(Field terrain, TickListener tl) {
 		this.terrain = terrain;
+		this.tl = tl;
 	}
 	
 	@Override

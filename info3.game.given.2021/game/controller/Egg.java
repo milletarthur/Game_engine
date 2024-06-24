@@ -13,10 +13,12 @@ public class Egg implements IAction {
 
 	private Field terrain;
 	private Random rand;
+	private TickListener tl;
 
-	public Egg(Field f) {
+	public Egg(Field f, TickListener tl) {
 		terrain = f;
 		rand = new Random();
+		this.tl = tl;
 	}
 
 	public Egg(Field f, Random r) {

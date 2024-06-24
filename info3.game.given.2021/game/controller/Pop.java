@@ -10,9 +10,11 @@ import toolkit.Direction;
 public class Pop implements IAction {
 
 	private Field terrain;
+	private TickListener tl;
 
-	public Pop(Field f) {
+	public Pop(Field f, TickListener tl) {
 		terrain = f;
+		this.tl = tl;
 	}
 
 	@Override
@@ -21,6 +23,11 @@ public class Pop implements IAction {
 			Entity entity = new Selection(e.ligne(), e.colonne());
 			entity.setTeam(e.team());
 			terrain.add(entity, e.ligne(), e.colonne());
+		} else if (e instanceof Interrupteur) {
+			LinkedList<Entity> l_levier = ((Interrupteur) e).get_entity();
+			for(int i=0; i<l_levier.size(); i++) {
+				exec(l_levier.get(i));
+			}
 		} else if (e instanceof Arc) {
 			terrain.remove(e.ligne(), e.colonne(), e);
 			terrain.add(new Epee(e.ligne(), e.colonne()), e.ligne(), e.colonne());
@@ -43,35 +50,29 @@ public class Pop implements IAction {
 		} else if (e instanceof Sable) {
 			LinkedList<Entity> l_entity;
 			LinkedList<LinkedList<Entity>> l_around = terrain.getAround(e.ligne(), e.colonne());
-			boolean isput = false;
 			for (int j = 0; j < l_around.size(); j++) {
 				l_entity = l_around.get(j);
 				Entity elem;
 				Entity elem_layer_max = l_entity.getFirst();
 				int ligne = l_entity.getFirst().ligne();
 				int colonne = l_entity.getFirst().colonne();
-				int layer_max = 0;
+				boolean possible = true;
 				for (int i = 0; i < l_entity.size(); i++) {
 					elem = l_entity.get(i);
-					if (layer_max < elem.layer()) {
-						layer_max = elem.layer();
-						elem_layer_max = elem;
-					}
-				}
-				if (layer_max == e.layer()) {
-					if (elem_layer_max instanceof Mine || elem_layer_max.category() == Categorie.P) {
+					if(elem.layer() == e.layer() && 
+							(elem.category() == Categorie.P || elem instanceof Mine)) {
 						terrain.remove(ligne, colonne, elem_layer_max);
 						terrain.add(e.egg(ligne, colonne), ligne, colonne);
-						isput = true;
+						possible = false;
+						break;
+					} else if(elem.layer() == e.layer()) {
+						possible = false;
+						break;
 					}
 				}
-				if (layer_max < e.layer()) {
+				if(possible) {
 					terrain.add(e.egg(ligne, colonne), ligne, colonne);
-					isput = true;
-				}
-				if (isput) {
 					e.pop();
-					return;
 				}
 			}
 		} else if (e instanceof Pioche) {
@@ -108,7 +109,7 @@ public class Pop implements IAction {
 //				break;
 //			}
 		} else if (e instanceof Bombe || e instanceof Mine) {
-			Explode ex = new Explode(terrain);
+			Explode ex = new Explode(terrain, tl);
 			ex.exec(e);
 		}
 		e.pop();

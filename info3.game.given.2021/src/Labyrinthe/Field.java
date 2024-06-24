@@ -1981,7 +1981,7 @@ public class Field {
 	}
 
 	public Entity getLastnotSelect(int ligne, int colonne) {
-		LinkedList<Entity> l_entity = getElement(ligne, colonne);
+		LinkedList<Entity> l_entity = getElement(ligne, colonne - 1 );
 		Entity elem = l_entity.get(0);
 		int taille = l_entity.size();
 		Entity select = l_entity.getLast();
@@ -2433,8 +2433,69 @@ public class Field {
 		}
 	}
 	
-	
-	
+
+	/* -1 : partie perdue
+	 * 0 : partie pas finie
+	 * 1 : partie gagnée
+	 */ 
+/*
+	public int endGame() {
+//		LinkedList<Entity> l_player = new LinkedList<Entity>();
+		LinkedList<Entity> l_entity = new LinkedList<Entity>();
+//		l_player = ListEntity(Joueur.class);
+//		Entity elem_player;
+		Entity elem;
+//		boolean exit1 = false;
+//		boolean exit2 = false;
+//		// si il n'y a plus de joueur sur le terrain
+//		if(l_player == null || l_player.size() == 0) {
+//			return -1;
+//		}
+//		int cpt = 0;
+//		for(int i=0; i<l_player.size(); i++) {
+//			elem_player = l_player.get(i);
+//			if(elem_player.ligne() == ligne -4 && elem_player.colonne() == colonne -1) {
+//				exit1 = true;
+//			} else if(elem_player.ligne() == ligne -3 && elem_player.colonne() == colonne -1) {
+//				exit2 = true;
+//			}
+//			// les joueurs sont sortis
+//			if(exit1 && exit2) {
+//				return 1;
+//			}
+//			l_entity = getElement(elem_player.ligne(), elem_player.colonne());
+//			for(int j=0; j<l_entity.size(); j++) {
+//				elem = l_entity.get(j);
+//				if(elem instanceof Sable) {
+//					cpt++;
+//				}
+//			}
+//		}
+//		// si tous les joueurs sont dans des sables mouvants
+//		if(cpt == l_player.size()) {
+//			return -1;
+//		}
+//		
+		// faire cas avec fin du compte à rebours
+		fillBomb();
+		Entity bombe = null;
+		for(int i=2; i<ligne-1; i++) {
+			for(int j=1; j<colonne-1; j++) {
+				l_entity = getElement(i,j);
+				for(int k=0; k<l_entity.size(); k++) {
+					elem = l_entity.get(k);
+					if(elem instanceof Bombe) {
+						bombe = elem;
+//						Explode ex = new Explode(this);
+//						ex.exec(bombe);
+						return 999;
+					}
+				}
+			}
+		}
+		return 0;
+	}
+*/	
 	public void fillBomb() {
 		LinkedList<Entity> l_entity;
 		Entity elem;

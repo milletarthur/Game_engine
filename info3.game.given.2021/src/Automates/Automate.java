@@ -55,7 +55,7 @@ public class Automate {
 	}
 	
 	public String toString() {
-		String rv ="Name : " + name +"; " + "Init State : " + Init.toString() + " ; ";
+		String rv ="Name : " + name +"; " + "Init State : " + Init.getName() + " ; ";
 		Iterator<TransitionAutomate> i = Transitions.iterator();
 		while(i.hasNext()) {
 			rv += i.next().toString();

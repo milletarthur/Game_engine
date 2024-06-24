@@ -2,10 +2,15 @@ Player1(Init){
 * (Init):
 | Key(a) ? Hit :(Init)
 | Cell(H,P) & (! Got(Stuff))? Pick :(Init)
+| Cell(H,D) ? :(Init)
 | Key(z) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
 | Key(d) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
 | Key(s) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
 | Key(q) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
+| Key(z) ? Turn(N) :(Init)
+| Key(d) ? Turn(E) :(Init)
+| Key(s) ? Turn(S) :(Init)
+| Key(q) ? Turn(W) :(Init)
 | Key(k) ? Egg :(Init)
 | !Got(Power) ? Explode :()
 }
@@ -18,6 +23,7 @@ Player2(Init){
 | Key(o) ? Get :(Init)
 | Key(p) ? Jump :(Init)
 | Cell(H,P) ? Pick :(Init)
+| Cell(H,D) ? :(Init)
 | Key(FU) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
 | Key(FR) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
 | Key(FD) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
@@ -64,4 +70,11 @@ Interrupteur(Init){
 | Key(b) & (Cell(N,#) / Cell(S,#) / Cell(E,#) / Cell(W,#)) ? Pop :(Init)
 | Key(b) & (Cell(N,@) / Cell(S,@) / Cell(E,@) / Cell(W,@)) ? Wizz :(Init)
 | Key(n) & (Cell(N,#) / Cell(S,#) / Cell(E,#) / Cell(W,#)) ? Wizz :(Init) 
+}
+
+Sable(Init){
+* (Init):
+| Cell(H, @) / Cell(H,#) ? Pop :(Init)
+| Cell(H, J) ? Wizz :()
+ *()
 }

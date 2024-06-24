@@ -252,7 +252,7 @@ public class DrawTerrain extends JPanel {
 
 		// monstres
 		this.zombie = PERSO.getSprite(16, 20);
-		this.squelette = PERSO.getSprite(16, 18);
+		this.squelette = PERSO.getSprite(17, 18);
 
 		this.selection = drawEntity("resources/graphisme/targeting.png");
 

@@ -95,19 +95,19 @@ public class Field {
 		gerer_liste();
 
 	}
-	
+
 	public void deposer_interrupteur2() {
-		Interrupteur int1 = new Interrupteur(2,0, new LinkedList<Entity>());
-		Interrupteur int2 = new Interrupteur(ligne-2,colonne-1, new LinkedList<Entity>());
-		set_element2(1,0,int1,labyrinthe);
-		set_element2(ligne-2,colonne-1,int2,labyrinthe);
+		Interrupteur int1 = new Interrupteur(2, 0, new LinkedList<Entity>());
+		Interrupteur int2 = new Interrupteur(ligne - 2, colonne - 1, new LinkedList<Entity>());
+		set_element2(1, 0, int1, labyrinthe);
+		set_element2(ligne - 2, colonne - 1, int2, labyrinthe);
 	}
-	
+
 	public void deposer_test2() {
-		Interrupteur int1 = new Interrupteur(1,0, new LinkedList<Entity>());
-		Interrupteur int2 = new Interrupteur(ligne-2,colonne-1, new LinkedList<Entity>());
-		set_element2(1,0,int1,labyrinthe);
-		set_element2(ligne-2,colonne-1,int2,labyrinthe);
+		Interrupteur int1 = new Interrupteur(1, 0, new LinkedList<Entity>());
+		Interrupteur int2 = new Interrupteur(ligne - 2, colonne - 1, new LinkedList<Entity>());
+		set_element2(1, 0, int1, labyrinthe);
+		set_element2(ligne - 2, colonne - 1, int2, labyrinthe);
 	}
 
 	public void gerer_liste() {
@@ -501,21 +501,21 @@ public class Field {
 
 	public void depot_teleporteur() {
 		int i, j;
-		i = rand.nextInt(ligne);
-		j = rand.nextInt(colonne - 2) + 1;
+		i = rand.nextInt(ligne - 3) + 1;
+		j = rand.nextInt(colonne - 3) + 1;
 		while (this.verification(i, j) == false) {
-			i = rand.nextInt(ligne - 1);
-			j = rand.nextInt(colonne - 2) + 1;
+			i = rand.nextInt(ligne - 3) + 1;
+			j = rand.nextInt(colonne - 3) + 1;
 		}
 		Teleporteur t = new Teleporteur(i, j);
 
 		set_element5(i, j, t, labyrinthe);
 		Entity en = get_element2(i, j, labyrinthe);
-		i = rand.nextInt(ligne);
-		j = rand.nextInt(colonne - 2) + 1;
+		i = rand.nextInt(ligne - 3) + 1;
+		j = rand.nextInt(colonne - 3) + 1;
 		while (this.verification(i, j) == false) {
-			i = rand.nextInt(ligne - 1);
-			j = rand.nextInt(colonne - 2) + 1;
+			i = rand.nextInt(ligne - 3) + 1;
+			j = rand.nextInt(colonne - 3) + 1;
 		}
 		Teleporteur t1 = new Teleporteur(i, j);
 
@@ -524,21 +524,21 @@ public class Field {
 		((Teleporteur) en).set_voisin(en1);
 		((Teleporteur) en1).set_voisin(en);
 
-		i = rand.nextInt(ligne);
-		j = rand.nextInt(colonne - 2) + 1;
+		i = rand.nextInt(ligne - 3) + 1;
+		j = rand.nextInt(colonne - 3) + 1;
 		while (this.verification(i, j) == false) {
-			i = rand.nextInt(ligne - 1);
-			j = rand.nextInt(colonne - 2) + 1;
+			i = rand.nextInt(ligne - 3) + 1;
+			j = rand.nextInt(colonne - 3) + 1;
 		}
 		Teleporteur t2 = new Teleporteur(i, j);
 
 		set_element5(i, j, t2, labyrinthe);
 		Entity en2 = get_element2(i, j, labyrinthe);
-		i = rand.nextInt(ligne);
-		j = rand.nextInt(colonne - 2) + 1;
+		i = rand.nextInt(ligne - 3) + 1;
+		j = rand.nextInt(colonne - 3) + 1;
 		while (this.verification(i, j) == false) {
-			i = rand.nextInt(ligne - 1);
-			j = rand.nextInt(colonne - 2) + 1;
+			i = rand.nextInt(ligne - 3) + 1;
+			j = rand.nextInt(colonne - 3) + 1;
 		}
 		Teleporteur t3 = new Teleporteur(i, j);
 

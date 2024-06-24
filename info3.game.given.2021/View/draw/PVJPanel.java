@@ -23,7 +23,7 @@ public class PVJPanel extends JPanel {
 		this.setBackground(Color.black);
 
 		this.j = j;
-		this.name = name;
+		this.name = limitString(name, 20);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class PVJPanel extends JPanel {
 		int p = pv_duper();
 		g.setColor(Color.white);
 		g.drawString(name, 15, 23);
-		if (p <= (pv * 0.1))
+		if (p <= (pv * 0.25))
 			g.setColor(Color.red);
 		else
 			g.setColor(Color.green);
@@ -49,5 +49,13 @@ public class PVJPanel extends JPanel {
 			perdu = 0;
 		return perdu;
 	}
+	
+	// récupère une taille max de caractères
+	public static String limitString(String input, int maxLength) {
+        if (input == null) {
+            return null;
+        }
+        return input.length() > maxLength ? input.substring(0, maxLength) : input;
+    }
 
 }

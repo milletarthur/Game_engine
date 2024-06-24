@@ -12,6 +12,7 @@ public class Sable extends Entity {
 		this.category = Categorie.D;
 		this.team = 5;
 		this.activate = false;
+		this.vie = 25;
 		layer = 2;
 	}
 

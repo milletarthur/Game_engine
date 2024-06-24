@@ -52,7 +52,7 @@
       },
       { "name" : "Mine", 
         "automate": "Mine",
-        "%densite": 2
+        "%densite": 5
       },
       { "name" : "Normal", 
         "automate": "Normal"

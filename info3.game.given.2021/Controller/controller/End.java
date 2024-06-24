@@ -30,7 +30,6 @@ public class End {
 		this.time = false;
 	}
 
-	
 	public void fin() {
 		int f = endGame();
 		DrawEndGame fg;
@@ -71,7 +70,16 @@ public class End {
 		}
 	}
 
-	
+	public int endGameArene() {
+		// On vérifie la vie des deux joueurs
+		if (j1.getVie() == 0 || j2.getVie() == 0) {
+			// Si l'un des deux joueurs est mort, on renvoie -1
+			return -1;
+		}
+		// Sinon, on renvoie 0.
+		return 0;
+	}
+
 	/*
 	 * -1 : partie perdue 0 : partie pas finie 1 : joueur1 gagne 2 : joueur2 gagne 3 : les deux joueurs gagnent
 	 */
@@ -98,8 +106,8 @@ public class End {
 				} else if (j2.getVie() < 0 && j1.getVie() < 0) {
 					return -1;
 				}
-
 			} else {
+
 				if ((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
 						&& j1.getY() == field.get_colonne() - 1)
 					return 1;
@@ -162,8 +170,8 @@ public class End {
 		 * Bombe) { bombe = elem; Explode ex = new Explode(this); ex.exec(bombe); return
 		 * 999; } } } } return 0; }
 		 */
-		return 0 ;
+		return 0;
 
 	}
-	
+
 }

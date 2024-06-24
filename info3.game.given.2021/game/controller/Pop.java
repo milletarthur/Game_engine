@@ -80,7 +80,7 @@ public class Pop implements IAction {
 			if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0 || coo[1] > terrain.get_colonne() - 1)
 				return;
 			Entity elem = terrain.getLastnotSelect(coo[0], coo[1]);
-			terrain.remove(coo[0], coo[1], elem);
+			terrain.remove(elem.ligne(), elem.colonne(), elem);
 //			Entity elem;
 //			switch (e.direction()) {
 //			case Direction.N:

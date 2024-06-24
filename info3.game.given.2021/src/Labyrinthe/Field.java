@@ -2484,7 +2484,7 @@ public class Field {
 					if(elem instanceof Bombe) {
 						bombe = elem;
 //						Explode ex = new Explode(this);
-						ex.exec(bombe);
+//						ex.exec(bombe);
 						return 999;
 					}
 				}

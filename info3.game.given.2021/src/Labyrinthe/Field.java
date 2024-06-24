@@ -83,6 +83,7 @@ public class Field {
 			deposer_Porte(nb_porte_sable);
 		} else {
 			depot_mur2(cassable, invisible, normal);
+			deposer_interrupteur2();
 		}
 
 		grow();
@@ -97,6 +98,20 @@ public class Field {
 		printGame();
 		gerer_liste();
 //		endGame();
+	}
+	
+	public void deposer_interrupteur2() {
+		Interrupteur int1 = new Interrupteur(2,0, new LinkedList<Entity>());
+		Interrupteur int2 = new Interrupteur(ligne-2,colonne-1, new LinkedList<Entity>());
+		set_element2(1,0,int1,labyrinthe);
+		set_element2(ligne-2,colonne-1,int2,labyrinthe);
+	}
+	
+	public void deposer_test2() {
+		Interrupteur int1 = new Interrupteur(1,0, new LinkedList<Entity>());
+		Interrupteur int2 = new Interrupteur(ligne-2,colonne-1, new LinkedList<Entity>());
+		set_element2(1,0,int1,labyrinthe);
+		set_element2(ligne-2,colonne-1,int2,labyrinthe);
 	}
 
 	public void gerer_liste() {
@@ -504,7 +519,7 @@ public class Field {
 		int i, j;
 		i = rand.nextInt(ligne);
 		j = rand.nextInt(colonne - 2) + 1;
-		while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
+		while (this.verification(i, j) == false) {
 			i = rand.nextInt(ligne - 1);
 			j = rand.nextInt(colonne - 2) + 1;
 		}
@@ -514,7 +529,7 @@ public class Field {
 		Entity en = get_element2(i, j, labyrinthe);
 		i = rand.nextInt(ligne);
 		j = rand.nextInt(colonne - 2) + 1;
-		while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
+		while (this.verification(i, j) == false) {
 			i = rand.nextInt(ligne - 1);
 			j = rand.nextInt(colonne - 2) + 1;
 		}
@@ -527,7 +542,7 @@ public class Field {
 
 		i = rand.nextInt(ligne);
 		j = rand.nextInt(colonne - 2) + 1;
-		while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
+		while (this.verification(i, j) == false) {
 			i = rand.nextInt(ligne - 1);
 			j = rand.nextInt(colonne - 2) + 1;
 		}
@@ -537,7 +552,7 @@ public class Field {
 		Entity en2 = get_element2(i, j, labyrinthe);
 		i = rand.nextInt(ligne);
 		j = rand.nextInt(colonne - 2) + 1;
-		while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
+		while (this.verification(i, j) == false) {
 			i = rand.nextInt(ligne - 1);
 			j = rand.nextInt(colonne - 2) + 1;
 		}

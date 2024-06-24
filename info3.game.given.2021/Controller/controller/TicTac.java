@@ -60,6 +60,7 @@ public class TicTac {
         v2.centrerViewport(j2);
         if(cpt == 10) {
         	end.fin();
+        	w.get_invent().paintTimer();
         	cpt = 0;
         }
         else {

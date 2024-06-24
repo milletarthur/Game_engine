@@ -32,7 +32,7 @@ public class DrawTerrain extends JPanel {
 
 	private BufferedImage[] chemin = new BufferedImage[6];
 	private BufferedImage player1, player1_flip, player2, player2_flip, porte_fermee, porte_ouverte, teleporte, zombie,
-			zombie_flip, squelette, squelette_flip, invisible;
+			zombie_flip, squelette, squelette_flip, invisible, teleporte_desac;
 
 	private Image lave, sand, mur, fragile, int_pop, int_wizz, int_neutre, selection;
 
@@ -171,7 +171,11 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Potion) {
 						g.drawImage(potion, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Sable) {
-						g.drawImage(sand, j * T_case, i * T_case, T_case, T_case, null);
+						Sable s = (Sable) e;
+						if (s.IsActivate())
+							g.drawImage(sand, j * T_case, i * T_case, T_case, T_case, null);
+						else 
+							g.drawImage(chemin[rand_chemin[i][j]], j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Selection) {
 						g.drawImage(selection, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Squelette) {
@@ -180,7 +184,11 @@ public class DrawTerrain extends JPanel {
 						else
 							g.drawImage(squelette_flip, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Teleporteur) {
-						g.drawImage(teleporte, j * T_case, i * T_case, T_case, T_case, null);
+						Teleporteur t = (Teleporteur) e;
+						if (t.IsActivate())
+							g.drawImage(teleporte, j * T_case, i * T_case, T_case, T_case, null);
+						else 
+							g.drawImage(teleporte_desac, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Void) { // chemin
 						g.drawImage(chemin[rand_chemin[i][j]], j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Zombie) {
@@ -235,6 +243,7 @@ public class DrawTerrain extends JPanel {
 		this.porte_fermee = DEPLAC.getSprite(0, 9);
 		this.porte_ouverte = DEPLAC.getSprite(0, 10);
 		this.teleporte = DEPLAC.getSprite(0, 13);
+		this.teleporte_desac = DEPLAC.getSprite(0, 12);
 
 		// interrupteurs
 		this.int_pop = drawEntity("resources/graphisme/levier1.png");

@@ -24,6 +24,23 @@ public class Pop implements IAction {
 			tl.add(entity);
 			entity.setTeam(e.team());
 			terrain.add(entity, e.ligne(), e.colonne());
+		} else if (e instanceof Selection) {
+				int l_j = ((Selection)e).getLigneJoueur();
+				int c_j = ((Selection)e).getColonneJoueur();
+				Joueur j = null;
+				Entity elem;
+				LinkedList<Entity> l_entity = terrain.getElement(l_j, c_j);
+				for(int i=0; i<l_entity.size(); i++) {
+					elem = l_entity.get(i);
+					if(elem instanceof Joueur) {
+						j = (Joueur) elem;
+						break;
+					}
+				}
+				if(j.picked() instanceof Interrupteur) {
+					Interrupteur levier = (Interrupteur) j.picked();
+					levier.add(terrain.getLastnotSelect(e.ligne(), e.colonne()));
+				}
 		} else if (e instanceof Interrupteur) {
 			LinkedList<Entity> l_levier = ((Interrupteur) e).get_entity();
 			for(int i=0; i<l_levier.size(); i++) {

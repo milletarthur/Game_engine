@@ -3,6 +3,9 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Selection extends Entity {
+	
+	private int ligne_joueur;
+	private int colonne_joueur;
 
 	public Selection(int ligne, int colonne) {
 		this.ligne = ligne;
@@ -10,6 +13,8 @@ public class Selection extends Entity {
 		this.category = Categorie.T;
 		this.team = 8;
 		layer = 5;
+		ligne_joueur = ligne;
+		colonne_joueur = colonne;
 	}
 
 	@Override
@@ -39,5 +44,13 @@ public class Selection extends Entity {
 	public void jump() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public int getLigneJoueur() {
+		return ligne_joueur;
+	}
+	
+	public int getColonneJoueur() {
+		return colonne_joueur;
 	}
 }

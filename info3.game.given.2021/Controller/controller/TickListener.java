@@ -153,7 +153,7 @@ public class TickListener {
 				}
 				break;
 			case "Selection":
-				if (name.equals(JSONWindow.aut_selection)){
+				if (name.equals(JSONWindow.aut_selection2)){
 					restart = true;
 					add(a, e);
 				}

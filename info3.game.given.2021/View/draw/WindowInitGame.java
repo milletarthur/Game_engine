@@ -4,15 +4,8 @@ import javax.swing.*;
 
 import Automates.Automate;
 import Automates.AutomatonLoader;
-import Labyrinthe.Entity;
-import Labyrinthe.Field;
-import Labyrinthe.Fleche;
-import Labyrinthe.Joueur;
-import Labyrinthe.Mine;
-import controller.End;
-import controller.KeyPressed;
-import controller.TicTac;
-import controller.TickListener;
+import Labyrinthe.*;
+import controller.*;
 import listener.JSONWindow;
 import listener.Key_Listener;
 
@@ -119,6 +112,12 @@ public class WindowInitGame extends JFrame {
 			j2.set_ligne(terrain.get_ligne()-3);
 			terrain.add(j1, 3, 0);
 			terrain.add(j2, terrain.get_ligne()-3, terrain.get_colonne()-1);
+			Interrupteur int1 = new Interrupteur(2, 0, new LinkedList<Entity>());
+			Interrupteur int2 = new Interrupteur(terrain.get_ligne() - 4, terrain.get_colonne() - 1, new LinkedList<Entity>());
+			int1.setTeam(1);
+			int2.setTeam(2);
+			terrain.add(int1,2,0);
+			terrain.add(int2, terrain.get_ligne() - 4, terrain.get_colonne() - 1);
 		}
 		// terrain.printGame();
 

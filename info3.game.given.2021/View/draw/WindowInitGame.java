@@ -157,8 +157,10 @@ public class WindowInitGame extends JFrame {
 			String a_name = a.get_name();
 			if (a_name.equals(JSONWindow.aut_j1)) {
 				tl.add(a, j1);
+				terrain.updateJoueur(j1);
 			} else if (a_name.equals(JSONWindow.aut_j2)) {
 				tl.add(a, j2);
+				terrain.updateJoueur(j2);
 			} else if (a_name.equals(JSONWindow.aut_apple)) {
 				Iterator<Entity> iterPomme = liste_pomme.iterator();
 				while(iterPomme.hasNext()) {

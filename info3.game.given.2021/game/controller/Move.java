@@ -42,6 +42,9 @@ public class Move implements IAction {
 		terrain.remove(ligne, colonne, e);
 		e.move();
 		terrain.add(e, e.ligne(), e.colonne());
+		if (e instanceof Joueur) {
+			terrain.updateJoueur(e);
+		}
 		if (e.picked() != null) {
 			e.picked().set_ligne(e.ligne());
 			e.picked().set_colonne(e.colonne());

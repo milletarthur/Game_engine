@@ -6,6 +6,7 @@ import Automates.Automate;
 import Automates.AutomatonLoader;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Fleche;
 import Labyrinthe.Joueur;
 import Labyrinthe.Mine;
 import controller.End;
@@ -105,12 +106,20 @@ public class WindowInitGame extends JFrame {
 				JSONWindow.nb_ennemis, JSONWindow.seed);
 
 		KeyPressed kp = new KeyPressed();
-
-		// ajout d'un joueur pour tester
+		
 		Joueur j1 = new Joueur(2, 0, 1);
 		Joueur j2 = new Joueur(3, 0, 2);
-		terrain.add(j1, 2, 0);
-		terrain.add(j2, 3, 0);
+
+		if (JSONWindow.jeu.equals("Labyrinthe")) {
+			terrain.add(j1, 2, 0);
+			terrain.add(j2, 3, 0);
+		} else if (JSONWindow.jeu.equals("Arène")) {
+			j1.set_ligne(3);
+			j2.set_colonne(terrain.get_colonne()-1);
+			j2.set_ligne(terrain.get_ligne()-3);
+			terrain.add(j1, 3, 0);
+			terrain.add(j2, terrain.get_ligne()-3, terrain.get_colonne()-1);
+		}
 		// terrain.printGame();
 
 		// Initialisation de la fenêtre

@@ -10,18 +10,18 @@
     "use_seed" : false,
     "pv" : 20,
     "nb_obstacles" : 10,
-    "nb_ennemis" : 4,
+    "nb_ennemis" : 0,
     "entities": [
       { "name" : "Apple",
         "automate": "Apple",
-        "%densite": 25
+        "%densite": 2
       },
       { "name" : "Arc", 
         "automate": "Arc"
       },
       { "name" : "Bombe", 
         "automate": "Bombe",
-        "%densite" : 22
+        "%densite" : 2
       },
       { "name" : "Cassable", 
         "automate": "Cassable",
@@ -52,7 +52,7 @@
       },
       { "name" : "Mine", 
         "automate": "Mine",
-        "%densite": 26
+        "%densite": 2
       },
       { "name" : "Normal", 
         "automate": "Normal",
@@ -60,20 +60,23 @@
       },
       { "name" : "Pioche", 
         "automate": "Pioche",
-        "%densite" : 28
+        "%densite" : 2
       },
       { "name" : "Porte", 
         "automate": "Porte"
       },
       { "name" : "Potion", 
         "automate": "Potion",
-        "%densite" : 29
+        "%densite" : 2
       },
       { "name" : "Sable", 
         "automate": "Sable"
       },
-      { "name" : "Selection", 
-        "automate": "Selection" 
+      { "name" : "Selection1", 
+        "automate": "Selection1"
+      },
+      { "name" : "Selection2", 
+        "automate": "Selection2"
       },
       { "name" : "Squelette", 
         "automate": "Squelette"

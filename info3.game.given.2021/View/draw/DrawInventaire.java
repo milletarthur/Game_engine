@@ -34,7 +34,6 @@ public class DrawInventaire extends JPanel {
 		this.setPreferredSize(new Dimension(65, 65));
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
-		System.out.println(JSONWindow.jeu);
 		if (JSONWindow.jeu.equals("Labyrinthe")) {
 			this.affichage_laby();
 		} else if (JSONWindow.jeu.equals("Arène")) {
@@ -135,10 +134,7 @@ public class DrawInventaire extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		this.gestionTime();
-		/*if (cpt == 10)
-			this.paintTimer();*/
 
-		// TODO - donner objet courant à la place de DrawTerrain...
 		if (JSONWindow.jeu.equals("Labyrinthe")) {
 			main1.setImage(img_inventaire, DrawTerrain.drawPickable(j1.picked()), 0, 0, 65);
 			main2.setImage(img_inventaire, DrawTerrain.drawPickable(j2.picked()), 0, 0, 65);
@@ -156,7 +152,6 @@ public class DrawInventaire extends JPanel {
 
 	public void paintTimer() {
 		temps_actuel -= 1;
-		System.out.println(temps_actuel);
 		int min = temps_actuel / 60;
 		int sec = temps_actuel % 60;
 		if (min < 10) {

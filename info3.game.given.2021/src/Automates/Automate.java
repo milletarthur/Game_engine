@@ -43,6 +43,10 @@ public class Automate {
 	}
 	
 	public void step(Entity e) {
+		if (e.getTime() > 0) {
+			e.wait_(-1);
+			return;
+		}
 		Iterator<TransitionAutomate> iter = Transitions.iterator();
 		while(iter.hasNext()) {
 			TransitionAutomate trans = iter.next();

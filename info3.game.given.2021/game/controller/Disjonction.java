@@ -16,7 +16,12 @@ public class Disjonction implements ICondition {
 	
 	@Override
 	public boolean eval(Entity e) {
-		return c1.eval(e) || c2.eval(e);
+		boolean t1 = c1.eval(e);
+		if(t1 == true) {
+			return true;
+		}
+		boolean t2 = c2.eval(e);
+		return t1 || t2;
 	}
 
 	@Override

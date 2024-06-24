@@ -27,6 +27,19 @@ public class Hit implements IAction {
 		int cpt = 0;
 		Entity tohit = list.get(cpt);
 		int taille = list.size();
+		if(e instanceof Sable) {
+			LinkedList<Entity> l_entity = terrain.getElement(e.ligne(), e.colonne());
+			Entity elem;
+			for(int i=0; i<l_entity.size(); i++) {
+				elem = l_entity.get(i);
+				if(elem instanceof Joueur || elem instanceof Squelette || elem instanceof Zombie) {
+					elem.power(-1);
+					break;
+				}
+			}
+			e.hit();
+			return;
+		}
 		if (list.getLast() instanceof Selection)
 			taille--;
 		while (!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette)

@@ -1,10 +1,13 @@
 package controller;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 import Automates.IAction;
 import Labyrinthe.*;
+import Labyrinthe.Void;
 import toolkit.Direction;
+import toolkit.Pair;
 
 public class Wizz implements IAction{
 	
@@ -25,6 +28,11 @@ public class Wizz implements IAction{
 		} else if(e instanceof Invisible) {
 			terrain.remove(e.ligne(), e.colonne(), e);
 			terrain.add(new Cassable(e.ligne(), e.colonne()), e.ligne(), e.colonne());
+		} else if (e instanceof Interrupteur) {
+			LinkedList<Entity> l_levier = ((Interrupteur) e).get_entity();
+			for(int i=0; i<l_levier.size(); i++) {
+				exec(l_levier.get(i));
+			}
 		} else if (e instanceof Sable) {
 			terrain.remove(e.ligne(), e.colonne(), e);
 			// suppr les autres sables à côté 

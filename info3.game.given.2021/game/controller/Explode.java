@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Random;
 
 import Automates.IAction;
 import Labyrinthe.Bombe;
@@ -23,6 +24,23 @@ public class Explode implements IAction {
 
 	@Override
 	public void exec(Entity e) {
+		if (e instanceof Zombie || e instanceof Squelette) {
+			Random rand = new Random();
+			int r = rand.nextInt(101);
+			if (r < 100) {
+				Entity pick = e.picked();
+				e.resetpick();
+				if(pick != null)
+					terrain.add(pick, e.ligne(), e.colonne());
+			} else {
+				e.resetpick();
+			}
+		} else if (e instanceof Joueur) {
+				Entity pick = e.picked();
+				e.resetpick();
+				terrain.add(pick, e.ligne(), e.colonne());
+				e.resetpick();
+		}
 		if (e instanceof Mine || e instanceof Bombe) {
 			if (e instanceof Mine)
 				((Mine) e).changeState();

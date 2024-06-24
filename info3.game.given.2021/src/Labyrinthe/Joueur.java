@@ -12,6 +12,7 @@ import toolkit.Direction;
 public class Joueur extends Entity {
 	
 	boolean modeSelection = false;
+	private Selection s;
 	
 	public Joueur(int ligne, int colonne, int team) {
 		this.ligne = ligne;
@@ -89,5 +90,13 @@ public class Joueur extends Entity {
 	
 	public boolean getModeSelection() {
 		return modeSelection;
+	}
+	
+	public void setSelection(Selection s) {
+		this.s = s;
+	}
+	
+	public Selection getSelection() {
+		return s;
 	}
 }

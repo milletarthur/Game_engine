@@ -21,6 +21,8 @@ public class Pop implements IAction {
 	public void exec(Entity e) {
 		if(e instanceof Joueur) {
 			Entity entity = new Selection(e.ligne(), e.colonne());
+			Joueur j = (Joueur) e;
+			j.setSelection((Selection)entity);
 			tl.add(entity);
 			entity.setTeam(e.team());
 			terrain.add(entity, e.ligne(), e.colonne());

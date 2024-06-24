@@ -4,15 +4,8 @@ import javax.swing.*;
 
 import Automates.Automate;
 import Automates.AutomatonLoader;
-import Labyrinthe.Entity;
-import Labyrinthe.Field;
-import Labyrinthe.Fleche;
-import Labyrinthe.Joueur;
-import Labyrinthe.Mine;
-import controller.End;
-import controller.KeyPressed;
-import controller.TicTac;
-import controller.TickListener;
+import Labyrinthe.*;
+import controller.*;
 import listener.JSONWindow;
 import listener.Key_Listener;
 

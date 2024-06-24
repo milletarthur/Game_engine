@@ -1970,7 +1970,7 @@ public class Field {
 		if (elem.layer() == e.layer()) {
 			return;
 		} else {
-			if (elem.layer() > e.layer())
+			if (elem.layer() > e.layer() && cpt > 0)
 				l_entity.add(cpt - 1, e);
 			else
 				l_entity.add(cpt, e);

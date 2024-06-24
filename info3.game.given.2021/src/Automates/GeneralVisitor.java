@@ -21,7 +21,7 @@ import controller.Move;
 import controller.Not;
 import controller.Pick;
 import controller.Pop;
-import controller.Power;
+import controller.Rest;
 import controller.Store;
 import controller.Throw;
 import controller.TickListener;
@@ -360,10 +360,10 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
 			return new Get(f, tl);
-		case "Power":
-			if (l_param.size() != 0)
+		case "Rest":
+			if (l_param.size() != 1)
 				throw new RuntimeException("Wrong arguments");
-			return new Power(f, tl);
+			return new Rest(f, (int) parameters.get(0), tl);
 		case "Wait":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");

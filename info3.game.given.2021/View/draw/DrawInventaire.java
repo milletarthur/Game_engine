@@ -142,8 +142,8 @@ public class DrawInventaire extends JPanel {
 		if (JSONWindow.jeu.equals("Labyrinthe")) {
 			main1.setImage(img_inventaire, DrawTerrain.drawPickable(j1.picked()), 0, 0, 65);
 			main2.setImage(img_inventaire, DrawTerrain.drawPickable(j2.picked()), 0, 0, 65);
-			invent1.setImage(img_inventaire, DrawTerrain.drawPickable(j1.picked()), 0, 0, 65);
-			invent2.setImage(img_inventaire, DrawTerrain.drawPickable(j2.picked()), 0, 0, 65);
+			invent1.setImage(img_inventaire, DrawTerrain.drawPickable(j1.getInventory().getCurrentJ1()), 0, 0, 65);
+			invent2.setImage(img_inventaire, DrawTerrain.drawPickable(j2.getInventory().getCurrentJ2()), 0, 0, 65);
 		} else if (JSONWindow.jeu.equals("Arène")) {
 			main1.setImage(img_inventaire, DrawTerrain.drawPickable(j1.picked()), 0, 0, 65);
 			main2.setImage(img_inventaire, DrawTerrain.drawPickable(j2.picked()), 0, 0, 65);

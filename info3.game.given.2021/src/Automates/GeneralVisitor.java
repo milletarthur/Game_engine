@@ -581,6 +581,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(Automaton automaton) {
 		l_aut.add(new Automate());
+		l_trans = new LinkedList<TransitionAutomate>();
 	}
 
 	@Override

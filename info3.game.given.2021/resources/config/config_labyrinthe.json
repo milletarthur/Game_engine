@@ -1,13 +1,13 @@
 { 
     "jeu" : "Labyrinthe",
     "cooperative" : true, 
-    "duration" : 900, 
-    "hauteur" : 25,
-    "largeur" : 25,
+    "duration" : 300, 
+    "hauteur" : 10,
+    "largeur" : 10,
     "visibility" : 5,
     "%density" : 100,
     "seed" : 0,
-    "use_seed" : true,
+    "use_seed" : false,
     "pv" : 20,
     "nb_obstacles" : 10,
     "nb_ennemis" : 4,
@@ -25,7 +25,7 @@
       },
       { "name" : "Cassable", 
         "automate": "Cassable",
-        "%densite" : 0
+        "%densite" : 25
       },
       { "name" : "Epee", 
         "automate": "Epee"
@@ -39,7 +39,7 @@
       },
       { "name" : "Invisible", 
         "automate": "Invisible",
-        "%densite" : 100
+        "%densite" : 25
       },
       { "name" : "Joueur1", 
         "automate": "Player1" 
@@ -52,21 +52,21 @@
       },
       { "name" : "Mine", 
         "automate": "Mine",
-        "%densite": 2
+        "%densite": 5
       },
       { "name" : "Normal", 
         "automate": "Normal"
       },
       { "name" : "Pioche", 
         "automate": "Pioche",
-        "%densite" : 2
+        "%densite" : 1
       },
       { "name" : "Porte", 
         "automate": "Porte"
       },
       { "name" : "Potion", 
         "automate": "Potion",
-        "%densite" : 2
+        "%densite" : 1
       },
       { "name" : "Sable", 
         "automate": "Sable"

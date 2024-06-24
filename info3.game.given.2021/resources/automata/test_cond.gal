@@ -36,30 +36,6 @@ Player2(Init){
 | Key(k) ? Egg :(Init)
 }
 
-Mine(Init){
-* (Init):
-| Cell(H,@) / Cell(H,#) / Cell(H,A) ? Explode : ()
-}
-
-Zombie(Init){
-* (Init):
-| !Got(Power) ? Explode :()
-}
-
-Squelette(Init){
-* (Init):
-| !Got(Power) ? Explode :()
-}
-
-Teleporteur(Init){
-* (Init):
-| Cell(H,@) / Cell(H,#) ? Jump :(Init)
-| Key(v) & (Cell(N,@) / Cell(S,@) / Cell(E,@) / Cell(W,@)) ? Pop :(Init)
-| Key(v) & (Cell(N,#) / Cell(S,#) / Cell(E,#) / Cell(W,#)) ? Pop :(Init)
-| Key(b) & (Cell(N,@) / Cell(S,@) / Cell(E,@) / Cell(W,@)) ? Wizz :(Init)
-| Key(b) & (Cell(N,#) / Cell(S,#) / Cell(E,#) / Cell(W,#)) ? Wizz :(Init)
-}
-
 Interrupteur(Init){
 * (Init):
 | Key(n) & (Cell(N,@) / Cell(S,@) / Cell(E,@) / Cell(W,@)) ? Pop :(Init)
@@ -68,9 +44,73 @@ Interrupteur(Init){
 | Key(n) & (Cell(N,#) / Cell(S,#) / Cell(E,#) / Cell(W,#)) ? Wizz :(Init) 
 }
 
+Teleporteur(Init){
+* (Init):
+| Cell(H,@) / Cell(H,#) ? Jump :(Init)
+| Cell(H, M) ? Pop :(NoJump)
+| Cell(H, J) ? Wizz :(Init)
+* (NoJump):
+| Cell(H, M) ? Pop :(Init)
+| Cell(H, J) ? Wizz :(NoJump)
+}
+
+Squelette(Init){
+* (Init):
+| !Got(Power) ? Explode :()
+| Cell(N, A) ? Turn(N) / Hit :(Init)
+| Cell(S, A) ? Turn(S) / Hit :(Init)
+| Cell(E, A) ? Turn(E) / Hit :(Init)
+| Cell(W, A) ? Turn(W) / Hit :(Init)
+| Closest(N, A) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
+| Closest(S, A) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
+| Closest(E, A) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
+| Closest(W, A) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
+| Cell(H, M) ? Pop :(Init)
+| Cell(H, J) ? Wizz :(Allie)
+* (Allie):
+| !Got(Power) ? Explode :()
+| Cell(H, M) ? Pop :(Init)
+| Cell(H, J) ? Wizz :(Allie)
+*()
+}
+
+Zombie(Init){
+* (Init):
+| !Got(Power) ? Explode :()
+| Cell(N, A) ? Turn(N) / Hit :(Init)
+| Cell(S, A) ? Turn(S) / Hit :(Init)
+| Cell(E, A) ? Turn(E) / Hit :(Init)
+| Cell(W, A) ? Turn(W) / Hit :(Init)
+| Closest(N, A) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
+| Closest(S, A) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
+| Closest(E, A) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
+| Closest(W, A) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
+| Cell(H, M) ? Pop :(Init)
+| Cell(H, J) ? Wizz :(Allie)
+* (Allie):
+| !Got(Power) ? Explode :()
+| Cell(H, M) ? Pop :(Init)
+| Cell(H, J) ? Wizz :(Allie)
+*()
+}
+
+Mine(Init){
+* (Init):
+| Cell(H,@) / Cell(H,#) / Cell(H,A) ? Explode : ()
+}
+
 Sable(Init){
 * (Init):
-| Cell(H, @) / Cell(H,#) ? Pop :(Init)
+| Cell(H, @) / Cell(H,#) ? Jump :(Catched)
+| Cell(H, M) ? Pop :(Init)
+| Cell(H, J) ? Wizz :()
+*(Catched):
+| Got(Power) ? Rest(1) : (Catched)
+| ! Got(Power) ? Rest(25) / Pop :(Catched)
+| Cell(H, M) ? Pop :(Catched)
 | Cell(H, J) ? Wizz :()
  *()
 }
+
+
+

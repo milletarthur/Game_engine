@@ -25,6 +25,10 @@ public class Interrupteur extends Entity {
 	public LinkedList<Entity> get_entity() {
 		return this.liste_elem;
 	}
+	
+	public void remove_entity(Entity e) {
+		liste_elem.remove(e);
+	}
 
 	public void add(Entity e) {
 		liste_elem.add(e);

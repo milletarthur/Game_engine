@@ -43,7 +43,7 @@ public class DrawInventaire extends JPanel {
 			throw new IllegalArgumentException("Jeu invalide");
 		}
 
-		this.temps_actuel = temps;
+		this.settemp(temps);
 		this.cpt = 0;
 
 	}
@@ -135,8 +135,8 @@ public class DrawInventaire extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		this.gestionTime();
-		if (cpt == 10)
-			this.paintTimer();
+		/*if (cpt == 10)
+			this.paintTimer();*/
 
 		// TODO - donner objet courant à la place de DrawTerrain...
 		if (JSONWindow.jeu.equals("Labyrinthe")) {
@@ -156,6 +156,7 @@ public class DrawInventaire extends JPanel {
 
 	public void paintTimer() {
 		temps_actuel -= 1;
+		System.out.println(temps_actuel);
 		int min = temps_actuel / 60;
 		int sec = temps_actuel % 60;
 		if (min < 10) {
@@ -188,6 +189,14 @@ public class DrawInventaire extends JPanel {
 	
 	public TicTac getTimer() {
 		return t;
+	}
+	
+	public void settemp(int temps) { // en secondes
+		this.temps_actuel = temps;
+	}
+	
+	public void setcpt() {
+		this.cpt = 0;
 	}
 
 }

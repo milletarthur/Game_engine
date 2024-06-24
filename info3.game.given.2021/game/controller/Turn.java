@@ -3,6 +3,7 @@ package controller;
 import Automates.IAction;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Joueur;
 
 public class Turn implements IAction {
 
@@ -31,6 +32,12 @@ public class Turn implements IAction {
 	@Override
 	public void exec(Entity e) {
 		e.turn(this.Direction);
+		if(e instanceof Joueur) {
+			Entity pick = ((Joueur)e).picked();
+			if(pick != null) {
+				pick.turn(Direction);
+			}
+		}
 //		System.out.println("Turn");
 		return;
 	}

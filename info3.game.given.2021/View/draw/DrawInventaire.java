@@ -189,5 +189,9 @@ public class DrawInventaire extends JPanel {
 	public TicTac getTimer() {
 		return t;
 	}
+	
+	public void settemp(int temps) { // en secondes
+		this.temps_actuel = temps;
+	}
 
 }

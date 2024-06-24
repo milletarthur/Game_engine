@@ -17,9 +17,11 @@ import Labyrinthe.Zombie;
 public class Explode implements IAction {
 
 	private Field terrain;
+	private TickListener tl;
 
-	public Explode(Field terrain) {
+	public Explode(Field terrain, TickListener tl) {
 		this.terrain = terrain;
+		this.tl = tl;
 	}
 
 	@Override
@@ -61,7 +63,7 @@ public class Explode implements IAction {
 					if (elem instanceof Bombe && ((Bombe) elem).exploded())
 						continue;
 					if (elem instanceof Mine || elem instanceof Bombe || elem instanceof Cassable) {
-						Explode ex = new Explode(terrain);
+						Explode ex = new Explode(terrain, tl);
 						ex.exec(elem);
 						taille--;
 					} else if (elem instanceof Joueur || elem instanceof Zombie || elem instanceof Squelette) {

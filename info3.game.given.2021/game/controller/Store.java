@@ -8,9 +8,11 @@ import Labyrinthe.Joueur;
 public class Store implements IAction {
 
 	private Field terrain;
+	private TickListener tl;
 
-	public Store(Field f) {
+	public Store(Field f, TickListener tl) {
 		terrain = f;
+		this.tl = tl;
 	}
 
 	@Override

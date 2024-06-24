@@ -8,14 +8,16 @@ public class Wait implements IAction {
 
 	private Field terrain;
 	private int time;
+	private TickListener tl;
 
 	public Wait(Field terrain, int time) {
 		this.terrain = terrain;
 		this.time = time;
 	}
 
-	public Wait(Field terrain) {
+	public Wait(Field terrain, TickListener tl) {
 		this.terrain = terrain;
+		this.tl = tl;
 	}
 
 	public void setTime(int time) {

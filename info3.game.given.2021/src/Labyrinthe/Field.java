@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import controller.Explode;
+import listener.JSONWindow;
 import toolkit.*;
 
 public class Field {
@@ -1980,7 +1981,7 @@ public class Field {
 	}
 
 	public Entity getLastnotSelect(int ligne, int colonne) {
-		LinkedList<Entity> l_entity = getElement(ligne, colonne);
+		LinkedList<Entity> l_entity = getElement(ligne, colonne - 1 );
 		Entity elem = l_entity.get(0);
 		int taille = l_entity.size();
 		Entity select = l_entity.getLast();
@@ -2436,7 +2437,13 @@ public class Field {
 	 * -1 : partie perdue 0 : partie pas finie
 	 */
 
-	
+
+
+	/* -1 : partie perdue
+	 * 0 : partie pas finie
+	 * 1 : partie gagnée
+	 */ 
+
 	public int endGame() {
 //		LinkedList<Entity> l_player = new LinkedList<Entity>();
 		LinkedList<Entity> l_entity = new LinkedList<Entity>();
@@ -2484,8 +2491,8 @@ public class Field {
 					elem = l_entity.get(k);
 					if (elem instanceof Bombe) {
 						bombe = elem;
-						Explode ex = new Explode(this);
-						ex.exec(bombe);
+//						Explode ex = new Explode(this);
+//						ex.exec(bombe);
 						return 999;
 					}
 				}

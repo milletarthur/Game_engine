@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 
 import Labyrinthe.*;
 import Labyrinthe.Void;
+import toolkit.Direction;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -28,11 +29,11 @@ public class DrawTerrain extends JPanel {
 	private int T_case, int_team, l;
 	private Field terrain;
 
-	private Sprite CHEMIN, PERSO, OBJET, ITEM, DEPLAC;
+	private Sprite CHEMIN, PERSO, OBJET, ITEM, DEPLAC, PROJECTILES;
 
 	private BufferedImage[] chemin = new BufferedImage[6];
 	private BufferedImage player1, player1_flip, player2, player2_flip, porte_fermee, porte_ouverte, teleporte, zombie,
-			zombie_flip, squelette, squelette_flip, invisible, teleporte_desac;
+			zombie_flip, squelette, squelette_flip, invisible, teleporte_desac, fleche;
 
 	private Image lave, sand, mur, fragile, int_pop, int_wizz, int_neutre, selection;
 
@@ -110,6 +111,8 @@ public class DrawTerrain extends JPanel {
 						g.drawImage(fragile, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Epee) {
 						g.drawImage(epee, j * T_case, i * T_case, T_case, T_case, null);
+					} else if (e instanceof Fleche) {
+						g.drawImage(rotate(fleche, e.direction()), j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Interrupteur) {
 						Interrupteur inter = (Interrupteur) e;
 						if (inter.State() == -1) {
@@ -256,11 +259,16 @@ public class DrawTerrain extends JPanel {
 
 		this.selection = drawEntity("resources/graphisme/targeting.png");
 
+		// modifications
 		this.player1_flip = flip(player1);
 		this.player2_flip = flip(player2);
 		this.squelette_flip = flip(squelette);
 		this.zombie_flip = flip(zombie);
 		this.invisible = transparent(mur);
+		
+		// fleche
+		this.PROJECTILES = new Sprite("resources/graphisme/projectiles.png", 23, 23);
+		this.fleche = PROJECTILES.getSprite(0, 0);
 
 	}
 
@@ -306,5 +314,29 @@ public class DrawTerrain extends JPanel {
 
 		return bf;
 	}
+	
+	public static BufferedImage rotate(BufferedImage image, int direction) { // par défaut, l'image est à l'EST
+		int rotation = 0;
+		switch (direction) {
+		case 1 :
+			rotation = 270;
+			break;
+		case 2 :
+			rotation = 90;
+			break;
+		case 3 :
+			break;
+		case 4 :
+			rotation = 180;
+		}
+ 
+        BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        Graphics2D g2 = newImage.createGraphics();
+        g2.rotate(Math.toRadians(rotation), image.getWidth() / 2, image.getHeight() / 2);
+        g2.drawImage(image, null, 0, 0);
+ 
+        return newImage;
+    }
+	
 
 }

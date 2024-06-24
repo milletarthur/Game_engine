@@ -6,6 +6,7 @@ import Automates.Automate;
 import Automates.AutomatonLoader;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Fleche;
 import Labyrinthe.Joueur;
 import Labyrinthe.Mine;
 import controller.End;

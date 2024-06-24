@@ -22,13 +22,13 @@ public class Porte extends Entity {
 	@Override
 	public void pop() {
 		isOpen = true;
-		this.category = Categorie.O;
+		this.category = Categorie.V;
 	}
 
 	@Override
 	public void wizz() {
 		isOpen = false;
-		this.category = Categorie.V;
+		this.category = Categorie.O;
 	}
 
 	@Override

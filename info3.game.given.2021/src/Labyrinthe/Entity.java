@@ -213,6 +213,10 @@ public abstract class Entity {
 	public Entity picked() {
 		return picked;
 	}
+	
+	public void setpicked(Entity e) {
+		picked = e;
+	}
 
 	public Inventory getInventory() {
 		return inventory;

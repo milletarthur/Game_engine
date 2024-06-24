@@ -407,6 +407,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 			break;
 		case "Closest":
 			c = new Closest(f, l_param.get(0), l_param.get(1));
+			break;
 		default:
 			throw new RuntimeException("Unknown action !");
 		}
@@ -581,6 +582,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(Automaton automaton) {
 		l_aut.add(new Automate());
+		l_trans = new LinkedList<TransitionAutomate>();
 	}
 
 	@Override

@@ -123,8 +123,16 @@ public class WindowInitGame extends JFrame {
 		w.init_Window(v1, v2, w.get_invent(), tt);
 		v1.centrerViewport(j1);
 		v2.centrerViewport(j2);
-
-		LinkedList<Entity> l = terrain.get_mine();
+		
+		LinkedList<Entity> l_mine = terrain.get_mine();
+		LinkedList<Entity> l_zombie = terrain.get_zombie();
+		LinkedList<Entity> l_squelette = terrain.get_squelette();
+		LinkedList<Entity> l_tp = terrain.get_teleporteur();
+		LinkedList<Entity> l_levier = terrain.get_interrupteur();
+		LinkedList<Entity> l_normal = terrain.get_normal();
+		LinkedList<Entity> l_cassable = terrain.get_cassable();
+		LinkedList<Entity> l_invisible = terrain.get_invisible();
+		LinkedList<Entity> l_sable = terrain.get_sable();
 
 		// ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp, tl);
@@ -140,7 +148,39 @@ public class WindowInitGame extends JFrame {
 			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_j2)) {
 				tl.add(l_aut.get(i), j2);
 			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_mine)) {
-				Iterator<Entity> iter = l.iterator();
+				Iterator<Entity> iter = l_mine.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_zombie)) {
+				Iterator<Entity> iter = l_zombie.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_squelette)) {
+				Iterator<Entity> iter = l_squelette.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_teleporteur)) {
+				Iterator<Entity> iter = l_tp.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_interrupteur)) {
+				Iterator<Entity> iter = l_levier.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_normal)) {
+				Iterator<Entity> iter = l_normal.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_cassable)) {
+				Iterator<Entity> iter = l_cassable.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_invisible)) {
+				Iterator<Entity> iter = l_invisible.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_sable)) {
+				Iterator<Entity> iter = l_sable.iterator();
 				while (iter.hasNext())
 					tl.add(l_aut.get(i), iter.next());
 			}

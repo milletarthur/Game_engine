@@ -18,6 +18,12 @@ public class Get implements IAction {
 	@Override
 	public void exec(Entity e) {
 		if(e.picked() == null && e instanceof Joueur){
+			Entity pick = e.picked();
+			if(pick != null) {
+				pick.turn(e.direction());
+				pick.set_ligne(e.ligne());
+				pick.set_colonne(e.colonne());
+			}
 			e.get();
 //			System.out.print(e.getInventory().toString());
 		}

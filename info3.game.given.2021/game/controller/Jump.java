@@ -111,7 +111,8 @@ public class Jump implements IAction {
 			return;
 		}
 		e.jump();
-		System.out.print(e.getInventory().toString());
+		if (e instanceof Joueur)
+			System.out.print(e.getInventory().toString());
 	}
 
 	@Override

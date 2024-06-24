@@ -4,11 +4,14 @@ import toolkit.Categorie;
 
 public class Sable extends Entity {
 	
+	private boolean activate;
+	
 	public Sable(int ligne, int colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;
 		this.category = Categorie.D;
 		this.team = 5;
+		this.activate = false;
 		layer = 2;
 	}
 
@@ -34,8 +37,15 @@ public class Sable extends Entity {
 
 	@Override
 	public void jump() {
-		// TODO Auto-generated method stub
-		
+		activate = true;		
+	}
+	
+	public boolean IsActivate() {
+		return activate;
+	}
+	
+	public void setActivate(boolean act) {
+		activate = act;
 	}
 
 }

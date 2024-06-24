@@ -61,9 +61,10 @@ public class Explode implements IAction {
 			}
 		} else if (e instanceof Joueur) {
 				Entity pick = e.picked();
-				e.resetpick();
-				terrain.add(pick, e.ligne(), e.colonne());
-				e.resetpick();
+				if (pick != null) {
+					terrain.add(pick, e.ligne(), e.colonne());
+					e.resetpick();
+				}
 		}
 		if (e instanceof Mine || e instanceof Bombe) {
 			if (e instanceof Mine)

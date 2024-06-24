@@ -2,8 +2,8 @@
     "jeu" : "Labyrinthe",
     "cooperative" : true, 
     "duration" : 900, 
-    "hauteur" : 10,
-    "largeur" : 10,
+    "hauteur" : 30,
+    "largeur" : 20,
     "visibility" : 5,
     "%density" : 100,
     "seed" : 0,
@@ -14,18 +14,18 @@
     "entities": [
       { "name" : "Apple",
         "automate": "Apple",
-        "%densite": 0
+        "%densite": 2
       },
       { "name" : "Arc", 
         "automate": "Arc"
       },
       { "name" : "Bombe", 
         "automate": "Bombe",
-        "%densite" : 0
+        "%densite" : 2
       },
       { "name" : "Cassable", 
         "automate": "Cassable",
-        "%densite" : 0
+        "%densite" : 25
       },
       { "name" : "Epee", 
         "automate": "Epee"
@@ -39,7 +39,7 @@
       },
       { "name" : "Invisible", 
         "automate": "Invisible",
-        "%densite" : 100
+        "%densite" : 25
       },
       { "name" : "Joueur1", 
         "automate": "Player1" 
@@ -59,14 +59,14 @@
       },
       { "name" : "Pioche", 
         "automate": "Pioche",
-        "%densite" : 0
+        "%densite" : 1
       },
       { "name" : "Porte", 
         "automate": "Porte"
       },
       { "name" : "Potion", 
         "automate": "Potion",
-        "%densite" : 0
+        "%densite" : 1
       },
       { "name" : "Sable", 
         "automate": "Sable"

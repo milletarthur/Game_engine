@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
+import controller.Explode;
+import listener.JSONWindow;
 import toolkit.*;
 
 public class Field {
@@ -19,6 +21,22 @@ public class Field {
 	LinkedList<Pair<Integer, Integer>> l_void = new LinkedList<Pair<Integer, Integer>>();
 	LinkedList<Pair<Integer, Integer>> mur = new LinkedList<Pair<Integer, Integer>>();
 	LinkedList<Pair<Integer, Integer>> chemin = new LinkedList<Pair<Integer, Integer>>();
+	private LinkedList<Entity> liste_mur_cassable = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_mur_invisible = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_mur_normal = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_interrupteur = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_porte = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_sable = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_squelette = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_zombie = new LinkedList<Entity>();
+
+	// pomme, potion, pioche, bombe
+	private LinkedList<Entity> liste_pomme = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_potion = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_pioche = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_bombe = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_teleporteur = new LinkedList<Entity>();
+	private LinkedList<Entity> liste_mine = new LinkedList<Entity>();
 
 	public Field(int lig, int col, int densite_field, int densite_pickable, int mine, int pomme, int potion, int pioche,
 			int bombe, int cassable, int invisible, int normal, int nb_porte_sable, int nb_ennemis, Random r) {
@@ -30,7 +48,6 @@ public class Field {
 		}
 		this.rand = r;
 		tmp = new int[lig][col];
-
 		tmp2 = new int[lig][col];
 		tmp3 = new int[lig][col];
 		this.colonne = col;
@@ -54,11 +71,10 @@ public class Field {
 		detruire_mur(densite_field);
 		labyrinthe();
 		recup_liste_mur();
-
-		//printLabyrinthe_tmp();
+		// printLabyrinthe_tmp();
 		trouver_chemin_1();
 		chemin = trouver_chemin_2();
-		//affiche_chemin(chemin);
+		// affiche_chemin(chemin);
 		for (int i = 0; i < chemin.size(); i++) {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
@@ -70,7 +86,7 @@ public class Field {
 		}
 
 		grow();
-		//printGame();
+		// printGame();
 
 		grow_porte();
 		depot_teleporteur();
@@ -79,7 +95,104 @@ public class Field {
 		pickable(densite_pickable, pomme, potion, pioche, bombe);
 		depot_ennemis(nb_ennemis);
 		printGame();
+		gerer_liste();
+//		endGame();
+	}
 
+	public void gerer_liste() {
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				LinkedList l = getElement(i, j);
+				for (int t = 0; t < l.size(); t++) {
+					Entity en = (Entity) l.get(t);
+					if (en instanceof Cassable) {
+						liste_mur_cassable.add(en);
+					} else if (en instanceof Invisible) {
+						liste_mur_invisible.add(en);
+					} else if (en instanceof Normal) {
+						liste_mur_normal.add(en);
+					} else if (en instanceof Interrupteur) {
+						liste_interrupteur.add(en);
+					} else if (en instanceof Porte) {
+						liste_porte.add(en);
+					} else if (en instanceof Sable) {
+						liste_sable.add(en);
+					} else if (en instanceof Squelette) {
+						liste_squelette.add(en);
+					} else if (en instanceof Zombie) {
+						liste_zombie.add(en);
+					} else if (en instanceof Apple) {
+						liste_pomme.add(en);
+					} else if (en instanceof Potion) {
+						liste_potion.add(en);
+					} else if (en instanceof Pioche) {
+						liste_pioche.add(en);
+					} else if (en instanceof Bombe) {
+						liste_bombe.add(en);
+					} else if (en instanceof Teleporteur) {
+						liste_teleporteur.add(en);
+					} else if (en instanceof Mine) {
+						liste_mine.add(en);
+					}
+				}
+			}
+		}
+	}
+
+	public LinkedList<Entity> get_cassable() {
+		return liste_mur_cassable;
+	}
+
+	public LinkedList<Entity> get_invisible() {
+		return liste_mur_invisible;
+	}
+
+	public LinkedList<Entity> get_normal() {
+		return liste_mur_normal;
+	}
+
+	public LinkedList<Entity> get_interrupteur() {
+		return liste_interrupteur;
+	}
+
+	public LinkedList<Entity> get_porte() {
+		return liste_porte;
+	}
+
+	public LinkedList<Entity> get_sable() {
+		return liste_sable;
+	}
+
+	public LinkedList<Entity> get_squelette() {
+		return liste_squelette;
+	}
+
+	public LinkedList<Entity> get_zombie() {
+		return liste_zombie;
+	}
+
+	public LinkedList<Entity> get_pommes() {
+		return this.liste_pomme;
+	}
+
+	public LinkedList<Entity> get_potions() {
+		return this.liste_potion;
+	}
+
+	public LinkedList<Entity> get_pioche() {
+		return this.liste_pioche;
+	}
+
+	public LinkedList<Entity> get_bombes() {
+		return this.liste_bombe;
+	}
+
+	public LinkedList<Entity> get_teleporteur() {
+		return this.liste_teleporteur;
+	}
+
+	public LinkedList<Entity> get_mine() {
+		return this.liste_mine;
 	}
 
 	void depot_ennemis(int nb) {
@@ -93,6 +206,12 @@ public class Field {
 				j = rand.nextInt(colonne - 11) + 10;
 			}
 			Squelette s = new Squelette(i, j);
+			int value = rand.nextInt(101);
+			if (value < 33) {
+				s.setpicked(new Epee(i, j));
+			} else if (33 <= value && value < 66) {
+				s.setpicked(new Arc(i, j));
+			}
 			set_element2(i, j, s, labyrinthe);
 			count++;
 		}
@@ -106,6 +225,12 @@ public class Field {
 				j = rand.nextInt(colonne - 11) + 10;
 			}
 			Zombie z = new Zombie(i, j);
+			int value = rand.nextInt(101);
+			if (value < 33) {
+				z.setpicked(new Epee(i, j));
+			} else if (33 <= value && value < 66) {
+				z.setpicked(new Arc(i, j));
+			}
 			set_element2(i, j, z, labyrinthe);
 			count++;
 		}
@@ -220,7 +345,7 @@ public class Field {
 		int i = chemin.size() / nb_porte - 2;
 		LinkedList<Pair<Integer, Integer>> chemin3 = new LinkedList<Pair<Integer, Integer>>();
 		int len = chemin2.size() / nb_porte;
-		//System.out.printf("len = \t%d\n", len);
+		// System.out.printf("len = \t%d\n", len);
 		while (len < 6) {
 			// System.out.println("je suis dedans
 			// #####################################################");
@@ -232,7 +357,7 @@ public class Field {
 			chemin2.remove(ind);
 		}
 
-		//System.out.printf("len = \t%d\n", len);
+		// System.out.printf("len = \t%d\n", len);
 		Entity elem = null;
 		int condition = 1;
 		Entity p = null;
@@ -310,7 +435,7 @@ public class Field {
 			}
 
 			condition = 1;
-			//printGame();
+			// printGame();
 			i = chemin.size() / nb_porte - 2;
 			count = 0;
 		}
@@ -348,6 +473,15 @@ public class Field {
 		elem.add(elem.size() - 2, e);
 	}
 
+	public void set_element5(int indice_i, int indice_j, Entity e, ArrayList<Object> lab) {
+		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) lab.get(indice_i);
+		LinkedList<Entity> elem = row.get(indice_j);
+		for (int s = 0; s < elem.size(); s++) {
+			elem.remove(s);
+		}
+		elem.add(e);
+	}
+
 	public void update_element(int indice_i, int indice_j, LinkedList<Entity> l, ArrayList<Object> lab) {
 		ArrayList<LinkedList<Entity>> row = (ArrayList<LinkedList<Entity>>) labyrinthe.get(indice_i);
 		row.set(indice_j, l);
@@ -375,7 +509,8 @@ public class Field {
 			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t = new Teleporteur(i, j);
-		set_element3(i, j, t, labyrinthe);
+
+		set_element5(i, j, t, labyrinthe);
 		Entity en = get_element2(i, j, labyrinthe);
 		i = rand.nextInt(ligne);
 		j = rand.nextInt(colonne - 2) + 1;
@@ -384,7 +519,8 @@ public class Field {
 			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t1 = new Teleporteur(i, j);
-		set_element3(i, j, t1, labyrinthe);
+
+		set_element5(i, j, t1, labyrinthe);
 		Entity en1 = get_element2(i, j, labyrinthe);
 		((Teleporteur) en).set_voisin(en1);
 		((Teleporteur) en1).set_voisin(en);
@@ -396,7 +532,8 @@ public class Field {
 			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t2 = new Teleporteur(i, j);
-		set_element3(i, j, t2, labyrinthe);
+
+		set_element5(i, j, t2, labyrinthe);
 		Entity en2 = get_element2(i, j, labyrinthe);
 		i = rand.nextInt(ligne);
 		j = rand.nextInt(colonne - 2) + 1;
@@ -405,7 +542,8 @@ public class Field {
 			j = rand.nextInt(colonne - 2) + 1;
 		}
 		Teleporteur t3 = new Teleporteur(i, j);
-		set_element3(i, j, t3, labyrinthe);
+
+		set_element5(i, j, t3, labyrinthe);
 		Entity en3 = get_element2(i, j, labyrinthe);
 		((Teleporteur) en2).set_voisin(en3);
 		((Teleporteur) en3).set_voisin(en2);
@@ -416,7 +554,8 @@ public class Field {
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
 				if (tmp[i][j] == -1) {
-					set_element(i, j, new Normal(i, j), labyrinthe);
+					Normal n = new Normal(i, j);
+					set_element(i, j, n, labyrinthe);
 					set_element(i, j, new Void(i, j), labyrinthe);
 					set_element(i, j, new Lave(i, j), labyrinthe);
 				} else {
@@ -432,32 +571,56 @@ public class Field {
 		int len_mur = mur.size();
 		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
-		//System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
+		// System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable,
+		// len_mur);
 		int count = 0;
 		int x, y;
-		while (count < nb_pour_cassable) {
-			x = rand.nextInt(ligne - 2) + 1;
-			y = rand.nextInt(colonne - 2) + 1;
-			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+		if (cassable == 100) {
+			for (int a = 1; a < ligne - 1; a++) {
+				for (int b = 1; b < colonne - 1; b++) {
+					if (get_element2(a, b, labyrinthe) instanceof Mur) {
+						Cassable m = new Cassable(a, b);
+						set_element3(a, b, m, labyrinthe);
+					}
+				}
+			}
+		} else {
+			while (count < nb_pour_cassable) {
 				x = rand.nextInt(ligne - 2) + 1;
 				y = rand.nextInt(colonne - 2) + 1;
+				while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+					x = rand.nextInt(ligne - 2) + 1;
+					y = rand.nextInt(colonne - 2) + 1;
+				}
+				Cassable m = new Cassable(x, y);
+				set_element3(x, y, m, labyrinthe);
+				count++;
 			}
-			Cassable m = new Cassable(x, y);
-			set_element3(x, y, m, labyrinthe);
-			count++;
 		}
 		count = 0;
 		int nb_pour_invisible = invisible * len_mur / 100;
-		while (count < nb_pour_invisible) {
-			x = rand.nextInt(ligne - 2) + 1;
-			y = rand.nextInt(colonne - 2) + 1;
-			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+		if (invisible == 100) {
+			for (int a = 1; a < ligne - 1; a++) {
+				for (int b = 1; b < colonne - 1; b++) {
+					if (get_element2(a, b, labyrinthe) instanceof Mur) {
+						Invisible m = new Invisible(a, b);
+						set_element3(a, b, m, labyrinthe);
+					}
+				}
+			}
+		} else {
+			while (count < nb_pour_invisible) {
 				x = rand.nextInt(ligne - 2) + 1;
 				y = rand.nextInt(colonne - 2) + 1;
+				while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+					x = rand.nextInt(ligne - 2) + 1;
+					y = rand.nextInt(colonne - 2) + 1;
+				}
+				Invisible m = new Invisible(x, y);
+				set_element3(x, y, m, labyrinthe);
+
+				count++;
 			}
-			Invisible m = new Invisible(x, y);
-			set_element3(x, y, m, labyrinthe);
-			count++;
 		}
 		count = 0;
 		int nb_pour_normal = normal * len_mur / 100;
@@ -470,6 +633,7 @@ public class Field {
 			}
 			Normal m = new Normal(x, y);
 			set_element3(x, y, m, labyrinthe);
+
 			count++;
 		}
 
@@ -479,32 +643,57 @@ public class Field {
 		int len_mur = mur.size();
 		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
-		//System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable, len_mur);
+		// System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable,
+		// len_mur);
 		int count = 0;
 		int x, y;
-		while (count < nb_pour_cassable) {
-			x = rand.nextInt(ligne);
-			y = rand.nextInt(colonne);
-			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+		if (cassable == 100) {
+			for (int a = 0; a < ligne; a++) {
+				for (int b = 0; b < colonne; b++) {
+					if (get_element2(a, b, labyrinthe) instanceof Mur) {
+						Cassable m = new Cassable(a, b);
+						set_element3(a, b, m, labyrinthe);
+					}
+				}
+			}
+		} else {
+			while (count < nb_pour_cassable) {
 				x = rand.nextInt(ligne);
 				y = rand.nextInt(colonne);
+				while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+					x = rand.nextInt(ligne);
+					y = rand.nextInt(colonne);
+				}
+				Cassable m = new Cassable(x, y);
+				set_element3(x, y, m, labyrinthe);
+
+				count++;
 			}
-			Cassable m = new Cassable(x, y);
-			set_element3(x, y, m, labyrinthe);
-			count++;
 		}
 		count = 0;
 		int nb_pour_invisible = invisible * len_mur / 100;
-		while (count < nb_pour_invisible) {
-			x = rand.nextInt(ligne);
-			y = rand.nextInt(colonne);
-			while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+		if (invisible == 100) {
+			for (int a = 0; a < ligne; a++) {
+				for (int b = 0; b < colonne; b++) {
+					if (get_element2(a, b, labyrinthe) instanceof Mur) {
+						Invisible m = new Invisible(a, b);
+						set_element3(a, b, m, labyrinthe);
+					}
+				}
+			}
+		} else {
+			while (count < nb_pour_invisible) {
 				x = rand.nextInt(ligne);
 				y = rand.nextInt(colonne);
+				while (!(get_element2(x, y, labyrinthe) instanceof Mur)) {
+					x = rand.nextInt(ligne);
+					y = rand.nextInt(colonne);
+				}
+				Invisible m = new Invisible(x, y);
+				set_element3(x, y, m, labyrinthe);
+
+				count++;
 			}
-			Invisible m = new Invisible(x, y);
-			set_element3(x, y, m, labyrinthe);
-			count++;
 		}
 		count = 0;
 		int nb_pour_normal = normal * len_mur / 100;
@@ -517,6 +706,7 @@ public class Field {
 			}
 			Normal m = new Normal(x, y);
 			set_element3(x, y, m, labyrinthe);
+
 			count++;
 		}
 
@@ -689,14 +879,19 @@ public class Field {
 //				int val = rdm.nextInt(2);
 //				set_element(i, cpt, e, new_labyrinthe);
 				for (int k = 0; k < l.size(); k++) {
-					set_element(i, cpt, l.get(k), new_labyrinthe);
+					Entity elem = l.get(k);
+					set_element(i, cpt, elem, new_labyrinthe);
+					elem.set_ligne(i);
+					elem.set_colonne(cpt);
+
 				}
 				cpt++;
 //				e = get_element(i, j, labyrinthe);
 				l = getElement(i, j);
 //				set_element(i, cpt, e, new_labyrinthe);
 				for (int k = 0; k < l.size(); k++) {
-					set_element(i, cpt, l.get(k), new_labyrinthe);
+					Entity elem = l.get(k);
+					set_element(i, cpt, newInstanceOf(elem, i, cpt), new_labyrinthe);
 				}
 				cpt++;
 			}
@@ -720,7 +915,10 @@ public class Field {
 				l = getElement(i, j);
 //				set_element(cpt, j, e, new_labyrinthe2);
 				for (int k = 0; k < l.size(); k++) {
-					set_element(cpt, j, l.get(k), new_labyrinthe2);
+					Entity elem = l.get(k);
+					set_element(cpt, j, elem, new_labyrinthe2);
+					elem.set_ligne(cpt);
+					elem.set_colonne(j);
 				}
 			}
 			cpt++;
@@ -730,7 +928,8 @@ public class Field {
 				l = getElement(i, j);
 //				set_element(cpt, j, e, new_labyrinthe2);
 				for (int k = 0; k < l.size(); k++) {
-					set_element(cpt, j, l.get(k), new_labyrinthe2);
+					Entity elem = l.get(k);
+					set_element(cpt, j, newInstanceOf(elem, cpt, j), new_labyrinthe2);
 				}
 			}
 			cpt++;
@@ -998,6 +1197,7 @@ public class Field {
 			}
 			Mine m = new Mine(x, y);
 			set_element2(x, y, m, labyrinthe);
+
 			count++;
 		}
 	}
@@ -1137,310 +1337,512 @@ public class Field {
 		int[] rv = new int[2];
 		rv[0] = e.ligne();
 		rv[1] = e.colonne();
-		if (d > 0) {
-			switch (d) {
-			case Direction.N:
-				rv[0]--;
-				break;
-			case Direction.S:
-				rv[0]++;
-				break;
-			case Direction.E:
-				rv[1]++;
-				break;
-			case Direction.W:
-				rv[1]--;
-				break;
-			case Direction.NE:
-				rv[0]--;
-				rv[1]++;
-				break;
-			case Direction.SE:
-				rv[0]--;
-				rv[1]++;
-				break;
-			case Direction.NW:
-				rv[0]++;
-				rv[1]--;
-				break;
-			case Direction.SW:
-				rv[0]++;
-				rv[1]--;
-				break;	
-			default :
-				break;
+		if (d != Direction.H) {
+			if (d > 0) {
+				switch (d) {
+				case Direction.N:
+					rv[0]--;
+					break;
+				case Direction.S:
+					rv[0]++;
+					break;
+				case Direction.E:
+					rv[1]++;
+					break;
+				case Direction.W:
+					rv[1]--;
+					break;
+				case Direction.NE:
+					rv[0]--;
+					rv[1]++;
+					break;
+				case Direction.SE:
+					rv[0]--;
+					rv[1]++;
+					break;
+				case Direction.NW:
+					rv[0]++;
+					rv[1]--;
+					break;
+				case Direction.SW:
+					rv[0]++;
+					rv[1]--;
+					break;
+				default:
+					break;
+				}
 			}
-			return rv;
+			if (rv[0] == e.ligne() && rv[1] == e.colonne()) {
+				switch (e.direction()) {
+				case Direction.N:
+					switch (d) {
+					case Direction.L:
+						rv[1]--;
+						break;
+					case Direction.R:
+						rv[1]++;
+						break;
+					case Direction.B:
+						rv[0]++;
+						break;
+					case Direction.F:
+						rv[0]--;
+						break;
+					case Direction.FR:
+						rv[1]++;
+						rv[0]--;
+						break;
+					case Direction.FL:
+						rv[1]--;
+						rv[0]--;
+						break;
+					case Direction.BR:
+						rv[1]++;
+						rv[0]++;
+						break;
+					case Direction.BL:
+						rv[1]--;
+						rv[0]++;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Direction.S:
+					switch (d) {
+					case Direction.L:
+						rv[1]++;
+						break;
+					case Direction.R:
+						rv[1]--;
+						break;
+					case Direction.B:
+						rv[0]--;
+						break;
+					case Direction.F:
+						rv[0]++;
+						break;
+					case Direction.FR:
+						rv[1]--;
+						rv[0]++;
+						break;
+					case Direction.FL:
+						rv[1]++;
+						rv[0]++;
+						break;
+					case Direction.BR:
+						rv[1]--;
+						rv[0]--;
+						break;
+					case Direction.BL:
+						rv[1]++;
+						rv[0]--;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Direction.E:
+					switch (d) {
+					case Direction.L:
+						rv[0]--;
+						break;
+					case Direction.R:
+						rv[0]++;
+						break;
+					case Direction.B:
+						rv[1]--;
+						break;
+					case Direction.F:
+						rv[1]++;
+						break;
+					case Direction.FR:
+						rv[1]++;
+						rv[0]++;
+						break;
+					case Direction.FL:
+						rv[1]++;
+						rv[0]--;
+						break;
+					case Direction.BR:
+						rv[1]--;
+						rv[0]++;
+						break;
+					case Direction.BL:
+						rv[1]--;
+						rv[0]--;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Direction.W:
+					switch (d) {
+					case Direction.L:
+						rv[0]++;
+						break;
+					case Direction.R:
+						rv[0]--;
+						break;
+					case Direction.B:
+						rv[1]++;
+						break;
+					case Direction.F:
+						rv[1]--;
+						break;
+					case Direction.FR:
+						rv[1]--;
+						rv[0]--;
+						break;
+					case Direction.FL:
+						rv[1]--;
+						rv[0]++;
+						break;
+					case Direction.BR:
+						rv[1]++;
+						rv[0]--;
+						break;
+					case Direction.BL:
+						rv[1]++;
+						rv[0]++;
+						break;
+					default:
+						break;
+					}
+					break;
+				default:
+					break;
+				}
+			}
 		}
-		if (d == Direction.H)
-			return rv;
-		switch (e.direction()) {
-		case Direction.N:
-			switch (d) {
-			case Direction.L:
-				rv[1]--;
-				break;
-			case Direction.R:
-				rv[1]++;
-				break;
-			case Direction.B:
-				rv[0]++;
-				break;
-			case Direction.F:
-				rv[0]--;
-				break;
-			case Direction.FR:
-				rv[1]++;
-				rv[0]--;
-				break;
-			case Direction.FL:
-				rv[1]--;
-				rv[0]--;
-				break;
-			case Direction.BR:
-				rv[1]++;
-				rv[0]++;
-				break;
-			case Direction.BL:
-				rv[1]--;
-				rv[0]++;
-				break;
-			default:
-				break;
-			}
-			break;
-		case Direction.S:
-			switch (d) {
-			case Direction.L:
-				rv[1]++;
-				break;
-			case Direction.R:
-				rv[1]--;
-				break;
-			case Direction.B:
-				rv[0]--;
-				break;
-			case Direction.F:
-				rv[0]++;
-				break;
-			case Direction.FR:
-				rv[1]--;
-				rv[0]++;
-				break;
-			case Direction.FL:
-				rv[1]++;
-				rv[0]++;
-				break;
-			case Direction.BR:
-				rv[1]--;
-				rv[0]--;
-				break;
-			case Direction.BL:
-				rv[1]++;
-				rv[0]--;
-				break;
-			default:
-				break;
-			}
-			break;
-		case Direction.E:
-			switch (d) {
-			case Direction.L:
-				rv[0]--;
-				break;
-			case Direction.R:
-				rv[0]++;
-				break;
-			case Direction.B:
-				rv[1]--;
-				break;
-			case Direction.F:
-				rv[1]++;
-				break;
-			case Direction.FR:
-				rv[1]++;
-				rv[0]++;
-				break;
-			case Direction.FL:
-				rv[1]++;
-				rv[0]--;
-				break;
-			case Direction.BR:
-				rv[1]--;
-				rv[0]++;
-				break;
-			case Direction.BL:
-				rv[1]--;
-				rv[0]--;
-				break;
-			default:
-				break;
-			}
-			break;
-		case Direction.W:
-			switch (d) {
-			case Direction.L:
-				rv[0]++;
-				break;
-			case Direction.R:
-				rv[0]--;
-				break;
-			case Direction.B:
-				rv[1]++;
-				break;
-			case Direction.F:
-				rv[1]--;
-				break;
-			case Direction.FR:
-				rv[1]--;
-				rv[0]--;
-				break;
-			case Direction.FL:
-				rv[1]--;
-				rv[0]++;
-				break;
-			case Direction.BR:
-				rv[1]++;
-				rv[0]--;
-				break;
-			case Direction.BL:
-				rv[1]++;
-				rv[0]++;
-				break;
-			default:
-				break;
-			}
-			break;
-		default:
-			break;
-		}
+		if (rv[0] < 0)
+			rv[0] = 0;
+		if (rv[0] >= ligne)
+			rv[0] = ligne - 1;
+		if (rv[1] < 0)
+			rv[1] = 0;
+		if (rv[1] >= colonne)
+			rv[1] = colonne - 1;
 		return rv;
 	}
-	
-	
+
 	public boolean presence_Bot_Joueur(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Joueur || liste.get(i) instanceof Squelette || liste.get(i) instanceof Zombie) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Joueur || liste.get(i) instanceof Squelette || liste.get(i) instanceof Zombie) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_clue(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Interrupteur) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Interrupteur) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_danger(LinkedList<Entity> liste) {
 		boolean v = false;
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Fleche || liste.get(i) instanceof Mine || liste.get(i) instanceof Sable) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Fleche || liste.get(i) instanceof Mine || liste.get(i) instanceof Sable) {
 				return true;
 			}
 		}
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Void) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Void) {
 				v = true;
 			}
 		}
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Lave && v == false) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Lave && v == false) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_gate(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Teleporteur || liste.get(i) instanceof Invisible) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Teleporteur || liste.get(i) instanceof Invisible) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_wizz(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof WizzEntity) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof WizzEntity) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_pop(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof PopEntity) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof PopEntity) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_obstacle(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Cassable || liste.get(i) instanceof Normal || (liste.get(i) instanceof Porte && liste.get(i).category == Categorie.O)) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Cassable || liste.get(i) instanceof Normal
+					|| (liste.get(i) instanceof Porte && liste.get(i).category == Categorie.O)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_pickable(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Apple || liste.get(i) instanceof Arc || liste.get(i) instanceof Bombe || liste.get(i) instanceof Epee || liste.get(i) instanceof Pioche || liste.get(i) instanceof Potion) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Apple || liste.get(i) instanceof Arc || liste.get(i) instanceof Bombe
+					|| liste.get(i) instanceof Epee || liste.get(i) instanceof Pioche
+					|| liste.get(i) instanceof Potion) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_void(LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Void) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Void) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_Arobase(Entity en, LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Joueur && en.team == liste.get(i).team) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Joueur && en.team == liste.get(i).team) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_Diese(Entity en, LinkedList<Entity> liste) {
-		for(int i = 0; i<liste.size(); i++) {
-			if(liste.get(i) instanceof Joueur && en.team != liste.get(i).team) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Joueur && en.team != liste.get(i).team) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean presence_Tiret(LinkedList<Entity> liste) {
-		if(liste.getLast() instanceof Selection) {
-			if(liste.get(liste.size()-2) instanceof Void) {
+		if (liste.getLast() instanceof Selection) {
+			if (liste.get(liste.size() - 2) instanceof Void) {
 				return true;
 			}
-		}
-		else if (liste.getLast() instanceof Void){
+		} else if (liste.getLast() instanceof Void) {
 			return true;
 		}
 		return false;
 	}
-	
-	
+
+	public boolean presence_Selection(LinkedList<Entity> liste) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Selection) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public int[] next_to_outside(Entity e, int d) {
+		int[] rv = new int[2];
+		rv[0] = e.ligne();
+		rv[1] = e.colonne();
+		if (d != Direction.H) {
+			if (d > 0) {
+				switch (d) {
+				case Direction.N:
+					rv[0]--;
+					break;
+				case Direction.S:
+					rv[0]++;
+					break;
+				case Direction.E:
+					rv[1]++;
+					break;
+				case Direction.W:
+					rv[1]--;
+					break;
+				case Direction.NE:
+					rv[0]--;
+					rv[1]++;
+					break;
+				case Direction.SE:
+					rv[0]--;
+					rv[1]++;
+					break;
+				case Direction.NW:
+					rv[0]++;
+					rv[1]--;
+					break;
+				case Direction.SW:
+					rv[0]++;
+					rv[1]--;
+					break;
+				default:
+					break;
+				}
+			}
+			if (rv[0] == e.ligne() && rv[1] == e.colonne()) {
+				switch (e.direction()) {
+				case Direction.N:
+					switch (d) {
+					case Direction.L:
+						rv[1]--;
+						break;
+					case Direction.R:
+						rv[1]++;
+						break;
+					case Direction.B:
+						rv[0]++;
+						break;
+					case Direction.F:
+						rv[0]--;
+						break;
+					case Direction.FR:
+						rv[1]++;
+						rv[0]--;
+						break;
+					case Direction.FL:
+						rv[1]--;
+						rv[0]--;
+						break;
+					case Direction.BR:
+						rv[1]++;
+						rv[0]++;
+						break;
+					case Direction.BL:
+						rv[1]--;
+						rv[0]++;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Direction.S:
+					switch (d) {
+					case Direction.L:
+						rv[1]++;
+						break;
+					case Direction.R:
+						rv[1]--;
+						break;
+					case Direction.B:
+						rv[0]--;
+						break;
+					case Direction.F:
+						rv[0]++;
+						break;
+					case Direction.FR:
+						rv[1]--;
+						rv[0]++;
+						break;
+					case Direction.FL:
+						rv[1]++;
+						rv[0]++;
+						break;
+					case Direction.BR:
+						rv[1]--;
+						rv[0]--;
+						break;
+					case Direction.BL:
+						rv[1]++;
+						rv[0]--;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Direction.E:
+					switch (d) {
+					case Direction.L:
+						rv[0]--;
+						break;
+					case Direction.R:
+						rv[0]++;
+						break;
+					case Direction.B:
+						rv[1]--;
+						break;
+					case Direction.F:
+						rv[1]++;
+						break;
+					case Direction.FR:
+						rv[1]++;
+						rv[0]++;
+						break;
+					case Direction.FL:
+						rv[1]++;
+						rv[0]--;
+						break;
+					case Direction.BR:
+						rv[1]--;
+						rv[0]++;
+						break;
+					case Direction.BL:
+						rv[1]--;
+						rv[0]--;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Direction.W:
+					switch (d) {
+					case Direction.L:
+						rv[0]++;
+						break;
+					case Direction.R:
+						rv[0]--;
+						break;
+					case Direction.B:
+						rv[1]++;
+						break;
+					case Direction.F:
+						rv[1]--;
+						break;
+					case Direction.FR:
+						rv[1]--;
+						rv[0]--;
+						break;
+					case Direction.FL:
+						rv[1]--;
+						rv[0]++;
+						break;
+					case Direction.BR:
+						rv[1]++;
+						rv[0]--;
+						break;
+					case Direction.BL:
+						rv[1]++;
+						rv[0]++;
+						break;
+					default:
+						break;
+					}
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		return rv;
+	}
 
 	public boolean cell(Entity e, int dir, int cat) {
 		int[] coo = next_to(e, dir);
@@ -1453,103 +1855,89 @@ public class Field {
 		if (elem.getLast() instanceof Selection)
 			taille--;
 		switch (cat) {
-		case Categorie.A :
-			if(presence_Bot_Joueur(elem)) {
+		case Categorie.A:
+			if (presence_Bot_Joueur(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.C :
-			if(presence_clue(elem)) {
+		case Categorie.C:
+			if (presence_clue(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.D :
-			if(presence_danger(elem)) {
+		case Categorie.D:
+			if (presence_danger(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.G :
-			if(presence_gate(elem)) {
+		case Categorie.G:
+			if (presence_gate(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.J :
-			if(presence_wizz(elem)) {
+		case Categorie.J:
+			if (presence_wizz(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.M :
-			if(presence_pop(elem)) {
+		case Categorie.M:
+			if (presence_pop(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.O :
-			if(presence_obstacle(elem)) {
+		case Categorie.O:
+			if (presence_obstacle(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.P :
-			if(presence_pickable(elem)) {
+		case Categorie.P:
+			if (presence_pickable(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.V :
-			if(presence_void(elem)) {
+		case Categorie.V:
+			if (presence_void(elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.Arobase :
-			if(presence_Arobase(e, elem)) {
+		case Categorie.Arobase:
+			if (presence_Arobase(e, elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.Diese :
-			if(presence_Diese(e, elem)) {
+		case Categorie.Diese:
+			if (presence_Diese(e, elem)) {
 				return true;
 			}
 			return false;
-		case Categorie.Tiret :
-			if(presence_Tiret(elem)) {
+		case Categorie.Tiret:
+			if (presence_Tiret(elem)) {
 				return false;
 			}
 			return true;
+		case Categorie.T:
+			if (presence_Selection(elem)) {
+				return true;
+			}
+			return false;
 		default:
 			return false;
 		}
-		
-		
-		/*Entity lastelem = elem.get(ilastelem);
-		if (lastelem.equals(e))
-			lastelem = elem.get(ilastelem-1);
-		int catlast = lastelem.category();
-		switch (cat) {
-		case Categorie.A:
-			if (e.team() != lastelem.team())
-				return true;
-			return false;
-		case Categorie.T:
-			if (lastelem.team() == e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
-				return false;
-			if (lastelem.team() == e.team())
-				return true;
-			return false;
-		case Categorie.Tiret:
-			if (lastelem.category() == Categorie.V)
-				return false;
-			return true;
-		case Categorie.Arobase:
-			if (lastelem.team() == e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
-				return true;
-			return false;
-		case Categorie.Diese:
-			if (lastelem.team() != e.team() && (catlast == Categorie.Arobase || catlast == Categorie.Diese))
-				return true;
-			return false;
-		default:
-			if (lastelem.category() == cat)
-				return true;
-			return false;
-		}*/
+
+		/*
+		 * Entity lastelem = elem.get(ilastelem); if (lastelem.equals(e)) lastelem =
+		 * elem.get(ilastelem-1); int catlast = lastelem.category(); switch (cat) { case
+		 * Categorie.A: if (e.team() != lastelem.team()) return true; return false; case
+		 * Categorie.T: if (lastelem.team() == e.team() && (catlast == Categorie.Arobase
+		 * || catlast == Categorie.Diese)) return false; if (lastelem.team() ==
+		 * e.team()) return true; return false; case Categorie.Tiret: if
+		 * (lastelem.category() == Categorie.V) return false; return true; case
+		 * Categorie.Arobase: if (lastelem.team() == e.team() && (catlast ==
+		 * Categorie.Arobase || catlast == Categorie.Diese)) return true; return false;
+		 * case Categorie.Diese: if (lastelem.team() != e.team() && (catlast ==
+		 * Categorie.Arobase || catlast == Categorie.Diese)) return true; return false;
+		 * default: if (lastelem.category() == cat) return true; return false; }
+		 */
 	}
 
 	public void add(Entity e, int ligne, int colonne) {
@@ -1564,7 +1952,7 @@ public class Field {
 			return;
 		} else {
 			if (elem.layer() > e.layer())
-				l_entity.add(cpt-1, e);
+				l_entity.add(cpt - 1, e);
 			else
 				l_entity.add(cpt, e);
 		}
@@ -1593,7 +1981,7 @@ public class Field {
 	}
 
 	public Entity getLastnotSelect(int ligne, int colonne) {
-		LinkedList<Entity> l_entity = getElement(ligne, colonne);
+		LinkedList<Entity> l_entity = getElement(ligne, colonne - 1 );
 		Entity elem = l_entity.get(0);
 		int taille = l_entity.size();
 		Entity select = l_entity.getLast();
@@ -1621,45 +2009,518 @@ public class Field {
 		return l_class;
 	}
 
+	public boolean hasSameLayer(int ligne, int colonne, int layer) {
+		LinkedList<Entity> l_entity = getElement(ligne, colonne);
+		Entity elem;
+		for (int i = 0; i < l_entity.size(); i++) {
+			elem = l_entity.get(i);
+			if (elem.layer() == layer) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean isHerePossible(int ligne, int colonne, Entity e) {
 		Entity here = getLastnotSelect(ligne, colonne);
-		if (here.layer() < e.layer())
+		String classnamelong = e.getClass().getName();
+		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".") + 1, classnamelong.length());
+		switch (classname) {
+		case "Joueur":
+		case "Zombie":
+		case "Squelette":
+			if (here instanceof Void) {
+				return true;
+			} else if (here instanceof Invisible) {
+				return !hasSameLayer(ligne, colonne, e.layer());
+			}
+			return false;
+		case "Sable":
+			if (here instanceof Void) {
+				return true;
+			} else if (here.category() == Categorie.P || here instanceof Mine) {
+				remove(ligne, colonne, here);
+				return true;
+			}
+			return false;
+		case "Mine":
+		case "Pioche":
+		case "Apple":
+		case "Potion":
+		case "Bombe":
+		case "Epee":
+		case "Arc":
+			if (here instanceof Void) {
+				return true;
+			} else if (here instanceof Cassable || here instanceof Invisible) {
+				return !hasSameLayer(ligne, colonne, e.layer());
+			}
+			return false;
+		case "Porte":
+		case "Interrupteur":
+			if (here instanceof Void) {
+				boolean valid = false;
+				Pair<Integer, Integer> p;
+				for (int i = 0; i < l_void.size(); i++) {
+					p = l_void.get(i);
+					if (p.geto1() != ligne && p.geto2() != colonne) {
+						if (getLastnotSelect(p.geto1(), p.geto2()) instanceof Void) {
+							valid = true;
+							break;
+						}
+					}
+				}
+				return valid;
+			}
+			return false;
+		case "Invisible":
+			if (here instanceof Invisible) {
+				return false;
+			}
 			return true;
+		case "Normal":
+			if (here instanceof Void) {
+				// /!\ si on est en dehors du terrain
+				LinkedList<Entity> l_entityN = getElement(ligne - 1, colonne);
+				LinkedList<Entity> l_entityE = getElement(ligne, colonne + 1);
+				LinkedList<Entity> l_entityS = getElement(ligne + 1, colonne);
+				LinkedList<Entity> l_entityW = getElement(ligne, colonne - 1);
+				LinkedList<Entity> l_entityNW = getElement(ligne - 1, colonne - 1);
+				LinkedList<Entity> l_entityNE = getElement(ligne - 1, colonne + 1);
+				LinkedList<Entity> l_entitySE = getElement(ligne + 1, colonne + 1);
+				LinkedList<Entity> l_entitySW = getElement(ligne + 1, colonne - 1);
+				Entity elem;
+				boolean MurN = false;
+				boolean MurE = false;
+				boolean MurS = false;
+				boolean MurW = false;
+				boolean MurNE = false;
+				boolean MurSE = false;
+				boolean MurSW = false;
+				boolean MurNW = false;
+				for (int i = 0; i < l_entityN.size(); i++) {
+					elem = l_entityN.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurN = true;
+					}
+				}
+				for (int i = 0; i < l_entityS.size(); i++) {
+					elem = l_entityS.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurS = true;
+					}
+				}
+				if (MurN && MurS) {
+					return true;
+				}
+				for (int i = 0; i < l_entityE.size(); i++) {
+					elem = l_entityE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurE = true;
+					}
+				}
+				for (int i = 0; i < l_entityW.size(); i++) {
+					elem = l_entityW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurW = true;
+					}
+				}
+				if (MurE && MurW) {
+					return true;
+				}
+				for (int i = 0; i < l_entityNE.size(); i++) {
+					elem = l_entityNE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurNE = true;
+					}
+				}
+				for (int i = 0; i < l_entityNW.size(); i++) {
+					elem = l_entityNW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurNW = true;
+					}
+				}
+				if (MurNE && MurNW) {
+					return true;
+				}
+				for (int i = 0; i < l_entitySE.size(); i++) {
+					elem = l_entitySE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurSE = true;
+					}
+				}
+				if (MurNE && MurSE) {
+					return true;
+				}
+				for (int i = 0; i < l_entitySW.size(); i++) {
+					elem = l_entitySW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurSW = true;
+					}
+				}
+				if (MurSW && MurSE || MurNW && MurSW) {
+					return true;
+				}
+			}
+			return false;
+		case "Cassable":
+			if (here instanceof Void) {
+				// /!\ si on est en dehors du terrain
+				LinkedList<Entity> l_entityN = getElement(ligne - 1, colonne);
+				LinkedList<Entity> l_entityE = getElement(ligne, colonne + 1);
+				LinkedList<Entity> l_entityS = getElement(ligne + 1, colonne);
+				LinkedList<Entity> l_entityW = getElement(ligne, colonne - 1);
+				LinkedList<Entity> l_entityNW = getElement(ligne - 1, colonne - 1);
+				LinkedList<Entity> l_entityNE = getElement(ligne - 1, colonne + 1);
+				LinkedList<Entity> l_entitySE = getElement(ligne + 1, colonne + 1);
+				LinkedList<Entity> l_entitySW = getElement(ligne + 1, colonne - 1);
+				Entity elem;
+				boolean MurN = false;
+				boolean MurE = false;
+				boolean MurS = false;
+				boolean MurW = false;
+				boolean MurNE = false;
+				boolean MurSE = false;
+				boolean MurSW = false;
+				boolean MurNW = false;
+				for (int i = 0; i < l_entityN.size(); i++) {
+					elem = l_entityN.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurN = true;
+					}
+				}
+				for (int i = 0; i < l_entityS.size(); i++) {
+					elem = l_entityS.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurS = true;
+					}
+				}
+				if (MurN && MurS) {
+					return true;
+				}
+				for (int i = 0; i < l_entityE.size(); i++) {
+					elem = l_entityE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurE = true;
+					}
+				}
+				for (int i = 0; i < l_entityW.size(); i++) {
+					elem = l_entityW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurW = true;
+					}
+				}
+				if (MurE && MurW) {
+					return true;
+				}
+				for (int i = 0; i < l_entityNE.size(); i++) {
+					elem = l_entityNE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurNE = true;
+					}
+				}
+				for (int i = 0; i < l_entityNW.size(); i++) {
+					elem = l_entityNW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurNW = true;
+					}
+				}
+				if (MurNE && MurNW) {
+					return true;
+				}
+				for (int i = 0; i < l_entitySE.size(); i++) {
+					elem = l_entitySE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurSE = true;
+					}
+				}
+				if (MurNE && MurSE) {
+					return true;
+				}
+				for (int i = 0; i < l_entitySW.size(); i++) {
+					elem = l_entitySW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurSW = true;
+					}
+				}
+				if (MurSW && MurSE || MurNW && MurSW) {
+					return true;
+				}
+			} else if (here instanceof Mine || here.category() == Categorie.P) {
+				// /!\ si on est en dehors du terrain
+				LinkedList<Entity> l_entityN = getElement(ligne - 1, colonne);
+				LinkedList<Entity> l_entityE = getElement(ligne, colonne + 1);
+				LinkedList<Entity> l_entityS = getElement(ligne + 1, colonne);
+				LinkedList<Entity> l_entityW = getElement(ligne, colonne - 1);
+				LinkedList<Entity> l_entityNW = getElement(ligne - 1, colonne - 1);
+				LinkedList<Entity> l_entityNE = getElement(ligne - 1, colonne + 1);
+				LinkedList<Entity> l_entitySE = getElement(ligne + 1, colonne + 1);
+				LinkedList<Entity> l_entitySW = getElement(ligne + 1, colonne - 1);
+				Entity elem;
+				boolean MurN = false;
+				boolean MurE = false;
+				boolean MurS = false;
+				boolean MurW = false;
+				boolean MurNE = false;
+				boolean MurSE = false;
+				boolean MurSW = false;
+				boolean MurNW = false;
+				for (int i = 0; i < l_entityN.size(); i++) {
+					elem = l_entityN.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurN = true;
+					}
+				}
+				for (int i = 0; i < l_entityS.size(); i++) {
+					elem = l_entityS.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurS = true;
+					}
+				}
+				if (MurN && MurS) {
+					return !hasSameLayer(ligne, colonne, e.layer());
+				}
+				for (int i = 0; i < l_entityE.size(); i++) {
+					elem = l_entityE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurE = true;
+					}
+				}
+				for (int i = 0; i < l_entityW.size(); i++) {
+					elem = l_entityW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurW = true;
+					}
+				}
+				if (MurE && MurW) {
+					return !hasSameLayer(ligne, colonne, e.layer());
+				}
+				for (int i = 0; i < l_entityNE.size(); i++) {
+					elem = l_entityNE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurNE = true;
+					}
+				}
+				for (int i = 0; i < l_entityNW.size(); i++) {
+					elem = l_entityNW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurNW = true;
+					}
+				}
+				if (MurNE && MurNW) {
+					return !hasSameLayer(ligne, colonne, e.layer());
+				}
+				for (int i = 0; i < l_entitySE.size(); i++) {
+					elem = l_entitySE.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurSE = true;
+					}
+				}
+				if (MurNE && MurSE) {
+					return !hasSameLayer(ligne, colonne, e.layer());
+				}
+				for (int i = 0; i < l_entitySW.size(); i++) {
+					elem = l_entitySW.get(i);
+					if (elem instanceof Normal || elem instanceof Cassable) {
+						MurSW = true;
+					}
+				}
+				if (MurSW && MurSE || MurNW && MurSW) {
+					return !hasSameLayer(ligne, colonne, e.layer());
+				}
+			}
+			return false;
+		case "Fleche":
+			if (here instanceof Void || here instanceof Sable || here instanceof Mine || here.category() == Categorie.P
+					|| here.layer() == 0) {
+				return true;
+			}
+			return false;
+		case "Lave":
+		case "Teleporteur":
+			if (here instanceof Void) {
+				remove(ligne, colonne, here);
+				return true;
+			}
+			return false;
+		}
 		return false;
 	}
 
 	public ArrayList<Object> get_labyrinthe() {
 		return this.labyrinthe;
 	}
-	
-	public LinkedList<LinkedList<Entity>> getAround(int ligne, int colonne){
+
+	public LinkedList<LinkedList<Entity>> getAround(int ligne, int colonne) {
 		LinkedList<LinkedList<Entity>> l_around = new LinkedList<LinkedList<Entity>>();
-		l_around.addLast(getElement(ligne-1, colonne));
-		l_around.addLast(getElement(ligne-1, colonne+1));
-		l_around.addLast(getElement(ligne, colonne+1));
-		l_around.addLast(getElement(ligne+1, colonne+1));
-		l_around.addLast(getElement(ligne+1, colonne));
-		l_around.addLast(getElement(ligne+1, colonne-1));
-		l_around.addLast(getElement(ligne, colonne-1));
-		l_around.addLast(getElement(ligne-1, colonne-1));
+		l_around.addLast(getElement(ligne - 1, colonne));
+		l_around.addLast(getElement(ligne - 1, colonne + 1));
+		l_around.addLast(getElement(ligne, colonne + 1));
+		l_around.addLast(getElement(ligne + 1, colonne + 1));
+		l_around.addLast(getElement(ligne + 1, colonne));
+		l_around.addLast(getElement(ligne + 1, colonne - 1));
+		l_around.addLast(getElement(ligne, colonne - 1));
+		l_around.addLast(getElement(ligne - 1, colonne - 1));
 		return l_around;
 	}
-	
-	public LinkedList<Entity> ListEntity(Class<?> c){
+
+	public LinkedList<Entity> ListEntity(Class<?> c) {
 		LinkedList<Entity> l_entity = new LinkedList<Entity>();
 		LinkedList<Entity> elem;
 		Entity entity;
-		for(int i=0; i<ligne; i++) {
-			for(int j=0; j<colonne; j++) {
-				elem = getElement(i,j);
-				for(int k=0; k<elem.size(); k++) {
-					entity = elem.get(i);
-					if(c.isInstance(entity)) {
+		for (int i = 0; i < ligne; i++) {
+			for (int j = 0; j < colonne; j++) {
+				elem = getElement(i, j);
+				for (int k = 0; k < elem.size(); k++) {
+					entity = elem.get(k);
+					if (c.isInstance(entity)) {
 						l_entity.add(entity);
 					}
 				}
 			}
 		}
 		return l_entity;
+	}
+
+	public Entity newInstanceOf(Entity e, int ligne, int colonne) {
+		String classnamelong = e.getClass().getName();
+		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".") + 1, classnamelong.length());
+		switch (classname) {
+		case "Joueur":
+			return new Joueur(ligne, colonne, e.team());
+		case "Zombie":
+			return new Zombie(ligne, colonne);
+		case "Squelette":
+			return new Squelette(ligne, colonne);
+		case "Sable":
+			return new Sable(ligne, colonne);
+		case "Mine":
+			return new Mine(ligne, colonne);
+		case "Pioche":
+			return new Pioche(ligne, colonne);
+		case "Apple":
+			return new Apple(ligne, colonne);
+		case "Potion":
+			return new Potion(ligne, colonne);
+		case "Bombe":
+			return new Bombe(ligne, colonne);
+		case "Epee":
+			return new Epee(ligne, colonne);
+		case "Arc":
+			return new Arc(ligne, colonne);
+		case "Porte":
+			return new Porte(ligne, colonne);
+		case "Interrupteur":
+			return new Interrupteur(ligne, colonne, ((Interrupteur) e).get_entity());
+		case "Normal":
+			return new Normal(ligne, colonne);
+		case "Cassable":
+			return new Cassable(ligne, colonne);
+		case "Fleche":
+			return new Fleche(ligne, colonne, e.direction());
+		case "Lave":
+			return new Lave(ligne, colonne);
+		case "Teleporteur":
+			return new Teleporteur(ligne, colonne);
+		case "Invisible":
+			return new Invisible(ligne, colonne);
+		case "Selection":
+			return new Selection(ligne, colonne);
+		case "Void":
+			return new Void(ligne, colonne);
+		default:
+			return null;
+		}
+	}
+
+	/*
+	 * -1 : partie perdue 0 : partie pas finie
+	 */
+
+
+
+	/* -1 : partie perdue
+	 * 0 : partie pas finie
+	 * 1 : partie gagnée
+	 */ 
+
+	public int endGame() {
+//		LinkedList<Entity> l_player = new LinkedList<Entity>();
+		LinkedList<Entity> l_entity = new LinkedList<Entity>();
+//		l_player = ListEntity(Joueur.class);
+//		Entity elem_player;
+		Entity elem;
+//		boolean exit1 = false;
+//		boolean exit2 = false;
+//		// si il n'y a plus de joueur sur le terrain
+//		if(l_player == null || l_player.size() == 0) {
+//			return -1;
+//		}
+//		int cpt = 0;
+//		for(int i=0; i<l_player.size(); i++) {
+//			elem_player = l_player.get(i);
+//			if(elem_player.ligne() == ligne -4 && elem_player.colonne() == colonne -1) {
+//				exit1 = true;
+//			} else if(elem_player.ligne() == ligne -3 && elem_player.colonne() == colonne -1) {
+//				exit2 = true;
+//			}
+//			// les joueurs sont sortis
+//			if(exit1 && exit2) {
+//				return 1;
+//			}
+//			l_entity = getElement(elem_player.ligne(), elem_player.colonne());
+//			for(int j=0; j<l_entity.size(); j++) {
+//				elem = l_entity.get(j);
+//				if(elem instanceof Sable) {
+//					cpt++;
+//				}
+//			}
+//		}
+//		// si tous les joueurs sont dans des sables mouvants
+//		if(cpt == l_player.size()) {
+//			return -1;
+//		}
+//		
+		// faire cas avec fin du compte à rebours
+		fillBomb();
+		Entity bombe = null;
+		for (int i = 2; i < ligne - 1; i++) {
+			for (int j = 1; j < colonne - 1; j++) {
+				l_entity = getElement(i, j);
+				for (int k = 0; k < l_entity.size(); k++) {
+					elem = l_entity.get(k);
+					if (elem instanceof Bombe) {
+						bombe = elem;
+//						Explode ex = new Explode(this);
+//						ex.exec(bombe);
+						return 999;
+					}
+				}
+			}
+		}
+		return 0;
+	}
+
+	public void fillBomb() {
+		LinkedList<Entity> l_entity;
+		Entity elem;
+		for (int i = 0; i < ligne - 1; i++) {
+			for (int j = 0; j < colonne - 1; j++) {
+				l_entity = getElement(i, j);
+				for (int k = 0; k < l_entity.size(); k++) {
+					elem = l_entity.get(k);
+					if (elem instanceof Normal) {
+						break;
+					}
+					if (elem.layer() == 2) {
+						remove(elem.ligne(), elem.colonne(), elem);
+						add(new Bombe(elem.ligne(), elem.colonne()), elem.ligne(), elem.colonne());
+						break;
+					}
+				}
+				add(new Bombe(l_entity.getFirst().ligne(), l_entity.getFirst().colonne()), l_entity.getFirst().ligne(),
+						l_entity.getFirst().colonne());
+			}
+		}
 	}
 }

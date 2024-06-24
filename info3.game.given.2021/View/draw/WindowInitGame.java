@@ -4,8 +4,11 @@ import javax.swing.*;
 
 import Automates.Automate;
 import Automates.AutomatonLoader;
+import Labyrinthe.Entity;
 import Labyrinthe.Field;
 import Labyrinthe.Joueur;
+import Labyrinthe.Mine;
+import controller.End;
 import controller.KeyPressed;
 import controller.TicTac;
 import controller.TickListener;
@@ -14,6 +17,7 @@ import listener.Key_Listener;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -22,7 +26,7 @@ import java.util.Random;
  */
 public class WindowInitGame extends JFrame {
 
-	public static int T_case = 40;
+	public static int T_case = 60;
 
 	private static final long serialVersionUID = 1L;
 
@@ -94,6 +98,7 @@ public class WindowInitGame extends JFrame {
 	public void initGame() throws IOException {
 
 		// initialisation de la grille
+
 		Field terrain = new Field(JSONWindow.hauteur, JSONWindow.largeur, JSONWindow.densite, JSONWindow.d_pickable,
 				JSONWindow.d_mine, JSONWindow.d_pomme, JSONWindow.d_potion, JSONWindow.d_pioche, JSONWindow.d_bombe,
 				JSONWindow.d_cassable, JSONWindow.d_invisible, JSONWindow.d_normal, JSONWindow.nb_obstacles,
@@ -108,24 +113,36 @@ public class WindowInitGame extends JFrame {
 		terrain.add(j2, 3, 0);
 		// terrain.printGame();
 
-		// ajout d'un automate
-		AutomatonLoader al = new AutomatonLoader(terrain, kp);
-		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/test_cond.gal");
-
 		// Initialisation de la fenêtre
 		DrawWindow w = new DrawWindow(terrain.get_colonne(), terrain.get_ligne(), terrain, T_case,
 				JSONWindow.visibility, j1, j2);
 
 		Viewport v1 = new Viewport(w.get_dt1(), T_case, JSONWindow.visibility);
 		Viewport v2 = new Viewport(w.get_dt2(), T_case, JSONWindow.visibility);
+		
+		End e = new End(terrain, j1, j2, w.get_invent());
 
 		TickListener tl = new TickListener(terrain);
-		TicTac tt = new TicTac(tl, j1, j2, v1, v2);
+		TicTac tt = new TicTac(tl, j1, j2, v1, v2, e);
 		tt.add_window(w);
 
 		w.init_Window(v1, v2, w.get_invent(), tt);
 		v1.centrerViewport(j1);
 		v2.centrerViewport(j2);
+		
+		LinkedList<Entity> l_mine = terrain.get_mine();
+		LinkedList<Entity> l_zombie = terrain.get_zombie();
+		LinkedList<Entity> l_squelette = terrain.get_squelette();
+		LinkedList<Entity> l_tp = terrain.get_teleporteur();
+		LinkedList<Entity> l_levier = terrain.get_interrupteur();
+		LinkedList<Entity> l_normal = terrain.get_normal();
+		LinkedList<Entity> l_cassable = terrain.get_cassable();
+		LinkedList<Entity> l_invisible = terrain.get_invisible();
+		LinkedList<Entity> l_sable = terrain.get_sable();
+
+		// ajout d'un automate
+		AutomatonLoader al = new AutomatonLoader(terrain, kp, tl);
+		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/test_cond.gal");
 
 		// création du lien entre Entity et Automate
 		for (int i = 0; i < l_aut.size(); i++) {
@@ -136,7 +153,44 @@ public class WindowInitGame extends JFrame {
 				tl.add(l_aut.get(i), j1); // automate attribué à j1
 			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_j2)) {
 				tl.add(l_aut.get(i), j2);
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_mine)) {
+				Iterator<Entity> iter = l_mine.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_zombie)) {
+				Iterator<Entity> iter = l_zombie.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_squelette)) {
+				Iterator<Entity> iter = l_squelette.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_teleporteur)) {
+				Iterator<Entity> iter = l_tp.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_interrupteur)) {
+				Iterator<Entity> iter = l_levier.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_normal)) {
+				Iterator<Entity> iter = l_normal.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_cassable)) {
+				Iterator<Entity> iter = l_cassable.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_invisible)) {
+				Iterator<Entity> iter = l_invisible.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
+			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_sable)) {
+				Iterator<Entity> iter = l_sable.iterator();
+				while (iter.hasNext())
+					tl.add(l_aut.get(i), iter.next());
 			}
+
 		}
 
 		// ajout d'un Keylistener

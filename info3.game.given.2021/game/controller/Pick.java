@@ -8,9 +8,11 @@ import Labyrinthe.Joueur;
 public class Pick implements IAction {
 
 	private Field terrain;
+	private TickListener tl;
 
-	public Pick(Field terrain) {
+	public Pick(Field terrain, TickListener tl) {
 		this.terrain = terrain;
+		this.tl = tl;
 	}
 
 	@Override
@@ -20,6 +22,12 @@ public class Pick implements IAction {
 		if (pick != null && success)
 			terrain.remove(e.ligne(), e.colonne(), pick);
 
+	}
+
+	@Override
+	public String toString() {
+		String s = "Pick";
+		return s;
 	}
 
 }

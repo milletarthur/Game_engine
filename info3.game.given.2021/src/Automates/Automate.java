@@ -11,7 +11,7 @@ public class Automate {
 	protected LinkedList<TransitionAutomate> Transitions;
 	//protected LinkedList<State> States;
 	//protected State Init;
-	protected State Current;
+	protected State Init;
 	
 	public Automate() {
 		Transitions = new LinkedList<TransitionAutomate>();
@@ -19,7 +19,7 @@ public class Automate {
 	
 	public Automate(State c, LinkedList<TransitionAutomate> t) {
 		Transitions = t;
-		Current = c;
+		Init = c;
 	}
 	
 	public void add_transition (TransitionAutomate t) {
@@ -30,8 +30,12 @@ public class Automate {
 		name = n;
 	}
 	
-	public void change_current(State s) {
-		Current = s;
+	public void change_init(State s) {
+		Init = s;
+	}
+	
+	public State getInit() {
+		return this.Init;
 	}
 	
 	public String get_name() {
@@ -42,11 +46,20 @@ public class Automate {
 		Iterator<TransitionAutomate> iter = Transitions.iterator();
 		while(iter.hasNext()) {
 			TransitionAutomate trans = iter.next();
-			if (Current.equals(trans.getSource()) && trans.CheckCondition(e)) {
-				Current = trans.getCible();
+			if (e.getCurrent().equals(trans.getSource()) && trans.CheckCondition(e)) {
+				e.setCurrent(trans.getCible());
 				trans.doActions(e);
 				return;
 			}
 		}
+	}
+	
+	public String toString() {
+		String rv ="Name : " + name +"; " + "Init State : " + Init.getName() + " ; ";
+		Iterator<TransitionAutomate> i = Transitions.iterator();
+		while(i.hasNext()) {
+			rv += i.next().toString();
+		}
+		return rv;
 	}
 }

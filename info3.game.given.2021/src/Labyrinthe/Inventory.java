@@ -1,5 +1,6 @@
 package Labyrinthe;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Inventory {
@@ -44,16 +45,28 @@ public class Inventory {
 
 	public void NextCurrentJ1() {
 		int len = inventory.size();
-		int i = inventory.indexOf(current_j1);
-		i = (i + 1) % len;
-		current_j1 = inventory.get(i);
+		if (current_j1 == null) {
+			current_j1 = inventory.get(0);
+			System.out.print("proutj1");
+		} else {
+			int i = inventory.indexOf(current_j1);
+			i = (i + 1) % len;
+			current_j1 = inventory.get(i);
+			System.out.print("lolj1");
+		}
 	}
 
 	public void NextCurrentJ2() {
 		int len = inventory.size();
-		int i = inventory.indexOf(current_j2);
-		i = (i + 1) % len;
-		current_j2 = inventory.get(i);
+		if (current_j2 == null) { 
+			current_j2 = inventory.get(0);
+			System.out.println("proutj2");
+		} else {
+			int i = inventory.indexOf(current_j2);
+			i = (i + 1) % len;
+			current_j2 = inventory.get(i);
+			System.out.println("lolj2");
+		}
 	}
 
 	public Entity popJ1() {
@@ -70,5 +83,32 @@ public class Inventory {
 	
 	public int size() {
 		return inventory.size();
+	}
+	
+	public String toString() {
+		String s = "Inventory : ";
+		int taille = inventory.size();
+		String classnamelong;
+		String classname;
+		for(int i = 0; i < taille; i++) {
+			taille = inventory.size();
+			classnamelong = inventory.get(i).getClass().getName();
+			classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
+			s += classname + " ";
+		}
+		s += "\n";
+		if (current_j1 != null) {
+			classnamelong = current_j1.getClass().getName();
+			classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
+			s += "Current J1 : " + classname + "\n";
+		} else 
+			s += "Current J1 : none\n";
+		if (current_j2 != null) {
+			classnamelong = current_j2.getClass().getName();
+			classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
+			s += "Current J2 : " + classname + "\n";
+		} else 
+			s += "Current J2 : none\n";
+		return s;
 	}
 }

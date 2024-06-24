@@ -6,22 +6,25 @@ import Labyrinthe.Field;
 
 public class Turn implements IAction {
 
+	private TickListener tl;
 	private int Direction;
 	private Field terrain;
-	
-	public Turn(Field f) {
+
+	public Turn(Field f, TickListener tl) {
 		terrain = f;
+		this.tl = tl;
 	}
-	
-	public Turn(Field terrain, int Direction) {
+
+	public Turn(Field terrain, int Direction, TickListener tl) {
 		this.Direction = Direction;
 		this.terrain = terrain;
+		this.tl = tl;
 	}
-	
+
 	public void print() {
 		if (Direction == -3)
 			System.out.println("L");
-		else 
+		else
 			System.out.println("R");
 	}
 
@@ -31,12 +34,18 @@ public class Turn implements IAction {
 //		System.out.println("Turn");
 		return;
 	}
-	
+
 	public int getDirection() {
 		return Direction;
 	}
-	
+
 	public void setDirection(int dir) {
 		Direction = dir;
+	}
+
+	@Override
+	public String toString() {
+		String s = "Turn";
+		return s;
 	}
 }

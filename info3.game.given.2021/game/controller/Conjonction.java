@@ -18,6 +18,9 @@ public class Conjonction implements ICondition {
 	@Override
 	public boolean eval(Entity e) {
 		Boolean t1 = c1.eval(e);
+		if(t1 == false) {
+			return false;
+		}
 		Boolean t2 = c2.eval(e);
 		Boolean t3 = t1 && t2;
 //		System.out.println(toString());

@@ -3,12 +3,23 @@ package Labyrinthe;
 import toolkit.Categorie;
 
 public class Mine extends Entity {
+	private boolean exploded;
+	
 	public Mine(int ligne, int colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;
 		this.category = Categorie.D;
 		this.team = 5;
 		layer = 2;
+		exploded = false;
+	}
+	
+	public void changeState() {
+		exploded = true;
+	}
+	
+	public boolean exploded() {
+		return exploded;
 	}
 
 	@Override
@@ -18,14 +29,12 @@ public class Mine extends Entity {
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-
+		explode();
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
-
+		power(5);
 	}
 
 	@Override

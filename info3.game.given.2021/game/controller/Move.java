@@ -12,9 +12,11 @@ import toolkit.Direction;
 public class Move implements IAction {
 
 	public Field terrain;
-	
-	public Move(Field terrain) {
+	private TickListener tl;
+
+	public Move(Field terrain, TickListener tl) {
 		this.terrain = terrain;
+		this.tl = tl;
 	}
 
 	@Override
@@ -22,7 +24,7 @@ public class Move implements IAction {
 		int direc = e.direction();
 		int ligne = e.ligne();
 		int colonne = e.colonne();
-		int[] spot = terrain.next_to(e, Direction.F);
+		int[] spot = terrain.next_to_outside(e, Direction.F);
 		int go_to_ligne = spot[0];
 		int go_to_colonne = spot[1];
 //		System.out.print("(");
@@ -31,16 +33,28 @@ public class Move implements IAction {
 //		System.out.print(colonne);
 //		System.out.print(")");
 //		System.out.println(direc);
-		if (go_to_ligne < 0 || go_to_ligne > terrain.get_ligne()-1 || go_to_colonne < 0 || go_to_colonne > terrain.get_colonne()-1)
+		if (go_to_ligne < 0 || go_to_ligne > terrain.get_ligne() - 1 || go_to_colonne < 0
+				|| go_to_colonne > terrain.get_colonne() - 1)
 			return;
 //		Entity e_go_to = terrain.getLastnotSelect(go_to_ligne, go_to_colonne);
 //		if (e_go_to.category() == Categorie.O || e_go_to.category() == Categorie.G || e_go_to.category() == Categorie.C)
 //			return;
-		terrain.remove(ligne, colonne, e);	
+		terrain.remove(ligne, colonne, e);
 		e.move();
 		terrain.add(e, e.ligne(), e.colonne());
+		if (e.picked() != null) {
+			e.picked().set_ligne(e.ligne());
+			e.picked().set_colonne(e.colonne());
+			e.picked().turn(e.direction());
+		}
 //		System.out.println("Move"); 
 		return;
+	}
+
+	@Override
+	public String toString() {
+		String s = "Move";
+		return s;
 	}
 
 }

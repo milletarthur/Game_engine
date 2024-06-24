@@ -15,16 +15,20 @@ import controller.False;
 import controller.Get;
 import controller.Got;
 import controller.Hit;
+import controller.Jump;
 import controller.KeyPressed;
 import controller.Move;
 import controller.Not;
 import controller.Pick;
+import controller.Pop;
 import controller.Power;
 import controller.Store;
 import controller.Throw;
+import controller.TickListener;
 import controller.True;
 import controller.Turn;
 import controller.Wait;
+import controller.Wizz;
 import gal.ast.AST;
 import gal.ast.Actions;
 import gal.ast.Automaton;
@@ -47,7 +51,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	Field f;
 
 	LinkedList<Automate> l_aut;
-	LinkedList<TransitionAutomate> l_trans;
+	LinkedList<TransitionAutomate> l_trans = new LinkedList<TransitionAutomate>();
 	LinkedList<IAction> l_act;
 	//LinkedList<ICondition> l_cond;
 	ICondition cond;
@@ -56,10 +60,12 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	Automates.State current;
 	boolean is_in_mode = false;
 	KeyPressed kp;
+	TickListener tl;
 	
-	public GeneralVisitor(Field field, KeyPressed kp) {
+	public GeneralVisitor(Field field, KeyPressed kp, TickListener tl) {
 		f = field;
 		this.kp = kp;
+		this.tl = tl;
 	}
 
 	@Override
@@ -333,43 +339,51 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public Object build(FunCall funcall, List<Object> parameters) {
 		switch (funcall.name) {
 		case "Pick":
-			return new Pick(f);
+			return new Pick(f, tl);
 		case "Throw":
-			return new Throw(f);
+			return new Throw(f, tl);
 		case "Hit":
-			return new Hit(f);
+			return new Hit(f, tl);
 		case "Turn":
-			return new Turn(f, (int) parameters.get(0)); 
+			return new Turn(f, (int) parameters.get(0), tl); 
 		case "Egg":
-			return new Egg(f);
+			return new Egg(f, tl);
 		case "Store":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Store(f);
+			return new Store(f, tl);
 		case "Explode":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Explode(f);
+			return new Explode(f, tl);
 		case "Get":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Get(f);
+			return new Get(f, tl);
 		case "Power":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Power(f);
+			return new Power(f, tl);
 		case "Wait":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Wait(f);
-		case "Closest":
-			if (l_param.size() != 2)
-				throw new RuntimeException("Wrong arguments");
-			return new Closest(f, l_param.get(0), l_param.get(1));
+			return new Wait(f, tl);
 		case "Move":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Move(f);
+			return new Move(f, tl);
+		case "Pop":
+			if (l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Pop(f, tl);
+		case "Wizz":
+			if (l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Wizz(f, tl);
+		case "Jump":
+			if (l_param.size() != 0)
+				throw new RuntimeException("Wrong arguments");
+			return new Jump(f, tl);
 		default:
 			break;
 		}
@@ -390,6 +404,9 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 			break;
 		case "Got":
 			c = new Got(f, (int) parameters.get(0));
+			break;
+		case "Closest":
+			c = new Closest(f, l_param.get(0), l_param.get(1));
 			break;
 		default:
 			throw new RuntimeException("Unknown action !");
@@ -456,6 +473,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		String ast_state_name = state.toString();
 		while (i.hasNext()) {
 			Automates.State s = i.next();
+//			System.out.println(s.getName());
 			if (ast_state_name.equals(s.getName()))
 				return s;
 		}
@@ -466,7 +484,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Mode mode) {
-		l_trans = new LinkedList<TransitionAutomate>();
+//		l_trans = new LinkedList<TransitionAutomate>();
 		current = (Automates.State) visit(mode.state);
 		is_in_mode = true;
 	}
@@ -564,6 +582,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(Automaton automaton) {
 		l_aut.add(new Automate());
+		l_trans = new LinkedList<TransitionAutomate>();
 	}
 
 	@Override
@@ -574,7 +593,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public Object build(Automaton automaton, Object initial_state, List<Object> modes) {
 		Automate a = l_aut.getLast();
 		a.set_name(automaton.name);
-		a.change_current((Automates.State) initial_state);//(Automates.State) visit((State) initial_state));
+		a.change_init((Automates.State) initial_state);//(Automates.State) visit((State) initial_state));
 		Iterator<TransitionAutomate> i = l_trans.iterator();
 		while(i.hasNext())
 			a.add_transition(i.next());

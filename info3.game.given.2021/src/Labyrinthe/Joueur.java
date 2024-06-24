@@ -45,7 +45,7 @@ public class Joueur extends Entity {
 	}
 
 	public int hit() {
-		if (picked != null)
+		if (picked == null)
 			return 1;
 		return picked.hit();
 	}
@@ -78,7 +78,7 @@ public class Joueur extends Entity {
 
 	@Override
 	public void jump() {
-		if(inventory != null && inventory.size() <= 0) {
+		if(inventory != null && inventory.size() > 0) {
 			if(team() == 1) {
 				inventory.NextCurrentJ1();
 			} else if (team() == 2) {

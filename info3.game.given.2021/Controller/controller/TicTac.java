@@ -7,6 +7,7 @@ import javax.swing.Timer;
 import Labyrinthe.Joueur;
 import draw.DrawWindow;
 import draw.Viewport;
+import controller.End;
 
 /*
  * Copyright (C) 2020  Pr. Olivier Gruber
@@ -17,21 +18,24 @@ public class TicTac {
 	long last_tick, init = System.currentTimeMillis();
 	Joueur j1, j2;
 	Viewport v1, v2;
+	private int cpt;
+	private End end;
 	
 	private static final int TICK_PERIOD = 100; // en milliseconde
 	
 	private DrawWindow w ;
-	private TickListener List;
-	private int cpt;	
+	private TickListener List;	
 
-	public TicTac(TickListener List, Joueur j1, Joueur j2, Viewport v1, Viewport v2) { // initialise le timer
+	public TicTac(TickListener List, Joueur j1, Joueur j2, Viewport v1, Viewport v2, End end) { // initialise le timer
 		this.createTimer();
 		this.List = List;
 		this.j1 = j1;
 		this.j2 = j2;
 		this.v1 = v1;
 		this.v2 = v2;
-		this.cpt = 0 ;
+		this.cpt = 0;
+		this.end = end;
+
 	}
 	
 	public void add_window(DrawWindow w) {
@@ -55,10 +59,11 @@ public class TicTac {
         w.repaint();
         v1.centrerViewport(j1);
         v2.centrerViewport(j2);
-        if (cpt == 10) {
-        	// TODO - appeler fonction end
+        if(cpt == 10) {
+        	end.fin();
         	cpt = 0;
-        } else {
+        }
+        else {
         	cpt++;
         }
     }

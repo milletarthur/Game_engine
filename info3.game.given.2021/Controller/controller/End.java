@@ -97,7 +97,23 @@ public class End {
 				return -1;
 			}
 		} else {
-			return -1;
+			int result = this.endGameArene() ;
+			if ( result == -1 ) {
+				Entity winner = null ;
+				try {
+					winner = this.gagnant();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				int w = -1 ;
+				if ( winner.equals(j1) ) {
+					w = 1 ;
+				} else {
+					w = 2 ; 
+				}
+				System.out.printf("Joueur gagnant : Joueur %d" , w  );
+			}
 		}
 //		LinkedList<Entity> l_player = new LinkedList<Entity>();
 //		LinkedList<Entity> l_entity = new LinkedList<Entity>();

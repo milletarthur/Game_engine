@@ -1981,7 +1981,7 @@ public class Field {
 	}
 
 	public Entity getLastnotSelect(int ligne, int colonne) {
-		LinkedList<Entity> l_entity = getElement(ligne, colonne - 1 );
+		LinkedList<Entity> l_entity = getElement(ligne, colonne);
 		Entity elem = l_entity.get(0);
 		int taille = l_entity.size();
 		Entity select = l_entity.getLast();

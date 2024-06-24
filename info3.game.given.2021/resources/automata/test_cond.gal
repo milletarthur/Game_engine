@@ -62,6 +62,11 @@ Squelette(Init){
 Teleporteur(Init){
 * (Init):
 | Cell(H,@) / Cell(H,#) ? Jump :(Init)
+| Cell(H, M) ? Pop :(NoJump)
+| Cell(H, J) ? Wizz :(Init)
+* (NoJump):
+| Cell(H, M) ? Pop :(Init)
+| Cell(H, J) ? Wizz :(NoJump)
 }
 
 Interrupteur(Init){
@@ -75,6 +80,9 @@ Interrupteur(Init){
 Sable(Init){
 * (Init):
 | Cell(H, @) / Cell(H,#) ? Pop :(Init)
+| Cell(H, M) ? Pop :(Init)
 | Cell(H, J) ? Wizz :()
  *()
 }
+
+

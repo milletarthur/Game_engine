@@ -2,6 +2,7 @@ package Labyrinthe;
 
 import java.util.LinkedList;
 
+import listener.JSONWindow;
 import toolkit.Categorie;
 
 public class Interrupteur extends Entity {
@@ -12,7 +13,10 @@ public class Interrupteur extends Entity {
 	public Interrupteur(int ligne, int colonne, LinkedList<Entity> elem) {
 		this.colonne = colonne;
 		this.ligne = ligne;
-		this.category = Categorie.C;
+		if (JSONWindow.ispick_interrupteur)
+			this.category = Categorie.P;
+		else 
+			this.category = Categorie.C;
 		this.layer = 2;
 		this.team = 7;
 		this.liste_elem = elem;

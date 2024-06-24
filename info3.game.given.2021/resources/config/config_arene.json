@@ -14,30 +14,24 @@
     "entities": [
       { "name" : "Apple",
         "automate": "Apple",
-        "pickable": false,
         "%densite": 2
       },
       { "name" : "Arc", 
-        "automate": "Arc",
-        "pickable": false 
+        "automate": "Arc"
       },
       { "name" : "Bombe", 
         "automate": "Bombe",
-        "pickable": false,
         "%densite" : 2
       },
       { "name" : "Cassable", 
         "automate": "Cassable",
-        "pickable": false,
         "%densite" : 25
       },
       { "name" : "Epee", 
-        "automate": "Epee",
-        "pickable": false 
+        "automate": "Epee"
       },
       { "name" : "Fleche", 
-        "automate": "Fleche",
-        "pickable": false 
+        "automate": "Fleche"
       },
       { "name" : "Interrupteur", 
         "automate": "Interrupteur",
@@ -45,68 +39,53 @@
       },
       { "name" : "Invisible", 
         "automate": "Invisible",
-        "pickable": false,
         "%densite" : 25
       },
       { "name" : "Joueur1", 
-        "automate": "Player1",
-        "pickable": false 
+        "automate": "Player1"
       },
       { "name" : "Joueur2", 
-        "automate": "Player2",
-        "pickable": false 
+        "automate": "Player2"
       },
       { "name" : "Lave", 
-        "automate": "Lave",
-        "pickable": false 
+        "automate": "Lave" 
       },
       { "name" : "Mine", 
         "automate": "Mine",
-        "pickable": false,
         "%densite": 2
       },
       { "name" : "Normal", 
         "automate": "Normal",
-        "pickable": false,
         "%densite" : 50
       },
       { "name" : "Pioche", 
         "automate": "Pioche",
-        "pickable": false,
         "%densite" : 2
       },
       { "name" : "Porte", 
-        "automate": "Porte",
-        "pickable": false 
+        "automate": "Porte"
       },
       { "name" : "Potion", 
         "automate": "Potion",
-        "pickable": false,
         "%densite" : 2
       },
       { "name" : "Sable", 
-        "automate": "Sable",
-        "pickable": false 
+        "automate": "Sable"
       },
       { "name" : "Selection", 
-        "automate": "Selection",
-        "pickable": false 
+        "automate": "Selection" 
       },
       { "name" : "Squelette", 
-        "automate": "Squelette",
-        "pickable": false 
+        "automate": "Squelette"
       },
       { "name" : "Teleporteur", 
-        "automate": "Teleporteur",
-        "pickable": false 
+        "automate": "Teleporteur"
       },
       { "name" : "Void", 
-        "automate": "Void",
-        "pickable": false 
+        "automate": "Void"
       },
       { "name" : "Zombie", 
-        "automate": "Zombie",
-        "pickable": false 
+        "automate": "Zombie"
       }
     ]
   }

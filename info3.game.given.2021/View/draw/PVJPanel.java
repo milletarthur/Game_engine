@@ -9,19 +9,20 @@ import listener.JSONWindow;
 public class PVJPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private String name ;
+	private String name;
 	Joueur j;
 	private static int T_case = WindowInitGame.T_case;
 	private static int visibility = JSONWindow.visibility;
 	private static int pv_tot = JSONWindow.pv;
 	// pv ci-dessous correspond au dessin de la barre sur le JPanel
-	private static int pv = (T_case * visibility * 2 + T_case) - 195 ;
+	private int pv;
 
-	public PVJPanel(String name, Joueur j) {
-		this.setPreferredSize(new Dimension((T_case * visibility * 2 + T_case) - 175, 65));
+	public PVJPanel(String name, Joueur j, int var) {
+		this.pv = (T_case * visibility * 2 + T_case) - 130 - var * 65;
+		this.setPreferredSize(new Dimension((T_case * visibility * 2 + T_case) - 110 - var * 65, 65));
 		this.setBackground(Color.black);
-				
-		this.j = j ;
+
+		this.j = j;
 		this.name = name;
 	}
 
@@ -33,17 +34,17 @@ public class PVJPanel extends JPanel {
 		g.drawString(name, 15, 23);
 		if (p <= (pv * 0.1))
 			g.setColor(Color.red);
-		else 
+		else
 			g.setColor(Color.green);
 		g.drawRoundRect(10, 35, pv, 20, 10, 10);
 		g.fillRoundRect(10, 35, p, 20, 10, 10);
 	}
-	
+
 	public int pv_duper() {
 		int pv_j = j.getVie();
 		if (pv_j > pv_tot)
 			pv_j = pv_tot;
-		int perdu = pv *pv_j / pv_tot;
+		int perdu = pv * pv_j / pv_tot;
 		if (perdu < 0)
 			perdu = 0;
 		return perdu;

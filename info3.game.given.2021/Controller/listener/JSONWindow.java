@@ -25,6 +25,8 @@ public class JSONWindow implements ActionListener {
 			d_bombe, d_cassable, d_invisible, d_normal, nb_obstacles, nb_ennemis;
 	public static Random seed;
 
+	public static boolean ispick_interrupteur;
+
 	private WindowInitGame f;
 	private String filePath;
 	private int germe;
@@ -84,7 +86,7 @@ public class JSONWindow implements ActionListener {
 		nb_ennemis = param.getInt("nb_ennemis") / 2; // divisé par deux car nb ennemis par entité ennemis
 
 		int d_cas = 0, d_inv = 0;
-		int d_pom = 0, d_bom = 0, d_pio = 0, d_min = 0, d_pot = 0 ;
+		int d_pom = 0, d_bom = 0, d_pio = 0, d_min = 0, d_pot = 0;
 		// récupération des automates du fichier de config
 		JSONArray entities = param.getJSONArray("entities");
 		for (int i = 0; i < entities.length(); i++) {
@@ -114,6 +116,7 @@ public class JSONWindow implements ActionListener {
 				break;
 			case "Interrupteur":
 				aut_interrupteur = entity.getString("automate");
+				ispick_interrupteur = entity.getBoolean("pickable");
 				break;
 			case "Invisible":
 				aut_invisible = entity.getString("automate");
@@ -171,7 +174,7 @@ public class JSONWindow implements ActionListener {
 		}
 
 		verification_densite_mur(d_cas, d_inv);
-		
+
 		verification_densite_pickable(d_pom, d_bom, d_pio, d_min, d_pot);
 
 	}

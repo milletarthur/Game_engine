@@ -3,7 +3,7 @@ package draw;
 import java.awt.*;
 import javax.swing.*;
 
-import Labyrinthe.Joueur;
+import Labyrinthe.Entity;
 
 public class Viewport extends JViewport {
 
@@ -19,10 +19,10 @@ public class Viewport extends JViewport {
 		this.setView(dt);
 	}
 
-	public void centrerViewport(Joueur j) {
+	public void centrerViewport(Entity e) {
 
-		int x = j.getX() * T_case + T_case / 2 - this.visibility / 2;
-		int y = j.getY() * T_case + T_case / 2 - this.visibility / 2;
+		int x = e.ligne() * T_case + T_case / 2 - this.visibility / 2;
+		int y = e.colonne() * T_case + T_case / 2 - this.visibility / 2;
 		dt.repaint();
 		if (x < 0)
 			x = 0;

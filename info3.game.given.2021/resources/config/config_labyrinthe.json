@@ -14,14 +14,14 @@
     "entities": [
       { "name" : "Apple",
         "automate": "Apple",
-        "%densite": 10
+        "%densite": 40
       },
       { "name" : "Arc", 
         "automate": "Arc"
       },
       { "name" : "Bombe", 
         "automate": "Bombe",
-        "%densite" : 2
+        "%densite" : 0
       },
       { "name" : "Cassable", 
         "automate": "Cassable",
@@ -59,14 +59,14 @@
       },
       { "name" : "Pioche", 
         "automate": "Pioche",
-        "%densite" : 1
+        "%densite" : 0
       },
       { "name" : "Porte", 
         "automate": "Porte"
       },
       { "name" : "Potion", 
         "automate": "Potion",
-        "%densite" : 1
+        "%densite" : 0
       },
       { "name" : "Sable", 
         "automate": "Sable"

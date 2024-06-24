@@ -19,6 +19,10 @@ public class Sable extends Entity {
 	public Sable(int l, int c, boolean act) {
 		this.ligne = l;
 		this.colonne = c;
+		this.category = Categorie.D;
+		this.team = 5;
+		this.vie = 25;
+		layer = 2;
 		this.activate = act;
 	}
 

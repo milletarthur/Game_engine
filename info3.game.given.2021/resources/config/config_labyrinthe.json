@@ -14,18 +14,18 @@
     "entities": [
       { "name" : "Apple",
         "automate": "Apple",
-        "%densite": 0
+        "%densite": 2
       },
       { "name" : "Arc", 
         "automate": "Arc"
       },
       { "name" : "Bombe", 
         "automate": "Bombe",
-        "%densite" : 0
+        "%densite" : 2
       },
       { "name" : "Cassable", 
         "automate": "Cassable",
-        "%densite" : 0
+        "%densite" : 25
       },
       { "name" : "Epee", 
         "automate": "Epee"
@@ -39,7 +39,7 @@
       },
       { "name" : "Invisible", 
         "automate": "Invisible",
-        "%densite" : 100
+        "%densite" : 25
       },
       { "name" : "Joueur1", 
         "automate": "Player1" 
@@ -52,21 +52,21 @@
       },
       { "name" : "Mine", 
         "automate": "Mine",
-        "%densite": 0
+        "%densite": 2
       },
       { "name" : "Normal", 
         "automate": "Normal"
       },
       { "name" : "Pioche", 
         "automate": "Pioche",
-        "%densite" : 0
+        "%densite" : 1
       },
       { "name" : "Porte", 
         "automate": "Porte"
       },
       { "name" : "Potion", 
         "automate": "Potion",
-        "%densite" : 0
+        "%densite" : 1
       },
       { "name" : "Sable", 
         "automate": "Sable"

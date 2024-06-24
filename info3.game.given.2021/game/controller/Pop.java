@@ -59,36 +59,8 @@ public class Pop implements IAction {
 		} else if (e instanceof Squelette) {
 			e.setTeam(((Squelette) e).getOtherTeam());
 		} else if (e instanceof Sable) {
-			LinkedList<Entity> l_entity;
-			LinkedList<LinkedList<Entity>> l_around = terrain.getAround(e.ligne(), e.colonne());
-			for (int j = 0; j < l_around.size(); j++) {
-				l_entity = l_around.get(j);
-				Entity elem;
-				Entity elem_layer_max = l_entity.getFirst();
-				int ligne = l_entity.getFirst().ligne();
-				int colonne = l_entity.getFirst().colonne();
-				boolean possible = true;
-				for (int i = 0; i < l_entity.size(); i++) {
-					elem = l_entity.get(i);
-					if(elem.layer() == e.layer() && (elem.category() == Categorie.P || elem instanceof Mine)) {
-						terrain.remove(ligne, colonne, elem_layer_max);
-						Sable to_add = (Sable) e.egg(ligne, colonne);
-						terrain.add(to_add, ligne, colonne);
-						tl.add(to_add);
-						possible = false;
-						break;
-					} else if(elem.layer() == e.layer()) {
-						possible = false;
-						break;
-					}
-				}
-				if(possible) {
-					Sable to_add = (Sable) e.egg(ligne, colonne);
-					terrain.add(to_add, ligne, colonne);
-					tl.add(to_add);
-					e.pop();
-				}
-			}
+			Egg cmd = new Egg(terrain,tl);
+			cmd.exec(e);
 		} else if (e instanceof Pioche) {
 			int coo[] = terrain.next_to_outside(e, e.direction());
 			if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0 || coo[1] > terrain.get_colonne() - 1)

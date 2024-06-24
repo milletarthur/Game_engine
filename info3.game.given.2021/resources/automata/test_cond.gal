@@ -112,5 +112,22 @@ Sable(Init){
  *()
 }
 
+Selection1(Init){
+* (Init):
+| Key(v) ? Pop :()
+| Key(z) ? Turn(N) / Move :(Init)
+| Key(d) ? Turn(E) / Move :(Init)
+| Key(s) ? Turn(S) / Move :(Init)
+| Key(q) ? Turn(W) / Move :(Init)
+}
+
+Selection2(Init){
+* (Init):
+| Key(v) ? Pop :()
+| Key(FU) ? Turn(N) / Move :(Init)
+| Key(FR) ? Turn(E) / Move :(Init)
+| Key(FD) ? Turn(S) / Move :(Init)
+| Key(FL) ? Turn(W) / Move :(Init)
+}
 
 

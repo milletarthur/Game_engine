@@ -72,8 +72,11 @@
       { "name" : "Sable", 
         "automate": "Sable"
       },
-      { "name" : "Selection", 
-        "automate": "Selection" 
+      { "name" : "Selection1", 
+        "automate": "Selection1"
+      },
+      { "name" : "Selection2", 
+        "automate": "Selection2"
       },
       { "name" : "Squelette", 
         "automate": "Squelette"

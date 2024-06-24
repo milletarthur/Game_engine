@@ -33,17 +33,25 @@ public class End {
 	
 	public void fin() {
 		int f = endGame();
-		if(f == 0) {
-			return;
-		}
-		else if(f == -1) {
+		DrawEndGame fg;
+		switch(f) {
+		case -1 :
 			di.getTimer().stopTimer();
-			DrawEndGame fg = new DrawEndGame(false, j1, j2,w);
+			fg = new DrawEndGame(false, null, null,w);
 			return;
-		}
-		else {
+		case 0 :
+			return;
+		case 1 :
 			di.getTimer().stopTimer();
-			DrawEndGame fg = new DrawEndGame(true, j1, j2,w);
+			fg = new DrawEndGame(true, j1, null,w);
+			return;
+		case 2 :
+			di.getTimer().stopTimer();
+			fg = new DrawEndGame(true, null, j2,w);
+			return;
+		case 3 :
+			di.getTimer().stopTimer();
+			fg = new DrawEndGame(true, j1, j2,w);
 			return;
 		}
 	}
@@ -75,7 +83,7 @@ public class End {
 
 	
 	/*
-	 * -1 : partie perdue 0 : partie pas finie 1 : partie gagnée
+	 * -1 : partie perdue 0 : partie pas finie 1 : joueur1 gagne 2 : joueur2 gagne 3 : les deux joueurs gagnent
 	 */
 	public int endGame() {
 		if (JSONWindow.jeu.equals("Labyrinthe")) {
@@ -85,28 +93,16 @@ public class End {
 					if (((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
 							&& j1.getY() == field.get_colonne() - 1) && ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
 							&& j2.getY() == field.get_colonne() - 1))
-						return 1;
+						return 3;
 					else if (((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
 							&& j1.getY() == field.get_colonne() - 1) || ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
 							&& j2.getY() == field.get_colonne() - 1)) {
 						if (!time) {
-							di.settemp(10);
+							di.settemp(31);
 							di.setcpt();
 							time = true;
 						}
 						return 0;}
-					else
-						return 0;
-				} else if (j1.getVie() > 0) {
-					if ((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
-							&& j1.getY() == field.get_colonne() - 1)
-						return 1;
-					else
-						return 0;
-				} else if (j2.getVie() > 0) {
-					if ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
-							&& j2.getY() == field.get_colonne() - 1)
-						return 1;
 					else
 						return 0;
 				} else if (j2.getVie() < 0 && j1.getVie() < 0) {
@@ -114,7 +110,14 @@ public class End {
 				}
 
 			} else {
-				return -1;
+				if ((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
+						&& j1.getY() == field.get_colonne() - 1)
+					return 1;
+				else if ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
+						&& j2.getY() == field.get_colonne() - 1)
+					return 2;
+				else
+					return -1;
 			}
 		} else {
 			return -1;

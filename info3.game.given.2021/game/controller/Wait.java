@@ -10,9 +10,10 @@ public class Wait implements IAction {
 	private int time;
 	private TickListener tl;
 
-	public Wait(Field terrain, int time) {
+	public Wait(Field terrain, int time, TickListener tl) {
 		this.terrain = terrain;
 		this.time = time;
+		this.tl = tl;
 	}
 
 	public Wait(Field terrain, TickListener tl) {

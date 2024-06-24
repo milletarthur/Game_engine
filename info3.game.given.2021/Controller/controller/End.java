@@ -28,50 +28,46 @@ public class End {
 		this.di = w.get_invent();
 	}
 
-	
 	public void fin() {
 		int f = endGame();
-		if(f == 0) {
+		if (f == 0) {
 			return;
-		}
-		else if(f == -1) {
+		} else if (f == -1) {
+			di.getTimer().stopTimer();
+			DrawEndGame fg = new DrawEndGame(false, j1, j2, w);
+			return;
+		} else {
 			di.getTimer().stopTimer();
 			this.fenetrefinpartie();
 			return;
-		}
-		else {
-			di.getTimer().stopTimer();
-			this.fenetrefinpartie();
-			return;
-		}
-	}
-	
-	public int endGameArene() {
-		// On vérifie la vie des deux joueurs
-		if ( j1.getVie() == 0 || j2.getVie() == 0 ) {
-			// Si l'un des deux joueurs est mort, on renvoie -1
-			return -1 ; 
-		}
-		// Sinon, on renvoie 0.
-		return 0 ; 
-	}
-	
-	public Entity gagnant() throws Exception { 
-		
-		if ( j2.getVie() != 0 && j1.getVie() != 0 ) {
-			throw new Exception("Aucun des joueurs n'est mort !");
-		}
-		
-		if ( j2.getVie() == 0 && j1.getVie() != 0 ) { // j1 gagne
-			return j1; 
-		} else if ( j1.getVie() == 0 && j2.getVie() != 0 ){ // j2 gagne
-			return j2  ; 
-		} else { // Les deux sont morts 
-			return null ;
 		}
 	}
 
-	
+	public int endGameArene() {
+		// On vérifie la vie des deux joueurs
+		if (j1.getVie() == 0 || j2.getVie() == 0) {
+			// Si l'un des deux joueurs est mort, on renvoie -1
+			return -1;
+		}
+		// Sinon, on renvoie 0.
+		return 0;
+	}
+
+	public Entity gagnant() throws Exception {
+
+		if (j2.getVie() != 0 && j1.getVie() != 0) {
+			throw new Exception("Aucun des joueurs n'est mort !");
+		}
+
+		if (j2.getVie() == 0 && j1.getVie() != 0) { // j1 gagne
+			return j1;
+		} else if (j1.getVie() == 0 && j2.getVie() != 0) { // j2 gagne
+			return j2;
+		} else { // Les deux sont morts
+			return null;
+		}
+	}
+
 	/*
 	 * -1 : partie perdue 0 : partie pas finie 1 : partie gagnée
 	 */
@@ -81,15 +77,17 @@ public class End {
 			if (temp > 0) {
 				if (j1.getVie() > 0 && j2.getVie() > 0) {
 					if (((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
-							&& j1.getY() == field.get_colonne() - 1) && ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
-							&& j2.getY() == field.get_colonne() - 1))
+							&& j1.getY() == field.get_colonne() - 1)
+							&& ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
+									&& j2.getY() == field.get_colonne() - 1))
 						return 1;
 					else if (((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
-							&& j1.getY() == field.get_colonne() - 1) || ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
-							&& j2.getY() == field.get_colonne() - 1)) {
-							di.settemp(30);
-						return 0;}
-					else
+							&& j1.getY() == field.get_colonne() - 1)
+							|| ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
+									&& j2.getY() == field.get_colonne() - 1)) {
+						di.settemp(30);
+						return 0;
+					} else
 						return 0;
 				} else if (j1.getVie() > 0) {
 					if ((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
@@ -106,12 +104,11 @@ public class End {
 				} else if (j2.getVie() < 0 && j1.getVie() < 0) {
 					return -1;
 				}
-
 			} else {
-				return -1;
+				return 0;
 			}
 		} else {
-			return -1;
+			return 0;
 		}
 //		LinkedList<Entity> l_player = new LinkedList<Entity>();
 //		LinkedList<Entity> l_entity = new LinkedList<Entity>();
@@ -157,11 +154,11 @@ public class End {
 		 * Bombe) { bombe = elem; Explode ex = new Explode(this); ex.exec(bombe); return
 		 * 999; } } } } return 0; }
 		 */
-		return 0 ;
+		return 0;
 
 	}
-	
+
 	public void fenetrefinpartie() {
-		DrawEndGame fg = new DrawEndGame(true, j1, j2,w);
+		DrawEndGame fg = new DrawEndGame(true, j1, j2, w);
 	}
 }

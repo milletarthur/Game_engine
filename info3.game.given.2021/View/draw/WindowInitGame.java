@@ -119,79 +119,118 @@ public class WindowInitGame extends JFrame {
 
 		Viewport v1 = new Viewport(w.get_dt1(), T_case, JSONWindow.visibility);
 		Viewport v2 = new Viewport(w.get_dt2(), T_case, JSONWindow.visibility);
-		
-		End e = new End(terrain, j1, j2, w);
-
 		TickListener tl = new TickListener(terrain);
-		TicTac tt = new TicTac(tl, j1, j2, v1, v2, e);
+
+		End end = new End(terrain, j1, j2, w);
+		TicTac tt = new TicTac(tl, j1, j2, v1, v2, end);
 		tt.add_window(w);
 
 		w.init_Window(v1, v2, w.get_invent(), tt);
 		v1.centrerViewport(j1);
 		v2.centrerViewport(j2);
-		
-		LinkedList<Entity> l_mine = terrain.get_mine();
-		LinkedList<Entity> l_zombie = terrain.get_zombie();
-		LinkedList<Entity> l_squelette = terrain.get_squelette();
-		LinkedList<Entity> l_tp = terrain.get_teleporteur();
-		LinkedList<Entity> l_levier = terrain.get_interrupteur();
-		LinkedList<Entity> l_normal = terrain.get_normal();
-		LinkedList<Entity> l_cassable = terrain.get_cassable();
-		LinkedList<Entity> l_invisible = terrain.get_invisible();
-		LinkedList<Entity> l_sable = terrain.get_sable();
 
 		// ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp, tl);
 		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/test_cond.gal");
+		tl.setAllAutoList(l_aut);
 
 		// création du lien entre Entity et Automate
-		for (int i = 0; i < l_aut.size(); i++) {
-			if (l_aut.get(i).get_name().equals(JSONWindow.aut_j1)) { // si le nom de l'automate à la position i
-																		// correspond à
-				// l'automate associé au joueur 1 dans le fichier de
-				// config
-				tl.add(l_aut.get(i), j1); // automate attribué à j1
-			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_j2)) {
-				tl.add(l_aut.get(i), j2);
-			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_mine)) {
-				Iterator<Entity> iter = l_mine.iterator();
-				while (iter.hasNext())
-					tl.add(l_aut.get(i), iter.next());
-			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_zombie)) {
-				Iterator<Entity> iter = l_zombie.iterator();
-				while (iter.hasNext())
-					tl.add(l_aut.get(i), iter.next());
-			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_squelette)) {
-				Iterator<Entity> iter = l_squelette.iterator();
-				while (iter.hasNext())
-					tl.add(l_aut.get(i), iter.next());
-			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_teleporteur)) {
-				Iterator<Entity> iter = l_tp.iterator();
-				while (iter.hasNext())
-					tl.add(l_aut.get(i), iter.next());
-			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_interrupteur)) {
-				Iterator<Entity> iter = l_levier.iterator();
-				while (iter.hasNext())
-					tl.add(l_aut.get(i), iter.next());
-			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_normal)) {
-				Iterator<Entity> iter = l_normal.iterator();
-				while (iter.hasNext())
-					tl.add(l_aut.get(i), iter.next());
-			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_cassable)) {
-				Iterator<Entity> iter = l_cassable.iterator();
-				while (iter.hasNext())
-					tl.add(l_aut.get(i), iter.next());
-			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_invisible)) {
-				Iterator<Entity> iter = l_invisible.iterator();
-				while (iter.hasNext())
-					tl.add(l_aut.get(i), iter.next());
-			} else if (l_aut.get(i).get_name().equals(JSONWindow.aut_sable)) {
-				Iterator<Entity> iter = l_sable.iterator();
-				while (iter.hasNext())
-					tl.add(l_aut.get(i), iter.next());
+		LinkedList<Entity> liste_mur_cassable = terrain.get_cassable();
+		LinkedList<Entity> liste_mur_invisible = terrain.get_invisible();
+		LinkedList<Entity> liste_mur_normal = terrain.get_normal();
+		LinkedList<Entity> liste_interrupteur = terrain.get_interrupteur();
+		LinkedList<Entity> liste_porte = terrain.get_porte();
+		LinkedList<Entity> liste_sable = terrain.get_sable();
+		LinkedList<Entity> liste_squelette = terrain.get_squelette();
+		LinkedList<Entity> liste_zombie = terrain.get_zombie();
+		LinkedList<Entity> liste_pomme = terrain.get_pommes();
+		LinkedList<Entity> liste_potion = terrain.get_potions();
+		LinkedList<Entity> liste_pioche = terrain.get_pioche();
+		LinkedList<Entity> liste_bombe = terrain.get_bombes();
+		LinkedList<Entity> liste_teleporteur = terrain.get_teleporteur();
+		LinkedList<Entity> liste_mine = terrain.get_mine();
+		
+		Iterator<Automate> iter = l_aut.iterator();
+		while(iter.hasNext()) {
+			Automate a = iter.next();
+			String a_name = a.get_name();
+			if (a_name.equals(JSONWindow.aut_j1)) {
+				tl.add(a, j1);
+			} else if (a_name.equals(JSONWindow.aut_j2)) {
+				tl.add(a, j2);
+			} else if (a_name.equals(JSONWindow.aut_apple)) {
+				Iterator<Entity> iterPomme = liste_pomme.iterator();
+				while(iterPomme.hasNext()) {
+					tl.add(a,iterPomme.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_bombe)) {
+				Iterator<Entity> iterBombe = liste_bombe.iterator();
+				while(iterBombe.hasNext()) {
+					tl.add(a,iterBombe.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_cassable)) {
+				Iterator<Entity> iterCassable = liste_mur_cassable.iterator();
+				while(iterCassable.hasNext()) {
+					tl.add(a,iterCassable.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_interrupteur)) {
+				Iterator<Entity> iterInterrupteur = liste_interrupteur.iterator();
+				while(iterInterrupteur.hasNext()) {
+					tl.add(a,iterInterrupteur.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_invisible)) {
+				Iterator<Entity> iterInivisible = liste_mur_invisible.iterator();
+				while(iterInivisible.hasNext()) {
+					tl.add(a,iterInivisible.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_mine)) {
+				Iterator<Entity> iterMine = liste_mine.iterator();
+				while(iterMine.hasNext()) {
+					tl.add(a,iterMine.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_normal)) {
+				Iterator<Entity> iterNormal = liste_mur_normal.iterator();
+				while(iterNormal.hasNext()) {
+					tl.add(a,iterNormal.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_pioche)) {
+				Iterator<Entity> iterPioche = liste_pioche.iterator();
+				while(iterPioche.hasNext()) {
+					tl.add(a,iterPioche.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_porte)) {
+				Iterator<Entity> iterPorte = liste_porte.iterator();
+				while(iterPorte.hasNext()) {
+					tl.add(a,iterPorte.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_potion)) {
+				Iterator<Entity> iterPotion = liste_potion.iterator();
+				while(iterPotion.hasNext()) {
+					tl.add(a,iterPotion.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_sable)) {
+				Iterator<Entity> iterSable = liste_sable.iterator();
+				while(iterSable.hasNext()) {
+					tl.add(a,iterSable.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_squelette)) { 
+				Iterator<Entity> iterSquelette = liste_squelette.iterator();
+				while(iterSquelette.hasNext()) {
+					tl.add(a,iterSquelette.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_teleporteur)) {
+				Iterator<Entity> iterTP = liste_teleporteur.iterator();
+				while(iterTP.hasNext()) {
+					tl.add(a,iterTP.next());
+				}
+			} else if (a_name.equals(JSONWindow.aut_zombie)) {
+				Iterator<Entity> iterZombie = liste_zombie.iterator();
+				while(iterZombie.hasNext()) {
+					tl.add(a,iterZombie.next());
+				}
 			}
-
 		}
+		
 
 		// ajout d'un Keylistener
 		Key_Listener k = new Key_Listener(terrain, kp);

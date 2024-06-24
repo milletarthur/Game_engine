@@ -34,14 +34,6 @@ Player2(Init){
 | Key(FL) ? Turn(W) :(Init)
 | Key(o) ? Wizz :(Init)
 | Key(k) ? Egg :(Init)
-| Key(h) ? Turn(NE) :(Init)
-| Key(x) ? Turn(SE) :(Init)
-| Key(c) ? Turn(NW) :(Init)
-| Key(v) ? Turn(SW) :(Init)
-| Key(y) & Closest(NE,P) ? :(Init)
-| Key(y) & Closest(NW,P) ? :(Init)
-| Key(y) & Closest(SE,P) ? :(Init)
-| Key(y) & Closest(SW,P) ? :(Init)
 }
 
 Mine(Init){
@@ -62,6 +54,10 @@ Squelette(Init){
 Teleporteur(Init){
 * (Init):
 | Cell(H,@) / Cell(H,#) ? Jump :(Init)
+| Key(v) & (Cell(N,@) / Cell(S,@) / Cell(E,@) / Cell(W,@)) ? Pop :(Init)
+| Key(v) & (Cell(N,#) / Cell(S,#) / Cell(E,#) / Cell(W,#)) ? Pop :(Init)
+| Key(b) & (Cell(N,@) / Cell(S,@) / Cell(E,@) / Cell(W,@)) ? Wizz :(Init)
+| Key(b) & (Cell(N,#) / Cell(S,#) / Cell(E,#) / Cell(W,#)) ? Wizz :(Init)
 }
 
 Interrupteur(Init){

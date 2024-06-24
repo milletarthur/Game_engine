@@ -57,7 +57,9 @@ public class Egg implements IAction {
 		Pair<Integer, Integer> p = cases_possibles.get(random);
 		int x = p.geto1();
 		int y = p.geto2();
-		terrain.add(e.egg(x, y), x, y);
+		Entity to_add = e.egg(x, y);
+		terrain.add(to_add, x, y);
+		tl.add(to_add);
 	}
 	
 	@Override

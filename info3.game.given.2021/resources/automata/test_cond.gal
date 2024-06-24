@@ -70,7 +70,7 @@ Interrupteur(Init){
 
 Sable(Init){
 * (Init):
-| Cell(H, @) / Cell(H,#) ? Pop :(Wait)
-* (Wait):
-| !(Cell(H,@) / Cell(H,#)) ? Wizz :(Init) 
+| Cell(H, @) / Cell(H,#) ? Pop :(Init)
+| Cell(H, J) ? Wizz :()
+ *()
 }

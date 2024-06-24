@@ -8,6 +8,7 @@ import Labyrinthe.Entity;
 import Labyrinthe.Field;
 import Labyrinthe.Joueur;
 import Labyrinthe.Mine;
+import controller.End;
 import controller.KeyPressed;
 import controller.TicTac;
 import controller.TickListener;
@@ -117,7 +118,8 @@ public class WindowInitGame extends JFrame {
 		Viewport v2 = new Viewport(w.get_dt2(), T_case, JSONWindow.visibility);
 
 		TickListener tl = new TickListener(terrain);
-		TicTac tt = new TicTac(tl, j1, j2, v1, v2);
+		End end = new End(terrain, j1, j2, w.get_invent());
+		TicTac tt = new TicTac(tl, j1, j2, v1, v2, end);
 		tt.add_window(w);
 
 		w.init_Window(v1, v2, w.get_invent(), tt);

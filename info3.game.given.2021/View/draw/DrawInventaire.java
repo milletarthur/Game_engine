@@ -120,5 +120,9 @@ public class DrawInventaire extends JPanel {
 		if (cpt == 11)
 			cpt = 0;
 	}
+	
+	public int gettemp() {
+		return temps_actuel;
+	}
 
 }

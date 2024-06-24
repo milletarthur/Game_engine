@@ -503,7 +503,7 @@ public class Field {
 		int i, j;
 		i = rand.nextInt(ligne);
 		j = rand.nextInt(colonne - 2) + 1;
-		while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
+		while (this.verification(i, j) == false) {
 			i = rand.nextInt(ligne - 1);
 			j = rand.nextInt(colonne - 2) + 1;
 		}
@@ -513,7 +513,7 @@ public class Field {
 		Entity en = get_element2(i, j, labyrinthe);
 		i = rand.nextInt(ligne);
 		j = rand.nextInt(colonne - 2) + 1;
-		while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
+		while (this.verification(i, j) == false) {
 			i = rand.nextInt(ligne - 1);
 			j = rand.nextInt(colonne - 2) + 1;
 		}
@@ -526,7 +526,7 @@ public class Field {
 
 		i = rand.nextInt(ligne);
 		j = rand.nextInt(colonne - 2) + 1;
-		while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
+		while (this.verification(i, j) == false) {
 			i = rand.nextInt(ligne - 1);
 			j = rand.nextInt(colonne - 2) + 1;
 		}
@@ -536,7 +536,7 @@ public class Field {
 		Entity en2 = get_element2(i, j, labyrinthe);
 		i = rand.nextInt(ligne);
 		j = rand.nextInt(colonne - 2) + 1;
-		while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
+		while (this.verification(i, j) == false) {
 			i = rand.nextInt(ligne - 1);
 			j = rand.nextInt(colonne - 2) + 1;
 		}

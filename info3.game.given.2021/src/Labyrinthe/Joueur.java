@@ -86,4 +86,8 @@ public class Joueur extends Entity {
 			}
 		}
 	}
+	
+	public boolean getModeSelection() {
+		return modeSelection;
+	}
 }

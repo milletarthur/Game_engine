@@ -32,7 +32,7 @@ Player2(Init){
 | Key(FD) ? Turn(S) :(Init)
 | Key(FL) ? Turn(W) :(Init)
 | Key(o) ? Wizz :(Init)
-| Key(k) ? Pop :()
+| Key(k) ? Pop :(Wait)
 }
 
 Interrupteur(Init){

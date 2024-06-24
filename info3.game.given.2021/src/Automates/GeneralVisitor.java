@@ -24,6 +24,7 @@ import controller.Pop;
 import controller.Power;
 import controller.Store;
 import controller.Throw;
+import controller.TickListener;
 import controller.True;
 import controller.Turn;
 import controller.Wait;
@@ -59,10 +60,12 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	Automates.State current;
 	boolean is_in_mode = false;
 	KeyPressed kp;
+	TickListener tl;
 	
-	public GeneralVisitor(Field field, KeyPressed kp) {
+	public GeneralVisitor(Field field, KeyPressed kp, TickListener tl) {
 		f = field;
 		this.kp = kp;
+		this.tl = tl;
 	}
 
 	@Override
@@ -336,55 +339,51 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public Object build(FunCall funcall, List<Object> parameters) {
 		switch (funcall.name) {
 		case "Pick":
-			return new Pick(f);
+			return new Pick(f, tl);
 		case "Throw":
-			return new Throw(f);
+			return new Throw(f, tl);
 		case "Hit":
-			return new Hit(f);
+			return new Hit(f, tl);
 		case "Turn":
-			return new Turn(f, (int) parameters.get(0)); 
+			return new Turn(f, (int) parameters.get(0), tl); 
 		case "Egg":
-			return new Egg(f);
+			return new Egg(f, tl);
 		case "Store":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Store(f);
+			return new Store(f, tl);
 		case "Explode":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Explode(f);
+			return new Explode(f, tl);
 		case "Get":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Get(f);
+			return new Get(f, tl);
 		case "Power":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Power(f);
+			return new Power(f, tl);
 		case "Wait":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Wait(f);
-		case "Closest":
-			if (l_param.size() != 2)
-				throw new RuntimeException("Wrong arguments");
-			return new Closest(f, l_param.get(0), l_param.get(1));
+			return new Wait(f, tl);
 		case "Move":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Move(f);
+			return new Move(f, tl);
 		case "Pop":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Pop(f);
+			return new Pop(f, tl);
 		case "Wizz":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Wizz(f);
+			return new Wizz(f, tl);
 		case "Jump":
 			if (l_param.size() != 0)
 				throw new RuntimeException("Wrong arguments");
-			return new Jump(f);
+			return new Jump(f, tl);
 		default:
 			break;
 		}
@@ -406,6 +405,8 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		case "Got":
 			c = new Got(f, (int) parameters.get(0));
 			break;
+		case "Closest":
+			c = new Closest(f, l_param.get(0), l_param.get(1));
 		default:
 			throw new RuntimeException("Unknown action !");
 		}
@@ -580,6 +581,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	@Override
 	public void enter(Automaton automaton) {
 		l_aut.add(new Automate());
+		l_trans = new LinkedList<TransitionAutomate>();
 	}
 
 	@Override

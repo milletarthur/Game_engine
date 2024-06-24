@@ -10,9 +10,11 @@ import toolkit.Direction;
 public class Throw implements IAction {
 
 	private Field terrain;
+	private TickListener tl;
 
-	public Throw(Field terrain) {
+	public Throw(Field terrain, TickListener tl) {
 		this.terrain = terrain;
+		this.tl = tl;
 	}
 
 	@Override

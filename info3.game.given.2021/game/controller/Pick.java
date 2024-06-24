@@ -8,9 +8,11 @@ import Labyrinthe.Joueur;
 public class Pick implements IAction {
 
 	private Field terrain;
+	private TickListener tl;
 
-	public Pick(Field terrain) {
+	public Pick(Field terrain, TickListener tl) {
 		this.terrain = terrain;
+		this.tl = tl;
 	}
 
 	@Override

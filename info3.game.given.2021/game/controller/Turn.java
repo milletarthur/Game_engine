@@ -6,16 +6,19 @@ import Labyrinthe.Field;
 
 public class Turn implements IAction {
 
+	private TickListener tl;
 	private int Direction;
 	private Field terrain;
 
-	public Turn(Field f) {
+	public Turn(Field f, TickListener tl) {
 		terrain = f;
+		this.tl = tl;
 	}
 
-	public Turn(Field terrain, int Direction) {
+	public Turn(Field terrain, int Direction, TickListener tl) {
 		this.Direction = Direction;
 		this.terrain = terrain;
+		this.tl = tl;
 	}
 
 	public void print() {

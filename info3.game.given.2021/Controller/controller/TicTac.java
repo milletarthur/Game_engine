@@ -14,8 +14,7 @@ import draw.Viewport;
 public class TicTac {
 
 	Timer timer;
-	long last_tick ;
-	long init = System.currentTimeMillis();
+	long last_tick, init = System.currentTimeMillis();
 	Joueur j1, j2;
 	Viewport v1, v2;
 	
@@ -23,6 +22,7 @@ public class TicTac {
 	
 	private DrawWindow w ;
 	private TickListener List;
+	private int cpt;	
 
 	public TicTac(TickListener List, Joueur j1, Joueur j2, Viewport v1, Viewport v2) { // initialise le timer
 		this.createTimer();
@@ -31,6 +31,7 @@ public class TicTac {
 		this.j2 = j2;
 		this.v1 = v1;
 		this.v2 = v2;
+		this.cpt = 0 ;
 	}
 	
 	public void add_window(DrawWindow w) {
@@ -54,6 +55,12 @@ public class TicTac {
         w.repaint();
         v1.centrerViewport(j1);
         v2.centrerViewport(j2);
+        if (cpt == 10) {
+        	// TODO - appeler fonction end
+        	cpt = 0;
+        } else {
+        	cpt++;
+        }
     }
 
 	public long getTick() {

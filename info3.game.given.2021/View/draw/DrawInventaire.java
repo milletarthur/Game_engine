@@ -185,5 +185,9 @@ public class DrawInventaire extends JPanel {
 	public int gettemp() {
 		return temps_actuel;
 	}
+	
+	public TicTac getTimer() {
+		return t;
+	}
 
 }

@@ -9,19 +9,23 @@ import Labyrinthe.Field;
 import Labyrinthe.Joueur;
 import listener.JSONWindow;
 import toolkit.Pair;
+import draw.DrawEndGame;
 import draw.DrawInventaire;
+import draw.DrawWindow;
 
 public class End {
 	Field field;
 	Joueur j1;
 	Joueur j2;
 	DrawInventaire di;
+	DrawWindow w;
 
-	public End(Field f, Joueur j1, Joueur j2, DrawInventaire di) {
+	public End(Field f, Joueur j1, Joueur j2, DrawWindow w) {
 		this.field = f;
 		this.j1 = j1;
 		this.j2 = j2;
-		this.di = di;
+		this.w = w;
+		this.di = w.get_invent();
 	}
 
 	
@@ -34,9 +38,12 @@ public class End {
 			
 		}
 		else {
-			
+			di.getTimer().stopTimer();
+			this.fenetrefinpartie();
+			return;
 		}
 	}
+	
 	public int endGameArene() {
 		// On vérifie la vie des deux joueurs
 		if ( j1.getVie() == 0 || j2.getVie() == 0 ) {
@@ -46,6 +53,7 @@ public class End {
 		// Sinon, on renvoie 0.
 		return 0 ; 
 	}
+	
 	public Entity gagnant() throws Exception { 
 		
 		if ( j2.getVie() != 0 && j1.getVie() != 0 ) {
@@ -137,5 +145,9 @@ public class End {
 		 */
 		return 0 ;
 
+	}
+	
+	public void fenetrefinpartie() {
+		DrawEndGame fg = new DrawEndGame(true, j1, j2,w);
 	}
 }

@@ -7,7 +7,6 @@ import javax.swing.Timer;
 import Labyrinthe.Joueur;
 import draw.DrawWindow;
 import draw.Viewport;
-import controller.End;
 
 /*
  * Copyright (C) 2020  Pr. Olivier Gruber
@@ -71,6 +70,11 @@ public class TicTac {
 	public long getTick() {
 		return last_tick;
 	}
-
+	
+    public void stopTimer() {
+        if (timer != null) {
+            timer.stop();
+        }
+    }
 
 }

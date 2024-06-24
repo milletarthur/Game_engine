@@ -13,10 +13,13 @@ public class DrawEndGame extends JFrame {
 	Image end;
 	private JLabel phrase; 
 	Joueur j1, j2;
+	DrawWindow w;
 
-	public DrawEndGame(boolean win, Joueur j1, Joueur j2) { // true = gagner, false = perdu
+	public DrawEndGame(boolean win, Joueur j1, Joueur j2, DrawWindow w) { // true = gagner, false = perdu
 		this.j1 = j1;
 		this.j2 = j2;
+		
+		w.dispose();
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Fin de la partie");

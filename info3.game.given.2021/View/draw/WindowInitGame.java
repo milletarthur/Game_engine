@@ -120,7 +120,7 @@ public class WindowInitGame extends JFrame {
 		Viewport v1 = new Viewport(w.get_dt1(), T_case, JSONWindow.visibility);
 		Viewport v2 = new Viewport(w.get_dt2(), T_case, JSONWindow.visibility);
 		
-		End e = new End(terrain, j1, j2, w.get_invent());
+		End e = new End(terrain, j1, j2, w);
 
 		TickListener tl = new TickListener(terrain);
 		TicTac tt = new TicTac(tl, j1, j2, v1, v2, e);

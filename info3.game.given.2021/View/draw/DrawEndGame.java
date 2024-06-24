@@ -39,6 +39,11 @@ public class DrawEndGame extends JFrame {
 		};
 
 		choice.setLayout(null);
+		
+		JButton rejouer = new JButton("Rejouer");
+		JButton quitter = new JButton("Quitter");
+		rejouer.addActionListener(new EndGameButtonListener(true, this));
+		quitter.addActionListener(new EndGameButtonListener(false, this));
 
 		if (win) {
 			if (j1 != null && j2 != null) {
@@ -48,6 +53,10 @@ public class DrawEndGame extends JFrame {
 				this.gagnant = new JLabel("Beau travail d'équipe !");
 				gagnant.setForeground(Color.WHITE);
 				gagnant.setBounds(145, 150, 160, 30);
+				choice.add(phrase);
+				choice.add(gagnant);
+				rejouer.setBounds(170, 190, 110, 30);
+				quitter.setBounds(170, 230, 110, 30);
 			} else if (j1 != null && j2 == null) {
 				this.phrase = new JLabel("Well done ! You win !");
 				phrase.setForeground(Color.WHITE);
@@ -55,6 +64,10 @@ public class DrawEndGame extends JFrame {
 				this.gagnant = new JLabel("Victoire de " + JSONWindow.name1 + " !");
 				gagnant.setForeground(Color.WHITE);
 				gagnant.setBounds((int) (175 - (JSONWindow.name1.length() * 3.75)+1), 150, 250, 30);
+				choice.add(phrase);
+				choice.add(gagnant);
+				rejouer.setBounds(170, 190, 110, 30);
+				quitter.setBounds(170, 230, 110, 30);
 			} else if (j1 == null && j2 != null) {
 				this.phrase = new JLabel("Well done ! You win !");
 				phrase.setForeground(Color.WHITE);
@@ -62,22 +75,19 @@ public class DrawEndGame extends JFrame {
 				this.gagnant = new JLabel("Victoire de " + JSONWindow.name2 + " !");
 				gagnant.setForeground(Color.WHITE);
 				gagnant.setBounds((int) (175 - (JSONWindow.name2.length() * 3.75)+1), 150, 250, 30);
+				choice.add(phrase);
+				choice.add(gagnant);
+				rejouer.setBounds(170, 190, 110, 30);
+				quitter.setBounds(170, 230, 110, 30);
 			}
 		} else {
 			this.phrase = new JLabel("Game Over");
 			phrase.setForeground(Color.WHITE);
 			phrase.setBounds(184, 130, 100, 30);
+			choice.add(phrase);
+			rejouer.setBounds(170, 160, 110, 30);
+			quitter.setBounds(170, 200, 110, 30);
 		}
-
-		choice.add(phrase);
-		choice.add(gagnant);
-
-		JButton rejouer = new JButton("Rejouer");
-		JButton quitter = new JButton("Quitter");
-		rejouer.addActionListener(new EndGameButtonListener(true, this));
-		quitter.addActionListener(new EndGameButtonListener(false, this));
-		rejouer.setBounds(170, 190, 110, 30);
-		quitter.setBounds(170, 230, 110, 30);
 
 		choice.add(rejouer);
 		choice.add(quitter);

@@ -19,6 +19,7 @@ public class End {
 	Joueur j2;
 	DrawInventaire di;
 	DrawWindow w;
+	private boolean time;
 
 	public End(Field f, Joueur j1, Joueur j2, DrawWindow w) {
 		this.field = f;
@@ -26,6 +27,7 @@ public class End {
 		this.j2 = j2;
 		this.w = w;
 		this.di = w.get_invent();
+		this.time = false;
 	}
 
 	
@@ -36,12 +38,12 @@ public class End {
 		}
 		else if(f == -1) {
 			di.getTimer().stopTimer();
-			this.fenetrefinpartie();
+			DrawEndGame fg = new DrawEndGame(false, j1, j2,w);
 			return;
 		}
 		else {
 			di.getTimer().stopTimer();
-			this.fenetrefinpartie();
+			DrawEndGame fg = new DrawEndGame(true, j1, j2,w);
 			return;
 		}
 	}
@@ -87,7 +89,11 @@ public class End {
 					else if (((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
 							&& j1.getY() == field.get_colonne() - 1) || ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
 							&& j2.getY() == field.get_colonne() - 1)) {
-							di.settemp(30);
+						if (!time) {
+							di.settemp(10);
+							di.setcpt();
+							time = true;
+						}
 						return 0;}
 					else
 						return 0;
@@ -161,7 +167,4 @@ public class End {
 
 	}
 	
-	public void fenetrefinpartie() {
-		DrawEndGame fg = new DrawEndGame(true, j1, j2,w);
-	}
 }

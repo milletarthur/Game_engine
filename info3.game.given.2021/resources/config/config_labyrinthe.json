@@ -1,7 +1,7 @@
 { 
     "jeu" : "Labyrinthe",
     "cooperative" : true, 
-    "duration" : 900, 
+    "duration" : 300, 
     "hauteur" : 10,
     "largeur" : 10,
     "visibility" : 5,

@@ -104,7 +104,7 @@ public class Field {
 	}
 	
 	public void deposer_test2() {
-		Interrupteur int1 = new Interrupteur(2,0, new LinkedList<Entity>());
+		Interrupteur int1 = new Interrupteur(1,0, new LinkedList<Entity>());
 		Interrupteur int2 = new Interrupteur(ligne-2,colonne-1, new LinkedList<Entity>());
 		set_element2(1,0,int1,labyrinthe);
 		set_element2(ligne-2,colonne-1,int2,labyrinthe);

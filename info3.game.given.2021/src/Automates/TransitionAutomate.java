@@ -64,7 +64,7 @@ public class TransitionAutomate {
 	}
 
 	public String toString() {
-		String rv = "Trans : " + Source.getName() + "-" + c.toString() + "->" + Cible.getName() + " : ";
+		String rv = "Trans : " + Source.getName() + " - " + c.toString() + " -> " + Cible.getName() + " : ";
 		Iterator<IAction> i = Actions.iterator();
 		while (i.hasNext()) {
 			rv += i.next().toString() + ", ";

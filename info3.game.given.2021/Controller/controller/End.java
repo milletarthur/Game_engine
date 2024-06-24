@@ -56,16 +56,6 @@ public class End {
 		}
 	}
 	
-	public int endGameArene() {
-		// On vérifie la vie des deux joueurs
-		if ( j1.getVie() == 0 || j2.getVie() == 0 ) {
-			// Si l'un des deux joueurs est mort, on renvoie -1
-			return -1 ; 
-		}
-		// Sinon, on renvoie 0.
-		return 0 ; 
-	}
-	
 	public Entity gagnant() throws Exception { 
 		
 		if ( j2.getVie() != 0 && j1.getVie() != 0 ) {
@@ -119,9 +109,15 @@ public class End {
 				else
 					return -1;
 			}
-		} else {
-			return -1;
-		}
+		} else if (JSONWindow.jeu.equals("Arène")) {
+			if ( j1.getVie() == 0 ) {
+				return 2 ; 
+			} else if (j2.getVie() == 0) {
+				return 1;
+			}
+			// Sinon, on renvoie 0.
+			return 0 ;
+		} 
 //		LinkedList<Entity> l_player = new LinkedList<Entity>();
 //		LinkedList<Entity> l_entity = new LinkedList<Entity>();
 //		l_player = ListEntity(Joueur.class);

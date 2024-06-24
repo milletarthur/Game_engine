@@ -32,7 +32,7 @@ public class PVJPanel extends JPanel {
 		int p = pv_duper();
 		g.setColor(Color.white);
 		g.drawString(name, 15, 23);
-		if (p <= (pv * 0.1))
+		if (p <= (pv * 0.25))
 			g.setColor(Color.red);
 		else
 			g.setColor(Color.green);

@@ -7,7 +7,7 @@
     "visibility" : 5,
     "%density" : 100,
     "seed" : 0,
-    "use_seed" : true,
+    "use_seed" : false,
     "pv" : 20,
     "nb_obstacles" : 10,
     "nb_ennemis" : 4,

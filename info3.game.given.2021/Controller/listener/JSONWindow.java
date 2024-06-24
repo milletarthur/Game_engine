@@ -202,12 +202,12 @@ public class JSONWindow implements ActionListener {
 			d_pioche = d_pio;
 			d_mine = d_min;
 			d_potion = d_pot;
-		} else { // d_pick > 60
-			d_pomme = d_pom * 100 / d_pick;
-			d_bombe = d_bom * 100 / d_pick;
-			d_pioche = d_pio * 100 / d_pick;
-			d_mine = d_min * 100 / d_pick;
-			d_potion = d_pio * 100 / d_pick;
+		} else { // d_pick > 25
+			d_pomme = d_pom * 60 / d_pick;
+			d_bombe = d_bom * 60 / d_pick;
+			d_pioche = d_pio * 60 / d_pick;
+			d_mine = d_min * 60 / d_pick;
+			d_potion = d_pio * 60 / d_pick;
 			d_pickable = 60 - d_pomme - d_bombe - d_pioche - d_mine - d_potion;
 		}
 	}

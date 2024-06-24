@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import controller.Explode;
+import listener.JSONWindow;
 import toolkit.*;
 
 public class Field {
@@ -206,10 +207,10 @@ public class Field {
 			}
 			Squelette s = new Squelette(i, j);
 			int value = rand.nextInt(101);
-			if(value < 33) {
-				s.setpicked(new Epee(i,j));
+			if (value < 33) {
+				s.setpicked(new Epee(i, j));
 			} else if (33 <= value && value < 66) {
-				s.setpicked(new Arc(i,j));
+				s.setpicked(new Arc(i, j));
 			}
 			set_element2(i, j, s, labyrinthe);
 			count++;
@@ -225,11 +226,11 @@ public class Field {
 			}
 			Zombie z = new Zombie(i, j);
 			int value = rand.nextInt(101);
-			if(value < 33) {
-				z.setpicked(new Epee(i,j));
+			if (value < 33) {
+				z.setpicked(new Epee(i, j));
 			} else if (33 <= value && value < 66) {
-				z.setpicked(new Arc(i,j));
-			} 
+				z.setpicked(new Arc(i, j));
+			}
 			set_element2(i, j, z, labyrinthe);
 			count++;
 		}
@@ -2060,10 +2061,10 @@ public class Field {
 			if (here instanceof Void) {
 				boolean valid = false;
 				Pair<Integer, Integer> p;
-				for(int i=0; i<l_void.size(); i++) {
+				for (int i = 0; i < l_void.size(); i++) {
 					p = l_void.get(i);
-					if(p.geto1() != ligne && p.geto2() != colonne) {
-						if(getLastnotSelect(p.geto1(), p.geto2()) instanceof Void) {
+					if (p.geto1() != ligne && p.geto2() != colonne) {
+						if (getLastnotSelect(p.geto1(), p.geto2()) instanceof Void) {
 							valid = true;
 							break;
 						}
@@ -2431,11 +2432,18 @@ public class Field {
 			return null;
 		}
 	}
-	
+
+	/*
+	 * -1 : partie perdue 0 : partie pas finie
+	 */
+
+
+
 	/* -1 : partie perdue
 	 * 0 : partie pas finie
 	 * 1 : partie gagnée
 	 */ 
+
 	public int endGame() {
 //		LinkedList<Entity> l_player = new LinkedList<Entity>();
 		LinkedList<Entity> l_entity = new LinkedList<Entity>();
@@ -2476,12 +2484,12 @@ public class Field {
 		// faire cas avec fin du compte à rebours
 		fillBomb();
 		Entity bombe = null;
-		for(int i=2; i<ligne-1; i++) {
-			for(int j=1; j<colonne-1; j++) {
-				l_entity = getElement(i,j);
-				for(int k=0; k<l_entity.size(); k++) {
+		for (int i = 2; i < ligne - 1; i++) {
+			for (int j = 1; j < colonne - 1; j++) {
+				l_entity = getElement(i, j);
+				for (int k = 0; k < l_entity.size(); k++) {
 					elem = l_entity.get(k);
-					if(elem instanceof Bombe) {
+					if (elem instanceof Bombe) {
 						bombe = elem;
 //						Explode ex = new Explode(this);
 //						ex.exec(bombe);
@@ -2492,25 +2500,26 @@ public class Field {
 		}
 		return 0;
 	}
-	
+
 	public void fillBomb() {
 		LinkedList<Entity> l_entity;
 		Entity elem;
-		for(int i=0; i<ligne-1; i++) {
-			for(int j=0; j<colonne-1; j++) {
-				l_entity = getElement(i,j);
-				for(int k=0; k<l_entity.size(); k++) {
+		for (int i = 0; i < ligne - 1; i++) {
+			for (int j = 0; j < colonne - 1; j++) {
+				l_entity = getElement(i, j);
+				for (int k = 0; k < l_entity.size(); k++) {
 					elem = l_entity.get(k);
-					if(elem instanceof Normal) {
+					if (elem instanceof Normal) {
 						break;
 					}
-					if(elem.layer() == 2) {
+					if (elem.layer() == 2) {
 						remove(elem.ligne(), elem.colonne(), elem);
 						add(new Bombe(elem.ligne(), elem.colonne()), elem.ligne(), elem.colonne());
 						break;
 					}
 				}
-				add(new Bombe(l_entity.getFirst().ligne(), l_entity.getFirst().colonne()), l_entity.getFirst().ligne(), l_entity.getFirst().colonne());
+				add(new Bombe(l_entity.getFirst().ligne(), l_entity.getFirst().colonne()), l_entity.getFirst().ligne(),
+						l_entity.getFirst().colonne());
 			}
 		}
 	}

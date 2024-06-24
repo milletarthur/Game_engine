@@ -5,7 +5,7 @@ import toolkit.Direction;
 
 public abstract class Entity {
 
-	protected Inventory inventory;
+	protected Inventory inventory = new Inventory();
 
 	protected int time;
 

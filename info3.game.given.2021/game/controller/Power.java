@@ -3,6 +3,7 @@ package controller;
 import Automates.IAction;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Sable;
 
 public class Power implements IAction {
 
@@ -30,6 +31,10 @@ public class Power implements IAction {
 
 	@Override
 	public void exec(Entity e) {
+		if (e instanceof Sable && vie == 1) {
+			e.power(-1);
+			return;
+		}
 		e.power(vie);
 	}
 

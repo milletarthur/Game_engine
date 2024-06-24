@@ -14,6 +14,11 @@ public class Hit implements IAction {
 		this.terrain = terrain;
 		this.tl = tl;
 	}
+	
+	public Hit(Field terrain) {
+		this.terrain = terrain;
+		this.tl= null;
+	}
 
 	@Override
 	public void exec(Entity e) {
@@ -56,9 +61,11 @@ public class Hit implements IAction {
 		} else if (damage == -1) { // cas arc et flèche classique
 			Fleche f = new Fleche(ligne, colonne, e.direction());
 			terrain.add(f, ligne, colonne);
+			tl.add(f);
 		} else if (damage == -7) { // cas arc et flèche transpercante
 			Fleche f = new Fleche(ligne, colonne, e.direction(), true);
 			terrain.add(f, ligne, colonne);
+			tl.add(f);
 		} else if (damage == -2) { // cas Pioche
 			if (tohit instanceof Labyrinthe.Void) {
 				Wizz wi = new Wizz(terrain, tl);

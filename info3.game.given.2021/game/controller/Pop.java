@@ -21,6 +21,7 @@ public class Pop implements IAction {
 	public void exec(Entity e) {
 		if(e instanceof Joueur) {
 			Entity entity = new Selection(e.ligne(), e.colonne());
+			tl.add(entity);
 			entity.setTeam(e.team());
 			terrain.add(entity, e.ligne(), e.colonne());
 		} else if (e instanceof Interrupteur) {
@@ -30,19 +31,29 @@ public class Pop implements IAction {
 			}
 		} else if (e instanceof Arc) {
 			terrain.remove(e.ligne(), e.colonne(), e);
-			terrain.add(new Epee(e.ligne(), e.colonne()), e.ligne(), e.colonne());
+			Epee to_add = new Epee(e.ligne(), e.colonne());
+			terrain.add(to_add, e.ligne(), e.colonne());
+			tl.add(to_add);
 		} else if (e instanceof Epee) {
 			terrain.remove(e.ligne(), e.colonne(), e);
-			terrain.add(new Arc(e.ligne(), e.colonne()), e.ligne(), e.colonne());
+			Arc to_add = new Arc(e.ligne(), e.colonne());
+			terrain.add(to_add, e.ligne(), e.colonne());
+			tl.add(to_add);
 		} else if (e instanceof Cassable) {
 			terrain.remove(e.ligne(), e.colonne(), e);
-			terrain.add(new Invisible(e.ligne(), e.colonne()), e.ligne(), e.colonne());
+			Invisible to_add = new Invisible(e.ligne(), e.colonne());
+			terrain.add(to_add, e.ligne(), e.colonne());
+			tl.add(to_add);
 		} else if (e instanceof Normal) {
 			terrain.remove(e.ligne(), e.colonne(), e);
-			terrain.add(new Cassable(e.ligne(), e.colonne()), e.ligne(), e.colonne());
+			Cassable to_add = new Cassable(e.ligne(), e.colonne());
+			terrain.add(to_add, e.ligne(), e.colonne());
+			tl.add(to_add);
 		} else if (e instanceof Invisible) {
 			terrain.remove(e.ligne(), e.colonne(), e);
-			terrain.add(new Normal(e.ligne(), e.colonne()), e.ligne(), e.colonne());
+			Normal to_add = new Normal(e.ligne(), e.colonne());
+			terrain.add(to_add, e.ligne(), e.colonne());
+			tl.add(to_add);
 		} else if (e instanceof Zombie) {
 			e.setTeam(((Zombie) e).getOtherTeam());
 		} else if (e instanceof Squelette) {
@@ -62,7 +73,9 @@ public class Pop implements IAction {
 					if(elem.layer() == e.layer() && 
 							(elem.category() == Categorie.P || elem instanceof Mine)) {
 						terrain.remove(ligne, colonne, elem_layer_max);
-						terrain.add(e.egg(ligne, colonne), ligne, colonne);
+						Sable to_add = (Sable) e.egg(ligne, colonne);
+						terrain.add(to_add, ligne, colonne);
+						tl.add(to_add);
 						possible = false;
 						break;
 					} else if(elem.layer() == e.layer()) {
@@ -71,7 +84,9 @@ public class Pop implements IAction {
 					}
 				}
 				if(possible) {
-					terrain.add(e.egg(ligne, colonne), ligne, colonne);
+					Sable to_add = (Sable) e.egg(ligne, colonne);
+					terrain.add(to_add, ligne, colonne);
+					tl.add(to_add);
 					e.pop();
 				}
 			}
@@ -80,7 +95,8 @@ public class Pop implements IAction {
 			if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0 || coo[1] > terrain.get_colonne() - 1)
 				return;
 			Entity elem = terrain.getLastnotSelect(coo[0], coo[1]);
-			terrain.remove(elem.ligne(), elem.colonne(), elem);
+			terrain.remove(coo[0], coo[1], elem);
+			tl.remove(elem);
 //			Entity elem;
 //			switch (e.direction()) {
 //			case Direction.N:

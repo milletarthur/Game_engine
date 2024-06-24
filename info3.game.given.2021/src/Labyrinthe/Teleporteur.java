@@ -5,6 +5,7 @@ import toolkit.Categorie;
 public class Teleporteur extends Entity {
 
 	private boolean TP_random;
+	private boolean activate;
 	private Entity voisin;
 
 	public Teleporteur(int ligne, int colonne) {
@@ -14,6 +15,7 @@ public class Teleporteur extends Entity {
 		this.team = 6;
 		this.layer = 0;
 		TP_random = false;
+		activate = true;
 	}
 
 	public void set_voisin(Entity en1) {
@@ -27,12 +29,13 @@ public class Teleporteur extends Entity {
 
 	@Override
 	public void pop() {
-		TP_random = false;
+		activate = !activate;
+		((Teleporteur)voisin).setActivate(activate);
 	}
 
 	@Override
 	public void wizz() {
-		TP_random = true;
+		TP_random = !TP_random;
 	}
 
 	@Override
@@ -52,6 +55,14 @@ public class Teleporteur extends Entity {
 	
 	public boolean IsTpRandom() {
 		return TP_random;
+	}
+	
+	public boolean IsActivate() {
+		return activate;
+	}
+	
+	public void setActivate(boolean act) {
+		activate = act;
 	}
 
 }

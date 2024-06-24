@@ -5,14 +5,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import Automates.IAction;
-import Labyrinthe.Bombe;
-import Labyrinthe.Cassable;
-import Labyrinthe.Entity;
-import Labyrinthe.Field;
-import Labyrinthe.Joueur;
-import Labyrinthe.Mine;
-import Labyrinthe.Squelette;
-import Labyrinthe.Zombie;
+import Labyrinthe.*;
 
 public class Explode implements IAction {
 
@@ -36,6 +29,35 @@ public class Explode implements IAction {
 					terrain.add(pick, e.ligne(), e.colonne());
 			} else {
 				e.resetpick();
+			}
+			for(int i=1; i<=8; i++) {
+				int[] coor = terrain.next_to(e, i);
+				int l = coor[0];
+				int c = coor[1];
+				Entity pickable = null;
+				r = rand.nextInt(10);
+				if(r>30) {
+					continue;
+				}
+				r = rand.nextInt(4);
+				switch(r) {
+				case 0:
+					pickable = new Bombe(l,c); 
+					break;
+				case 1:
+					pickable = new Apple(l,c);
+					break;
+				case 2:
+					pickable = new Potion(l,c);
+					break;
+				case 3:
+					pickable = new Pioche(l,c);
+					break;
+				}
+				if(pickable == null) {
+					continue;
+				}
+				terrain.add(pickable, l, c);
 			}
 		} else if (e instanceof Joueur) {
 				Entity pick = e.picked();

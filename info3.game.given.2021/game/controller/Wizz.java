@@ -44,6 +44,8 @@ public class Wizz implements IAction{
 			LinkedList<Entity> l_levier = ((Interrupteur) e).get_entity();
 			for(int i=0; i<l_levier.size(); i++) {
 				Entity selected = l_levier.get(i);
+				Entity wizz = new WizzEntity(selected.ligne(), selected.colonne(), e.team());
+				terrain.add(wizz, selected.ligne(), selected.colonne());
 				exec(selected);
 				if (selected instanceof Sable) {
 					((Interrupteur) e).remove_entity(selected);
@@ -76,6 +78,10 @@ public class Wizz implements IAction{
 			tl.remove(elem);
 		}
 		e.wizz();
+		LinkedList<Entity> l_entity = terrain.getElement(e.ligne(), e.colonne());
+		if(l_entity.getFirst() instanceof WizzEntity) {
+			terrain.remove(e.ligne(), e.colonne(), l_entity.getFirst());
+		}
 	}
 	
 	@Override

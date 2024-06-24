@@ -15,10 +15,20 @@ public class Sable extends Entity {
 		this.vie = 25;
 		layer = 2;
 	}
+	
+	public Sable(int l, int c, boolean act) {
+		this.ligne = l;
+		this.colonne = c;
+		this.category = Categorie.D;
+		this.team = 5;
+		this.vie = 25;
+		layer = 2;
+		this.activate = act;
+	}
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Sable(ligne, colonne);
+		return new Sable(ligne, colonne, activate);
 	}
 
 	@Override

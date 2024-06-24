@@ -174,11 +174,11 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Potion) {
 						g.drawImage(potion, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Sable) {
-						Sable s = (Sable) e;
-						if (s.IsActivate())
+						// Sable s = (Sable) e;
+						// if (s.IsActivate())
 							g.drawImage(sand, j * T_case, i * T_case, T_case, T_case, null);
-						else 
-							g.drawImage(chemin[rand_chemin[i][j]], j * T_case, i * T_case, T_case, T_case, null);
+						// else 
+							// g.drawImage(chemin[rand_chemin[i][j]], j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Selection) {
 						g.drawImage(selection, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Squelette) {

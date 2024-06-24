@@ -20,7 +20,7 @@ public class JSONWindow implements ActionListener {
 	public static String name1, name2, jeu;
 	public static String aut_j1, aut_j2, aut_apple, aut_arc, aut_bombe, aut_cassable, aut_epee, aut_fleche,
 			aut_interrupteur, aut_invisible, aut_lave, aut_mine, aut_normal, aut_pioche, aut_porte, aut_potion,
-			aut_sable, aut_selection, aut_squelette, aut_teleporteur, aut_void, aut_zombie;
+			aut_sable, aut_selection1, aut_selection2, aut_squelette, aut_teleporteur, aut_void, aut_zombie;
 	public static int time, pv, hauteur, largeur, visibility, densite, d_pickable, d_mine, d_pomme, d_potion, d_pioche,
 			d_bombe, d_cassable, d_invisible, d_normal, nb_obstacles, nb_ennemis;
 	public static Random seed;
@@ -152,8 +152,11 @@ public class JSONWindow implements ActionListener {
 			case "Sable":
 				aut_sable = entity.getString("automate");
 				break;
-			case "Selection":
-				aut_selection = entity.getString("automate");
+			case "Selection1":
+				aut_selection1 = entity.getString("automate");
+				break;
+			case "Selection2":
+				aut_selection2 = entity.getString("automate");
 				break;
 			case "Squelette":
 				aut_squelette = entity.getString("automate");

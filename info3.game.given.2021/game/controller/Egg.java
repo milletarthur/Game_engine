@@ -6,7 +6,9 @@ import java.util.Random;
 import Automates.IAction;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Mine;
 import Labyrinthe.Sable;
+import toolkit.Categorie;
 import toolkit.Pair;
 
 public class Egg implements IAction {
@@ -57,11 +59,17 @@ public class Egg implements IAction {
 		Pair<Integer, Integer> p = cases_possibles.get(random);
 		int x = p.geto1();
 		int y = p.geto2();
+		if (e instanceof Sable) {
+			Entity here = terrain.getLastnotSelect(x, y);
+			if (here.category() == Categorie.P || here instanceof Mine) {
+				terrain.getElement(x, y).remove(here);
+			}
+		}
 		Entity to_add = e.egg(x, y);
 		terrain.add(to_add, x, y);
 		tl.add(to_add);
 	}
-	
+
 	@Override
 	public String toString() {
 		String s = "Egg";

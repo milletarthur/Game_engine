@@ -78,12 +78,11 @@ public class Field {
 		for (int i = 0; i < chemin.size(); i++) {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
-		if (densite_field == 100) {
+		if (JSONWindow.jeu.equals("Labyrinthe")) {
 			depot_mur1(cassable, invisible, normal);
 			deposer_Porte(nb_porte_sable);
 		} else {
 			depot_mur2(cassable, invisible, normal);
-			deposer_interrupteur2();
 		}
 
 		grow();
@@ -100,11 +99,13 @@ public class Field {
 //		endGame();
 	}
 
-	public void deposer_interrupteur2() {
+	public void deposer_interrupteur2() { // on est dans l'arene
 		Interrupteur int1 = new Interrupteur(2, 0, new LinkedList<Entity>());
-		Interrupteur int2 = new Interrupteur(ligne - 2, colonne - 1, new LinkedList<Entity>());
-		set_element2(1, 0, int1, labyrinthe);
-		set_element2(ligne - 2, colonne - 1, int2, labyrinthe);
+		Interrupteur int2 = new Interrupteur(ligne - 4, colonne - 1, new LinkedList<Entity>());
+		int1.setTeam(1);
+		int2.setTeam(2);
+		set_element2(2, 0, int1, labyrinthe);
+		set_element2(ligne - 4, colonne - 1, int2, labyrinthe);
 	}
 
 	public void deposer_test2() {

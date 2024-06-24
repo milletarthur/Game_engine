@@ -35,7 +35,9 @@ public class End {
 			return;
 		}
 		else if(f == -1) {
-			
+			di.getTimer().stopTimer();
+			this.fenetrefinpartie();
+			return;
 		}
 		else {
 			di.getTimer().stopTimer();
@@ -77,7 +79,19 @@ public class End {
 		if (JSONWindow.jeu.equals("Labyrinthe")) {
 			int temp = di.gettemp();
 			if (temp > 0) {
-				if (j1.getVie() > 0) {
+				if (j1.getVie() > 0 && j2.getVie() > 0) {
+					if (((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
+							&& j1.getY() == field.get_colonne() - 1) && ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
+							&& j2.getY() == field.get_colonne() - 1))
+						return 1;
+					else if (((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
+							&& j1.getY() == field.get_colonne() - 1) || ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
+							&& j2.getY() == field.get_colonne() - 1)) {
+							di.settemp(30);
+						return 0;}
+					else
+						return 0;
+				} else if (j1.getVie() > 0) {
 					if ((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
 							&& j1.getY() == field.get_colonne() - 1)
 						return 1;

@@ -24,6 +24,10 @@ public class Inventory {
 	}
 
 	public void add(Entity e) {
+		if(inventory.size() == 0) {
+			current_j1 = e;
+			current_j2 = e;
+		}
 		inventory.add(e);
 	}
 
@@ -45,6 +49,10 @@ public class Inventory {
 
 	public void NextCurrentJ1() {
 		int len = inventory.size();
+		if(len == 0) {
+			current_j1 = null;
+			return;
+		}
 		if (current_j1 == null) {
 			current_j1 = inventory.get(0);
 			System.out.print("proutj1");
@@ -58,6 +66,10 @@ public class Inventory {
 
 	public void NextCurrentJ2() {
 		int len = inventory.size();
+		if(len == 0) {
+			current_j2 = null;
+			return;
+		}
 		if (current_j2 == null) { 
 			current_j2 = inventory.get(0);
 			System.out.println("proutj2");
@@ -72,12 +84,20 @@ public class Inventory {
 	public Entity popJ1() {
 		Entity e = getCurrentJ1();
 		inventory.remove(e);
+		current_j1 = null;
+		current_j2 = null;
+		NextCurrentJ2();
+		NextCurrentJ1();
 		return e;
 	}
 
 	public Entity popJ2() {
 		Entity e = getCurrentJ2();
 		inventory.remove(e);
+		current_j1 = null;
+		current_j2 = null;
+		NextCurrentJ2();
+		NextCurrentJ1();
 		return e;
 	}
 	

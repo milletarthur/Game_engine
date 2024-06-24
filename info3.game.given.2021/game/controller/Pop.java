@@ -70,8 +70,7 @@ public class Pop implements IAction {
 				boolean possible = true;
 				for (int i = 0; i < l_entity.size(); i++) {
 					elem = l_entity.get(i);
-					if(elem.layer() == e.layer() && 
-							(elem.category() == Categorie.P || elem instanceof Mine)) {
+					if(elem.layer() == e.layer() && (elem.category() == Categorie.P || elem instanceof Mine)) {
 						terrain.remove(ligne, colonne, elem_layer_max);
 						Sable to_add = (Sable) e.egg(ligne, colonne);
 						terrain.add(to_add, ligne, colonne);

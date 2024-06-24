@@ -37,8 +37,7 @@ public class Sable extends Entity {
 
 	@Override
 	public void jump() {
-		// TODO Auto-generated method stub
-		
+		activate = true;		
 	}
 	
 	public boolean IsActivate() {

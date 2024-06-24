@@ -32,7 +32,6 @@ public class Rest implements IAction {
 	@Override
 	public void exec(Entity e) {
 		if (e instanceof Sable && vie == 1) {
-			((Sable) e).setActivate(true);
 			e.power(-1);
 			return;
 		}

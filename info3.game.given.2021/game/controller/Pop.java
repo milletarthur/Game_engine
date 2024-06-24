@@ -43,8 +43,12 @@ public class Pop implements IAction {
 				}
 		} else if (e instanceof Interrupteur) {
 			LinkedList<Entity> l_levier = ((Interrupteur) e).get_entity();
+			Entity elem;
 			for(int i=0; i<l_levier.size(); i++) {
-				exec(l_levier.get(i));
+				elem = l_levier.get(i);
+				Entity pop = new PopEntity(elem.ligne(), elem.colonne(), e.team());
+				terrain.add(pop, elem.ligne(), elem.colonne());
+				exec(elem);
 			}
 		} else if (e instanceof Arc) {
 			terrain.remove(e.ligne(), e.colonne(), e);
@@ -117,6 +121,10 @@ public class Pop implements IAction {
 			ex.exec(e);
 		}
 		e.pop();
+		LinkedList<Entity> l_entity = terrain.getElement(e.ligne(), e.colonne());
+		if(l_entity.getFirst() instanceof PopEntity) {
+			terrain.remove(e.ligne(), e.colonne(), l_entity.getFirst());
+		}
 	}
 
 	@Override

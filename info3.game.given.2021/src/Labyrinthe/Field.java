@@ -2039,7 +2039,7 @@ public class Field {
 			if (here instanceof Void) {
 				return true;
 			} else if (here.category() == Categorie.P || here instanceof Mine) {
-				remove(ligne, colonne, here);
+				//remove(ligne, colonne, here);
 				return true;
 			}
 			return false;

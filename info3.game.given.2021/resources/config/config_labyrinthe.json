@@ -14,7 +14,7 @@
     "entities": [
       { "name" : "Apple",
         "automate": "Apple",
-        "%densite": 2
+        "%densite": 10
       },
       { "name" : "Arc", 
         "automate": "Arc"

@@ -145,7 +145,7 @@ Bombe(Init){
 | True ? Rest(30) :(Boom)
 * (Boom):
 | ! Got(Power) ? Explode :()
-| Rest(1) ? :(Boom)
+| True ? Rest(1) :(Boom)
 *()
 }
 

@@ -28,13 +28,12 @@ public class Arc extends Entity {
 
 	@Override
 	public void wizz() {
-		FlecheTrans = true;
+		FlecheTrans = !FlecheTrans;
 	}
 
 	@Override
 	public int hit() {
 		if (FlecheTrans) {
-			FlecheTrans = false;
 			return -7;
 		}
 		return -1;

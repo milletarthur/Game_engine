@@ -98,7 +98,7 @@ public class WindowInitGame extends JFrame {
 				JSONWindow.nb_zombie, JSONWindow.nb_squelette, JSONWindow.seed);
 
 		KeyPressed kp = new KeyPressed();
-		TickListener tl = new TickListener(terrain);
+		TickListener tl = new TickListener(terrain, kp);
 
 //		ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp, tl);
@@ -161,7 +161,7 @@ public class WindowInitGame extends JFrame {
 		LinkedList<Entity> liste_potion = terrain.get_potions();
 		LinkedList<Entity> liste_pioche = terrain.get_pioche();
 		LinkedList<Entity> liste_bombe = new LinkedList<Entity>();
-		if (JSONWindow.name1.equals("labyrinthe"))
+		if (getjeu().equals("arene"))
 			liste_bombe = terrain.get_bombes();
 		LinkedList<Entity> liste_teleporteur = terrain.get_teleporteur();
 		LinkedList<Entity> liste_mine = terrain.get_mine();

@@ -66,7 +66,7 @@ public class Explode implements IAction {
 				Entity elem;
 				for (int j = 0; j < l_entity.size(); j++) {
 					elem = l_entity.get(j);
-					if (elem instanceof Teleporteur) {
+					if (elem instanceof Teleporteur || elem instanceof Interrupteur) {
 						hasTP = true;
 						break;
 					}

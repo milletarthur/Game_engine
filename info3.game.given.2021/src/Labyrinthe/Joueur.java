@@ -25,6 +25,7 @@ public class Joueur extends Entity {
 		this.team = team;
 		layer = 3;
 		inventory = new Inventory();
+		picked = null;
 	}
 
 	public Entity egg(int ligne, int colonne) {

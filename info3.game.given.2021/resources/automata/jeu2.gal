@@ -195,8 +195,15 @@ Bombe(Init){
 Mine(Init){
 * (Init):
 | Cell(H,@) / Cell(H,#) / Cell(H,A) ? Explode : ()
-| Cell(H, M) ? Pop :()
-| Cell(H, J) ? Wizz :()
+| Cell(H, M) ? Pop :(BoomNow)
+| Cell(H, J) ? Wizz :(Boom)
+* (Boom):
+| ! Got(Power) ? Explode :()
+| Cell(H, M) ? Pop :(BoomNow)
+| Cell(H, J) ? Wizz :(Boom)
+| True ? Rest(1) :(Boom)
+* (BoomNow):
+| True ? Explode :()
 * ()
 }
 
@@ -241,4 +248,12 @@ FlecheTrans(Init){
 }
 
 
+Flechetrans(Init){
+* (Init):
+| True ? Rest(3) :(Attack)
+* (Attack):
+| ! Got(Power) ? Hit / Explode :()
+| True ? Hit / Move / Rest(1) :(Attack)
+*()
+}
 

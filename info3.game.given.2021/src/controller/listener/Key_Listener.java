@@ -7,9 +7,6 @@ import Labyrinthe.Field;
 import controller.KeyPressed;
 
 public class Key_Listener implements KeyListener {
-
-
-	
 	KeyPressed k;
 	Field f;
 

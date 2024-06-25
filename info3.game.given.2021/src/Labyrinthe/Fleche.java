@@ -12,8 +12,11 @@ public class Fleche extends Entity {
 		this.category = Categorie.D;
 		this.team = 5;
 		this.Orientation = dir;
-		layer = 3;
 		transpercant = trans;
+		if (transpercant)
+			layer = 4;
+		else
+			layer = 3;
 		vie = 0;
 	}
 
@@ -30,7 +33,7 @@ public class Fleche extends Entity {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Fleche(ligne, colonne, Orientation);
+		return new Fleche(ligne, colonne, Orientation, transpercant);
 	}
 
 	@Override

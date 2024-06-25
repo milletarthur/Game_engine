@@ -38,7 +38,6 @@ public class Hit implements IAction {
 				}
 				int ligne = coo[0];
 				int colonne = coo[1];
-				System.out.println(ligne + " " + colonne);
 				LinkedList<Entity> list = terrain.getElement(ligne, colonne);
 				int cpt = 0;
 				Entity tohit = list.get(cpt);

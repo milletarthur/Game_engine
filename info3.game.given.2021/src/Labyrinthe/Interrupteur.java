@@ -45,36 +45,59 @@ public class Interrupteur extends Entity {
 
 	@Override
 	public void pop() {
-		Entity elem;
-		LinkedList<Entity> new_l = new LinkedList<Entity>();
-		for(int i=0; i<liste_elem.size(); i++) {
-			elem = liste_elem.get(i);
-			if(elem instanceof Teleporteur || elem instanceof Joueur) {
-				continue;
+		if(JSONWindow.jeu.equals("arene")) {
+			Entity elem;
+			LinkedList<Entity> new_l = new LinkedList<Entity>();
+			for(int i=0; i<liste_elem.size(); i++) {
+				elem = liste_elem.get(i);
+				if(elem instanceof Teleporteur || elem instanceof Joueur) {
+					continue;
+				}
+				elem.pop();
+				if(elem instanceof Porte) {
+					new_l.add(elem);
+				}
 			}
-			elem.pop();
-			if(elem instanceof Porte) {
-				new_l.add(elem);
+			liste_elem = new_l;
+		} else if(JSONWindow.jeu.equals("labyrinthe")) {
+			Entity elem;
+			for(int i=0; i<liste_elem.size(); i++) {
+				elem = liste_elem.get(i);
+				if(elem instanceof Teleporteur || elem instanceof Joueur) {
+					continue;
+				}
+				elem.pop();
 			}
 		}
-		liste_elem = new_l;
+		
 	}
 
 	@Override
 	public void wizz() {
-		Entity elem;
-		LinkedList<Entity> new_l = new LinkedList<Entity>();
-		for(int i=0; i<liste_elem.size(); i++) {
-			elem = liste_elem.get(i);
-			if(elem instanceof Teleporteur || elem instanceof Joueur) {
-				continue;
+		if(JSONWindow.jeu.equals("arene")) {
+			Entity elem;
+			LinkedList<Entity> new_l = new LinkedList<Entity>();
+			for(int i=0; i<liste_elem.size(); i++) {
+				elem = liste_elem.get(i);
+				if(elem instanceof Teleporteur || elem instanceof Joueur) {
+					continue;
+				}
+				elem.wizz();
+				if(elem instanceof Porte) {
+					new_l.add(elem);
+				}
 			}
-			elem.wizz();
-			if(elem instanceof Porte) {
-				new_l.add(elem);
+			liste_elem = new_l;
+		} else if(JSONWindow.jeu.equals("labyrinthe")) {
+			Entity elem;
+			for(int i=0; i<liste_elem.size(); i++) {
+				elem = liste_elem.get(i);
+				if(elem instanceof Teleporteur || elem instanceof Joueur) {
+					continue;
+				}
+				elem.wizz();
 			}
 		}
-		liste_elem = new_l;
 	}
 	
 	/*

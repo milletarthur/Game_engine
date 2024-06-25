@@ -103,7 +103,7 @@ public class WindowInitGame extends JFrame {
 		
 //		ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp, tl);
-		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/jeu1.gal");
+		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/jeu2.gal");
 		tl.setAllAutoList(l_aut);
 		
 		Joueur j1 = new Joueur(2, 0, 1);

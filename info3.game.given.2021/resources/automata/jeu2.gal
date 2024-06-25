@@ -119,7 +119,7 @@ Sable(Init){
 | Cell(H, J) ? Wizz :()
 *(Catched)
 | Got(Power) ? Power(1) :(Catched)
-| ! Got(Power) ? Power(25) / Pop :(Catched)
+| ! Got(Power) ? Power(25) / Pop / Hit :(Catched)
 | Cell(H, M) ? Pop :(Catched)
 | Cell(H, J) ? Wizz :()
  *()

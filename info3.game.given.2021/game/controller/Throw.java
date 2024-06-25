@@ -6,6 +6,8 @@ import Automates.IAction;
 import Labyrinthe.Bombe;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Lave;
+import toolkit.Categorie;
 import toolkit.Direction;
 
 public class Throw implements IAction {

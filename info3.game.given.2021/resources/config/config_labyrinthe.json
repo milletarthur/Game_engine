@@ -39,7 +39,7 @@
       },
       { "name" : "Invisible", 
         "automate": "Invisible",
-        "%densite" : 75
+        "%densite" : 25
       },
       { "name" : "Joueur1", 
         "automate": "Player1" 

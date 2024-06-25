@@ -2082,7 +2082,7 @@ public class Field {
 		case "Bombe":
 		case "Epee":
 		case "Arc":
-			if (here instanceof Void) {
+			if (here instanceof Void || here instanceof Lave) {
 				return true;
 			} else if (here instanceof Cassable || here instanceof Invisible) {
 				return !hasSameLayer(ligne, colonne, e.layer());

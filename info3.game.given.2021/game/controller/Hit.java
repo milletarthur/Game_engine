@@ -24,6 +24,7 @@ public class Hit implements IAction {
 	@Override
 	public void exec(Entity e) {
 		if (e instanceof Lave || e instanceof Sable) {
+			System.out.println("Lave hit");
 			int[] coo = terrain.next_to_outside(e, Direction.H);
 			LinkedList<Entity> list = terrain.getElement(coo[0], coo[1]);
 			int cpt = 0;
@@ -37,7 +38,7 @@ public class Hit implements IAction {
 			if (!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette))
 				return;
 			if (e instanceof Lave) {
-//				System.out.println("Lave hit");
+				System.out.println("Lave hit");
 				tohit.power(-5);
 			}
 			if (e instanceof Sable) {

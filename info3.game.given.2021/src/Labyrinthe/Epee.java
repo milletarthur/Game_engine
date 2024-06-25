@@ -12,7 +12,6 @@ public class Epee extends Entity {
 		this.category = Categorie.P;
 		this.team = 3;
 		layer = 2;
-		hitCircle = true;
 	}
 
 	@Override

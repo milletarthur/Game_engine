@@ -11,6 +11,8 @@ Player1(Init){
 | Key(d) ? Turn(E) :(Init)
 | Key(s) ? Turn(S) :(Init)
 | Key(q) ? Turn(W) :(Init)
+| Cell(H,M) ? :(Select)
+| Key(w) ? Pop :(Select)
 | !Got(Power) ? Explode :()
 * (Picked):
 | Key(a) ? Hit :(Picked)
@@ -45,6 +47,7 @@ Player2(Init){
 | Key(FL) ? Turn(W) :(Init)
 | Key(u) ? Wizz :(Init)
 | Key(a) ? Pop :(Select)
+| Cell(H,M) ? :(Select)
 * (Select):
 | Key(v) ? :(Init)
 }

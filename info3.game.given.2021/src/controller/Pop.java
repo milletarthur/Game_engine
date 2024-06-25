@@ -32,18 +32,33 @@ public class Pop implements IAction {
 				Selection s = j.getSelection();
 				terrain.remove(s.ligne(), s.colonne(), s);
 				j.setSelection(null);
+				LinkedList<Entity> l_entity = terrain.getElement(e.ligne(), e.colonne());
+				Entity elem;
+				PopEntity pop = null;
+				for(int i=0; i<l_entity.size(); i++) {
+					elem = l_entity.get(i);
+					if(elem instanceof PopEntity) {
+						pop = (PopEntity) elem;
+					}
+				}
+				if(pop != null) {
+					terrain.remove(pop.ligne(), pop.colonne(), pop);
+				}
 			}
 		} else if (e instanceof Selection) {
 			int l_j = ((Selection) e).getLigneJoueur();
 			int c_j = ((Selection) e).getColonneJoueur();
 			Joueur j = null;
 			Entity elem;
+			Entity pop = null;
 			LinkedList<Entity> l_entity = terrain.getElement(l_j, c_j);
 			for (int i = 0; i < l_entity.size(); i++) {
 				elem = l_entity.get(i);
 				if (elem instanceof Joueur) {
 					j = (Joueur) elem;
 					break;
+				} else if(elem instanceof PopEntity) {
+					pop = elem;
 				}
 			}
 			l_entity = terrain.getElement(e.ligne(), e.colonne());
@@ -59,6 +74,9 @@ public class Pop implements IAction {
 				if (j.picked() instanceof Interrupteur) {
 					Interrupteur levier = (Interrupteur) j.picked();
 					levier.add(terrain.getLastnotSelect(e.ligne(), e.colonne()));
+				}
+				if(j.getModeSelection() && pop != null) {
+					terrain.remove(j.ligne(), j.colonne(), pop);
 				}
 				j.setModeSelection(false);
 			}
@@ -145,7 +163,15 @@ public class Pop implements IAction {
 		}
 		e.pop();
 		LinkedList<Entity> l_entity = terrain.getElement(e.ligne(), e.colonne());
-		if (l_entity.getFirst() instanceof PopEntity) {
+		Entity elem;
+		boolean hasPlayer = false;
+		for(int i=0; i<l_entity.size(); i++) {
+			elem = l_entity.get(i);
+			if(elem instanceof Joueur) {
+				hasPlayer = true;
+			}
+		}
+		if (l_entity.getFirst() instanceof PopEntity && !hasPlayer) {
 			terrain.remove(e.ligne(), e.colonne(), l_entity.getFirst());
 		}
 		if(l_entity.getLast() instanceof Selection) {

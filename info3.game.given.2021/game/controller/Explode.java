@@ -25,51 +25,55 @@ public class Explode implements IAction {
 			if (r < 100) {
 				Entity pick = e.picked();
 				e.resetpick();
-				if(pick != null) {
+				if (pick != null) {
 					terrain.add(pick, e.ligne(), e.colonne());
 					tl.add(pick);
 				}
 			} else {
 				e.resetpick();
 			}
-			for(int i=1; i<=8; i++) {
+			for (int i = 1; i <= 8; i++) {
 				int[] coor = terrain.next_to(e, i);
 				int l = coor[0];
 				int c = coor[1];
 				Entity pickable = null;
 				r = rand.nextInt(10);
-				if(r>30) {
+				if (r > 30) {
 					continue;
 				}
 				r = rand.nextInt(4);
-				switch(r) {
+				switch (r) {
 				case 0:
-					pickable = new Bombe(l,c); 
+					pickable = new Bombe(l, c);
 					break;
 				case 1:
-					pickable = new Apple(l,c);
+					pickable = new Apple(l, c);
 					break;
 				case 2:
-					pickable = new Potion(l,c);
+					pickable = new Potion(l, c);
 					break;
 				case 3:
-					pickable = new Pioche(l,c);
+					pickable = new Pioche(l, c);
 					break;
 				}
-				if(pickable == null) {
+				if (pickable == null) {
 					continue;
 				}
 				terrain.add(pickable, l, c);
-				if (! (pickable instanceof Bombe))
+				if (!(pickable instanceof Bombe))
 					tl.add(pickable);
 			}
 		} else if (e instanceof Joueur) {
-				Entity pick = e.picked();
-				if (pick != null) {
-					terrain.add(pick, e.ligne(), e.colonne());
-					tl.add(pick);
-					e.resetpick();
-				}
+			Entity pick = e.picked();
+			if (pick != null) {
+				terrain.add(pick, e.ligne(), e.colonne());
+				tl.add(pick);
+				e.resetpick();
+			}
+		} else if (e instanceof Lave) {
+			Entity elem = terrain.getLastnotSelect(e.ligne(), e.colonne());
+			Explode cmd = new Explode(terrain,tl);
+			cmd.exec(elem);
 		}
 		if (e instanceof Mine || e instanceof Bombe) {
 //			System.out.print("boom");
@@ -94,7 +98,11 @@ public class Explode implements IAction {
 						continue;
 					if (elem instanceof Bombe && ((Bombe) elem).exploded())
 						continue;
+					if (elem instanceof Cassable && ((Cassable) elem).exploded())
+						continue;
 					if (elem instanceof Mine || elem instanceof Bombe || elem instanceof Cassable) {
+						if (elem instanceof Cassable) 
+							((Cassable) elem).changeState();
 						Explode ex = new Explode(terrain, tl);
 						ex.exec(elem);
 						taille--;

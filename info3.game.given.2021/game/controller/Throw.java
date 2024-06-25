@@ -23,7 +23,7 @@ public class Throw implements IAction {
 		if (picked == null)
 			return;
 		int[] coo = terrain.next_to_outside(e, e.direction());
-		if (coo[0] < 0 || coo[1] < 0 || coo[0] > terrain.get_colonne() || coo[1] > terrain.get_ligne())
+		if (coo[0] < 0 || coo[1] < 0 || coo[0] > terrain.get_colonne()-1 || coo[1] > terrain.get_ligne()-1)
 			return;
 		if (!terrain.isHerePossible(coo[0], coo[1], picked))
 			return;

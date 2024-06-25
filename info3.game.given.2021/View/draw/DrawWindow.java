@@ -7,7 +7,6 @@ import Labyrinthe.Field;
 import Labyrinthe.Joueur;
 import controller.TicTac;
 import listener.JSONWindow;
-
 /*
  * Classe qui gère la fenêtre
  */
@@ -72,5 +71,4 @@ public class DrawWindow extends JFrame {
 	public DrawInventaire get_invent() {
 		return this.inventaire;
 	}
-
 }

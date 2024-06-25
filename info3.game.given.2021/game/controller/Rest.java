@@ -1,6 +1,7 @@
 package controller;
 
 import Automates.IAction;
+import Labyrinthe.Bombe;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
 import Labyrinthe.Sable;
@@ -18,6 +19,7 @@ public class Rest implements IAction {
 
 	public Rest(Field f, int vie, TickListener tl) {
 		terrain = f;
+		this.vie = vie;
 		this.tl = tl;
 	}
 
@@ -31,11 +33,23 @@ public class Rest implements IAction {
 
 	@Override
 	public void exec(Entity e) {
-		if (e instanceof Sable && vie == 1) {
+//		String classnamelong = e.getClass().getName();
+//		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".") + 1, classnamelong.length());
+//		System.out.print(classname);
+//		System.out.print(" vie : ");
+//		System.out.print(e.getVie());
+		if ((e instanceof Sable || e instanceof Bombe) && vie == 1) {
 			e.power(-1);
+//			System.out.print("- 1 = ");
+//			System.out.println(e.getVie());
 			return;
 		}
+//		System.out.print(" + ");
+//		System.out.print(vie);
+//		System.out.print(" = ");
+//		System.out.println(e.getVie());
 		e.power(vie);
+
 	}
 
 	@Override

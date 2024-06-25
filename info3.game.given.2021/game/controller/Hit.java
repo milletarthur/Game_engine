@@ -23,6 +23,28 @@ public class Hit implements IAction {
 
 	@Override
 	public void exec(Entity e) {
+		if (e instanceof Lave || e instanceof Sable) {
+			int [] coo = terrain.next_to_outside(e, Direction.H);
+			LinkedList<Entity> list = terrain.getElement(coo[0], coo[1]);
+			int cpt = 0;
+			Entity tohit = list.get(cpt);
+			int taille = list.size();
+			while (!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette)
+					&& cpt < taille) {
+				tohit = list.get(cpt);
+				cpt++;
+			}
+			if (!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette))
+				return;
+			if (e instanceof Lave ) {
+				System.out.println("Lave hit");
+				tohit.power(-5);
+			}
+			if (e instanceof Sable ) {
+				System.out.println("Sable hit");
+				tohit.power(-2);
+			}
+		}
 		int damage = e.hit(); // renvoie les dégats que fait l'entitée a une autre. (positif)
 		if (damage == -6) { // cas épée avec hitCircle
 			System.out.println(e.ligne() + " " + e.colonne());

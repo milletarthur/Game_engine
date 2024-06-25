@@ -4,7 +4,7 @@ Player1(Init){
 | Got(Stuff) ? :(FullHand)
 | Cell(H, M) ? Pop :(Select)
 | Cell(H, J) ? Wizz :(Init)
-| Key(v) ? :(Select)
+| Key(v) ? Pop :(Select)
 | Key(a) ? Hit :(Init)
 | Key(c) ? Jump :(Init)
 | Cell(H,P) ? Pick :(FullHand)
@@ -22,7 +22,7 @@ Player1(Init){
 | ! Got(Stuff) ? :(Init)
 | Cell(H, M) ? Pop :(Select)
 | Cell(H, J) ? Wizz :(Init)
-| Key(v) ? :(Select)
+| Key(v) ? Pop :(Select)
 | Key(a) ? Hit :(FullHand)
 | Key(e) ? Throw :(Init)
 | Key(c) ? Jump :(Init)
@@ -44,7 +44,7 @@ Player2(Init){
 | Got(Stuff) ? :(FullHand)
 | Cell(H, M) ? Pop :(Select)
 | Cell(H, J) ? Wizz :(Init)
-| Key(i) ? :(Select)
+| Key(i) ? Pop :(Select)
 | Key(l) ? Hit :(Init)
 | Key(p) ? Jump :(Init)
 | Cell(H,P) ? Pick :(FullHand)
@@ -62,7 +62,7 @@ Player2(Init){
 | ! Got(Stuff) ? :(Init)
 | Cell(H, M) ? Pop :(Select)
 | Cell(H, J) ? Wizz :(Init)
-| Key(i) ? :(Select)
+| Key(i) ? Pop :(Select)
 | Key(l) ? Hit :(FullHand)
 | Key(m) ? Throw :(Init)
 | Key(p) ? Jump :(Init)
@@ -221,7 +221,8 @@ Lave(Init){
 * (Init):
 | ! Cell(H, V) ? :(OnTop)
 * (OnTop):
-| Cell(H,_) ? Hit :(OnTop)
+| Cell(H,A) ? Hit :(OnTop)
+| Cell(H,_) ? Explode :(OnTOp)
 }
 
 Fleche(Init){

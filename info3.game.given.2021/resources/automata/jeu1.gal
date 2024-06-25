@@ -127,7 +127,8 @@ Lave(Init){
 * (Init):
 | ! Cell(H, V) ? :(OnTop)
 * (OnTop):
-| Cell(H,_) ? Hit :(OnTop)
+| Cell(H,A) ? Hit :(OnTop)
+| Cell(H,_) ? Explode :(OnTOp)
 }
 
 Fleche(Init){

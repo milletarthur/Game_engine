@@ -110,7 +110,7 @@ Mine(Init){
 
 Sable(Init){
 * (Init):
-| Cell(H, @) / Cell(H,#) ? :(Catched)
+| Cell(H, @) / Cell(H,#) / Cell(H,A) ? Jump :(Catched)
 | Cell(H, M) ? Pop :(Init)
 | Cell(H, J) ? Wizz :()
 *(Catched)
@@ -128,15 +128,12 @@ Lave(Init){
 | Cell(H,_) ? Hit :(OnTop)
 }
 
-Fleche(Etat1){
-* (Etat1):
-| Cell(F, @) / Cell(F, #) / Cell(F, O) / Cell(F, G) / Cell(F, A) / Cell(F, C) ? Hit / Explode :()
-| True ? Hit / Move :(Etat2)
-* (Etat2):
-| Cell(F, @) / Cell(F, #) / Cell(F, O) / Cell(F, G) / Cell(F, A) / Cell(F, C) ? Hit / Explode :()
-| True ? Hit / Move :(Etat3)
-* (Etat3):
-| True ? Explode :()
+Fleche(Init){
+* (Init):
+| True ? Rest(3) :(Attack)
+* (Attack):
+| Cell(F, @) / Cell(F, #) / Cell(F, O) / Cell(F, G) / Cell(F, A) ? Hit / Explode :()
+| True ? Hit / Move / Rest(1) :(Init)
 *()
 }
 

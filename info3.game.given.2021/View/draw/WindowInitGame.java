@@ -99,6 +99,12 @@ public class WindowInitGame extends JFrame {
 				JSONWindow.nb_ennemis, JSONWindow.seed);
 
 		KeyPressed kp = new KeyPressed();
+		TickListener tl = new TickListener(terrain);
+		
+//		ajout d'un automate
+		AutomatonLoader al = new AutomatonLoader(terrain, kp, tl);
+		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/test_cond.gal");
+		tl.setAllAutoList(l_aut);
 		
 		Joueur j1 = new Joueur(2, 0, 1);
 		Joueur j2 = new Joueur(3, 0, 2);
@@ -114,6 +120,8 @@ public class WindowInitGame extends JFrame {
 			terrain.add(j2, terrain.get_ligne()-3, terrain.get_colonne()-1);
 			Interrupteur int1 = new Interrupteur(2, 0, new LinkedList<Entity>());
 			Interrupteur int2 = new Interrupteur(terrain.get_ligne() - 4, terrain.get_colonne() - 1, new LinkedList<Entity>());
+			tl.add(int1);
+			tl.add(int2);
 			int1.setTeam(1);
 			int2.setTeam(2);
 			terrain.add(int1,2,0);
@@ -127,7 +135,6 @@ public class WindowInitGame extends JFrame {
 
 		Viewport v1 = new Viewport(w.get_dt1(), T_case, JSONWindow.visibility);
 		Viewport v2 = new Viewport(w.get_dt2(), T_case, JSONWindow.visibility);
-		TickListener tl = new TickListener(terrain);
 
 		End end = new End(terrain, j1, j2, w);
 		TicTac tt = new TicTac(tl, j1, j2, v1, v2, end);
@@ -136,11 +143,6 @@ public class WindowInitGame extends JFrame {
 		w.init_Window(v1, v2, w.get_invent(), tt);
 		v1.centrerViewport(j1);
 		v2.centrerViewport(j2);
-
-		// ajout d'un automate
-		AutomatonLoader al = new AutomatonLoader(terrain, kp, tl);
-		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/jeu1.gal");
-		tl.setAllAutoList(l_aut);
 
 		// création du lien entre Entity et Automate
 		LinkedList<Entity> liste_mur_cassable = terrain.get_cassable();

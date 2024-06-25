@@ -10,84 +10,111 @@
     "use_seed" : true,
     "pv" : 20,
     "nb_obstacles" : 10,
-    "nb_ennemis" : 2,
     "entities": [
       { "name" : "Apple",
         "automate": "Apple",
-        "%densite": 2
+        "%densite": 2,
+        "sprite_path": "resources/graphisme/Pickables/pomme.png"
       },
       { "name" : "Arc", 
-        "automate": "Arc"
+        "automate": "Arc",
+        "sprite_path": "resources/graphisme/Pickables/arc.png"
       },
       { "name" : "Bombe", 
         "automate": "Bombe",
-        "%densite" : 2
+        "%densite" : 2,
+        "sprite_path": "resources/graphisme/Pickables/bombe.png"
       },
       { "name" : "Cassable", 
         "automate": "Cassable",
-        "%densite" : 25
+        "%densite" : 25,
+        "sprite_path": "resources/graphisme/Murs/fragile.png"
       },
       { "name" : "Epee", 
-        "automate": "Epee"
+        "automate": "Epee",
+        "sprite_path": "resources/graphisme/Pickables/epee.png"
       },
       { "name" : "Fleche", 
-        "automate": "Fleche"
+        "automate": "Fleche",
+        "sprite_path": "resources/graphisme/Pickables/fleche.png"
       },
       { "name" : "Interrupteur", 
         "automate": "Interrupteur",
-        "pickable": false 
+        "pickable": false,
+        "sprite_path_pop": "resources/graphisme/Pickables/levier1.png",
+        "sprite_path_wizz": "resources/graphisme/Pickables/levier3.png",
+        "sprite_path_neutre": "resources/graphisme/Pickables/levier2.png"
       },
       { "name" : "Invisible", 
         "automate": "Invisible",
-        "%densite" : 25
+        "%densite" : 75,
+        "sprite_path": "resources/graphisme/Murs/mur.png"
       },
       { "name" : "Joueur1", 
-        "automate": "Player1" 
+        "automate": "Player1",
+        "sprite_path": "resources/graphisme/Personnages/Player/player1.png"
       },
       { "name" : "Joueur2", 
-        "automate": "Player2"
+        "automate": "Player2",
+        "sprite_path": "resources/graphisme/Personnages/Player/player2.png"
       },
       { "name" : "Lave", 
-        "automate": "Lave"
+        "automate": "Lave",
+        "sprite_path": "resources/graphisme/Sol/lave.png"
       },
       { "name" : "Mine", 
         "automate": "Mine",
         "%densite": 5
       },
       { "name" : "Normal", 
-        "automate": "Normal"
+        "automate": "Normal",
+        "sprite_path": "resources/graphisme/Murs/mur.png"
       },
       { "name" : "Pioche", 
         "automate": "Pioche",
-        "%densite" : 2
+        "%densite" : 2,
+        "sprite_path": "resources/graphisme/Pickables/pioche.png"
       },
       { "name" : "Porte", 
-        "automate": "Porte"
+        "automate": "Porte",
+        "sprite_path_ouverte": "resources/graphisme/Portes/porte_ouverte.png",
+        "sprite_path_ferme": "resources/graphisme/Portes/porte_ferme.png"
       },
       { "name" : "Potion", 
         "automate": "Potion",
-        "%densite" : 2
+        "%densite" : 2,
+        "sprite_path": "resources/graphisme/Pickables/potion.png"
       },
       { "name" : "Sable", 
-        "automate": "Sable"
+        "automate": "Sable",
+        "sprite_path": "resources/graphisme/Sol/sand.png"
       },
       { "name" : "Selection1", 
-        "automate": "Selection1"
+        "automate": "Selection1",
+        "sprite_path": "resources/graphisme/targeting.png"
       },
       { "name" : "Selection2", 
-        "automate": "Selection2"
+        "automate": "Selection2",
+        "sprite_path": "resources/graphisme/targeting.png"
       },
       { "name" : "Squelette", 
-        "automate": "Squelette"
+        "automate": "Squelette",
+        "nombre":5,
+        "sprite_path": "resources/graphisme/Personnages/Ennemi/Squelette1.png"
       },
       { "name" : "Teleporteur", 
-        "automate": "Teleporteur"
+        "automate": "Teleporteur",
+        "sprite_path_activate": "resources/graphisme/Portes/teleporteur.png",
+        "sprite_path_desactivate": "resources/graphisme/Portes/teleporteur_desac.png"
       },
       { "name" : "Void", 
-        "automate": "Void"
+        "automate": "Void",
+        "sprite_path":"resources/graphisme/Chemins/temple_room.png"
       },
       { "name" : "Zombie", 
-        "automate": "Zombie"
+        "automate": "Zombie",
+        "nombre":3,
+        "sprite_path": "resources/graphisme/Personnages/Ennemi/Zombie1.png"
       }
     ]
   }

@@ -96,7 +96,7 @@ public class WindowInitGame extends JFrame {
 		Field terrain = new Field(JSONWindow.hauteur, JSONWindow.largeur, JSONWindow.densite, JSONWindow.d_pickable,
 				JSONWindow.d_mine, JSONWindow.d_pomme, JSONWindow.d_potion, JSONWindow.d_pioche, JSONWindow.d_bombe,
 				JSONWindow.d_cassable, JSONWindow.d_invisible, JSONWindow.d_normal, JSONWindow.nb_obstacles,
-				JSONWindow.nb_ennemis, JSONWindow.seed);
+				JSONWindow.nb_zombie, JSONWindow.nb_squelette, JSONWindow.seed);
 
 		KeyPressed kp = new KeyPressed();
 		TickListener tl = new TickListener(terrain);
@@ -109,7 +109,7 @@ public class WindowInitGame extends JFrame {
 		else if (JSONWindow.jeu.equals("Arène"))
 			l_aut = al.loadAutomata("resources/automata/jeu2.gal");
 		tl.setAllAutoList(l_aut);
-		
+
 		Joueur j1 = new Joueur(2, 0, 1);
 		Joueur j2 = new Joueur(3, 0, 2);
 
@@ -118,17 +118,17 @@ public class WindowInitGame extends JFrame {
 			terrain.add(j2, 3, 0);
 		} else if (JSONWindow.jeu.equals("Arène")) {
 			j1.set_ligne(3);
-			j2.set_colonne(terrain.get_colonne()-1);
-			j2.set_ligne(terrain.get_ligne()-3);
+			j2.set_colonne(terrain.get_colonne() - 1);
+			j2.set_ligne(terrain.get_ligne() - 3);
 			terrain.add(j1, 3, 0);
-			terrain.add(j2, terrain.get_ligne()-3, terrain.get_colonne()-1);
+			terrain.add(j2, terrain.get_ligne() - 3, terrain.get_colonne() - 1);
 			Interrupteur int1 = new Interrupteur(2, 0, new LinkedList<Entity>());
 			Interrupteur int2 = new Interrupteur(terrain.get_ligne() - 4, terrain.get_colonne() - 1, new LinkedList<Entity>());
 			tl.add(int1);
 			tl.add(int2);
 			int1.setTeam(1);
 			int2.setTeam(2);
-			terrain.add(int1,2,0);
+			terrain.add(int1, 2, 0);
 			terrain.add(int2, terrain.get_ligne() - 4, terrain.get_colonne() - 1);
 		}
 		// terrain.printGame();
@@ -165,9 +165,9 @@ public class WindowInitGame extends JFrame {
 			liste_bombe = terrain.get_bombes();
 		LinkedList<Entity> liste_teleporteur = terrain.get_teleporteur();
 		LinkedList<Entity> liste_mine = terrain.get_mine();
-		
+
 		Iterator<Automate> iter = l_aut.iterator();
-		while(iter.hasNext()) {
+		while (iter.hasNext()) {
 			Automate a = iter.next();
 			String a_name = a.get_name();
 			if (a_name.equals(JSONWindow.aut_j1)) {
@@ -178,77 +178,76 @@ public class WindowInitGame extends JFrame {
 				terrain.updateJoueur(j2);
 			} else if (a_name.equals(JSONWindow.aut_apple)) {
 				Iterator<Entity> iterPomme = liste_pomme.iterator();
-				while(iterPomme.hasNext()) {
-					tl.add(a,iterPomme.next());
+				while (iterPomme.hasNext()) {
+					tl.add(a, iterPomme.next());
 				}
 			} else if (a_name.equals(JSONWindow.aut_bombe)) {
 				Iterator<Entity> iterBombe = liste_bombe.iterator();
-				while(iterBombe.hasNext()) {
-					tl.add(a,iterBombe.next());
+				while (iterBombe.hasNext()) {
+					tl.add(a, iterBombe.next());
 				}
 			} else if (a_name.equals(JSONWindow.aut_cassable)) {
 				Iterator<Entity> iterCassable = liste_mur_cassable.iterator();
-				while(iterCassable.hasNext()) {
-					tl.add(a,iterCassable.next());
+				while (iterCassable.hasNext()) {
+					tl.add(a, iterCassable.next());
 				}
 			} else if (a_name.equals(JSONWindow.aut_interrupteur)) {
 				Iterator<Entity> iterInterrupteur = liste_interrupteur.iterator();
-				while(iterInterrupteur.hasNext()) {
-					tl.add(a,iterInterrupteur.next());
+				while (iterInterrupteur.hasNext()) {
+					tl.add(a, iterInterrupteur.next());
 				}
 			} else if (a_name.equals(JSONWindow.aut_invisible)) {
 				Iterator<Entity> iterInivisible = liste_mur_invisible.iterator();
-				while(iterInivisible.hasNext()) {
-					tl.add(a,iterInivisible.next());
+				while (iterInivisible.hasNext()) {
+					tl.add(a, iterInivisible.next());
 				}
 			} else if (a_name.equals(JSONWindow.aut_mine)) {
 				Iterator<Entity> iterMine = liste_mine.iterator();
-				while(iterMine.hasNext()) {
-					tl.add(a,iterMine.next());
+				while (iterMine.hasNext()) {
+					tl.add(a, iterMine.next());
 				}
 			} else if (a_name.equals(JSONWindow.aut_normal)) {
 				Iterator<Entity> iterNormal = liste_mur_normal.iterator();
-				while(iterNormal.hasNext()) {
-					tl.add(a,iterNormal.next());
+				while (iterNormal.hasNext()) {
+					tl.add(a, iterNormal.next());
 				}
 			} else if (a_name.equals(JSONWindow.aut_pioche)) {
 				Iterator<Entity> iterPioche = liste_pioche.iterator();
-				while(iterPioche.hasNext()) {
-					tl.add(a,iterPioche.next());
+				while (iterPioche.hasNext()) {
+					tl.add(a, iterPioche.next());
 				}
 			} else if (a_name.equals(JSONWindow.aut_porte)) {
 				Iterator<Entity> iterPorte = liste_porte.iterator();
-				while(iterPorte.hasNext()) {
-					tl.add(a,iterPorte.next());
+				while (iterPorte.hasNext()) {
+					tl.add(a, iterPorte.next());
 				}
 			} else if (a_name.equals(JSONWindow.aut_potion)) {
 				Iterator<Entity> iterPotion = liste_potion.iterator();
-				while(iterPotion.hasNext()) {
-					tl.add(a,iterPotion.next());
+				while (iterPotion.hasNext()) {
+					tl.add(a, iterPotion.next());
 				}
 			} else if (a_name.equals(JSONWindow.aut_sable)) {
 				Iterator<Entity> iterSable = liste_sable.iterator();
-				while(iterSable.hasNext()) {
-					tl.add(a,iterSable.next());
+				while (iterSable.hasNext()) {
+					tl.add(a, iterSable.next());
 				}
-			} else if (a_name.equals(JSONWindow.aut_squelette)) { 
+			} else if (a_name.equals(JSONWindow.aut_squelette)) {
 				Iterator<Entity> iterSquelette = liste_squelette.iterator();
-				while(iterSquelette.hasNext()) {
-					tl.add(a,iterSquelette.next());
+				while (iterSquelette.hasNext()) {
+					tl.add(a, iterSquelette.next());
 				}
 			} else if (a_name.equals(JSONWindow.aut_teleporteur)) {
 				Iterator<Entity> iterTP = liste_teleporteur.iterator();
-				while(iterTP.hasNext()) {
-					tl.add(a,iterTP.next());
+				while (iterTP.hasNext()) {
+					tl.add(a, iterTP.next());
 				}
 			} else if (a_name.equals(JSONWindow.aut_zombie)) {
 				Iterator<Entity> iterZombie = liste_zombie.iterator();
-				while(iterZombie.hasNext()) {
-					tl.add(a,iterZombie.next());
+				while (iterZombie.hasNext()) {
+					tl.add(a, iterZombie.next());
 				}
 			}
 		}
-		
 
 		// ajout d'un Keylistener
 		Key_Listener k = new Key_Listener(terrain, kp);

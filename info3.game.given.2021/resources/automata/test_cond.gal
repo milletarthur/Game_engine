@@ -31,9 +31,7 @@ Player1(Init){
 Player2(Init){
 * (Init):
 | Key(l) ? Hit :(Init)
-| Key(m) ? Throw :(Init)
-| Key(i) ? Store :(Init)
-| Key(o) & Got(Stuff) ? Get :(Picked)
+| Key(o) ? Get :(Picked)
 | Key(p) ? Jump :(Init)
 | Cell(H,P) ? Pick :(Picked)
 | Cell(H,D) ? :(Init)
@@ -45,7 +43,7 @@ Player2(Init){
 | Key(FR) ? Turn(E) :(Init)
 | Key(FD) ? Turn(S) :(Init)
 | Key(FL) ? Turn(W) :(Init)
-| Key(o) ? Wizz :(Init)
+| Key(j) ? Wizz :(Init)
 | Key(k) ? Pop :(Wait)
 * (Picked):
 | Key(l) ? Hit :(Picked)
@@ -61,7 +59,7 @@ Player2(Init){
 | Key(FR) ? Turn(E) :(Picked)
 | Key(FD) ? Turn(S) :(Picked)
 | Key(FL) ? Turn(W) :(Picked)
-| Key(o) ? Wizz :(Picked)
+| Key(j) ? Wizz :(Picked)
 | Key(k) ? Pop :(Wait)
 }
 

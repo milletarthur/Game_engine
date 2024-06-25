@@ -28,6 +28,18 @@ public class Pop implements IAction {
 				tl.add(entity);
 				entity.setTeam(e.team());
 				terrain.add(entity, e.ligne(), e.colonne());
+//				LinkedList<Entity> l_entity = terrain.getElement(e.ligne(), e.colonne());
+//				Entity elem;
+//				PopEntity pop = null;
+//				for(int i=0; i<l_entity.size(); i++) {
+//					elem = l_entity.get(i);
+//					if(elem instanceof PopEntity) {
+//						pop = (PopEntity) elem;
+//					}
+//				}
+//				if(pop != null) {
+//					terrain.remove(pop.ligne(), pop.colonne(), pop);
+//				}
 			} else {
 				Selection s = j.getSelection();
 				terrain.remove(s.ligne(), s.colonne(), s);

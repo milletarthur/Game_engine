@@ -1622,7 +1622,7 @@ public class Field {
 	public boolean presence_obstacle(LinkedList<Entity> liste) {
 		for (int i = 0; i < liste.size(); i++) {
 			if (liste.get(i) instanceof Cassable || liste.get(i) instanceof Normal
-					|| (liste.get(i) instanceof Porte && liste.get(i).category == Categorie.V)) {
+					|| (liste.get(i) instanceof Porte && liste.get(i).category == Categorie.O)) {
 				return true;
 			}
 		}

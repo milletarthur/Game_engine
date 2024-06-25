@@ -88,7 +88,11 @@ public class JSONWindow implements ActionListener {
 			seed = new Random();
 
 		nb_obstacles = param.getInt("nb_obstacles");
-		nb_ennemis = param.getInt("nb_ennemis") / 2; // divisé par deux car nb ennemis par entité ennemis
+		int enn = param.getInt("nb_ennemis");
+		if (enn % 2 == 0)
+			nb_ennemis = enn / 2; // divisé par deux car nb ennemis par entité ennemis
+		else 
+			nb_ennemis = enn / 2 + 1;
 
 		int d_cas = 0, d_inv = 0;
 		int d_pom = 0, d_bom = 0, d_pio = 0, d_min = 0, d_pot = 0;

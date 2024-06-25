@@ -180,12 +180,12 @@ Pioche(Init){
 Bombe(Init){
 * (Init): 
 | Cell(H, M) ? Pop :(BoomNow)
-| Cell(H, J) ? Wizz / Rest(60) :(Boom)
+| Cell(H, J) ? Wizz / Rest(30) :(Boom)
 | Got(Power) ? Rest(30) :(Boom)
 * (Boom):
 | ! Got(Power) ? Explode :()
 | Cell(H, M) ? Pop :(BoomNow)
-| Cell(H, J) ? Wizz / Rest(30) :(Boom)
+| Cell(H, J) ? Wizz :(Boom)
 | True ? Rest(1) :(Boom)
 * (BoomNow):
 | True ? Explode :()

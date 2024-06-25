@@ -39,7 +39,7 @@ public class DrawTerrain extends JPanel {
 			teleporte_desac;
 
 	// partager avec DrawInventaire
-	public static Image pomme, pioche, bombe, int_pop, int_wizz, int_neutre, arc, potion, epee;
+	public static Image pomme, pioche, bombe, int_pop, int_wizz, int_neutre, arc, potion, epee, pop, wizz;
 
 	Random random;
 
@@ -207,7 +207,19 @@ public class DrawTerrain extends JPanel {
 				}
 			}
 		}
-	}
+		// affichage de pop et wizz
+		for (int i = 0; i < terrain.get_ligne(); i++) {
+			for (int j = 0; j < terrain.get_colonne(); j++) {
+				LinkedList<Entity> temp = terrain.getElement(i, j);
+					Entity e = temp.get(0);
+					if (e instanceof PopEntity)
+						g.drawImage(selection1, j * T_case, i * T_case, T_case, T_case, null);
+					else if (e instanceof WizzEntity)
+						g.drawImage(selection1, j * T_case, i * T_case, T_case, T_case, null);
+				}
+			}
+		}
+	
 
 	public void chargement_Image() throws IOException {
 
@@ -258,8 +270,8 @@ public class DrawTerrain extends JPanel {
 		this.zombie_flip = flip(zombie);
 		this.invisible = transparent(mur);
 
-		// BufferedImage pour rotate
-		this.fleche = (BufferedImage) drawEntity(JSONWindow.sprite_fleche);
+		this.fleche = drawEntityB(JSONWindow.sprite_fleche);
+		
 	}
 
 	public static Image drawPickable(Entity e) {

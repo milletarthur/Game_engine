@@ -35,10 +35,11 @@ public class DrawTerrain extends JPanel {
 	private BufferedImage player1, player1_flip, player2, player2_flip, porte_fermee, porte_ouverte, teleporte, zombie,
 			zombie_flip, squelette, squelette_flip, invisible, teleporte_desac, fleche;
 
-	private Image lave, sand, mur, fragile, int_pop, int_wizz, int_neutre, selection;
+	private Image lave, sand, mur, fragile, selection;
 
 	// partager avec DrawInventaire
 	public static BufferedImage pioche, pomme, arc, potion, epee, bombe;
+	public static Image int_pop, int_wizz, int_neutre;
 
 	Random random;
 
@@ -285,6 +286,8 @@ public class DrawTerrain extends JPanel {
 			return pioche;
 		} else if (e instanceof Potion) {
 			return potion;
+		} else if (e instanceof Interrupteur) {
+			return int_neutre;
 		}
 		return null;
 	}

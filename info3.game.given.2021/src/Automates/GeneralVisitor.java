@@ -349,40 +349,22 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		case "Egg":
 			return new Egg(f, tl);
 		case "Store":
-			if (l_param.size() != 0)
-				throw new RuntimeException("Wrong arguments");
 			return new Store(f, tl);
 		case "Explode":
-			if (l_param.size() != 0)
-				throw new RuntimeException("Wrong arguments");
 			return new Explode(f, tl);
 		case "Get":
-			if (l_param.size() != 0)
-				throw new RuntimeException("Wrong arguments");
 			return new Get(f, tl);
 		case "Rest":
-			if (l_param.size() != 1)
-				throw new RuntimeException("Wrong arguments");
 			return new Rest(f, (int) parameters.get(0), tl);
 		case "Wait":
-			if (l_param.size() != 0)
-				throw new RuntimeException("Wrong arguments");
-			return new Wait(f, tl);
+			return new Wait(f, (int) parameters.get(0), tl);
 		case "Move":
-			if (l_param.size() != 0)
-				throw new RuntimeException("Wrong arguments");
 			return new Move(f, tl);
 		case "Pop":
-			if (l_param.size() != 0)
-				throw new RuntimeException("Wrong arguments");
 			return new Pop(f, tl);
 		case "Wizz":
-			if (l_param.size() != 0)
-				throw new RuntimeException("Wrong arguments");
 			return new Wizz(f, tl);
 		case "Jump":
-			if (l_param.size() != 0)
-				throw new RuntimeException("Wrong arguments");
 			return new Jump(f, tl);
 		default:
 			break;
@@ -400,7 +382,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 			c = new False();
 			break;
 		case "Key":
-			c = new controller.Key(f, (int) parameters.get(0), kp);  //l_param.get(0), kp);
+			c = new controller.Key(f, (int) parameters.get(0), kp);
 			break;
 		case "Got":
 			c = new Got(f, (int) parameters.get(0));

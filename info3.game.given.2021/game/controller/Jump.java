@@ -36,9 +36,9 @@ public class Jump implements IAction {
 				((Squelette) e).setOtherTeam(team);
 			}
 		} else if(e instanceof Teleporteur) {
-//			if(!((Teleporteur)e).IsActivate()) {
-//				return;
-//			}
+			if(!((Teleporteur)e).IsActivate()) {
+				return;
+			}
 			if(((Teleporteur)e).IsTpRandom()) {
 				Random rand = new Random();
 				LinkedList<Pair<Integer, Integer>> l_void = terrain.recup_liste_void_cassable_invisible();

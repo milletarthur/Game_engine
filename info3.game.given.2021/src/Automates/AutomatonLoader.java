@@ -30,12 +30,6 @@ public class AutomatonLoader {
 			GeneralVisitor vis = new GeneralVisitor(f, kp, tl);
 			fsm_list = (LinkedList<Automate>) ast.accept(vis);
 			return fsm_list;
-//		} catch (Exception ex) {
-//			throw new RuntimeException(ex);
-//		}
 	}
 
-//	public static void main(String[] args) {
-//		 loadAutomata("resources/automata/apple.gal");
-//	}
 }

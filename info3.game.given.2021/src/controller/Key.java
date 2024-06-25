@@ -32,13 +32,9 @@ public class Key implements ICondition {
 
 	@Override
 	public boolean eval(Entity e) {
-//		System.out.print("check de key : ");
-//		System.out.print(key);
 		if (k.ispressed(key)) {
-//			System.out.println(" pressé");
 			return true;
 		} else {
-//			System.out.println(" non pressé");
 			return false;
 		}
 	}

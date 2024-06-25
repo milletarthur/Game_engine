@@ -38,7 +38,6 @@ public class Turn implements IAction {
 				pick.turn(Direction);
 			}
 		}
-//		System.out.println("Turn");
 		return;
 	}
 

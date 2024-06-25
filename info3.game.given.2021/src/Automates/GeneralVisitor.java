@@ -117,9 +117,6 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		case "Stuff":
 			category = GotCat.Stuff;
 			break;
-//		case "Time":
-//			category = GotCat.Time;
-//			break;
 		default:
 			return null;
 		}
@@ -414,17 +411,16 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		ICondition c;
 		switch (binop.operator) {
 		case "&":
-			c = new Conjonction((ICondition) left, (ICondition) right);  //l_cond.get(l_cond.size() - 2), l_cond.get(l_cond.size() - 1));
+			c = new Conjonction((ICondition) left, (ICondition) right);  
 			if (left instanceof Cell)
 				((Cell) left).toString();
 			break;
 		case "/":
-			c = new Disjonction((ICondition) left, (ICondition) right); //l_cond.get(l_cond.size() - 2), l_cond.get(l_cond.size() - 1));
+			c = new Disjonction((ICondition) left, (ICondition) right); 
 			break;
 		default:
 			throw new RuntimeException("Wrong arguments");
 		}
-		//l_cond.add(c);
 		cond = c;
 		return c;
 	}
@@ -441,8 +437,7 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public Object build(UnaryOp unop, Object expression) {
 		ICondition c;
 		if (unop.operator.equals("!")) {
-			c = new Not((ICondition) expression); //l_cond.get(l_cond.size() - 1));
-			//l_cond.add(c);
+			c = new Not((ICondition) expression); 
 			cond = c;
 			return c;
 		}
@@ -455,7 +450,6 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 		String ast_state_name = state.toString();
 		while (i.hasNext()) {
 			Automates.State s = i.next();
-//			System.out.println(s.getName());
 			if (ast_state_name.equals(s.getName()))
 				return s;
 		}
@@ -466,7 +460,6 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 
 	@Override
 	public void enter(Mode mode) {
-//		l_trans = new LinkedList<TransitionAutomate>();
 		current = (Automates.State) visit(mode.state);
 		is_in_mode = true;
 	}
@@ -498,13 +491,6 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public void exit(Condition condition) {
 	}
 
-//	private List<Object> parameterToObject(List<Parameter> l){
-//		Iterator<Parameter> i = l.iterator();
-//		List<Object> rv = new LinkedList<Object>();
-//		while(i.hasNext())
-//			rv.add(i.next());
-//		return rv;
-//	}
 	
 	//Je ne suis pas sure des params des fonctions
 	@Override
@@ -532,7 +518,6 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public Object build(Actions action, String operator, List<Object> funcalls) {
 		Iterator<Object> i = funcalls.iterator();
 		while(i.hasNext()) {
-			//FunCall act = (FunCall) i.next();
 			l_act.add((IAction) i.next());//(IAction) build(act, parameterToObject(act.parameters)));
 		}
 		return l_act;
@@ -542,7 +527,6 @@ public class GeneralVisitor implements gal.ast.IVisitor {
 	public void enter(Transition transition) {
 		l_trans.add(new TransitionAutomate());
 		l_act = new LinkedList<IAction>();
-		//l_cond = new LinkedList<ICondition>();
 	}
 
 	@Override

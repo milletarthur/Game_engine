@@ -112,33 +112,6 @@ public class Pop implements IAction {
 				terrain.remove(coo[0], coo[1], elem);
 				tl.remove(elem);
 			}
-//			Entity elem;
-//			switch (e.direction()) {
-//			case Direction.N:
-//				elem = terrain.getLastnotSelect(e.ligne() - 1, e.colonne());
-//				if (elem instanceof Cassable) {
-//					terrain.remove(e.ligne() - 1, e.colonne(), elem);
-//				}
-//				break;
-//			case Direction.S:
-//				elem = terrain.getLastnotSelect(e.ligne() + 1, e.colonne());
-//				if (elem instanceof Cassable) {
-//					terrain.remove(e.ligne() + 1, e.colonne(), elem);
-//				}
-//				break;
-//			case Direction.E:
-//				elem = terrain.getLastnotSelect(e.ligne(), e.colonne() + 1);
-//				if (elem instanceof Cassable) {
-//					terrain.remove(e.ligne(), e.colonne() + 1, elem);
-//				}
-//				break;
-//			case Direction.W:
-//				elem = terrain.getLastnotSelect(e.ligne(), e.colonne() - 1);
-//				if (elem instanceof Cassable) {
-//					terrain.remove(e.ligne(), e.colonne() - 1, elem);
-//				}
-//				break;
-//			}
 		} else if (e instanceof Bombe || e instanceof Mine) {
 			Explode ex = new Explode(terrain, tl);
 			ex.exec(e);

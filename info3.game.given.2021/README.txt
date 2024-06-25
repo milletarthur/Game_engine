@@ -44,12 +44,12 @@ Avec les configurations que nous fournissons, nous générons les deux jeux pré
 
 
 
-Lien vers la vidéo : 
+Lien vers la vidéo : https://youtu.be/SI_tEioPQh0
 
 
 
 
-Lien vers le Journal de Bord : 
+Lien vers le Journal de Bord : https://docs.google.com/document/d/1i-li4hJKb3Ap3xVwqmdMGF-XPCaPDserZwos3-hA4n8/edit?usp=sharing
 
 
 

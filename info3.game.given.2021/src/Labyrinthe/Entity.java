@@ -7,7 +7,7 @@ public abstract class Entity {
 
 	protected Inventory inventory = new Inventory();
 
-	protected int time;
+	protected int time = 0;
 
 	protected int distance_vision = 3;
 

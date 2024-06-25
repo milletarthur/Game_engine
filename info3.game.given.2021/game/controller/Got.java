@@ -23,8 +23,9 @@ public class Got implements ICondition {
 	public boolean eval(Entity e) {
 		switch (value) {
 		case 0:
-			Inventory inv = e.getInventory();
-			return !inv.isEmpty();
+			if (e.picked() == null)
+				return false;
+			return true;
 		case 1:
 			int time = e.getTime();
 			if (time <= 0) {

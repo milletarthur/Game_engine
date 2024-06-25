@@ -79,6 +79,8 @@ public class Inventory {
 
 	public Entity popJ1() {
 		Entity e = getCurrentJ1();
+		if (e == null)
+			return null;
 		inventory.remove(e);
 		current_j1 = null;
 		current_j2 = null;
@@ -89,6 +91,8 @@ public class Inventory {
 
 	public Entity popJ2() {
 		Entity e = getCurrentJ2();
+		if (e == null)
+			return null;
 		inventory.remove(e);
 		current_j1 = null;
 		current_j2 = null;

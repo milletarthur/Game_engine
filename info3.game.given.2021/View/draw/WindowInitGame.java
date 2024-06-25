@@ -139,7 +139,7 @@ public class WindowInitGame extends JFrame {
 
 		// ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp, tl);
-		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/test_cond.gal");
+		LinkedList<Automate> l_aut = al.loadAutomata("resources/automata/jeu1.gal");
 		tl.setAllAutoList(l_aut);
 
 		// création du lien entre Entity et Automate

@@ -83,10 +83,16 @@ public class Closest implements ICondition {
 
 	@Override
 	public boolean eval(Entity e) {
-		if (categorie == Categorie.A || categorie == Categorie.Arobase || categorie == Categorie.Diese) {
+		if (categorie == Categorie.Arobase || categorie == Categorie.Diese || categorie == Categorie.A) {
 			LinkedList<Entity> l = terrain.get_joueur();
 			Joueur j1 = (Joueur) l.get(0);
 			Joueur j2 = (Joueur) l.get(1);
+			if (j1.getVie() <= 0 && j2.getVie() > 0)
+				j1 = j2;
+			else if (j2.getVie() <= 0 && j1.getVie() > 0)
+				j2 = j1;
+			else if (j2.getVie() <= 0 && j1.getVie() <= 0)
+				return false;
 			double dist_j1 = Math
 					.sqrt(Math.pow((j1.ligne() - e.ligne()), 2) + Math.pow((j1.colonne() - e.colonne()), 2));
 			double dist_j2 = Math
@@ -94,77 +100,46 @@ public class Closest implements ICondition {
 			if (dist_j1 > distance_vision && dist_j2 > distance_vision)
 				return false;
 			Joueur closest;
-			if (dist_j1 < dist_j2)
-				closest = j1;
-			else
-				closest = j2;
+			if (categorie != Categorie.A) {
+				if (dist_j1 < dist_j2)
+					closest = j1;
+				else
+					closest = j2;
+			} else {
+				if (j1.team() == e.team() && j2.team() == e.team())
+					return false;
+				else if (j1.team() != e.team() && j2.team() == e.team())
+					closest = j1;
+				else if (j1.team() == e.team() && j2.team() != e.team())
+					closest = j2;
+				else {
+					if (dist_j1 < dist_j2)
+						closest = j1;
+					else
+						closest = j2;
+				}
+				
+			}
 			int ligne = closest.ligne() - e.ligne();
 			int colonne = closest.colonne() - e.colonne();
-
-//			if (e instanceof Squelette)
-//				System.out.println("Squelette ");
-//			switch (direction) {
-//			case Direction.N :
-//				System.out.println("Nord");
-//				break;
-//			case Direction.S :
-//				System.out.println("Sud");
-//				break;
-//			case Direction.E :
-//				System.out.println("Est");
-//				break;
-//			case Direction.W :
-//				System.out.println("Ouest");
-//				break;
-//			default :
-//				break;
-//			}
 			switch (terrain.to_absolute(e, direction)) {
 			case Direction.N:
 				if (-ligne >= Math.abs(colonne)) {
-//					if (e instanceof Zombie) {
-//						System.out.print("Au nord du Zombie (");
-//						System.out.print(ligne);
-//						System.out.print(",");
-//						System.out.print(colonne);
-//						System.out.println(")");
-//					}
 					return true;
 				}
 				break;
 			case Direction.S:
 				if (ligne >= Math.abs(colonne)) {
-//					if (e instanceof Zombie) {
-//						System.out.print("Au sud du Zombie (");
-//						System.out.print(ligne);
-//						System.out.print(",");
-//						System.out.print(colonne);
-//						System.out.println(")");
-//					}
 					return true;
 				}
 				break;
 			case Direction.E:
 				if (colonne >= Math.abs(ligne)) {
-//					if (e instanceof Zombie) {
-//						System.out.print("A l'est du Zombie (");
-//						System.out.print(ligne);
-//						System.out.print(",");
-//						System.out.print(colonne);
-//						System.out.println(")");
-//					}
 					return true;
 				}
 				break;
 			case Direction.W:
 				if (-colonne >= Math.abs(ligne)) {
-//					if (e instanceof Zombie) {
-//						System.out.print("A l'ouest du Zombie (");
-//						System.out.print(ligne);
-//						System.out.print(",");
-//						System.out.print(colonne);
-//						System.out.println(")");
-//					}
 					return true;
 				}
 				break;

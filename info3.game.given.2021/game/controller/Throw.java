@@ -1,12 +1,11 @@
 package controller;
 
-import java.util.LinkedList;
 
 import Automates.IAction;
 import Labyrinthe.Bombe;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
-import toolkit.Direction;
+import Labyrinthe.Interrupteur;
 
 public class Throw implements IAction {
 
@@ -24,7 +23,7 @@ public class Throw implements IAction {
 		if (picked == null)
 			return;
 		int[] coo = terrain.next_to_outside(e, e.direction());
-		if (coo[0] < 0 || coo[1] < 0 || coo[0] > terrain.get_colonne() || coo[1] > terrain.get_ligne())
+		if (coo[0] < 0 || coo[1] < 0 || coo[0] > terrain.get_colonne()-1 || coo[1] > terrain.get_ligne()-1)
 			return;
 		if (!terrain.isHerePossible(coo[0], coo[1], picked))
 			return;
@@ -32,7 +31,7 @@ public class Throw implements IAction {
 		picked.set_ligne(coo[0]);
 		picked.set_colonne(coo[1]);
 		terrain.add(picked, coo[0], coo[1]);
-		if (picked instanceof Bombe)
+		if (picked instanceof Bombe || picked instanceof Interrupteur)
 			tl.add(picked);
 	}
 

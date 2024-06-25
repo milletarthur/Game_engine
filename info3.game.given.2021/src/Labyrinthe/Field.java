@@ -29,7 +29,7 @@ public class Field {
 	private LinkedList<Entity> liste_sable = new LinkedList<Entity>();
 	private LinkedList<Entity> liste_squelette = new LinkedList<Entity>();
 	private LinkedList<Entity> liste_zombie = new LinkedList<Entity>();
-	
+
 	// pomme, potion, pioche, bombe
 	private LinkedList<Entity> liste_pomme = new LinkedList<Entity>();
 	private LinkedList<Entity> liste_potion = new LinkedList<Entity>();
@@ -37,7 +37,7 @@ public class Field {
 	private LinkedList<Entity> liste_bombe = new LinkedList<Entity>();
 	private LinkedList<Entity> liste_teleporteur = new LinkedList<Entity>();
 	private LinkedList<Entity> liste_mine = new LinkedList<Entity>();
-	
+
 	private LinkedList<Entity> liste_joueur = new LinkedList<Entity>();
 
 	public Field(int lig, int col, int densite_field, int densite_pickable, int mine, int pomme, int potion, int pioche,
@@ -85,7 +85,7 @@ public class Field {
 			deposer_Porte(nb_porte_sable);
 		} else {
 			depot_mur2(cassable, invisible, normal);
-			//deposer_interrupteur2();
+			// deposer_interrupteur2();
 		}
 
 		grow();
@@ -1554,6 +1554,19 @@ public class Field {
 		return false;
 	}
 
+	public boolean presence_Adversaire(Entity en, LinkedList<Entity> liste) {
+		for (int i = 0; i < liste.size(); i++) {
+			Entity elem = liste.get(i);
+			int team = en.team();
+			int elemteam = elem.team();
+			if ((elem instanceof Joueur && team != elemteam) || (elem instanceof Squelette && team != elemteam)
+					|| (elem instanceof Zombie && team != elemteam)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean presence_clue(LinkedList<Entity> liste) {
 		for (int i = 0; i < liste.size(); i++) {
 			if (liste.get(i) instanceof Interrupteur) {
@@ -1591,7 +1604,7 @@ public class Field {
 		}
 		return false;
 	}
-	
+
 	public boolean presence_sable(LinkedList<Entity> liste) {
 		for (int i = 0; i < liste.size(); i++) {
 			if (liste.get(i) instanceof Sable) {
@@ -1884,7 +1897,7 @@ public class Field {
 			taille--;
 		switch (cat) {
 		case Categorie.A:
-			if (presence_Bot_Joueur(elem)) {
+			if (presence_Adversaire(e, elem)) {
 				return true;
 			}
 			return false;
@@ -1972,7 +1985,7 @@ public class Field {
 		LinkedList<Entity> l_entity = getElement(ligne, colonne);
 		int cpt = 0;
 		Entity elem = l_entity.get(0);
-		if(e.layer == -1) {
+		if (e.layer == -1) {
 			l_entity.addFirst(e);
 			return;
 		}
@@ -2071,7 +2084,7 @@ public class Field {
 			if (here instanceof Void) {
 				return true;
 			} else if (here.category() == Categorie.P || here instanceof Mine) {
-				//remove(ligne, colonne, here);
+				// remove(ligne, colonne, here);
 				return true;
 			}
 			return false;
@@ -2082,7 +2095,7 @@ public class Field {
 		case "Bombe":
 		case "Epee":
 		case "Arc":
-			if (here instanceof Void) {
+			if (here instanceof Void || here instanceof Lave) {
 				return true;
 			} else if (here instanceof Cassable || here instanceof Invisible) {
 				return !hasSameLayer(ligne, colonne, e.layer());
@@ -2457,7 +2470,7 @@ public class Field {
 		case "Invisible":
 			return new Invisible(ligne, colonne);
 		case "Selection":
-			return new Selection(ligne, colonne);
+			return new Selection(ligne, colonne, e.team());
 		case "Void":
 			return new Void(ligne, colonne);
 		default:
@@ -2469,12 +2482,9 @@ public class Field {
 	 * -1 : partie perdue 0 : partie pas finie
 	 */
 
-
-
-	/* -1 : partie perdue
-	 * 0 : partie pas finie
-	 * 1 : partie gagnée
-	 */ 
+	/*
+	 * -1 : partie perdue 0 : partie pas finie 1 : partie gagnée
+	 */
 
 	public int endGame() {
 //		LinkedList<Entity> l_player = new LinkedList<Entity>();
@@ -2555,24 +2565,24 @@ public class Field {
 			}
 		}
 	}
-	
+
 	public void updateJoueur(Entity e) {
-		if(liste_joueur.contains(e)) {
+		if (liste_joueur.contains(e)) {
 			liste_joueur.remove(e);
 			liste_joueur.add(e);
 		} else {
 			liste_joueur.add(e);
 		}
 	}
-	
-	public LinkedList<Entity> get_joueur(){
+
+	public LinkedList<Entity> get_joueur() {
 		return liste_joueur;
 	}
-	
+
 	public int to_absolute(Entity e, int dir) {
 		if (dir == Direction.N || dir == Direction.S || dir == Direction.E || dir == Direction.W)
 			return dir;
-		switch(e.direction()) {
+		switch (e.direction()) {
 		case Direction.N:
 			if (dir == Direction.F) {
 //				System.out.println("Nord");

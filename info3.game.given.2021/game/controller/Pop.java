@@ -20,7 +20,7 @@ public class Pop implements IAction {
 	@Override
 	public void exec(Entity e) {
 		if (e instanceof Joueur) {
-			Entity entity = new Selection(e.ligne(), e.colonne());
+			Entity entity = new Selection(e.ligne(), e.colonne(), e.team());
 			Joueur j = (Joueur) e;
 			if (!j.getModeSelection()) {
 				((Selection) entity).setJoueur(j);
@@ -44,6 +44,15 @@ public class Pop implements IAction {
 				if (elem instanceof Joueur) {
 					j = (Joueur) elem;
 					break;
+				}
+			}
+			l_entity = terrain.getElement(e.ligne(), e.colonne());
+			for(int i=0; i<l_entity.size(); i++) {
+				elem = l_entity.get(i);
+				if(elem instanceof Zombie){
+					((Zombie)elem).setOtherTeam(e.team());
+				} else if(elem instanceof Squelette){
+					((Squelette)elem).setOtherTeam(e.team());
 				}
 			}
 			if (j != null) {
@@ -99,8 +108,10 @@ public class Pop implements IAction {
 			if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0 || coo[1] > terrain.get_colonne() - 1)
 				return;
 			Entity elem = terrain.getLastnotSelect(coo[0], coo[1]);
-			terrain.remove(coo[0], coo[1], elem);
-			tl.remove(elem);
+			if(!(elem instanceof Lave)) {
+				terrain.remove(coo[0], coo[1], elem);
+				tl.remove(elem);
+			}
 //			Entity elem;
 //			switch (e.direction()) {
 //			case Direction.N:

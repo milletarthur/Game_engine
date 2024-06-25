@@ -153,9 +153,16 @@ public class TickListener {
 				}
 				break;
 			case "Selection":
-				if (name.equals(JSONWindow.aut_selection2)){
-					restart = true;
-					add(a, e);
+				if (e.team() == 1) {
+					if (name.equals(JSONWindow.aut_selection1)){
+						restart = true;
+						add(a, e);
+					}
+				} else {
+					if (name.equals(JSONWindow.aut_selection2)){
+						restart = true;
+						add(a, e);
+					}
 				}
 				break;
 			case "Squelette":

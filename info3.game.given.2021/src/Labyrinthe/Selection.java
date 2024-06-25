@@ -8,11 +8,11 @@ public class Selection extends Entity {
 	private int colonne_joueur;
 	private Joueur j;
 
-	public Selection(int ligne, int colonne) {
+	public Selection(int ligne, int colonne, int team) {
 		this.ligne = ligne;
 		this.colonne = colonne;
 		this.category = Categorie.T;
-		this.team = 8;
+		this.team = team;
 		layer = 5;
 		ligne_joueur = ligne;
 		colonne_joueur = colonne;
@@ -20,7 +20,7 @@ public class Selection extends Entity {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Selection(ligne, colonne);
+		return new Selection(ligne, colonne, team);
 	}
 
 	@Override

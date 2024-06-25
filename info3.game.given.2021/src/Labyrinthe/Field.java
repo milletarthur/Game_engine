@@ -41,7 +41,7 @@ public class Field {
 	private LinkedList<Entity> liste_joueur = new LinkedList<Entity>();
 
 	public Field(int lig, int col, int densite_field, int densite_pickable, int mine, int pomme, int potion, int pioche,
-			int bombe, int cassable, int invisible, int normal, int nb_porte_sable, int nb_ennemis, Random r) {
+			int bombe, int cassable, int invisible, int normal, int nb_porte_sable, int nb_zombie, int nb_squelette, Random r) {
 		if (col % 2 == 0) {
 			col++;
 		}
@@ -80,7 +80,8 @@ public class Field {
 		for (int i = 0; i < chemin.size(); i++) {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
-		if (JSONWindow.jeu.equals("Labyrinthe")) {
+		//if (JSONWindow.jeu.equals("Labyrinthe")) {
+		if(densite_field == 100) {
 			depot_mur1(cassable, invisible, normal);
 			deposer_Porte(nb_porte_sable);
 		} else {
@@ -96,7 +97,7 @@ public class Field {
 		recup_liste_void_cassable_invisible();
 		depot_mine(densite_pickable, mine);
 		pickable(densite_pickable, pomme, potion, pioche, bombe);
-		depot_ennemis(nb_ennemis);
+		depot_ennemis(nb_squelette, nb_zombie);
 		printGame();
 		gerer_liste();
 //		endGame();
@@ -214,9 +215,9 @@ public class Field {
 		return this.liste_mine;
 	}
 
-	void depot_ennemis(int nb) {
+	void depot_ennemis(int nb_s, int nb_z) {
 		int count = 0;
-		while (count < nb) {
+		while (count < nb_s) {
 			int i, j;
 			i = rand.nextInt(ligne);
 			j = rand.nextInt(colonne - 11) + 10;
@@ -235,7 +236,7 @@ public class Field {
 			count++;
 		}
 		count = 0;
-		while (count < nb) {
+		while (count < nb_z) {
 			int i, j;
 			i = rand.nextInt(ligne);
 			j = rand.nextInt(colonne - 11) + 10;

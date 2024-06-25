@@ -163,7 +163,7 @@ Potion(Init){
 Epee(Init){
 * (Init):
 | Cell(H, M) ? Pop :()
-| Cell(H, J) ? Wizz :(Init)
+| Cell(H, J) ? Wizz / Hit :(Init)
 * ()
 }
 

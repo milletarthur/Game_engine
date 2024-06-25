@@ -20,7 +20,7 @@ public class Pop implements IAction {
 	@Override
 	public void exec(Entity e) {
 		if (e instanceof Joueur) {
-			Entity entity = new Selection(e.ligne(), e.colonne());
+			Entity entity = new Selection(e.ligne(), e.colonne(), e.team());
 			Joueur j = (Joueur) e;
 			if (!j.getModeSelection()) {
 				((Selection) entity).setJoueur(j);

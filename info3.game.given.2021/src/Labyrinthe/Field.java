@@ -2470,7 +2470,7 @@ public class Field {
 		case "Invisible":
 			return new Invisible(ligne, colonne);
 		case "Selection":
-			return new Selection(ligne, colonne);
+			return new Selection(ligne, colonne, e.team());
 		case "Void":
 			return new Void(ligne, colonne);
 		default:

@@ -75,7 +75,7 @@ public class Hit implements IAction {
 		}
 		int damage = e.hit(); // renvoie les dégats que fait l'entitée a une autre. (positif)
 		if (damage == -6) { // cas épée avec hitCircle
-			System.out.println(e.ligne() + " " + e.colonne());
+//			System.out.println(e.ligne() + " " + e.colonne());
 			for (int i = 1; i <= 8; i++) {
 				int[] coo = terrain.next_to_outside(e, e.direction());
 				if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0

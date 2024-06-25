@@ -54,7 +54,7 @@ public class Egg implements IAction {
 		}
 		if (cases_possibles.isEmpty())
 			return;
-		System.out.println("taille " + cases_possibles.size());
+//		System.out.println("taille " + cases_possibles.size());
 		int random = rand.nextInt(cases_possibles.size());
 		Pair<Integer, Integer> p = cases_possibles.get(random);
 		int x = p.geto1();

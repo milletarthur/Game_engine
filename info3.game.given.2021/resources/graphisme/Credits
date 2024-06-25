@@ -4,8 +4,8 @@ Source : https://dominaxis-games.itch.io/labyrinth-of-legendary-loot
 pour les sprites suivants
 	--> Personnages : sprites_weaponless.png
 	--> Structures : all
-	--> actives.png
-	--> mur.png + fragile.png (modification de mur.png)
+	--> Portes : actives.png
+	--> Murs : mur.png + fragile.png (modification de mur.png)
 	--> items.png
 	--> targeting.png
 	--> projectiles.png
@@ -13,16 +13,15 @@ pour les sprites suivants
 	
 Source : https://pva.supply/product/minecraft-lava/
 pour le sprite suivant
-	--> lave.png
+	--> Sol : lave.png
 	
 Source : https://opengameart.org/content/sand-desert-dune-tile
 pour le sprite suivant
-	--> sand.png
+	--> Sol : sand.png
 	
 Source : http://pixelartmaker.com/art/e2063a6ece3a560
 pour les sprites suivants
-	--> levier1.png
-	--> levier2.png et levier3.png (modification de levier1.png)
+	--> Pickables : levier1.png, levier2.png et levier3.png (modification de levier1.png)
 	
 Source : https://imgur.com/3YcUPPw
 pour le sprite suivant
@@ -31,7 +30,7 @@ pour le sprite suivant
 Sources : http://pixelartmaker.com/gallery
 https://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/cf8800006625ade.png
 pour le sprite suivant
-	--> bombe.png
+	--> Pickables : bombe.png
 	
 Source : https://www.canva.com/fr_fr/generateur-image-ia/
 pour le sprite suivant a été fait par l'IA génératrice d'image de Canva

@@ -56,14 +56,16 @@ public class TicTac {
     	List.step();
     	last_tick = (System.currentTimeMillis() - init) / TICK_PERIOD ;
         w.repaint();
-        if (j1.getModeSelection())
+        if (j1.getModeSelection()) {
         	v1.centrerViewport(j1.getSelection());
-        else 
+        } else {
         	v1.centrerViewport(j1);
-        if (j2.getModeSelection())
+        }
+        if (j2.getModeSelection()) {
         	v2.centrerViewport(j2.getSelection());
-        else        	
+        } else {
         	v2.centrerViewport(j2);
+        }
         if(cpt == 10) {
         	end.fin();
         	w.get_invent().paintTimer();
@@ -71,6 +73,7 @@ public class TicTac {
         } else {
         	cpt++;
         }
+        
     }
 
 	public long getTick() {

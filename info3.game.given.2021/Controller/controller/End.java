@@ -92,7 +92,7 @@ public class End {
 							&& j2.getY() == field.get_colonne() - 1)) {
 						if (!time) {
 							di.settemp(31);
-							di.setcpt();
+							//di.setcpt();
 							time = true;
 						}
 						return 0;}

@@ -25,7 +25,7 @@
       },
       { "name" : "Cassable", 
         "automate": "Cassable",
-        "%densite" : 25
+        "%densite" : 0
       },
       { "name" : "Epee", 
         "automate": "Epee"
@@ -39,7 +39,7 @@
       },
       { "name" : "Invisible", 
         "automate": "Invisible",
-        "%densite" : 25
+        "%densite" : 100
       },
       { "name" : "Joueur1", 
         "automate": "Player1" 

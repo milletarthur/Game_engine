@@ -1,13 +1,11 @@
 package controller;
 
-import java.util.LinkedList;
 
 import Automates.IAction;
 import Labyrinthe.Bombe;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
 import Labyrinthe.Interrupteur;
-import toolkit.Direction;
 
 public class Throw implements IAction {
 

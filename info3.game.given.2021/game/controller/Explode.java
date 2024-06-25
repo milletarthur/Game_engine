@@ -72,8 +72,10 @@ public class Explode implements IAction {
 			}
 		} else if (e instanceof Lave) {
 			Entity elem = terrain.getLastnotSelect(e.ligne(), e.colonne());
-			Explode cmd = new Explode(terrain,tl);
-			cmd.exec(elem);
+			if (! (elem instanceof Lave)) {
+				Explode cmd = new Explode(terrain,tl);
+				cmd.exec(elem);
+			}
 		}
 		if (e instanceof Mine || e instanceof Bombe) {
 //			System.out.print("boom");
@@ -93,6 +95,9 @@ public class Explode implements IAction {
 				LinkedList<Entity> l = terrain.getElement(x, y);
 				int taille = l.size();
 				for (int j = 0; j < taille; j++) {
+					taille = l.size();
+					if (j >= taille)
+						break;
 					Entity elem = l.get(j);
 					if (elem instanceof Mine && ((Mine) elem).exploded())
 						continue;
@@ -121,9 +126,11 @@ public class Explode implements IAction {
 //		System.out.print(";");
 //		System.out.print(e.colonne());
 //		System.out.println(")");
-		e.explode();
-		terrain.remove(e.ligne(), e.colonne(), e);
-		tl.remove(e);
+		if (! (e instanceof Lave)) {
+			e.explode();
+			terrain.remove(e.ligne(), e.colonne(), e);
+			tl.remove(e);
+		}
 	}
 
 	@Override

@@ -33,9 +33,11 @@ public class Explode implements IAction {
 				e.resetpick();
 			}
 			for (int i = 1; i <= 8; i++) {
-				int[] coor = terrain.next_to(e, i);
+				int[] coor = terrain.next_to_outside(e, i);
 				int l = coor[0];
 				int c = coor[1];
+				if (coor[0] < 0 || coor[1] < 0 || coor[0] > terrain.get_colonne()-1 || coor[1] > terrain.get_ligne()-1)
+					continue;
 				Entity pickable = null;
 				r = rand.nextInt(10);
 				if (r > 30) {
@@ -99,10 +101,10 @@ public class Explode implements IAction {
 			if (e instanceof Bombe)
 				((Bombe) e).changeState();
 			for (int i = 0; i > -9; i--) {
-				int[] cell = terrain.next_to(e, i);
+				int[] cell = terrain.next_to_outside(e, i);
 				int x = cell[0];
 				int y = cell[1];
-				if (cell[0] < 0 || cell[1] < 0 || cell[0] > terrain.get_colonne() || cell[1] > terrain.get_ligne())
+				if (cell[0] < 0 || cell[1] < 0 || cell[0] > terrain.get_colonne()-1 || cell[1] > terrain.get_ligne()-1)
 					continue;
 				LinkedList<Entity> l = terrain.getElement(x, y);
 				int taille = l.size();

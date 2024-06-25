@@ -39,7 +39,6 @@ public class Field2 {
 
 		grille(lig, col);
 		grille2(lig, col);
-		// labyrinthe();
 	}
 
 	public Field2(int lig, int col, int densite) {
@@ -63,13 +62,9 @@ public class Field2 {
 		}
 		grille(lig, col);
 		grille2(lig, col);
-		// labyrinthe();
 
 		recup_liste_void();
 		grow();
-		// Obstacle(densite, "Mine");
-		// Obstacle(densite, "Sable");
-		// lave();
 	}
 
 	public Field2(int lig, int col, int densite, int joker) {

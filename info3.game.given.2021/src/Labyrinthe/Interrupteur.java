@@ -46,40 +46,27 @@ public class Interrupteur extends Entity {
 	@Override
 	public void pop() {
 		Entity elem;
-//		LinkedList<Entity> new_l = new LinkedList<Entity>();
 		for(int i=0; i<liste_elem.size(); i++) {
 			elem = liste_elem.get(i);
 			if(elem instanceof Teleporteur) {
 				continue;
 			}
 			elem.pop();
-//			if(elem instanceof Porte) {
-//				new_l.add(elem);
-//			}
 		}
-//		liste_elem = new_l;
 	}
 
 	@Override
 	public void wizz() {
 		Entity elem;
-//		LinkedList<Entity> new_l = new LinkedList<Entity>();
 		for(int i=0; i<liste_elem.size(); i++) {
 			elem = liste_elem.get(i);
 			if(elem instanceof Teleporteur) {
 				continue;
 			}
 			elem.wizz();
-//			if(elem instanceof Porte) {
-//				new_l.add(elem);
-//			}
 		}
-//		liste_elem = new_l;
 	}
 	
-	/*
-	 * returns the state -1 := pop; 0 := normal; 1 := wizz
-	 */
 	public int State() {
 		return state;
 	}

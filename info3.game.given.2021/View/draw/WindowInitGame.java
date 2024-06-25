@@ -105,7 +105,7 @@ public class WindowInitGame extends JFrame {
 		AutomatonLoader al = new AutomatonLoader(terrain, kp, tl);
 		LinkedList<Automate> l_aut = null;
 		if (JSONWindow.jeu.equals("Labyrinthe"))
-			 l_aut = al.loadAutomata("resources/automata/jeu1.gal");
+			 l_aut = al.loadAutomata("resources/automata/test_cond.gal");
 		else if (JSONWindow.jeu.equals("Arène"))
 			l_aut = al.loadAutomata("resources/automata/jeu2.gal");
 		tl.setAllAutoList(l_aut);

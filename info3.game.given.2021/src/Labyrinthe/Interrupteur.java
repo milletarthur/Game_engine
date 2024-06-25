@@ -49,6 +49,9 @@ public class Interrupteur extends Entity {
 		LinkedList<Entity> new_l = new LinkedList<Entity>();
 		for(int i=0; i<liste_elem.size(); i++) {
 			elem = liste_elem.get(i);
+			if(elem instanceof Teleporteur) {
+				continue;
+			}
 			elem.pop();
 			if(elem instanceof Porte) {
 				new_l.add(elem);
@@ -63,6 +66,9 @@ public class Interrupteur extends Entity {
 		LinkedList<Entity> new_l = new LinkedList<Entity>();
 		for(int i=0; i<liste_elem.size(); i++) {
 			elem = liste_elem.get(i);
+			if(elem instanceof Teleporteur) {
+				continue;
+			}
 			elem.wizz();
 			if(elem instanceof Porte) {
 				new_l.add(elem);

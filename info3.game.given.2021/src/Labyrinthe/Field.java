@@ -81,6 +81,7 @@ public class Field {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
 		if (JSONWindow.jeu.equals("Labyrinthe")) {
+		//if(densite_field == 100) {
 			depot_mur1(cassable, invisible, normal);
 			deposer_Porte(nb_porte_sable);
 		} else {
@@ -212,6 +213,22 @@ public class Field {
 
 	public LinkedList<Entity> get_mine() {
 		return this.liste_mine;
+	}
+	
+	void depot_sable(int nb) {
+		int count = 0;
+		while (count < nb) {
+			int i, j;
+			i = rand.nextInt(ligne -3) + 1;
+			j = rand.nextInt(colonne - 3) + 1;
+			while (!(get_element2(i, j, labyrinthe) instanceof Void)) {
+				i = rand.nextInt(ligne - 3) + 1;
+				j = rand.nextInt(colonne - 3) + 1;
+			}
+			Sable s = new Sable(i, j);
+			set_element2(i, j, s, labyrinthe);
+			count++;
+		}
 	}
 
 	void depot_ennemis(int nb_s, int nb_z) {

@@ -169,6 +169,8 @@ public abstract class Entity {
 
 	public void throw_() {
 		Entity e = picked;
+		if (e instanceof Bombe)
+			e.power(1);
 		picked = null;
 	}
 

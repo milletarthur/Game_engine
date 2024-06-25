@@ -14,6 +14,7 @@ public class Fleche extends Entity {
 		this.Orientation = dir;
 		layer = 3;
 		transpercant = trans;
+		vie = 0;
 	}
 
 	public Fleche(int ligne, int colonne, int dir) {
@@ -24,6 +25,7 @@ public class Fleche extends Entity {
 		this.Orientation = dir;
 		layer = 3;
 		transpercant = false;
+		vie = 0;
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class Arc extends Entity {
 
 	@Override
 	public Entity egg(int ligne, int colonne) {
-		return new Arc(colonne, ligne);
+		return new Arc(ligne,colonne);
 
 	}
 

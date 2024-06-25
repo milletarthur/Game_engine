@@ -128,5 +128,25 @@ Lave(Init){
 | Cell(H,_) ? Hit :(OnTop)
 }
 
+Fleche(Etat1){
+* (Etat1):
+| Cell(F, @) / Cell(F, #) / Cell(F, O) / Cell(F, G) / Cell(F, A) / Cell(F, C) ? Hit / Explode :()
+| True ? Hit / Move :(Etat2)
+* (Etat2):
+| Cell(F, @) / Cell(F, #) / Cell(F, O) / Cell(F, G) / Cell(F, A) / Cell(F, C) ? Hit / Explode :()
+| True ? Hit / Move :(Etat3)
+* (Etat3):
+| True ? Explode :()
+*()
+}
+
+Bombe(Init){
+* (Init):
+| True ? Rest(30) :(Boom)
+* (Boom):
+| ! Got(Power) ? Explode :()
+| Rest(1) ? :(Boom)
+*()
+}
 
 

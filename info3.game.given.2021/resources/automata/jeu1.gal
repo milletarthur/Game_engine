@@ -86,12 +86,6 @@ Squelette(Init){
 | Closest(S, A) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
 | Closest(E, A) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
 | Closest(W, A) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
-| Cell(H, M) ? Pop :(Init)
-| Cell(H, J) ? Wizz :(Allie)
-* (Allie):
-| !Got(Power) ? Explode :()
-| Cell(H, M) ? Pop :(Init)
-| Cell(H, J) ? Wizz :(Allie)
 *()
 }
 
@@ -106,12 +100,6 @@ Zombie(Init){
 | Closest(S, A) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
 | Closest(E, A) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
 | Closest(W, A) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
-| Cell(H, M) ? Pop :(Init)
-| Cell(H, J) ? Wizz :(Allie)
-* (Allie):
-| !Got(Power) ? Explode :()
-| Cell(H, M) ? Pop :(Init)
-| Cell(H, J) ? Wizz :(Allie)
 *()
 }
 

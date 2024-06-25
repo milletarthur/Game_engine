@@ -45,7 +45,7 @@ public class Hit implements IAction {
 				tohit.power(-2);
 			}
 		} else if (e instanceof Fleche) {
-			System.out.println("Fleche hit");
+//			System.out.println("Fleche hit");
 			int[] coo = terrain.next_to_outside(e, Direction.H);
 			LinkedList<Entity> list = terrain.getElement(coo[0], coo[1]);
 			int cpt = 0;
@@ -54,13 +54,15 @@ public class Hit implements IAction {
 			while (!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette)
 					&& !(tohit instanceof Bombe) && !(tohit instanceof Mine) && cpt < taille) {
 				tohit = list.get(cpt);
-				String classnamelong = e.getClass().getName();
-				String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".") + 1, classnamelong.length());
-				System.out.print(classname);
+//				String classnamelong = tohit.getClass().getName();
+//				String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".") + 1, classnamelong.length());
+//				System.out.print(classname);
 				cpt++;
 			}
 			if (tohit instanceof Bombe || tohit instanceof Mine) {
-				tohit.explode();
+				Explode cmd = new Explode(terrain,tl);
+				cmd.exec(tohit);
+				taille = list.size();
 				while (!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette)
 						&& cpt < taille) {
 					tohit = list.get(cpt);

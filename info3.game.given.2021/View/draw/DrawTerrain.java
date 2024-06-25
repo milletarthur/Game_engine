@@ -35,10 +35,11 @@ public class DrawTerrain extends JPanel {
 	private BufferedImage player1, player1_flip, player2, player2_flip, porte_fermee, porte_ouverte, teleporte, zombie,
 			zombie_flip, squelette, squelette_flip, invisible, teleporte_desac, fleche;
 
-	private Image lave, sand, mur, fragile, int_pop, int_wizz, int_neutre, selection;
+	private Image lave, sand, mur, fragile, selection;
 
 	// partager avec DrawInventaire
 	public static BufferedImage pioche, pomme, arc, potion, epee, bombe;
+	public static Image int_pop, int_wizz, int_neutre;
 
 	Random random;
 
@@ -174,11 +175,11 @@ public class DrawTerrain extends JPanel {
 					} else if (e instanceof Potion) {
 						g.drawImage(potion, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Sable) {
-						// Sable s = (Sable) e;
-						// if (s.IsActivate())
+						Sable s = (Sable) e;
+						if (s.IsActivate())
 							g.drawImage(sand, j * T_case, i * T_case, T_case, T_case, null);
-						// else 
-							// g.drawImage(chemin[rand_chemin[i][j]], j * T_case, i * T_case, T_case, T_case, null);
+						else 
+							g.drawImage(chemin[rand_chemin[i][j]], j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Selection) {
 						g.drawImage(selection, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Squelette) {
@@ -217,8 +218,8 @@ public class DrawTerrain extends JPanel {
 		chemin[5] = CHEMIN.getSprite(1, 2);
 
 		// murs
-		this.mur = drawEntity("resources/graphisme/mur.png");
-		this.fragile = drawEntity("resources/graphisme/fragile.png");
+		this.mur = drawEntity("resources/graphisme/Murs/mur.png");
+		this.fragile = drawEntity("resources/graphisme/Murs/fragile.png");
 
 		// joueurs
 		this.PERSO = new Sprite("resources/graphisme/Personnages/sprites_weaponless.png", 26, 26);
@@ -226,15 +227,15 @@ public class DrawTerrain extends JPanel {
 		this.player2 = PERSO.getSprite(0, 3);
 
 		// sol
-		this.lave = drawEntity("resources/graphisme/lave.png");
-		this.sand = drawEntity("resources/graphisme/sand.png");
+		this.lave = drawEntity("resources/graphisme/Sol/lave.png");
+		this.sand = drawEntity("resources/graphisme/Sol/sand.png");
 
 		// objets
 		this.OBJET = new Sprite("resources/graphisme/minecraft.png", 128, 128);
 		this.pioche = OBJET.getSprite(6, 1);
 		this.pomme = OBJET.getSprite(0, 10);
 
-		this.bombe = (BufferedImage) drawEntity("resources/graphisme/bombe.png");
+		this.bombe = (BufferedImage) drawEntity("resources/graphisme/Pickables/bombe.png");
 
 		this.ITEM = new Sprite("resources/graphisme/items.png", 16, 16);
 		this.arc = ITEM.getSprite(8, 6);
@@ -242,16 +243,16 @@ public class DrawTerrain extends JPanel {
 		this.epee = ITEM.getSprite(9, 11);
 
 		// déplacements
-		this.DEPLAC = new Sprite("resources/graphisme/actives.png", 26, 26);
+		this.DEPLAC = new Sprite("resources/graphisme/Portes/actives.png", 26, 26);
 		this.porte_fermee = DEPLAC.getSprite(0, 9);
 		this.porte_ouverte = DEPLAC.getSprite(0, 10);
 		this.teleporte = DEPLAC.getSprite(0, 13);
 		this.teleporte_desac = DEPLAC.getSprite(0, 12);
 
 		// interrupteurs
-		this.int_pop = drawEntity("resources/graphisme/levier1.png");
-		this.int_neutre = drawEntity("resources/graphisme/levier2.png");
-		this.int_wizz = drawEntity("resources/graphisme/levier3.png");
+		this.int_pop = drawEntity("resources/graphisme/Pickables/levier1.png");
+		this.int_neutre = drawEntity("resources/graphisme/Pickables/levier2.png");
+		this.int_wizz = drawEntity("resources/graphisme/Pickables/levier3.png");
 
 		// monstres
 		this.zombie = PERSO.getSprite(16, 20);
@@ -285,6 +286,8 @@ public class DrawTerrain extends JPanel {
 			return pioche;
 		} else if (e instanceof Potion) {
 			return potion;
+		} else if (e instanceof Interrupteur) {
+			return int_neutre;
 		}
 		return null;
 	}

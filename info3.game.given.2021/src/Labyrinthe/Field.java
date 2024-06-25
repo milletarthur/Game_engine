@@ -1591,6 +1591,15 @@ public class Field {
 		}
 		return false;
 	}
+	
+	public boolean presence_sable(LinkedList<Entity> liste) {
+		for (int i = 0; i < liste.size(); i++) {
+			if (liste.get(i) instanceof Sable) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public boolean presence_wizz(LinkedList<Entity> liste) {
 		for (int i = 0; i < liste.size(); i++) {

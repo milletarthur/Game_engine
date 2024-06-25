@@ -140,7 +140,7 @@ public class End {
 			int temp = di.gettemp();
 			if (temp <= 0)
 				return -1;
-			if ( j1.getVie() <= 0 ) // j1 mort donc j2 gagne
+			else if ( j1.getVie() <= 0 ) // j1 mort donc j2 gagne
 				return 2 ; 
 			else if (j2.getVie() <= 0) // j2 mort donc j1 gagne
 				return 1;

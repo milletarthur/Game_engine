@@ -11,13 +11,12 @@ public class PVJPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	Joueur j;
-	private static int T_case = WindowInitGame.T_case;
 	private static int visibility = JSONWindow.visibility;
 	private static int pv_tot = JSONWindow.pv;
 	// pv ci-dessous correspond au dessin de la barre sur le JPanel
 	private int pv;
 
-	public PVJPanel(String name, Joueur j, int var) {
+	public PVJPanel(String name, Joueur j, int var, int T_case) {
 		this.pv = (T_case * visibility * 2 + T_case) - 130 - var * 65;
 		this.setPreferredSize(new Dimension((T_case * visibility * 2 + T_case) - 110 - var * 65, 65));
 		this.setBackground(Color.black);

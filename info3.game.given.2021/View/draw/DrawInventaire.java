@@ -22,12 +22,13 @@ public class DrawInventaire extends JPanel {
 	private BufferedImage img_inventaire;
 
 	private static final int temps = JSONWindow.time; // en secondes
-	private int temps_actuel, cpt;
+	private int temps_actuel, cpt, T_case;
 	Joueur j1, j2;
 
-	public DrawInventaire(Joueur j1, Joueur j2) throws IOException {
+	public DrawInventaire(Joueur j1, Joueur j2, int T_case) throws IOException {
 		this.j1 = j1;
 		this.j2 = j2;
+		this.T_case = T_case;
 
 		this.Image();
 
@@ -57,7 +58,7 @@ public class DrawInventaire extends JPanel {
 		this.add(invent1);
 
 		// points de vie 1
-		this.pdv1 = new PVJPanel(JSONWindow.name1, j1, 1);
+		this.pdv1 = new PVJPanel(JSONWindow.name1, j1, 1, T_case);
 		this.add(pdv1);
 
 		// timer
@@ -80,7 +81,7 @@ public class DrawInventaire extends JPanel {
 		this.add(timer);
 
 		// points de vie 2
-		this.pdv2 = new PVJPanel(JSONWindow.name2, j2, 1);
+		this.pdv2 = new PVJPanel(JSONWindow.name2, j2, 1, T_case);
 		this.add(pdv2);
 
 		// objet main 2
@@ -98,7 +99,7 @@ public class DrawInventaire extends JPanel {
 		this.add(main1);
 
 		// points de vie 1
-		this.pdv1 = new PVJPanel(JSONWindow.name1, j1, 0);
+		this.pdv1 = new PVJPanel(JSONWindow.name1, j1, 0, T_case);
 		this.add(pdv1);
 
 		// timer
@@ -121,7 +122,7 @@ public class DrawInventaire extends JPanel {
 		this.add(timer);
 
 		// points de vie 2
-		this.pdv2 = new PVJPanel(JSONWindow.name2, j2, 0);
+		this.pdv2 = new PVJPanel(JSONWindow.name2, j2, 0, T_case);
 		this.add(pdv2);
 
 		// objet main 2

@@ -89,7 +89,7 @@ public class DrawEndGame extends JFrame {
 			quitter.setBounds(170, 200, 110, 30);
 		}
 
-		choice.add(rejouer);
+		//choice.add(rejouer);
 		choice.add(quitter);
 
 		this.add(choice, BorderLayout.CENTER);

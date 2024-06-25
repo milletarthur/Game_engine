@@ -1,18 +1,26 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import Automates.ICondition;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
+import Labyrinthe.Joueur;
 import Labyrinthe.Lave;
+import Labyrinthe.Squelette;
+import Labyrinthe.Zombie;
+import toolkit.Categorie;
 import toolkit.Direction;
+import toolkit.Triple;
 
 public class Closest implements ICondition {
 
 	private Field terrain;
 	private int direction;
 	private int categorie;
-	private int distance_vision = 3;
-	private int[][] cases = new int[distance_vision+1][distance_vision+1];
+	private int distance_vision = 4;
+	private ArrayList<ArrayList<Triple<Integer, Integer, Integer>>> cases = new ArrayList<ArrayList<Triple<Integer, Integer, Integer>>>();
 
 	public Closest(Field f, int dir, int cat) {
 		terrain = f;
@@ -22,6 +30,47 @@ public class Closest implements ICondition {
 
 	public Closest(Field f) {
 		terrain = f;
+	}
+
+	private void setCases(Entity e) {
+		int cptLigne = distance_vision;
+		boolean lignedec = true;
+		int cptColonne = distance_vision;
+		boolean colonnedec = true;
+		for (int i = 0; i < 2 * distance_vision + 1; i++) {
+			ArrayList<Triple<Integer, Integer, Integer>> tmp = new ArrayList<Triple<Integer, Integer, Integer>>();
+			cptLigne = distance_vision;
+			for (int j = 0; j < 2 * distance_vision + 1; j++) {
+				Triple<Integer, Integer, Integer> t;
+				if (lignedec && colonnedec)
+					t = new Triple<Integer, Integer, Integer>(cptLigne + cptColonne, e.ligne() - cptLigne,
+							e.colonne() - cptColonne);
+				else if (lignedec && !colonnedec)
+					t = new Triple<Integer, Integer, Integer>(cptLigne + cptColonne, e.ligne() - cptLigne,
+							e.colonne() + cptColonne);
+				else if (!lignedec && colonnedec)
+					t = new Triple<Integer, Integer, Integer>(cptLigne + cptColonne, e.ligne() + cptLigne,
+							e.colonne() - cptColonne);
+				else
+					t = new Triple<Integer, Integer, Integer>(cptLigne + cptColonne, e.ligne() + cptLigne,
+							e.colonne() + cptColonne);
+				tmp.add(t);
+				if (lignedec)
+					cptLigne--;
+				else
+					cptLigne++;
+				if (cptLigne == 0)
+					lignedec = false;
+			}
+			lignedec = true;
+			cases.add(tmp);
+			if (colonnedec)
+				cptColonne--;
+			else
+				cptColonne++;
+			if (cptColonne == 0)
+				colonnedec = false;
+		}
 	}
 
 	public void setDir(int dir) {
@@ -34,7 +83,97 @@ public class Closest implements ICondition {
 
 	@Override
 	public boolean eval(Entity e) {
-		
+		if (categorie == Categorie.A || categorie == Categorie.Arobase || categorie == Categorie.Diese) {
+			LinkedList<Entity> l = terrain.get_joueur();
+			Joueur j1 = (Joueur) l.get(0);
+			Joueur j2 = (Joueur) l.get(1);
+			double dist_j1 = Math
+					.sqrt(Math.pow((j1.ligne() - e.ligne()), 2) + Math.pow((j1.colonne() - e.colonne()), 2));
+			double dist_j2 = Math
+					.sqrt(Math.pow((j2.ligne() - e.ligne()), 2) + Math.pow((j2.colonne() - e.colonne()), 2));
+			if (dist_j1 > distance_vision && dist_j2 > distance_vision)
+				return false;
+			Joueur closest;
+			if (dist_j1 < dist_j2)
+				closest = j1;
+			else
+				closest = j2;
+			int ligne = closest.ligne() - e.ligne();
+			int colonne = closest.colonne() - e.colonne();
+
+//			if (e instanceof Squelette)
+//				System.out.println("Squelette ");
+//			switch (direction) {
+//			case Direction.N :
+//				System.out.println("Nord");
+//				break;
+//			case Direction.S :
+//				System.out.println("Sud");
+//				break;
+//			case Direction.E :
+//				System.out.println("Est");
+//				break;
+//			case Direction.W :
+//				System.out.println("Ouest");
+//				break;
+//			default :
+//				break;
+//			}
+			switch (terrain.to_absolute(e, direction)) {
+			case Direction.N:
+				if (-ligne >= Math.abs(colonne)) {
+//					if (e instanceof Zombie) {
+//						System.out.print("Au nord du Zombie (");
+//						System.out.print(ligne);
+//						System.out.print(",");
+//						System.out.print(colonne);
+//						System.out.println(")");
+//					}
+					return true;
+				}
+				break;
+			case Direction.S:
+				if (ligne >= Math.abs(colonne)) {
+//					if (e instanceof Zombie) {
+//						System.out.print("Au sud du Zombie (");
+//						System.out.print(ligne);
+//						System.out.print(",");
+//						System.out.print(colonne);
+//						System.out.println(")");
+//					}
+					return true;
+				}
+				break;
+			case Direction.E:
+				if (colonne >= Math.abs(ligne)) {
+//					if (e instanceof Zombie) {
+//						System.out.print("A l'est du Zombie (");
+//						System.out.print(ligne);
+//						System.out.print(",");
+//						System.out.print(colonne);
+//						System.out.println(")");
+//					}
+					return true;
+				}
+				break;
+			case Direction.W:
+				if (-colonne >= Math.abs(ligne)) {
+//					if (e instanceof Zombie) {
+//						System.out.print("A l'ouest du Zombie (");
+//						System.out.print(ligne);
+//						System.out.print(",");
+//						System.out.print(colonne);
+//						System.out.println(")");
+//					}
+					return true;
+				}
+				break;
+			default:
+				return false;
+			}
+		} else {
+			setCases(e);
+		}
 		return false;
 	}
 

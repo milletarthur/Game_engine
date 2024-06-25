@@ -3,6 +3,7 @@ package controller;
 import java.util.LinkedList;
 
 import Automates.IAction;
+import Labyrinthe.Bombe;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
 import toolkit.Direction;
@@ -31,6 +32,8 @@ public class Throw implements IAction {
 		picked.set_ligne(coo[0]);
 		picked.set_colonne(coo[1]);
 		terrain.add(picked, coo[0], coo[1]);
+		if (picked instanceof Bombe)
+			tl.add(picked);
 	}
 
 	@Override

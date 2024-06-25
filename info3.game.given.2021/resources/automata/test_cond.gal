@@ -1,7 +1,7 @@
 Player1(Init){
 * (Init):
 | Key(a) ? Hit :(Init)
-| Cell(H,P) & (! Got(Stuff))? Pick :(Init)
+| Cell(H,P) ? Pick :(Picked)
 | Cell(H,D) ? :(Init)
 | Key(z) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
 | Key(d) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
@@ -12,16 +12,28 @@ Player1(Init){
 | Key(s) ? Turn(S) :(Init)
 | Key(q) ? Turn(W) :(Init)
 | !Got(Power) ? Explode :()
+* (Picked):
+| Key(a) ? Hit :(Picked)
+| Cell(H,D) ? :(Picked)
+| Key(z) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) ? Turn(N) / Move :(Picked)
+| Key(d) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Picked)
+| Key(s) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Picked)
+| Key(q) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) ? Turn(W) / Move :(Picked)
+| Key(z) ? Turn(N) :(Picked)
+| Key(d) ? Turn(E) :(Picked)
+| Key(s) ? Turn(S) :(Picked)
+| Key(q) ? Turn(W) :(Picked)
+| Key(k) ? Egg :(Picked)
+| !Got(Power) ? Explode :()
 }
 
 Player2(Init){
 * (Init):
 | Key(l) ? Hit :(Init)
-| Key(m) ? Throw :(Init)
-| Key(i) ? Store :(Init)
-| Key(o) ? Get :(Init)
+| Key(o) ? Get :(Picked)
 | Key(p) ? Jump :(Init)
-| Cell(H,P) ? Pick :(Init)
+| Cell(H,P) / Cell(H,C) ? Pick :(Init)
+| Key(m) ? Throw :(Init)
 | Cell(H,D) ? :(Init)
 | Key(FU) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) ? Turn(N) / Move :(Init)
 | Key(FR) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) ? Turn(E) / Move :(Init)
@@ -31,8 +43,10 @@ Player2(Init){
 | Key(FR) ? Turn(E) :(Init)
 | Key(FD) ? Turn(S) :(Init)
 | Key(FL) ? Turn(W) :(Init)
-| Key(o) ? Wizz :(Init)
-| Key(k) ? Pop :(Wait)
+| Key(u) ? Wizz :(Init)
+| Key(a) ? Pop :(Select)
+* (Select):
+| Key(v) ? :(Init)
 }
 
 Interrupteur(Init){
@@ -55,11 +69,11 @@ Teleporteur(Init){
 
 Squelette(Init){
 * (Init):
-| !Got(Power) ? Explode :()
-| Cell(N, A) ? Turn(N) / Hit :(Init)
-| Cell(S, A) ? Turn(S) / Hit :(Init)
-| Cell(E, A) ? Turn(E) / Hit :(Init)
-| Cell(W, A) ? Turn(W) / Hit :(Init)
+| ! Got(Power) ? Explode :()
+| Cell(N, A) ? Turn(N) / Hit / Wait(20) :(Init)
+| Cell(S, A) ? Turn(S) / Hit / Wait(20) :(Init)
+| Cell(E, A) ? Turn(E) / Hit / Wait(20) :(Init)
+| Cell(W, A) ? Turn(W) / Hit / Wait(20) :(Init)
 | Closest(N, A) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
 | Closest(S, A) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
 | Closest(E, A) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
@@ -76,11 +90,11 @@ Squelette(Init){
 
 Zombie(Init){
 * (Init):
-| !Got(Power) ? Explode :()
-| Cell(N, A) ? Turn(N) / Hit :(Init)
-| Cell(S, A) ? Turn(S) / Hit :(Init)
-| Cell(E, A) ? Turn(E) / Hit :(Init)
-| Cell(W, A) ? Turn(W) / Hit :(Init)
+| ! Got(Power) ? Explode :()
+| Cell(N, A) ? Turn(N) / Hit / Wait(20) :(Init)
+| Cell(S, A) ? Turn(S) / Hit / Wait(20) :(Init)
+| Cell(E, A) ? Turn(E) / Hit / Wait(20) :(Init)
+| Cell(W, A) ? Turn(W) / Hit / Wait(20) :(Init)
 | Closest(N, A) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) ? Turn(N) / Move :(Init)
 | Closest(S, A) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) ? Turn(S) / Move :(Init)
 | Closest(E, A) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
@@ -130,4 +144,20 @@ Selection2(Init){
 | Key(FL) ? Turn(W) / Move :(Init)
 }
 
+Invisible(Init){
+* (Init):
+| Cell(H, M) ? Pop :()
+| Cell(H, J) ? Wizz :()
+}
 
+Cassable(Init){
+* (Init):
+| Cell(H, M) ? Pop :()
+| Cell(H, J) ? Wizz :()
+}
+
+Normal(Init){
+* (Init):
+| Cell(H, M) ? Pop :()
+| Cell(H, J) ? Wizz :()
+}

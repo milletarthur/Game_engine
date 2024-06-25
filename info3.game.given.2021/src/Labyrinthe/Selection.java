@@ -6,6 +6,7 @@ public class Selection extends Entity {
 	
 	private int ligne_joueur;
 	private int colonne_joueur;
+	private Joueur j;
 
 	public Selection(int ligne, int colonne) {
 		this.ligne = ligne;
@@ -53,4 +54,13 @@ public class Selection extends Entity {
 	public int getColonneJoueur() {
 		return colonne_joueur;
 	}
+	
+	public void setJoueur(Joueur j) {
+		this.j = j;
+	}
+	
+	public Joueur getJoueur() {
+		return j;
+	}
+	
 }

@@ -53,12 +53,20 @@ public class Joueur extends Entity {
 
 	@Override
 	public void get() {
+		if (inventory.isEmpty())
+			return;
 		switch (team()) {
 		case 1:
-			picked = inventory.popJ1();
+			Entity elem = inventory.popJ1();
+			if (elem == null)
+				return;
+			picked = elem;
 			break;
 		case 2:
-			picked = inventory.popJ2();
+			Entity elem2 = inventory.popJ2();
+			if (elem2 == null)
+				return;
+			picked = elem2;
 			break;
 		default:
 			break;
@@ -90,6 +98,10 @@ public class Joueur extends Entity {
 	
 	public boolean getModeSelection() {
 		return modeSelection;
+	}
+	
+	public void setModeSelection(boolean value) {
+		modeSelection = value;
 	}
 	
 	public void setSelection(Selection s) {

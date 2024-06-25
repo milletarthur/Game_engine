@@ -55,12 +55,10 @@ public class Inventory {
 		}
 		if (current_j1 == null) {
 			current_j1 = inventory.get(0);
-			System.out.print("proutj1");
 		} else {
 			int i = inventory.indexOf(current_j1);
 			i = (i + 1) % len;
 			current_j1 = inventory.get(i);
-			System.out.print("lolj1");
 		}
 	}
 
@@ -72,17 +70,17 @@ public class Inventory {
 		}
 		if (current_j2 == null) { 
 			current_j2 = inventory.get(0);
-			System.out.println("proutj2");
 		} else {
 			int i = inventory.indexOf(current_j2);
 			i = (i + 1) % len;
 			current_j2 = inventory.get(i);
-			System.out.println("lolj2");
 		}
 	}
 
 	public Entity popJ1() {
 		Entity e = getCurrentJ1();
+		if (e == null)
+			return null;
 		inventory.remove(e);
 		current_j1 = null;
 		current_j2 = null;
@@ -93,6 +91,8 @@ public class Inventory {
 
 	public Entity popJ2() {
 		Entity e = getCurrentJ2();
+		if (e == null)
+			return null;
 		inventory.remove(e);
 		current_j1 = null;
 		current_j2 = null;

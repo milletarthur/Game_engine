@@ -29,7 +29,7 @@ public class Field {
 	private LinkedList<Entity> liste_sable = new LinkedList<Entity>();
 	private LinkedList<Entity> liste_squelette = new LinkedList<Entity>();
 	private LinkedList<Entity> liste_zombie = new LinkedList<Entity>();
-
+	
 	// pomme, potion, pioche, bombe
 	private LinkedList<Entity> liste_pomme = new LinkedList<Entity>();
 	private LinkedList<Entity> liste_potion = new LinkedList<Entity>();
@@ -37,6 +37,8 @@ public class Field {
 	private LinkedList<Entity> liste_bombe = new LinkedList<Entity>();
 	private LinkedList<Entity> liste_teleporteur = new LinkedList<Entity>();
 	private LinkedList<Entity> liste_mine = new LinkedList<Entity>();
+	
+	private LinkedList<Entity> liste_joueur = new LinkedList<Entity>();
 
 	public Field(int lig, int col, int densite_field, int densite_pickable, int mine, int pomme, int potion, int pioche,
 			int bombe, int cassable, int invisible, int normal, int nb_porte_sable, int nb_ennemis, Random r) {
@@ -1709,11 +1711,11 @@ public class Field {
 					rv[1]++;
 					break;
 				case Direction.SE:
-					rv[0]--;
+					rv[0]++;
 					rv[1]++;
 					break;
 				case Direction.NW:
-					rv[0]++;
+					rv[0]--;
 					rv[1]--;
 					break;
 				case Direction.SW:
@@ -1970,6 +1972,10 @@ public class Field {
 		LinkedList<Entity> l_entity = getElement(ligne, colonne);
 		int cpt = 0;
 		Entity elem = l_entity.get(0);
+		if(e.layer == -1) {
+			l_entity.addFirst(e);
+			return;
+		}
 		while (cpt < l_entity.size() && elem.layer() < e.layer()) {
 			elem = l_entity.get(cpt);
 			cpt++;
@@ -1977,7 +1983,7 @@ public class Field {
 		if (elem.layer() == e.layer()) {
 			return;
 		} else {
-			if (elem.layer() > e.layer())
+			if (elem.layer() > e.layer() && cpt > 0)
 				l_entity.add(cpt - 1, e);
 			else
 				l_entity.add(cpt, e);
@@ -2547,6 +2553,92 @@ public class Field {
 				add(new Bombe(l_entity.getFirst().ligne(), l_entity.getFirst().colonne()), l_entity.getFirst().ligne(),
 						l_entity.getFirst().colonne());
 			}
+		}
+	}
+	
+	public void updateJoueur(Entity e) {
+		if(liste_joueur.contains(e)) {
+			liste_joueur.remove(e);
+			liste_joueur.add(e);
+		} else {
+			liste_joueur.add(e);
+		}
+	}
+	
+	public LinkedList<Entity> get_joueur(){
+		return liste_joueur;
+	}
+	
+	public int to_absolute(Entity e, int dir) {
+		if (dir == Direction.N || dir == Direction.S || dir == Direction.E || dir == Direction.W)
+			return dir;
+		switch(e.direction()) {
+		case Direction.N:
+			if (dir == Direction.F) {
+//				System.out.println("Nord");
+				return Direction.N;
+			} else if (dir == Direction.B) {
+//				System.out.println("Sud");
+				return Direction.S;
+			} else if (dir == Direction.R) {
+//				System.out.println("Est");
+				return Direction.E;
+			} else if (dir == Direction.L) {
+//				System.out.println("Ouest");q
+				return Direction.W;
+			} else {
+				return dir;
+			}
+		case Direction.S:
+			if (dir == Direction.F) {
+				System.out.println("Sud");
+				return Direction.S;
+			} else if (dir == Direction.B) {
+				System.out.println("Nord");
+				return Direction.N;
+			} else if (dir == Direction.R) {
+				System.out.println("Ouest");
+				return Direction.W;
+			} else if (dir == Direction.L) {
+				System.out.println("Est");
+				return Direction.E;
+			} else {
+				return dir;
+			}
+		case Direction.E:
+			if (dir == Direction.F) {
+				System.out.println("Est");
+				return Direction.E;
+			} else if (dir == Direction.B) {
+				System.out.println("Ouest");
+				return Direction.W;
+			} else if (dir == Direction.R) {
+				System.out.println("Sud");
+				return Direction.S;
+			} else if (dir == Direction.L) {
+				System.out.println("Nord");
+				return Direction.N;
+			} else {
+				return dir;
+			}
+		case Direction.W:
+			if (dir == Direction.F) {
+				System.out.println("Ouest");
+				return Direction.W;
+			} else if (dir == Direction.B) {
+				System.out.println("Est");
+				return Direction.E;
+			} else if (dir == Direction.R) {
+				System.out.println("Nord");
+				return Direction.N;
+			} else if (dir == Direction.L) {
+				System.out.println("Sud");
+				return Direction.S;
+			} else {
+				return dir;
+			}
+		default:
+			return Direction.N;
 		}
 	}
 }

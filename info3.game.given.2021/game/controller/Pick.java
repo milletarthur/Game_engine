@@ -21,7 +21,6 @@ public class Pick implements IAction {
 		boolean success = e.pick(pick);
 		if (pick != null && success)
 			terrain.remove(e.ligne(), e.colonne(), pick);
-
 	}
 
 	@Override

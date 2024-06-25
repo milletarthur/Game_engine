@@ -10,6 +10,7 @@ public class Bombe extends Entity {
 		this.ligne = ligne;
 		this.category = Categorie.P;
 		this.team = 3;
+		this.vie = 0;
 		layer = 2;
 		exploded = false;
 	}

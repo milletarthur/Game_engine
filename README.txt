@@ -24,12 +24,15 @@ Le paquet sound ne sert qu'à rajouter la musique au jeu.
 
 
 
+
 Instructions de lancement : 
 
 Pour lancer un jeu, il faut exécuter le main qui est dans la classe Game dans le paquet game.info3.game.
+Pour cela il faut aller dans le dossier info3.game.given.2021 et tapper la commande suivante (après compilation via eclipse) :
+java -cp bin:resources/config/json-20210307.jar info3.game.Game
 
 Lors du lancement de ce dernier une interface vous demandera si vous voulez le lancer le moteur en mode labyrinthe ou en mode arène. 
-La seule différence est la densité des murs (réglable dans le fichier de configuration).
+Les différence sont la densité des murs (réglable dans le fichier de configuration) et les automates des entités.
 
 Le moteur de jeu est configurable de deux manières différentes : 
  - Au moyen d'un fichier de configuration qui permet de régler les propriétés des différentes entités et du terrain (côté Model);
@@ -44,12 +47,47 @@ Avec les configurations que nous fournissons, nous générons les deux jeux pré
 
 
 
-Lien vers la vidéo : 
+Instructions pour les controlles :
+
+Joueur 1
+Z : aller au Nord / s'orrienter vers le Nord
+Q : aller à l'Ouest / s'orrienter vers l'Ouest
+S : aller au Sud / s'orrienter vers le Sud
+D : aller à l'Est / s'orrienter vers l'Est
+A : Frapper / utiliser l'objet en main
+W : Reccuperer en main l'objet courrement selectionné dans l'inventaire
+C : Cycler parmis les objets de l'inventaire
+E : Poser devant soi l'objet en main
+Premier jeu uniquement :
+X : Mettre dans l'inventaire l'objet en main
+Deuxième jeu uniquement :
+V : passer en mode selection / sortir du mode selection
+
+Joueur 2
+FU : aller au Nord / s'orrienter vers le Nord
+FL : aller à l'Ouest / s'orrienter vers l'Ouest
+FD : aller au Sud / s'orrienter vers le Sud
+FR : aller à l'Est / s'orrienter vers l'Est
+L : Frapper / utiliser l'objet en main
+O : Reccuperer en main l'objet courrement selectionné dans l'inventaire
+P : Cycler parmis les objets de l'inventaire
+M : Poser devant soi l'objet en main
+Premier jeu uniquement :
+I : Mettre dans l'inventaire l'objet en main
+Deuxième jeu uniquement :
+I : passer en mode selection / sortir du mode selection
+
+Les cases de selections se deplacent soit avec ZQSD soit les fleches diretionnelles selon le joueur
 
 
 
 
-Lien vers le Journal de Bord : 
+Lien vers la vidéo : https://youtu.be/SI_tEioPQh0
+
+
+
+
+Lien vers le Journal de Bord : https://docs.google.com/document/d/1i-li4hJKb3Ap3xVwqmdMGF-XPCaPDserZwos3-hA4n8/edit?usp=sharing
 
 
 
@@ -61,8 +99,3 @@ Pourcentage de participation :
 	- Abdel-Kader EL HOUSSAMI : 1/6
 	- Dila MEMIL : 1/6
 	- Arthur MILLET : 1/6
-	
-	
-	
-	
-	

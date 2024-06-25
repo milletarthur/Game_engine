@@ -110,7 +110,7 @@ Mine(Init){
 
 Sable(Init){
 * (Init):
-| Cell(H, @) / Cell(H,#) ? :(Catched)
+| Cell(H, @) / Cell(H,#) ? Jump :(Catched)
 | Cell(H, M) ? Pop :(Init)
 | Cell(H, J) ? Wizz :()
 *(Catched)

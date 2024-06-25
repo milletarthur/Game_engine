@@ -77,9 +77,6 @@ public class Interrupteur extends Entity {
 		liste_elem = new_l;
 	}
 	
-	/*
-	 * returns the state -1 := pop; 0 := normal; 1 := wizz
-	 */
 	public int State() {
 		return state;
 	}

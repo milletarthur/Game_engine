@@ -92,10 +92,6 @@ public class Explode implements IAction {
 			}
 		}
 		if (e instanceof Mine || e instanceof Bombe) {
-//			System.out.print("boom");
-//			String classnamelong = e.getClass().getName();
-//			String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".") + 1, classnamelong.length());
-//			System.out.print(classname);
 			if (e instanceof Mine)
 				((Mine) e).changeState();
 			if (e instanceof Bombe)
@@ -131,15 +127,6 @@ public class Explode implements IAction {
 				}
 			}
 		}
-//		System.out.print("Explode ");
-//		String classnamelong = e.getClass().getName();
-//		String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".")+1,classnamelong.length());
-//		System.out.print(classname);
-//		System.out.print(" (");
-//		System.out.print(e.ligne());
-//		System.out.print(";");
-//		System.out.print(e.colonne());
-//		System.out.println(")");
 		if (!(e instanceof Lave)) {
 			e.explode();
 			terrain.remove(e.ligne(), e.colonne(), e);

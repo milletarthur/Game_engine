@@ -24,7 +24,6 @@ public class Hit implements IAction {
 	@Override
 	public void exec(Entity e) {
 		if (e instanceof Lave || e instanceof Sable) {
-//			System.out.println("Lave hit");
 			int[] coo = terrain.next_to_outside(e, Direction.H);
 			LinkedList<Entity> list = terrain.getElement(coo[0], coo[1]);
 			int cpt = 0;
@@ -42,11 +41,9 @@ public class Hit implements IAction {
 				tohit.power(-5);
 			}
 			if (e instanceof Sable) {
-//				System.out.println("Sable hit");
 				tohit.power(-2);
 			}
 		} else if (e instanceof Fleche) {
-//			System.out.println("Fleche hit");
 			int[] coo = terrain.next_to_outside(e, Direction.H);
 			LinkedList<Entity> list = terrain.getElement(coo[0], coo[1]);
 			int cpt = 0;
@@ -55,9 +52,6 @@ public class Hit implements IAction {
 			while (!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette)
 					&& !(tohit instanceof Bombe) && !(tohit instanceof Mine) && cpt < taille) {
 				tohit = list.get(cpt);
-//				String classnamelong = tohit.getClass().getName();
-//				String classname = (String) classnamelong.subSequence(classnamelong.indexOf(".") + 1, classnamelong.length());
-//				System.out.print(classname);
 				cpt++;
 			}
 			if (tohit instanceof Bombe || tohit instanceof Mine) {
@@ -76,7 +70,6 @@ public class Hit implements IAction {
 		}
 		int damage = e.hit(); // renvoie les dégats que fait l'entitée a une autre. (positif)
 		if (damage == -6) { // cas épée avec hitCircle
-//			System.out.println(e.ligne() + " " + e.colonne());
 			for (int i = 1; i <= 8; i++) {
 				int[] coo = terrain.next_to_outside(e, e.direction());
 				if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0
@@ -121,9 +114,6 @@ public class Hit implements IAction {
 				e.turn(d);
 			}
 			return;
-//			Joueur j = ((Joueur)e);
-//			Epee epee = (Epee)j.picked();
-//			epee.setHitCircle(false);
 		} else if (damage == -3) { // cas Pomme
 			Apple apple = (Apple) ((Joueur) e).picked();
 			if (apple.poisoned()) { // true == empoisonée
@@ -188,11 +178,9 @@ public class Hit implements IAction {
 			}
 		}
 		if (damage > 0) {
-			// terrain.remove(ligne, colonne, tohit);
 			if ((tohit instanceof Joueur) || (tohit instanceof Zombie) || (tohit instanceof Squelette)) {
 				tohit.power(-damage);
 			}
-			// terrain.add(tohit, ligne, colonne);
 		} else if (damage == -1) { // cas arc et flèche classique
 			Fleche f = new Fleche(ligne, colonne, e.direction());
 			terrain.add(f, ligne, colonne);

@@ -25,7 +25,6 @@ public class Get implements IAction {
 				pick.set_colonne(e.colonne());
 			}
 			e.get();
-//			System.out.print(e.getInventory().toString());
 		}
 	}
 

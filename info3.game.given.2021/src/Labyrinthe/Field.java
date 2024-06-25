@@ -73,10 +73,8 @@ public class Field {
 		detruire_mur(densite_field);
 		labyrinthe();
 		recup_liste_mur();
-		// printLabyrinthe_tmp();
 		trouver_chemin_1();
 		chemin = trouver_chemin_2();
-		// affiche_chemin(chemin);
 		for (int i = 0; i < chemin.size(); i++) {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
@@ -86,11 +84,9 @@ public class Field {
 			deposer_Porte(nb_porte_sable);
 		} else {
 			depot_mur2(cassable, invisible, normal);
-			// deposer_interrupteur2();
 		}
 
 		grow();
-		// printGame();
 
 		grow_porte();
 		depot_teleporteur();
@@ -100,7 +96,6 @@ public class Field {
 		depot_ennemis(nb_squelette, nb_zombie);
 		printGame();
 		gerer_liste();
-//		endGame();
 	}
 
 	public void deposer_interrupteur2() { // on est dans l'arene
@@ -285,7 +280,6 @@ public class Field {
 		tmp2[ligne - 2][colonne - 1] = 1;
 
 		while (tmp2[1][1] == 0) {
-			// printLabyrinthe_tmp();
 			for (int i = 0; i < ligne; i++) {
 				for (int j = 0; j < colonne; j++) {
 					tmp3[i][j] = tmp2[i][j];
@@ -334,7 +328,6 @@ public class Field {
 		p = new Pair<Integer, Integer>(1, 1);
 		res.addLast(p);
 		while (x != ligne - 2 || y != colonne - 2) {
-			// System.out.println("#################################");
 			up = tmp2[x][y - 1];
 			down = tmp2[x][y + 1];
 			left = tmp2[x - 1][y];
@@ -381,10 +374,7 @@ public class Field {
 		int i = chemin.size() / nb_porte - 2;
 		LinkedList<Pair<Integer, Integer>> chemin3 = new LinkedList<Pair<Integer, Integer>>();
 		int len = chemin2.size() / nb_porte;
-		// System.out.printf("len = \t%d\n", len);
 		while (len < 6) {
-			// System.out.println("je suis dedans
-			// #####################################################");
 			nb_porte--;
 			len = chemin2.size() / nb_porte;
 		}
@@ -393,7 +383,6 @@ public class Field {
 			chemin2.remove(ind);
 		}
 
-		// System.out.printf("len = \t%d\n", len);
 		Entity elem = null;
 		int condition = 1;
 		Entity p = null;
@@ -471,7 +460,6 @@ public class Field {
 			}
 
 			condition = 1;
-			// printGame();
 			i = chemin.size() / nb_porte - 2;
 			count = 0;
 		}
@@ -600,15 +588,11 @@ public class Field {
 				}
 			}
 		}
-		// set_element(3,0,new Joueur(3,0),labyrinthe);
 	}
 
 	public void depot_mur1(int cassable, int invisible, int normal) {
 		int len_mur = mur.size();
-		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
-		// System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable,
-		// len_mur);
 		int count = 0;
 		int x, y;
 		if (cassable == 100) {
@@ -677,10 +661,7 @@ public class Field {
 
 	public void depot_mur2(int cassable, int invisible, int normal) {
 		int len_mur = mur.size();
-		// int pourcentage_field = (100*len_void)/(ligne*colonne);
 		int nb_pour_cassable = cassable * len_mur / 100;
-		// System.out.printf("nb_cassable = \t%d, nb_mur = \t%d\n", nb_pour_cassable,
-		// len_mur);
 		int count = 0;
 		int x, y;
 		if (cassable == 100) {
@@ -848,14 +829,9 @@ public class Field {
 	}
 
 	public void printGame() {
-		/*
-		 * for(int i1 = 0; i1 < ligne*2 ; i1++) { System.out.print(i1); }
-		 */
 		System.out.print("\n");
 		for (int i = 0; i < this.ligne; i++) {
-			// System.out.print(i);
 			for (int j = 0; j < this.colonne; j++) {
-//				Entity e = get_element(i, j, labyrinthe);
 				Entity e = getElement(i, j).getLast();
 				if (e instanceof Void)
 					System.out.print(" ");
@@ -910,10 +886,7 @@ public class Field {
 		for (int i = 0; i < ligne; i++) {
 			int cpt = 0;
 			for (int j = 0; j < colonne; j++) {
-//				e = get_element(i, j, labyrinthe);
 				l = getElement(i, j);
-//				int val = rdm.nextInt(2);
-//				set_element(i, cpt, e, new_labyrinthe);
 				for (int k = 0; k < l.size(); k++) {
 					Entity elem = l.get(k);
 					set_element(i, cpt, elem, new_labyrinthe);
@@ -922,9 +895,7 @@ public class Field {
 
 				}
 				cpt++;
-//				e = get_element(i, j, labyrinthe);
 				l = getElement(i, j);
-//				set_element(i, cpt, e, new_labyrinthe);
 				for (int k = 0; k < l.size(); k++) {
 					Entity elem = l.get(k);
 					set_element(i, cpt, newInstanceOf(elem, i, cpt), new_labyrinthe);
@@ -947,9 +918,7 @@ public class Field {
 		int cpt = 0;
 		for (int i = 0; i < ligne; i++) {
 			for (int j = 0; j < colonne; j++) {
-//				e = get_element(i, j, new_labyrinthe);
 				l = getElement(i, j);
-//				set_element(cpt, j, e, new_labyrinthe2);
 				for (int k = 0; k < l.size(); k++) {
 					Entity elem = l.get(k);
 					set_element(cpt, j, elem, new_labyrinthe2);
@@ -959,10 +928,7 @@ public class Field {
 			}
 			cpt++;
 			for (int j = 0; j < colonne; j++) {
-//				int val = rdm.nextInt(2);
-//				e = get_element(i, j, labyrinthe);
 				l = getElement(i, j);
-//				set_element(cpt, j, e, new_labyrinthe2);
 				for (int k = 0; k < l.size(); k++) {
 					Entity elem = l.get(k);
 					set_element(cpt, j, newInstanceOf(elem, cpt, j), new_labyrinthe2);
@@ -1048,13 +1014,11 @@ public class Field {
 		}
 		return false;
 	}
-	// ##########################################################
 
 	private boolean isValidPosition1(int i, int j) {
 		return i >= 0 && i < ligne && j >= 0 && j < colonne;
 	}
 
-	// ##########################################################
 
 	/*
 	 * La méthode suivante prend une liste chainé et un objet o en parametre. Elle
@@ -1226,7 +1190,7 @@ public class Field {
 		int x, y;
 		while (count < nb_mine) {
 			x = rand.nextInt(ligne - 3) + 1;
-			y = rand.nextInt(colonne - 3) + 1;// - 1);\
+			y = rand.nextInt(colonne - 3) + 1;
 			while ((this.verification(x, y)) == false) {
 				x = rand.nextInt(ligne - 3) + 1;
 				y = rand.nextInt(colonne - 3) + 1;
@@ -2101,7 +2065,6 @@ public class Field {
 			if (here instanceof Void) {
 				return true;
 			} else if (here.category() == Categorie.P || here instanceof Mine) {
-				// remove(ligne, colonne, here);
 				return true;
 			}
 			return false;
@@ -2504,42 +2467,8 @@ public class Field {
 	 */
 
 	public int endGame() {
-//		LinkedList<Entity> l_player = new LinkedList<Entity>();
 		LinkedList<Entity> l_entity = new LinkedList<Entity>();
-//		l_player = ListEntity(Joueur.class);
-//		Entity elem_player;
 		Entity elem;
-//		boolean exit1 = false;
-//		boolean exit2 = false;
-//		// si il n'y a plus de joueur sur le terrain
-//		if(l_player == null || l_player.size() == 0) {
-//			return -1;
-//		}
-//		int cpt = 0;
-//		for(int i=0; i<l_player.size(); i++) {
-//			elem_player = l_player.get(i);
-//			if(elem_player.ligne() == ligne -4 && elem_player.colonne() == colonne -1) {
-//				exit1 = true;
-//			} else if(elem_player.ligne() == ligne -3 && elem_player.colonne() == colonne -1) {
-//				exit2 = true;
-//			}
-//			// les joueurs sont sortis
-//			if(exit1 && exit2) {
-//				return 1;
-//			}
-//			l_entity = getElement(elem_player.ligne(), elem_player.colonne());
-//			for(int j=0; j<l_entity.size(); j++) {
-//				elem = l_entity.get(j);
-//				if(elem instanceof Sable) {
-//					cpt++;
-//				}
-//			}
-//		}
-//		// si tous les joueurs sont dans des sables mouvants
-//		if(cpt == l_player.size()) {
-//			return -1;
-//		}
-//		
 		// faire cas avec fin du compte à rebours
 		fillBomb();
 		Entity bombe = null;
@@ -2550,8 +2479,6 @@ public class Field {
 					elem = l_entity.get(k);
 					if (elem instanceof Bombe) {
 						bombe = elem;
-//						Explode ex = new Explode(this);
-//						ex.exec(bombe);
 						return 999;
 					}
 				}
@@ -2602,16 +2529,12 @@ public class Field {
 		switch (e.direction()) {
 		case Direction.N:
 			if (dir == Direction.F) {
-//				System.out.println("Nord");
 				return Direction.N;
 			} else if (dir == Direction.B) {
-//				System.out.println("Sud");
 				return Direction.S;
 			} else if (dir == Direction.R) {
-//				System.out.println("Est");
 				return Direction.E;
 			} else if (dir == Direction.L) {
-//				System.out.println("Ouest");q
 				return Direction.W;
 			} else {
 				return dir;

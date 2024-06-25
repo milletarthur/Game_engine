@@ -34,9 +34,9 @@ public class Key implements ICondition {
 	public boolean eval(Entity e) {
 		
 		if (k.ispressed(key)) {
-			System.out.print("check de key : ");
-			System.out.print(key);
-			System.out.println(" pressé");
+//			System.out.print("check de key : ");
+//			System.out.print(key);
+//			System.out.println(" pressé");
 			return true;
 		} else {
 //			System.out.println(" non pressé");

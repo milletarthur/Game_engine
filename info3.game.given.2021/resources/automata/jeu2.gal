@@ -232,4 +232,12 @@ Fleche(Init){
 }
 
 
+Flechetrans(Init){
+* (Init):
+| True ? Rest(3) :(Attack)
+* (Attack):
+| ! Got(Power) ? Hit / Explode :()
+| True ? Hit / Move / Rest(1) :(Attack)
+*()
+}
 

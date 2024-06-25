@@ -98,7 +98,7 @@ public class WindowInitGame extends JFrame {
 				JSONWindow.nb_zombie, JSONWindow.nb_squelette, JSONWindow.seed);
 
 		KeyPressed kp = new KeyPressed();
-		TickListener tl = new TickListener(terrain);
+		TickListener tl = new TickListener(terrain, kp);
 
 //		ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp, tl);

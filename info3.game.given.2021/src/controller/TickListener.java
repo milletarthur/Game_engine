@@ -14,9 +14,11 @@ public class TickListener {
 	LinkedList<Pair<Automate, Entity>> auto_list;
 	LinkedList<Automate> all_auto_list;
 	private boolean restart = false;
+	private KeyPressed kp;
 
-	public TickListener(Field terrain) {
+	public TickListener(Field terrain, KeyPressed kp) {
 		auto_list = new LinkedList<Pair<Automate, Entity>>();
+		this.kp = kp;
 	}
 
 	public void add(Automate a, Entity e) {
@@ -210,6 +212,7 @@ public class TickListener {
 			}
 			auto.step(e);
 		}
+		kp.destroy();
 	}
 
 }

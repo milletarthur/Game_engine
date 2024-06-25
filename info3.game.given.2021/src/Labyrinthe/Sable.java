@@ -12,7 +12,7 @@ public class Sable extends Entity {
 		this.category = Categorie.D;
 		this.team = 5;
 		this.activate = true;
-		this.vie = 25;
+		this.vie = 0;
 		layer = 2;
 	}
 	
@@ -21,7 +21,7 @@ public class Sable extends Entity {
 		this.colonne = c;
 		this.category = Categorie.D;
 		this.team = 5;
-		this.vie = 25;
+		this.vie = 0;
 		layer = 2;
 		this.activate = act;
 	}

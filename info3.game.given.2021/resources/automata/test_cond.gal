@@ -32,7 +32,8 @@ Player2(Init){
 | Key(l) ? Hit :(Init)
 | Key(o) ? Get :(Picked)
 | Key(p) ? Jump :(Init)
-| Cell(H,P) ? Pick :(Picked)
+| Cell(H,P) / Cell(H,C) ? Pick :(Init)
+| Key(m) ? Throw :(Init)
 | Cell(H,D) ? :(Init)
 | Key(FU) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) ? Turn(N) / Move :(Init)
 | Key(FR) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) ? Turn(E) / Move :(Init)
@@ -42,7 +43,7 @@ Player2(Init){
 | Key(FR) ? Turn(E) :(Init)
 | Key(FD) ? Turn(S) :(Init)
 | Key(FL) ? Turn(W) :(Init)
-| Key(o) ? Wizz :(Init)
+| Key(u) ? Wizz :(Init)
 | Key(a) ? Pop :(Select)
 * (Select):
 | Key(v) ? :(Init)

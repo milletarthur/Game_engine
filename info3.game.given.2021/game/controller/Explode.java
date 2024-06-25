@@ -60,7 +60,8 @@ public class Explode implements IAction {
 					continue;
 				}
 				terrain.add(pickable, l, c);
-				tl.add(pickable);
+				if (! (pickable instanceof Bombe))
+					tl.add(pickable);
 			}
 		} else if (e instanceof Joueur) {
 				Entity pick = e.picked();

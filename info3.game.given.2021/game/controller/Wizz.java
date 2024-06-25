@@ -82,6 +82,9 @@ public class Wizz implements IAction{
 		if(l_entity.getFirst() instanceof WizzEntity) {
 			terrain.remove(e.ligne(), e.colonne(), l_entity.getFirst());
 		}
+		if(l_entity.getLast() instanceof Selection) {
+			terrain.remove(e.ligne(), e.colonne(), l_entity.getLast());
+		}
 	}
 	
 	@Override

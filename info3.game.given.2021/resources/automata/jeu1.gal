@@ -9,12 +9,16 @@ Player1(Init){
 | Key(s) ? Turn(S) :(Init)
 | Key(q) ? Turn(W) :(Init)
 | Key(a) ? Hit :(Init)
+| Key(w) ? Get :(FullHand)
+| Key(c) ? Jump :(Init)
+| Cell(H,P) ? Pick :(FullHand)
+| ! Got(Power) ? Explode :()
+* (FullHand):
+| ! Got(Stuff) ? :(Init)
+| Key(a) ? Hit :(FullHand)
 | Key(e) ? Throw :(Init)
 | Key(x) ? Store :(Init)
-| Key(w) ? Get :(Init)
 | Key(c) ? Jump :(Init)
-| Cell(H,P) ? Pick :(Init)
-| Key(f) ? Egg :(Init)
 | ! Got(Power) ? Explode :()
 }
 
@@ -29,12 +33,16 @@ Player2(Init){
 | Key(FD) ? Turn(S) :(Init)
 | Key(FL) ? Turn(W) :(Init)
 | Key(l) ? Hit :(Init)
-| Key(m) ? Throw :(Init)
-| Key(i) ? Store :(Init)
 | Key(o) ? Get :(Init)
 | Key(p) ? Jump :(Init)
 | Cell(H,P) ? Pick :(Init)
-| Key(k) ? Egg :(Init)
+| ! Got(Power) ? Explode :()
+* (FullHand):
+| ! Got(Stuff) ? :(Init)
+| Key(l) ? Hit :(FullHand)
+| Key(m) ? Throw :(Init)
+| Key(i) ? Store :(Init)
+| Key(p) ? Jump :(Init)
 | ! Got(Power) ? Explode :()
 }
 

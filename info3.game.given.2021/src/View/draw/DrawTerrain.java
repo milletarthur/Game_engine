@@ -1,4 +1,4 @@
-package draw;
+package View.draw;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 
 import Labyrinthe.*;
 import Labyrinthe.Void;
-import listener.JSONWindow;
+import controller.listener.JSONWindow;
 
 import java.util.LinkedList;
 import java.util.Random;

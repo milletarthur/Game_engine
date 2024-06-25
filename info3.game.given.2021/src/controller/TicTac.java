@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import Labyrinthe.Joueur;
-import draw.DrawWindow;
-import draw.Viewport;
+import View.draw.DrawWindow;
+import View.draw.Viewport;
 
 /*
  * Copyright (C) 2020  Pr. Olivier Gruber

@@ -1,16 +1,10 @@
-package listener;
+package controller.listener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import Labyrinthe.Field;
-//import Labyrinthe.Joueur;
 import controller.KeyPressed;
-//import controller.Move;
-//import controller.Turn;
-//import draw.DrawTerrain;
-//import draw.Viewport;
-//import toolkit.Direction;
 
 public class Key_Listener implements KeyListener {
 

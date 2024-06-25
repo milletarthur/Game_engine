@@ -1,4 +1,4 @@
-package listener;
+package controller.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +9,7 @@ import java.util.Random;
 // bibliothèque org.json pour lire et écrire les fichiers JSON
 import org.json.*;
 
-import draw.WindowInitGame;
+import View.draw.WindowInitGame;
 
 /*
  * Classe activer lorsque le bouton Jouer en cliquer

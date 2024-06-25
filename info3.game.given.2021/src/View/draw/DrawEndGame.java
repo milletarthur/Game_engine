@@ -1,11 +1,11 @@
-package draw;
+package View.draw;
 
 import java.awt.*;
 import javax.swing.*;
 
 import Labyrinthe.Joueur;
-import listener.EndGameButtonListener;
-import listener.JSONWindow;
+import controller.listener.EndGameButtonListener;
+import controller.listener.JSONWindow;
 
 public class DrawEndGame extends JFrame {
 

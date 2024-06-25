@@ -1,10 +1,10 @@
-package draw;
+package View.draw;
 
 import java.awt.*;
 import javax.swing.*;
 
 import Labyrinthe.Joueur;
-import listener.JSONWindow;
+import controller.listener.JSONWindow;
 
 public class PVJPanel extends JPanel {
 

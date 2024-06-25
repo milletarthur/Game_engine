@@ -9,9 +9,7 @@
 	<classpathentry kind="src" path="graphics"/>
 	<classpathentry kind="src" path="audio"/>
 	<classpathentry kind="src" path="game"/>
-	<classpathentry kind="src" path="Controller"/>
 	<classpathentry kind="src" path="resources"/>
-	<classpathentry kind="src" path="View"/>
 	<classpathentry kind="lib" path="resources/config/json-20210307.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

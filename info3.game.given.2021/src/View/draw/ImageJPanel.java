@@ -1,4 +1,4 @@
-package draw;
+package View.draw;
 
 import java.awt.*;
 import javax.swing.*;

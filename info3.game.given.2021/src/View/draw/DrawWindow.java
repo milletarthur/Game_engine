@@ -1,12 +1,13 @@
-package draw;
+package View.draw;
 
 import java.awt.*;
 import javax.swing.*;
+
 import java.io.IOException;
 import Labyrinthe.Field;
 import Labyrinthe.Joueur;
 import controller.TicTac;
-import listener.JSONWindow;
+import controller.listener.JSONWindow;
 
 /*
  * Classe qui gère la fenêtre

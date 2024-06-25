@@ -1,6 +1,6 @@
 package Labyrinthe;
 
-import listener.JSONWindow;
+import controller.listener.JSONWindow;
 import toolkit.Categorie;
 import toolkit.Direction;
 

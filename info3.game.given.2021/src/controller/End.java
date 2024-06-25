@@ -3,10 +3,10 @@ package controller;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
 import Labyrinthe.Joueur;
-import listener.JSONWindow;
-import draw.DrawEndGame;
-import draw.DrawInventaire;
-import draw.DrawWindow;
+import controller.listener.JSONWindow;
+import View.draw.DrawEndGame;
+import View.draw.DrawInventaire;
+import View.draw.DrawWindow;
 
 public class End {
 	Field field;

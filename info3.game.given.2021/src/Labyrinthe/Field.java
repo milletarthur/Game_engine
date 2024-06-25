@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import controller.Explode;
-import listener.JSONWindow;
+import controller.listener.JSONWindow;
 import toolkit.*;
 
 public class Field {

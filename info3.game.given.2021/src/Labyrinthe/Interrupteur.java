@@ -2,7 +2,7 @@ package Labyrinthe;
 
 import java.util.LinkedList;
 
-import listener.JSONWindow;
+import controller.listener.JSONWindow;
 import toolkit.Categorie;
 
 public class Interrupteur extends Entity {

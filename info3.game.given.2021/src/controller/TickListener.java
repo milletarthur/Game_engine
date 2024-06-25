@@ -7,7 +7,7 @@ import Automates.Automate;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
 import Labyrinthe.Joueur;
-import listener.JSONWindow;
+import controller.listener.JSONWindow;
 import toolkit.Pair;
 
 public class TickListener {

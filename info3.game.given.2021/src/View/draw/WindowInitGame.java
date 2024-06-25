@@ -1,4 +1,4 @@
-package draw;
+package View.draw;
 
 import javax.swing.*;
 
@@ -6,14 +6,13 @@ import Automates.Automate;
 import Automates.AutomatonLoader;
 import Labyrinthe.*;
 import controller.*;
-import listener.JSONWindow;
-import listener.Key_Listener;
+import controller.listener.JSONWindow;
+import controller.listener.Key_Listener;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Random;
 
 /*
  * première fenêtre du jeu pour remplir le fichier de config

@@ -1,9 +1,9 @@
-package listener;
+package controller.listener;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import draw.WindowInitGame;
+import View.draw.WindowInitGame;
 
 import javax.swing.*;
 

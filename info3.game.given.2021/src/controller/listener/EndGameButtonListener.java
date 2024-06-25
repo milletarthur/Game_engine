@@ -1,10 +1,9 @@
-package listener;
+package controller.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import draw.DrawEndGame;
-import draw.WindowInitGame;
+import View.draw.*;
 
 public class EndGameButtonListener implements ActionListener {
 	

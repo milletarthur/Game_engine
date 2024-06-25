@@ -1,4 +1,4 @@
-package draw;
+package View.draw;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,7 +8,7 @@ import javax.swing.*;
 
 import Labyrinthe.Joueur;
 import controller.TicTac;
-import listener.JSONWindow;
+import controller.listener.JSONWindow;
 
 public class DrawInventaire extends JPanel {
 

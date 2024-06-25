@@ -1,8 +1,10 @@
 Player1(Init){
 * (Init):
 | ! Got(Power) ? Explode :()
+| Got(Stuff) ? :(FullHand)
 | Cell(H, M) ? Pop :(Select)
 | Cell(H, J) ? Wizz :(Init)
+| Key(v) ? Pop :(Select)
 | Key(a) ? Hit :(Init)
 | Key(c) ? Jump :(Init)
 | Cell(H,P) ? Pick :(FullHand)
@@ -20,6 +22,7 @@ Player1(Init){
 | ! Got(Stuff) ? :(Init)
 | Cell(H, M) ? Pop :(Select)
 | Cell(H, J) ? Wizz :(Init)
+| Key(v) ? Pop :(Select)
 | Key(a) ? Hit :(FullHand)
 | Key(e) ? Throw :(Init)
 | Key(c) ? Jump :(Init)
@@ -38,16 +41,18 @@ Player1(Init){
 Player2(Init){
 * (Init):
 | ! Got(Power) ? Explode :()
+| Got(Stuff) ? :(FullHand)
 | Cell(H, M) ? Pop :(Select)
 | Cell(H, J) ? Wizz :(Init)
+| Key(i) ? Pop :(Select)
 | Key(l) ? Hit :(Init)
 | Key(p) ? Jump :(Init)
 | Cell(H,P) ? Pick :(FullHand)
 | Cell(H,C) ? Pick :(FullHand)
-| Key(FU) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) & (! Cell(H, D)) ? Turn(N) / Move :(Init)
-| Key(FR) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) & (! Cell(H, D)) ? Turn(E) / Move :(Init)
-| Key(FD) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) & (! Cell(H, D)) ? Turn(S) / Move :(Init)
-| Key(FL) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) & (! Cell(H, D)) ? Turn(W) / Move :(Init)
+| Key(FU) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(H, D)) ? Turn(N) / Move :(Init)
+| Key(FR) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(H, D)) ? Turn(E) / Move :(Init)
+| Key(FD) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(H, D)) ? Turn(S) / Move :(Init)
+| Key(FL) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(H, D)) ? Turn(W) / Move :(Init)
 | Key(FU) ? Turn(N) :(Init)
 | Key(FR) ? Turn(E) :(Init)
 | Key(FD) ? Turn(S) :(Init)
@@ -57,19 +62,38 @@ Player2(Init){
 | ! Got(Stuff) ? :(Init)
 | Cell(H, M) ? Pop :(Select)
 | Cell(H, J) ? Wizz :(Init)
+| Key(i) ? Pop :(Select)
 | Key(l) ? Hit :(FullHand)
 | Key(m) ? Throw :(Init)
 | Key(p) ? Jump :(Init)
-| Key(FU) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) & (! Cell(H, D)) ? Turn(N) / Move :(FullHand)
-| Key(FR) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) & (! Cell(H, D)) ? Turn(E) / Move :(FullHand)
-| Key(FD) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) & (! Cell(H, D)) ? Turn(S) / Move :(FullHand)
-| Key(FL) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) & (! Cell(H, D)) ? Turn(W) / Move :(FullHand)
+| Key(FU) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(H, D)) ? Turn(N) / Move :(FullHand)
+| Key(FR) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(H, D)) ? Turn(E) / Move :(FullHand)
+| Key(FD) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(H, D)) ? Turn(S) / Move :(FullHand)
+| Key(FL) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(H, D)) ? Turn(W) / Move :(FullHand)
 | Key(FU) ? Turn(N) :(FullHand)
 | Key(FR) ? Turn(E) :(FullHand)
 | Key(FD) ? Turn(S) :(FullHand)
 | Key(FL) ? Turn(W) :(FullHand)
 * (Select):
-| Key(v) ? :(FullHand)
+| Key(i) ? :(FullHand)
+}
+
+Selection1(Init){
+* (Init):
+| Key(v) ? Pop :()
+| Key(z) ? Turn(N) / Move :(Init)
+| Key(d) ? Turn(E) / Move :(Init)
+| Key(s) ? Turn(S) / Move :(Init)
+| Key(q) ? Turn(W) / Move :(Init)
+}
+
+Selection2(Init){
+* (Init):
+| Key(i) ? Pop :()
+| Key(FU) ? Turn(N) / Move :(Init)
+| Key(FR) ? Turn(E) / Move :(Init)
+| Key(FD) ? Turn(S) / Move :(Init)
+| Key(FL) ? Turn(W) / Move :(Init)
 }
 
 Interrupteur(Init){
@@ -104,7 +128,7 @@ Squelette(Init){
 | Closest(E, A) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
 | Closest(W, A) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
 | Cell(H, M) ? Pop :(Init)
-| Cell(H, J) ? Wizz :(Allie)
+| Cell(H, J) ? Wizz :(Init)
 *()
 }
 
@@ -120,26 +144,20 @@ Zombie(Init){
 | Closest(E, A) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) ? Turn(E) / Move :(Init)
 | Closest(W, A) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
 | Cell(H, M) ? Pop :(Init)
-| Cell(H, J) ? Wizz :(Allie)
+| Cell(H, J) ? Wizz :(Init)
 *()
 }
 
 Pomme(Init){
-* (Sain):
-|Cell(H, M) ? Pop :(Sain)
-|Cell(H, J) ? Wizz :(Poison)
-* (Poison):
-|Cell(H, M) ? Pop :(Sain)
-|Cell(H, J) ? Wizz :(Poison)
+* (Init):
+|Cell(H, M) ? Pop :(Init)
+|Cell(H, J) ? Wizz :(Init)
 }
 
 Potion(Init){
-* (Sain):
-|Cell(H, M) ? Pop :(Sain)
-|Cell(H, J) ? Wizz :(Poison)
-* (Poison):
-|Cell(H, M) ? Pop :(Sain)
-|Cell(H, J) ? Wizz :(Poison)
+* (Init):
+|Cell(H, M) ? Pop :(Init)
+|Cell(H, J) ? Wizz :(Init)
 }
 
 Epee(Init){
@@ -164,10 +182,18 @@ Pioche(Init){
 }
 
 Bombe(Init){
-* (Init):
-| Cell(H, M) ? Pop :()
-| Cell(H, J) ? Wizz :()
-* ()
+* (Init): 
+| Cell(H, M) ? Pop :(BoomNow)
+| Cell(H, J) ? Wizz / Rest(60) :(Boom)
+| Got(Power) ? Rest(30) :(Boom)
+* (Boom):
+| ! Got(Power) ? Explode :()
+| Cell(H, M) ? Pop :(BoomNow)
+| Cell(H, J) ? Wizz / Rest(30) :(Boom)
+| True ? Rest(1) :(Boom)
+* (BoomNow):
+| True ? Explode :()
+*()
 }
 
 Mine(Init){
@@ -180,22 +206,32 @@ Mine(Init){
 
 Sable(Init){
 * (Init):
-| Cell(H, @) / Cell(H,#) ? :(Catched)
+| Cell(H, @) / Cell(H,#) / Cell(H,A) ? Jump :(Catched)
 | Cell(H, M) ? Pop :(Init)
 | Cell(H, J) ? Wizz :()
 *(Catched)
-| Got(Power) ? Power(1) :(Catched)
-| ! Got(Power) ? Power(25) / Pop / Hit :(Catched)
+| Got(Power) ? Rest(1) :(Catched)
+| ! Got(Power) ? Rest(25) / Pop / Hit :(Catched)
 | Cell(H, M) ? Pop :(Catched)
 | Cell(H, J) ? Wizz :()
  *()
 }
 
-Lave(init){
+Lave(Init){
 * (Init):
 | ! Cell(H, V) ? :(OnTop)
 * (OnTop):
-| Cell(H,_) ? Hit :(OnTop)
+| Cell(H,A) ? Hit :(OnTop)
+| Cell(H,_) ? Explode :(OnTOp)
+}
+
+Fleche(Init){
+* (Init):
+| True ? Rest(3) :(Attack)
+* (Attack):
+| Cell(F, @) / Cell(F, #) / Cell(F, O) / Cell(F, G) / Cell(F, A) / (! Got(Power)) ? Hit / Explode :()
+| True ? Hit / Move / Rest(1) :(Attack)
+*()
 }
 
 

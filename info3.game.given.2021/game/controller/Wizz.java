@@ -74,11 +74,13 @@ public class Wizz implements IAction{
 			if (coo[0] < 0 || coo[0] > terrain.get_ligne()-1 || coo[1] < 0 || coo[1] > terrain.get_colonne()-1)
 				return;
 			Entity elem = terrain.getLastnotSelect(coo[0], coo[1]);
-			terrain.remove(coo[0], coo[1], elem);
-			tl.remove(elem);
-			elem = terrain.getLastnotSelect(coo[0], coo[1]);
-			if (elem instanceof Lave)
-				tl.add(elem);
+			if(!(elem instanceof Lave)) {
+				terrain.remove(coo[0], coo[1], elem);
+				tl.remove(elem);
+				elem = terrain.getLastnotSelect(coo[0], coo[1]);
+				if (elem instanceof Lave)
+					tl.add(elem);
+			}
 		}
 		e.wizz();
 		LinkedList<Entity> l_entity = terrain.getElement(e.ligne(), e.colonne());

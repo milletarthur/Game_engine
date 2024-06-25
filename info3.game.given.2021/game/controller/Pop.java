@@ -46,6 +46,15 @@ public class Pop implements IAction {
 					break;
 				}
 			}
+			l_entity = terrain.getElement(e.ligne(), e.colonne());
+			for(int i=0; i<l_entity.size(); i++) {
+				elem = l_entity.get(i);
+				if(elem instanceof Zombie){
+					((Zombie)elem).setOtherTeam(e.team());
+				} else if(elem instanceof Squelette){
+					((Squelette)elem).setOtherTeam(e.team());
+				}
+			}
 			if (j != null) {
 				if (j.picked() instanceof Interrupteur) {
 					Interrupteur levier = (Interrupteur) j.picked();
@@ -99,8 +108,10 @@ public class Pop implements IAction {
 			if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0 || coo[1] > terrain.get_colonne() - 1)
 				return;
 			Entity elem = terrain.getLastnotSelect(coo[0], coo[1]);
-			terrain.remove(coo[0], coo[1], elem);
-			tl.remove(elem);
+			if(!(elem instanceof Lave)) {
+				terrain.remove(coo[0], coo[1], elem);
+				tl.remove(elem);
+			}
 //			Entity elem;
 //			switch (e.direction()) {
 //			case Direction.N:

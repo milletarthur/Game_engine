@@ -83,10 +83,16 @@ public class Closest implements ICondition {
 
 	@Override
 	public boolean eval(Entity e) {
-		if (categorie == Categorie.Arobase || categorie == Categorie.Diese) {
+		if (categorie == Categorie.Arobase || categorie == Categorie.Diese || categorie == Categorie.A) {
 			LinkedList<Entity> l = terrain.get_joueur();
 			Joueur j1 = (Joueur) l.get(0);
 			Joueur j2 = (Joueur) l.get(1);
+			if (j1.getVie() <= 0 && j2.getVie() > 0)
+				j1 = j2;
+			else if (j2.getVie() <= 0 && j1.getVie() > 0)
+				j2 = j1;
+			else if (j2.getVie() <= 0 && j1.getVie() <= 0)
+				return false;
 			double dist_j1 = Math
 					.sqrt(Math.pow((j1.ligne() - e.ligne()), 2) + Math.pow((j1.colonne() - e.colonne()), 2));
 			double dist_j2 = Math
@@ -94,10 +100,26 @@ public class Closest implements ICondition {
 			if (dist_j1 > distance_vision && dist_j2 > distance_vision)
 				return false;
 			Joueur closest;
-			if (dist_j1 < dist_j2)
-				closest = j1;
-			else
-				closest = j2;
+			if (categorie != Categorie.A) {
+				if (dist_j1 < dist_j2)
+					closest = j1;
+				else
+					closest = j2;
+			} else {
+				if (j1.team() == e.team() && j2.team() == e.team())
+					return false;
+				else if (j1.team() != e.team() && j2.team() == e.team())
+					closest = j1;
+				else if (j1.team() == e.team() && j2.team() != e.team())
+					closest = j2;
+				else {
+					if (dist_j1 < dist_j2)
+						closest = j1;
+					else
+						closest = j2;
+				}
+				
+			}
 			int ligne = closest.ligne() - e.ligne();
 			int colonne = closest.colonne() - e.colonne();
 			switch (terrain.to_absolute(e, direction)) {

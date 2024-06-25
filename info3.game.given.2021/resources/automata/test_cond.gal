@@ -66,6 +66,7 @@ Squelette(Init){
 | Closest(W, A) & (! Cell(W,O)) & (! Cell(W,#)) & (! Cell(W,@)) & (! Cell(W,C)) ? Turn(W) / Move :(Init)
 | Cell(H, M) ? Pop :(Init)
 | Cell(H, J) ? Wizz :(Allie)
+| True ? :(Init)
 * (Allie):
 | !Got(Power) ? Explode :()
 | Cell(H, M) ? Pop :(Init)

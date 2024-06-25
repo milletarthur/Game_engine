@@ -4,9 +4,10 @@ import java.util.LinkedList;
 
 import Automates.IAction;
 import Labyrinthe.*;
+import toolkit.Direction;
 
 public class Hit implements IAction {
-	
+
 	private TickListener tl;
 	public Field terrain;
 
@@ -14,15 +15,54 @@ public class Hit implements IAction {
 		this.terrain = terrain;
 		this.tl = tl;
 	}
-	
+
 	public Hit(Field terrain) {
 		this.terrain = terrain;
-		this.tl= null;
+		this.tl = null;
 	}
 
 	@Override
 	public void exec(Entity e) {
 		int damage = e.hit(); // renvoie les dégats que fait l'entitée a une autre. (positif)
+		if (damage == -6) { // cas épée avec hitCircle
+			System.out.println(e.ligne() + " " + e.colonne());
+			for (int i = 1; i <= 8; i++) {
+				int [] coo = terrain.next_to_outside(e, e.direction());
+				if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0 || coo[1] > terrain.get_colonne() - 1) {
+					int d = (e.direction() + 1) % 9;
+					if (d == 0) {
+						d++;
+					}
+					e.turn(d);
+					continue;
+				}
+				int ligne = coo[0];
+				int colonne = coo[1];
+				System.out.println(ligne + " " + colonne);
+				LinkedList<Entity> list = terrain.getElement(ligne, colonne);
+				int cpt = 0;
+				Entity tohit = list.get(cpt);
+				int taille = list.size();
+				if (list.getLast() instanceof Selection)
+					taille--;
+				while (!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette)
+						&& cpt < taille) {
+					tohit = list.get(cpt);
+					cpt++;
+				}
+				if ((tohit instanceof Joueur) || (tohit instanceof Zombie) || (tohit instanceof Squelette)) {
+					tohit.power(-3);
+				}
+				int d = (e.direction() + 1) % 9;
+				if (d == 0) {
+					d++;
+				}
+				e.turn(d);
+			}
+//			Joueur j = ((Joueur)e);
+//			Epee epee = (Epee)j.picked();
+//			epee.setHitCircle(false);
+		}
 		int[] coo = terrain.next_to_outside(e, e.direction());
 		if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0 || coo[1] > terrain.get_colonne() - 1)
 			return;
@@ -32,12 +72,12 @@ public class Hit implements IAction {
 		int cpt = 0;
 		Entity tohit = list.get(cpt);
 		int taille = list.size();
-		if(e instanceof Sable) {
+		if (e instanceof Sable) {
 			LinkedList<Entity> l_entity = terrain.getElement(e.ligne(), e.colonne());
 			Entity elem;
-			for(int i=0; i<l_entity.size(); i++) {
+			for (int i = 0; i < l_entity.size(); i++) {
 				elem = l_entity.get(i);
-				if(elem instanceof Joueur || elem instanceof Squelette || elem instanceof Zombie) {
+				if (elem instanceof Joueur || elem instanceof Squelette || elem instanceof Zombie) {
 					elem.power(-1);
 					break;
 				}
@@ -98,32 +138,6 @@ public class Hit implements IAction {
 			Explode ex = new Explode(terrain, tl);
 			ex.exec(((Joueur) e).picked());
 			e.resetpick();
-		} else if (damage == -6) { // cas épée avec hitCircle
-			for (int i = 0; i < 8; i++) {
-				coo = terrain.next_to_outside(e, e.direction());
-				if (coo[0] < 0 || coo[0] > terrain.get_ligne() - 1 || coo[1] < 0 || coo[1] > terrain.get_colonne() - 1)
-					continue;
-				ligne = coo[0];
-				colonne = coo[1];
-				list = terrain.getElement(ligne, colonne);
-				cpt = 0;
-				tohit = list.get(cpt);
-				taille = list.size();
-				if (list.getLast() instanceof Selection)
-					taille--;
-				while (!(tohit instanceof Joueur) && !(tohit instanceof Zombie) && !(tohit instanceof Squelette)
-						&& cpt < taille) {
-					cpt++;
-					tohit = list.get(cpt);
-				}
-				if (damage > 0) {
-					if ((tohit instanceof Joueur) || (tohit instanceof Zombie) || (tohit instanceof Squelette)) {
-						tohit.power(-3);
-					}
-				}
-				e.turn(((e.direction() + 1) % 8) + 1);
-			}
-			((Epee) e).setHitCircle(false);
 		}
 
 	}

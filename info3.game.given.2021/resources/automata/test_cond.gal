@@ -11,7 +11,6 @@ Player1(Init){
 | Key(d) ? Turn(E) :(Init)
 | Key(s) ? Turn(S) :(Init)
 | Key(q) ? Turn(W) :(Init)
-| Key(k) ? Egg :(Init)
 | !Got(Power) ? Explode :()
 * (Picked):
 | Key(a) ? Hit :(Init)
@@ -45,7 +44,9 @@ Player2(Init){
 | Key(FD) ? Turn(S) :(Init)
 | Key(FL) ? Turn(W) :(Init)
 | Key(o) ? Wizz :(Init)
-| Key(k) ? Pop :(Wait)
+| Key(a) ? Pop :(Select)
+* (Select):
+| Key(v) ? :(Init)
 }
 
 Interrupteur(Init){
@@ -143,4 +144,20 @@ Selection2(Init){
 | Key(FL) ? Turn(W) / Move :(Init)
 }
 
+Invisible(Init){
+* (Init):
+| Cell(H, M) ? Pop :()
+| Cell(H, J) ? Wizz :()
+}
 
+Cassable(Init){
+* (Init):
+| Cell(H, M) ? Pop :()
+| Cell(H, J) ? Wizz :()
+}
+
+Normal(Init){
+* (Init):
+| Cell(H, M) ? Pop :()
+| Cell(H, J) ? Wizz :()
+}

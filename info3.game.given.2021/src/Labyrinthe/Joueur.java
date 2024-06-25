@@ -25,6 +25,7 @@ public class Joueur extends Entity {
 		this.team = team;
 		layer = 3;
 		inventory = new Inventory();
+		picked = new Epee(ligne, colonne);
 	}
 
 	public Entity egg(int ligne, int colonne) {
@@ -90,6 +91,10 @@ public class Joueur extends Entity {
 	
 	public boolean getModeSelection() {
 		return modeSelection;
+	}
+	
+	public void setModeSelection(boolean value) {
+		modeSelection = value;
 	}
 	
 	public void setSelection(Selection s) {

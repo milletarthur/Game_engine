@@ -1702,11 +1702,11 @@ public class Field {
 					rv[1]++;
 					break;
 				case Direction.SE:
-					rv[0]--;
+					rv[0]++;
 					rv[1]++;
 					break;
 				case Direction.NW:
-					rv[0]++;
+					rv[0]--;
 					rv[1]--;
 					break;
 				case Direction.SW:
@@ -1963,6 +1963,10 @@ public class Field {
 		LinkedList<Entity> l_entity = getElement(ligne, colonne);
 		int cpt = 0;
 		Entity elem = l_entity.get(0);
+		if(e.layer == -1) {
+			l_entity.addFirst(e);
+			return;
+		}
 		while (cpt < l_entity.size() && elem.layer() < e.layer()) {
 			elem = l_entity.get(cpt);
 			cpt++;

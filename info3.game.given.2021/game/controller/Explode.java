@@ -25,8 +25,10 @@ public class Explode implements IAction {
 			if (r < 100) {
 				Entity pick = e.picked();
 				e.resetpick();
-				if(pick != null)
+				if(pick != null) {
 					terrain.add(pick, e.ligne(), e.colonne());
+					tl.add(pick);
+				}
 			} else {
 				e.resetpick();
 			}
@@ -58,11 +60,13 @@ public class Explode implements IAction {
 					continue;
 				}
 				terrain.add(pickable, l, c);
+				tl.add(pickable);
 			}
 		} else if (e instanceof Joueur) {
 				Entity pick = e.picked();
 				if (pick != null) {
 					terrain.add(pick, e.ligne(), e.colonne());
+					tl.add(pick);
 					e.resetpick();
 				}
 		}

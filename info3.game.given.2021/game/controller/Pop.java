@@ -19,34 +19,44 @@ public class Pop implements IAction {
 
 	@Override
 	public void exec(Entity e) {
-		if(e instanceof Joueur) {
+		if (e instanceof Joueur) {
 			Entity entity = new Selection(e.ligne(), e.colonne());
 			Joueur j = (Joueur) e;
-			j.setSelection((Selection)entity);
-			tl.add(entity);
-			entity.setTeam(e.team());
-			terrain.add(entity, e.ligne(), e.colonne());
+			if (!j.getModeSelection()) {
+				((Selection) entity).setJoueur(j);
+				j.setSelection((Selection) entity);
+				tl.add(entity);
+				entity.setTeam(e.team());
+				terrain.add(entity, e.ligne(), e.colonne());
+			} else {
+				Selection s = j.getSelection();
+				terrain.remove(s.ligne(), s.colonne(), s);
+				j.setSelection(null);
+			}
 		} else if (e instanceof Selection) {
-				int l_j = ((Selection)e).getLigneJoueur();
-				int c_j = ((Selection)e).getColonneJoueur();
-				Joueur j = null;
-				Entity elem;
-				LinkedList<Entity> l_entity = terrain.getElement(l_j, c_j);
-				for(int i=0; i<l_entity.size(); i++) {
-					elem = l_entity.get(i);
-					if(elem instanceof Joueur) {
-						j = (Joueur) elem;
-						break;
-					}
+			int l_j = ((Selection) e).getLigneJoueur();
+			int c_j = ((Selection) e).getColonneJoueur();
+			Joueur j = null;
+			Entity elem;
+			LinkedList<Entity> l_entity = terrain.getElement(l_j, c_j);
+			for (int i = 0; i < l_entity.size(); i++) {
+				elem = l_entity.get(i);
+				if (elem instanceof Joueur) {
+					j = (Joueur) elem;
+					break;
 				}
-				if(j.picked() instanceof Interrupteur) {
+			}
+			if (j != null) {
+				if (j.picked() instanceof Interrupteur) {
 					Interrupteur levier = (Interrupteur) j.picked();
 					levier.add(terrain.getLastnotSelect(e.ligne(), e.colonne()));
 				}
+				j.setModeSelection(false);
+			}
 		} else if (e instanceof Interrupteur) {
 			LinkedList<Entity> l_levier = ((Interrupteur) e).get_entity();
 			Entity elem;
-			for(int i=0; i<l_levier.size(); i++) {
+			for (int i = 0; i < l_levier.size(); i++) {
 				elem = l_levier.get(i);
 				Entity pop = new PopEntity(elem.ligne(), elem.colonne(), e.team());
 				terrain.add(pop, elem.ligne(), elem.colonne());
@@ -82,7 +92,7 @@ public class Pop implements IAction {
 		} else if (e instanceof Squelette) {
 			e.setTeam(((Squelette) e).getOtherTeam());
 		} else if (e instanceof Sable) {
-			Egg cmd = new Egg(terrain,tl);
+			Egg cmd = new Egg(terrain, tl);
 			cmd.exec(e);
 		} else if (e instanceof Pioche) {
 			int coo[] = terrain.next_to_outside(e, e.direction());
@@ -124,7 +134,7 @@ public class Pop implements IAction {
 		}
 		e.pop();
 		LinkedList<Entity> l_entity = terrain.getElement(e.ligne(), e.colonne());
-		if(l_entity.getFirst() instanceof PopEntity) {
+		if (l_entity.getFirst() instanceof PopEntity) {
 			terrain.remove(e.ligne(), e.colonne(), l_entity.getFirst());
 		}
 	}

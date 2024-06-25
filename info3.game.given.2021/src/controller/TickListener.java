@@ -7,6 +7,7 @@ import Automates.Automate;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
 import Labyrinthe.Joueur;
+import Labyrinthe.Fleche;
 import controller.listener.JSONWindow;
 import toolkit.Pair;
 
@@ -82,7 +83,10 @@ public class TickListener {
 				}
 				break;
 			case "Fleche":
-				if (name.equals(JSONWindow.aut_fleche)){
+				if (name.equals(JSONWindow.aut_fleche) && !((Fleche) e).getTrans()) {
+					restart = true;
+					add(a, e);
+				} else if (name.equals("Flechetrans") && ((Fleche) e).getTrans()) {
 					restart = true;
 					add(a, e);
 				}

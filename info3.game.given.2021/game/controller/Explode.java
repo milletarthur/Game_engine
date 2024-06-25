@@ -59,9 +59,21 @@ public class Explode implements IAction {
 				if (pickable == null) {
 					continue;
 				}
-				terrain.add(pickable, l, c);
-				if (!(pickable instanceof Bombe))
-					tl.add(pickable);
+				boolean hasTP = false;
+				LinkedList<Entity> l_entity = terrain.getElement(l, c);
+				Entity elem;
+				for (int j = 0; j < l_entity.size(); j++) {
+					elem = l_entity.get(j);
+					if (elem instanceof Teleporteur) {
+						hasTP = true;
+						break;
+					}
+				}
+				if (!hasTP) {
+					terrain.add(pickable, l, c);
+					if (!(pickable instanceof Bombe))
+						tl.add(pickable);
+				}
 			}
 		} else if (e instanceof Joueur) {
 			Entity pick = e.picked();
@@ -72,8 +84,8 @@ public class Explode implements IAction {
 			}
 		} else if (e instanceof Lave) {
 			Entity elem = terrain.getLastnotSelect(e.ligne(), e.colonne());
-			if (! (elem instanceof Lave)) {
-				Explode cmd = new Explode(terrain,tl);
+			if (!(elem instanceof Lave)) {
+				Explode cmd = new Explode(terrain, tl);
 				cmd.exec(elem);
 			}
 		}
@@ -106,7 +118,7 @@ public class Explode implements IAction {
 					if (elem instanceof Cassable && ((Cassable) elem).exploded())
 						continue;
 					if (elem instanceof Mine || elem instanceof Bombe || elem instanceof Cassable) {
-						if (elem instanceof Cassable) 
+						if (elem instanceof Cassable)
 							((Cassable) elem).changeState();
 						Explode ex = new Explode(terrain, tl);
 						ex.exec(elem);
@@ -126,7 +138,7 @@ public class Explode implements IAction {
 //		System.out.print(";");
 //		System.out.print(e.colonne());
 //		System.out.println(")");
-		if (! (e instanceof Lave)) {
+		if (!(e instanceof Lave)) {
 			e.explode();
 			terrain.remove(e.ligne(), e.colonne(), e);
 			tl.remove(e);

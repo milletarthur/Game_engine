@@ -45,7 +45,16 @@ public class Interrupteur extends Entity {
 
 	@Override
 	public void pop() {
-		if(JSONWindow.jeu.equals("arene")) {
+		if(JSONWindow.jeu.equals("Labyrinthe")) {
+			Entity elem;
+			for(int i=0; i<liste_elem.size(); i++) {
+				elem = liste_elem.get(i);
+				if(elem instanceof Teleporteur || elem instanceof Joueur) {
+					continue;
+				}
+				elem.pop();
+			}
+		} else {
 			Entity elem;
 			LinkedList<Entity> new_l = new LinkedList<Entity>();
 			for(int i=0; i<liste_elem.size(); i++) {
@@ -59,22 +68,21 @@ public class Interrupteur extends Entity {
 				}
 			}
 			liste_elem = new_l;
-		} else if(JSONWindow.jeu.equals("labyrinthe")) {
-			Entity elem;
-			for(int i=0; i<liste_elem.size(); i++) {
-				elem = liste_elem.get(i);
-				if(elem instanceof Teleporteur || elem instanceof Joueur) {
-					continue;
-				}
-				elem.pop();
-			}
-		}
-		
+		} 
 	}
 
 	@Override
 	public void wizz() {
-		if(JSONWindow.jeu.equals("arene")) {
+		if(JSONWindow.jeu.equals("Labyrinthe")) {
+			Entity elem;
+			for(int i=0; i<liste_elem.size(); i++) {
+				elem = liste_elem.get(i);
+				if(elem instanceof Teleporteur || elem instanceof Joueur) {
+					continue;
+				}
+				elem.wizz();
+			}
+		} else {
 			Entity elem;
 			LinkedList<Entity> new_l = new LinkedList<Entity>();
 			for(int i=0; i<liste_elem.size(); i++) {
@@ -88,15 +96,6 @@ public class Interrupteur extends Entity {
 				}
 			}
 			liste_elem = new_l;
-		} else if(JSONWindow.jeu.equals("labyrinthe")) {
-			Entity elem;
-			for(int i=0; i<liste_elem.size(); i++) {
-				elem = liste_elem.get(i);
-				if(elem instanceof Teleporteur || elem instanceof Joueur) {
-					continue;
-				}
-				elem.wizz();
-			}
 		}
 	}
 	

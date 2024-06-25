@@ -73,5 +73,4 @@ public class DrawWindow extends JFrame {
 	public DrawInventaire get_invent() {
 		return this.inventaire;
 	}
-
 }

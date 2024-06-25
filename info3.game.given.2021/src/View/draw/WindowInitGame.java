@@ -99,12 +99,12 @@ public class WindowInitGame extends JFrame {
 
 		KeyPressed kp = new KeyPressed();
 		TickListener tl = new TickListener(terrain);
-		
+
 //		ajout d'un automate
 		AutomatonLoader al = new AutomatonLoader(terrain, kp, tl);
 		LinkedList<Automate> l_aut = null;
 		if (JSONWindow.jeu.equals("Labyrinthe"))
-			 l_aut = al.loadAutomata("resources/automata/jeu1.gal");
+			l_aut = al.loadAutomata("resources/automata/jeu1.gal");
 		else if (JSONWindow.jeu.equals("Arène"))
 			l_aut = al.loadAutomata("resources/automata/jeu2.gal");
 		tl.setAllAutoList(l_aut);
@@ -122,7 +122,8 @@ public class WindowInitGame extends JFrame {
 			terrain.add(j1, 3, 0);
 			terrain.add(j2, terrain.get_ligne() - 3, terrain.get_colonne() - 1);
 			Interrupteur int1 = new Interrupteur(2, 0, new LinkedList<Entity>());
-			Interrupteur int2 = new Interrupteur(terrain.get_ligne() - 4, terrain.get_colonne() - 1, new LinkedList<Entity>());
+			Interrupteur int2 = new Interrupteur(terrain.get_ligne() - 4, terrain.get_colonne() - 1,
+					new LinkedList<Entity>());
 			tl.add(int1);
 			tl.add(int2);
 			int1.setTeam(1);
@@ -247,11 +248,9 @@ public class WindowInitGame extends JFrame {
 				}
 			}
 		}
-
 		// ajout d'un Keylistener
 		Key_Listener k = new Key_Listener(terrain, kp);
 		w.addKeyListener(k);
-
 	}
 
 	public String getname(int num_joueur) {

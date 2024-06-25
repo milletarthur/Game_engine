@@ -10,7 +10,7 @@
     "use_seed" : false,
     "pv" : 20,
     "nb_obstacles" : 10,
-    "nb_ennemis" : 0,
+    "nb_ennemis" : 6,
     "entities": [
       { "name" : "Apple",
         "automate": "Apple",

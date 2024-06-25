@@ -81,28 +81,55 @@ public class End {
 	public int endGame() {
 		if (JSONWindow.jeu.equals("Labyrinthe")) {
 			int temp = di.gettemp();
-			if (temp > 0) {
-				if (j1.getVie() > 0 && j2.getVie() > 0) {
+			if (field.presence_sable(field.getElement(j1.getX(), j1.getY())) && field.presence_sable(field.getElement(j2.getX(), j2.getY()))) {
+				return -1;
+			}
+			else if (temp > 0) {
+				if (j1.getVie() > 0 && j2.getVie() > 0) { // si les deux joueurs sont en vie
 					if (((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
 							&& j1.getY() == field.get_colonne() - 1) && ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
-							&& j2.getY() == field.get_colonne() - 1))
+							&& j2.getY() == field.get_colonne() - 1)) // les deux joueurs arrivent à la fin
 						return 3;
 					else if (((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
-							&& j1.getY() == field.get_colonne() - 1) || ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
-							&& j2.getY() == field.get_colonne() - 1)) {
-						if (!time) {
+							&& j1.getY() == field.get_colonne() - 1)) { // j1 est à la fin
+						if (j2.getVie() <= 0)
+							return 1;
+						if (!time) { // attend j2
 							di.settemp(31);
-							//di.setcpt();
+							di.setcpt();
+							time = true;
+						}
+						return 0;
+						
+					}
+					else if ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
+							&& j2.getY() == field.get_colonne() - 1) { // j2 est à la fin
+						if (j1.getVie() <= 0)
+							return 2;
+						if (!time) { // attend j1
+							di.settemp(31);
+							di.setcpt();
 							time = true;
 						}
 						return 0;}
 					else
 						return 0;
-				} else if (j2.getVie() < 0 && j1.getVie() < 0) {
+				} else if (j1.getVie() > 0 && j2.getVie() <= 0) {
+					if (((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
+							&& j1.getY() == field.get_colonne() - 1)) { // j1 est à la fin
+						return 1;
+					}
+					
+				} else if (j1.getVie() <= 0 && j2.getVie() > 0) {
+					if ((j2.getX() == field.get_ligne() - 4 || j2.getX() == field.get_ligne() - 3)
+							&& j2.getY() == field.get_colonne() - 1) { // j2 est à la fin
+						return 2;
+					}
+				}
+				else if (j2.getVie() <= 0 && j1.getVie() <= 0) { // les deux sont morts
 					return -1;
 				}
-			} else {
-
+			} else { // temp < 0
 				if ((j1.getX() == field.get_ligne() - 4 || j1.getX() == field.get_ligne() - 3)
 						&& j1.getY() == field.get_colonne() - 1)
 					return 1;
@@ -113,12 +140,11 @@ public class End {
 					return -1;
 			}
 		} else if (JSONWindow.jeu.equals("Arène")) {
-			if ( j1.getVie() == 0 ) {
+			if ( j1.getVie() <= 0 ) { // j1 mort donc j2 gagne
 				return 2 ; 
-			} else if (j2.getVie() == 0) {
+			} else if (j2.getVie() <= 0) { // j2 mort donc j1 gagne
 				return 1;
 			}
-			// Sinon, on renvoie 0.
 			return 0 ;
 		} 
 		return 0;

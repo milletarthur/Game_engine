@@ -86,7 +86,6 @@ public class Field {
 			deposer_Porte(nb_porte_sable);
 		} else {
 			depot_mur2(cassable, invisible, normal);
-			depot_sable(nb_porte_sable);
 			// deposer_interrupteur2();
 		}
 

@@ -7,6 +7,7 @@ import Automates.Automate;
 import Labyrinthe.Entity;
 import Labyrinthe.Field;
 import Labyrinthe.Joueur;
+import Labyrinthe.Fleche;
 import controller.listener.JSONWindow;
 import toolkit.Pair;
 
@@ -14,9 +15,11 @@ public class TickListener {
 	LinkedList<Pair<Automate, Entity>> auto_list;
 	LinkedList<Automate> all_auto_list;
 	private boolean restart = false;
+	private KeyPressed kp;
 
-	public TickListener(Field terrain) {
+	public TickListener(Field terrain, KeyPressed kp) {
 		auto_list = new LinkedList<Pair<Automate, Entity>>();
+		this.kp = kp;
 	}
 
 	public void add(Automate a, Entity e) {
@@ -80,7 +83,10 @@ public class TickListener {
 				}
 				break;
 			case "Fleche":
-				if (name.equals(JSONWindow.aut_fleche)){
+				if (name.equals(JSONWindow.aut_fleche) && !((Fleche) e).getTrans()) {
+					restart = true;
+					add(a, e);
+				} else if (name.equals("Flechetrans") && ((Fleche) e).getTrans()) {
 					restart = true;
 					add(a, e);
 				}
@@ -210,6 +216,7 @@ public class TickListener {
 			}
 			auto.step(e);
 		}
+		kp.destroy();
 	}
 
 }

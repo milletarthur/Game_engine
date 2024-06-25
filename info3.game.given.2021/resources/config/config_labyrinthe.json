@@ -8,7 +8,7 @@
     "%density" : 100,
     "seed" : 0,
     "use_seed" : true,
-    "pv" : 20,
+    "pv" : 10,
     "nb_obstacles" : 10,
     "entities": [
       { "name" : "Apple",
@@ -47,7 +47,7 @@
       },
       { "name" : "Invisible", 
         "automate": "Invisible",
-        "%densite" : 75,
+        "%densite" : 25,
         "sprite_path": "resources/graphisme/Murs/mur.png"
       },
       { "name" : "Joueur1", 

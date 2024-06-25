@@ -12,6 +12,7 @@ public class Zombie extends Entity {
 		this.category = Categorie.A;
 		this.team = 0;
 		layer = 3;
+		vie = 5;
 	}
 
 	@Override

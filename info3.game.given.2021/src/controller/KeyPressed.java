@@ -18,6 +18,10 @@ public class KeyPressed {
 		keys.remove((Object) key);
 	}
 	
+	public void destroy() {
+		 keys = new LinkedList<Integer>();
+	}
+	
 	public boolean ispressed(int key) {
 		return keys.contains((Object) key);
 	}

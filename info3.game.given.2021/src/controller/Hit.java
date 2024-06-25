@@ -65,7 +65,7 @@ public class Hit implements IAction {
 				}
 			}
 			if ((tohit instanceof Joueur) || (tohit instanceof Zombie) || (tohit instanceof Squelette)) {
-				tohit.power(e.hit());
+				tohit.power(-e.hit());
 			}
 		}
 		int damage = e.hit(); // renvoie les dégats que fait l'entitée a une autre. (positif)

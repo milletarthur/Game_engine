@@ -270,8 +270,8 @@ public class DrawTerrain extends JPanel {
 		this.zombie_flip = flip(zombie);
 		this.invisible = transparent(mur);
 
-		this.fleche = drawEntityB(JSONWindow.sprite_fleche);
-		
+		Sprite FLECHE = new Sprite("resources/graphisme/Pickables/Sprite/projectiles.png",23,23);
+		this.fleche = FLECHE.getSprite(0, 0);
 	}
 
 	public static Image drawPickable(Entity e) {

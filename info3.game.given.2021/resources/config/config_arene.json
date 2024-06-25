@@ -27,7 +27,7 @@
       },
       { "name" : "Cassable", 
         "automate": "Cassable",
-        "%densite" : 0,
+        "%densite" : 25,
         "sprite_path": "resources/graphisme/Murs/fragile.png"
       },
       { "name" : "Epee", 
@@ -47,7 +47,7 @@
       },
       { "name" : "Invisible", 
         "automate": "Invisible",
-        "%densite" : 100,
+        "%densite" : 25,
         "sprite_path": "resources/graphisme/Murs/mur.png"
       },
       { "name" : "Joueur1", 

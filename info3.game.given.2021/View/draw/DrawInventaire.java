@@ -168,7 +168,7 @@ public class DrawInventaire extends JPanel {
 	}
 
 	public void Image() throws IOException {
-		this.INVENTAIRE = new Sprite("resources/graphisme/Structures/final_room.png", 24, 24);
+		this.INVENTAIRE = new Sprite(JSONWindow.sprite_void, 24, 24);
 		this.img_inventaire = INVENTAIRE.getSprite(2, 0);
 	}
 

@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 
 import Labyrinthe.*;
 import Labyrinthe.Void;
-import toolkit.Direction;
+import listener.JSONWindow;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -29,17 +29,17 @@ public class DrawTerrain extends JPanel {
 	private int T_case, int_team, l;
 	private Field terrain;
 
-	private Sprite CHEMIN, PERSO, OBJET, ITEM, DEPLAC, PROJECTILES;
+	private Sprite CHEMIN;
 
 	private BufferedImage[] chemin = new BufferedImage[6];
-	private BufferedImage player1, player1_flip, player2, player2_flip, porte_fermee, porte_ouverte, teleporte, zombie,
-			zombie_flip, squelette, squelette_flip, invisible, teleporte_desac, fleche;
+	private BufferedImage player1, player1_flip, player2, player2_flip, zombie, zombie_flip, squelette, squelette_flip,
+			invisible, fleche;
 
-	private Image lave, sand, mur, fragile, selection;
+	private Image lave, sand, mur, fragile, selection1, selection2, porte_fermee, porte_ouverte, teleporte,
+			teleporte_desac;
 
 	// partager avec DrawInventaire
-	public static BufferedImage pioche, pomme, arc, potion, epee, bombe;
-	public static Image int_pop, int_wizz, int_neutre;
+	public static Image pomme, pioche, bombe, int_pop, int_wizz, int_neutre, arc, potion, epee;
 
 	Random random;
 
@@ -48,19 +48,19 @@ public class DrawTerrain extends JPanel {
 	public DrawTerrain(int HAUTEUR, int LARGEUR, Field terrain, int T_case, int int_team) throws IOException {
 		this.terrain = terrain;
 		this.T_case = T_case;
-		this.int_team = int_team ; // team du joueur
+		this.int_team = int_team; // team du joueur
 		this.chargement_Image();
 		this.random = new Random(0);
 		this.rand_chemin = new int[HAUTEUR][LARGEUR];
 		this.rand_mine_x = new int[HAUTEUR][LARGEUR];
 		this.rand_mine_y = new int[HAUTEUR][LARGEUR];
 
-		this.l = T_case / 4 ;
+		this.l = T_case / 4;
 		for (int i = 0; i < HAUTEUR; i++) {
 			for (int j = 0; j < LARGEUR; j++) {
 				rand_chemin[i][j] = random.nextInt(6);
-				rand_mine_x[i][j] = random.nextInt(T_case - l*2) + 5;
-				rand_mine_y[i][j] = random.nextInt(T_case - l*2) + 5;
+				rand_mine_x[i][j] = random.nextInt(T_case - l * 2) + 5;
+				rand_mine_y[i][j] = random.nextInt(T_case - l * 2) + 5;
 			}
 		}
 
@@ -124,16 +124,16 @@ public class DrawTerrain extends JPanel {
 							g.drawImage(int_neutre, j * T_case, i * T_case, T_case, T_case, null);
 						}
 					} else if (e instanceof Invisible) { // mur magique
-						int h = 0 ;
-						boolean inv = false ;
+						int h = 0;
+						boolean inv = false;
 						while (h < temp.size()) {
 							if (temp.get(h).team() == this.int_team) {
 								g.drawImage(invisible, j * T_case, i * T_case, T_case, T_case, null);
-								inv = true ;
+								inv = true;
 								break;
-							} 
+							}
 							h++;
-						} 
+						}
 						if (!inv) {
 							g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 						}
@@ -154,13 +154,13 @@ public class DrawTerrain extends JPanel {
 						g.drawImage(lave, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Mine) {
 						Graphics2D g2d = (Graphics2D) g;
-				        int strokeWidth = 2;
-				        g2d.setStroke(new BasicStroke(strokeWidth));
-				        g2d.setColor(new Color(51, 48, 46));
+						int strokeWidth = 2;
+						g2d.setStroke(new BasicStroke(strokeWidth));
+						g2d.setColor(new Color(51, 48, 46));
 						int x = j * T_case + rand_mine_x[i][j];
 						int y = i * T_case + rand_mine_y[i][j];
-						g.drawLine(x,y,x+l,y+l);
-						g.drawLine(x+l, y, x, y+l);
+						g.drawLine(x, y, x + l, y + l);
+						g.drawLine(x + l, y, x, y + l);
 					} else if (e instanceof Normal) { // mur normal
 						g.drawImage(mur, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Pioche) {
@@ -178,10 +178,13 @@ public class DrawTerrain extends JPanel {
 						Sable s = (Sable) e;
 						if (s.IsActivate())
 							g.drawImage(sand, j * T_case, i * T_case, T_case, T_case, null);
-						else 
+						else
 							g.drawImage(chemin[rand_chemin[i][j]], j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Selection) {
-						g.drawImage(selection, j * T_case, i * T_case, T_case, T_case, null);
+						if (e.team() == 1)
+							g.drawImage(selection1, j * T_case, i * T_case, T_case, T_case, null);
+						else if (e.team() == 2)
+							g.drawImage(selection2, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Squelette) {
 						if (e.direction() == 1 || e.direction() == 3)
 							g.drawImage(squelette, j * T_case, i * T_case, T_case, T_case, null);
@@ -191,7 +194,7 @@ public class DrawTerrain extends JPanel {
 						Teleporteur t = (Teleporteur) e;
 						if (t.IsActivate())
 							g.drawImage(teleporte, j * T_case, i * T_case, T_case, T_case, null);
-						else 
+						else
 							g.drawImage(teleporte_desac, j * T_case, i * T_case, T_case, T_case, null);
 					} else if (e instanceof Void) { // chemin
 						g.drawImage(chemin[rand_chemin[i][j]], j * T_case, i * T_case, T_case, T_case, null);
@@ -208,8 +211,7 @@ public class DrawTerrain extends JPanel {
 
 	public void chargement_Image() throws IOException {
 
-		// chemins
-		this.CHEMIN = new Sprite("resources/graphisme/Structures/temple_room.png", 24, 24); // obtenir le sprite
+		this.CHEMIN = new Sprite(JSONWindow.sprite_void, 24, 24); // obtenir le sprite
 		chemin[0] = CHEMIN.getSprite(0, 0); // obtenir l'image du chemin
 		chemin[1] = CHEMIN.getSprite(0, 1);
 		chemin[2] = CHEMIN.getSprite(0, 2);
@@ -217,60 +219,47 @@ public class DrawTerrain extends JPanel {
 		chemin[4] = CHEMIN.getSprite(1, 1);
 		chemin[5] = CHEMIN.getSprite(1, 2);
 
-		// murs
-		this.mur = drawEntity("resources/graphisme/Murs/mur.png");
-		this.fragile = drawEntity("resources/graphisme/Murs/fragile.png");
+		this.mur = drawEntity(JSONWindow.sprite_normal);
+		this.fragile = drawEntity(JSONWindow.sprite_cassable);
 
-		// joueurs
-		this.PERSO = new Sprite("resources/graphisme/Personnages/sprites_weaponless.png", 26, 26);
-		this.player1 = PERSO.getSprite(0, 20);
-		this.player2 = PERSO.getSprite(0, 3);
+		this.player1 = drawEntityB(JSONWindow.sprite_j1);
+		this.player2 = drawEntityB(JSONWindow.sprite_j2);
 
-		// sol
-		this.lave = drawEntity("resources/graphisme/Sol/lave.png");
-		this.sand = drawEntity("resources/graphisme/Sol/sand.png");
+		this.lave = drawEntity(JSONWindow.sprite_lave);
+		this.sand = drawEntity(JSONWindow.sprite_sable);
 
-		// objets
-		this.OBJET = new Sprite("resources/graphisme/minecraft.png", 128, 128);
-		this.pioche = OBJET.getSprite(6, 1);
-		this.pomme = OBJET.getSprite(0, 10);
+		this.pioche = drawEntity(JSONWindow.sprite_pioche);
+		this.pomme = drawEntity(JSONWindow.sprite_pomme);
 
-		this.bombe = (BufferedImage) drawEntity("resources/graphisme/Pickables/bombe.png");
+		this.bombe = drawEntity(JSONWindow.sprite_bombe);
 
-		this.ITEM = new Sprite("resources/graphisme/items.png", 16, 16);
-		this.arc = ITEM.getSprite(8, 6);
-		this.potion = ITEM.getSprite(0, 6);
-		this.epee = ITEM.getSprite(9, 11);
+		this.arc = drawEntity(JSONWindow.sprite_arc);
+		this.potion = drawEntity(JSONWindow.sprite_potion);
+		this.epee = drawEntity(JSONWindow.sprite_epee);
 
-		// déplacements
-		this.DEPLAC = new Sprite("resources/graphisme/Portes/actives.png", 26, 26);
-		this.porte_fermee = DEPLAC.getSprite(0, 9);
-		this.porte_ouverte = DEPLAC.getSprite(0, 10);
-		this.teleporte = DEPLAC.getSprite(0, 13);
-		this.teleporte_desac = DEPLAC.getSprite(0, 12);
+		this.porte_fermee = drawEntity(JSONWindow.sprite_porte_fer);
+		this.porte_ouverte = drawEntity(JSONWindow.sprite_porte_ouv);
+		this.teleporte = drawEntity(JSONWindow.sprite_tel_act);
+		this.teleporte_desac = drawEntity(JSONWindow.sprite_tel_desac);
 
-		// interrupteurs
-		this.int_pop = drawEntity("resources/graphisme/Pickables/levier1.png");
-		this.int_neutre = drawEntity("resources/graphisme/Pickables/levier2.png");
-		this.int_wizz = drawEntity("resources/graphisme/Pickables/levier3.png");
+		this.int_pop = drawEntity(JSONWindow.sprite_int_pop);
+		this.int_neutre = drawEntity(JSONWindow.sprite_int_neutre);
+		this.int_wizz = drawEntity(JSONWindow.sprite_int_wizz);
 
-		// monstres
-		this.zombie = PERSO.getSprite(16, 20);
-		this.squelette = PERSO.getSprite(17, 18);
+		this.zombie = drawEntityB(JSONWindow.sprite_zombie);
+		this.squelette = drawEntityB(JSONWindow.sprite_squelette);
 
-		this.selection = drawEntity("resources/graphisme/targeting.png");
+		this.selection1 = drawEntity(JSONWindow.sprite_selec1);
+		this.selection2 = drawEntity(JSONWindow.sprite_selec2);
 
-		// modifications
 		this.player1_flip = flip(player1);
 		this.player2_flip = flip(player2);
 		this.squelette_flip = flip(squelette);
 		this.zombie_flip = flip(zombie);
 		this.invisible = transparent(mur);
-		
-		// fleche
-		this.PROJECTILES = new Sprite("resources/graphisme/projectiles.png", 23, 23);
-		this.fleche = PROJECTILES.getSprite(0, 0);
 
+		// BufferedImage pour rotate
+		this.fleche = (BufferedImage) drawEntity(JSONWindow.sprite_fleche);
 	}
 
 	public static Image drawPickable(Entity e) {
@@ -317,29 +306,46 @@ public class DrawTerrain extends JPanel {
 
 		return bf;
 	}
-	
+
 	public static BufferedImage rotate(BufferedImage image, int direction) { // par défaut, l'image est à l'EST
 		int rotation = 0;
 		switch (direction) {
-		case 1 :
+		case 1:
 			rotation = 270;
 			break;
-		case 2 :
+		case 2:
 			rotation = 90;
 			break;
-		case 3 :
+		case 3:
 			break;
-		case 4 :
+		case 4:
 			rotation = 180;
 		}
- 
-        BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
-        Graphics2D g2 = newImage.createGraphics();
-        g2.rotate(Math.toRadians(rotation), image.getWidth() / 2, image.getHeight() / 2);
-        g2.drawImage(image, null, 0, 0);
- 
-        return newImage;
-    }
-	
+
+		BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+		Graphics2D g2 = newImage.createGraphics();
+		g2.rotate(Math.toRadians(rotation), image.getWidth() / 2, image.getHeight() / 2);
+		g2.drawImage(image, null, 0, 0);
+
+		return newImage;
+	}
+
+	public static BufferedImage drawEntityB(String filepath) {
+		File f = new File(filepath);
+		FileInputStream is = null;
+		try {
+			is = new FileInputStream(f);
+		} catch (FileNotFoundException e) {
+			return null;
+		}
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(is);
+			return img;
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return img;
+	}
 
 }

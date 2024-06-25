@@ -80,8 +80,7 @@ public class Field {
 		for (int i = 0; i < chemin.size(); i++) {
 			tmp[chemin.get(i).geto1()][chemin.get(i).geto2()] = -2;
 		}
-		//if (JSONWindow.jeu.equals("Labyrinthe")) {
-		if(densite_field == 100) {
+		if (JSONWindow.jeu.equals("Labyrinthe")) {
 			depot_mur1(cassable, invisible, normal);
 			deposer_Porte(nb_porte_sable);
 		} else {

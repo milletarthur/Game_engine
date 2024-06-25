@@ -96,7 +96,7 @@ public class WindowInitGame extends JFrame {
 		Field terrain = new Field(JSONWindow.hauteur, JSONWindow.largeur, JSONWindow.densite, JSONWindow.d_pickable,
 				JSONWindow.d_mine, JSONWindow.d_pomme, JSONWindow.d_potion, JSONWindow.d_pioche, JSONWindow.d_bombe,
 				JSONWindow.d_cassable, JSONWindow.d_invisible, JSONWindow.d_normal, JSONWindow.nb_obstacles,
-				JSONWindow.nb_ennemis, JSONWindow.seed);
+				JSONWindow.nb_zombie, JSONWindow.nb_squelette, JSONWindow.seed);
 
 		KeyPressed kp = new KeyPressed();
 		TickListener tl = new TickListener(terrain);

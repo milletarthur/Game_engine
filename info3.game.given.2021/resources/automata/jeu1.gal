@@ -2,6 +2,7 @@ Player1(Init){
 * (Init):
 | ! Got(Power) ? Explode :()
 | Got(Stuff) ? :(FullHand)
+| Cell(H,P) ? Pick :(FullHand)
 | Key(z) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) & (! Cell(H, D)) ? Turn(N) / Move :(Init)
 | Key(d) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) & (! Cell(H, D)) ? Turn(E) / Move :(Init)
 | Key(s) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) & (! Cell(H, D)) ? Turn(S) / Move :(Init)
@@ -13,7 +14,6 @@ Player1(Init){
 | Key(a) ? Hit :(Init)
 | Key(w) ? Get :(FullHand)
 | Key(c) ? Jump :(Init)
-| Cell(H,P) ? Pick :(FullHand)
 * (FullHand):
 | ! Got(Power) ? Explode :()
 | ! Got(Stuff) ? :(Init)
@@ -35,6 +35,7 @@ Player2(Init){
 * (Init):
 | ! Got(Power) ? Explode :()
 | Got(Stuff) ? :(FullHand)
+| Cell(H,P) ? Pick :(FullHand)
 | Key(FU) & (! Cell(N,O)) & (! Cell(N,#)) & (! Cell(N,@)) & (! Cell(N,C)) & (! Cell(H, D)) ? Turn(N) / Move :(Init)
 | Key(FR) & (! Cell(E,O)) & (! Cell(E,#)) & (! Cell(E,@)) & (! Cell(E,C)) & (! Cell(H, D)) ? Turn(E) / Move :(Init)
 | Key(FD) & (! Cell(S,O)) & (! Cell(S,#)) & (! Cell(S,@)) & (! Cell(S,C)) & (! Cell(H, D)) ? Turn(S) / Move :(Init)
@@ -46,7 +47,6 @@ Player2(Init){
 | Key(l) ? Hit :(Init)
 | Key(o) ? Get :(FullHand)
 | Key(p) ? Jump :(Init)
-| Cell(H,P) ? Pick :(FullHand)
 * (FullHand):
 | ! Got(Power) ? Explode :()
 | ! Got(Stuff) ? :(Init)
@@ -129,7 +129,7 @@ Lave(Init){
 | ! Cell(H, V) ? :(OnTop)
 * (OnTop):
 | Cell(H,A) ? Hit :(OnTop)
-| Cell(H,_) ? Explode :(OnTOp)
+| Cell(H,_) ? Explode :(OnTop)
 }
 
 Fleche(Init){

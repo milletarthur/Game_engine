@@ -27,6 +27,11 @@ public class JSONWindow implements ActionListener {
 
 	public static boolean ispick_interrupteur;
 
+	public static String sprite_j1, sprite_j2, spirte_pomme, sprite_arc, sprite_bombe, sprite_cassable, sprite_epee,
+			sprite_fleche, sprite_int_neutre, sprite_int_pop, sprite_int_wizz, sprite_invisible, sprite_lave, sprite_mine,
+			sprite_normal, sprite_pioche, sprite_porte, sprite_potion, sprite_sable, sprite_selec1, sprite_selec2, 
+			sprite_squelette, sprite_teleporteur, sprite_void, sprite_zombie;
+
 	private WindowInitGame f;
 	private String filePath;
 	private int germe;
